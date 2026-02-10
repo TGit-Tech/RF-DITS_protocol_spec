@@ -10,7 +10,7 @@
 
 RF-DITS is built for **simplicity, efficiency, and security**. The **Device Index Table (DIT)** stores static data on all connected **devices**. Data that including each device's textual name, index alias and value datatype, read/write permissions, limits, and enumerated options.  Other nodes can request the DIT and store it in **permanent memory** as **remote-node configurations**, providing **reliable, persistent access** to device definitions and constraints without relying on a central system or transmitting repeatedly that information with every request.
 
-<table>
+<table style="font-size:0.8em; border-collapse:collapse;">
 <tr>
 <td>
 
