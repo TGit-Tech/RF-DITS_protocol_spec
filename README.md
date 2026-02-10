@@ -15,6 +15,8 @@ The **same firmware** runs on all nodes, whether they are **controller nodes** (
 
 This uniform firmware across all nodes also ensures that all devices follow the same **Device Type (DT) configurations**, where each **DT** packs the same properties—such as **scaling**, **limits**, **permissions**, and **enumerated options**—regardless of the node type. This consistency simplifies interoperability and ensures that all devices behave predictably across the network, with no need for customized firmware for each node's role.
 
+Each node supports multiple physically wired devices (e.g., sensors, switches, relays) directly connected to it. Unlike a traditional IoT node, which typically controls a single device, an RF-DITS node handles several devices in a specific area or station, all communicating through one RF connection. This approach reduces the need for multiple wireless connections, making it ideal for scenarios where many devices need to be controlled or monitored from a single point.
+
 ---
 
 ## **2. Key Features and Advantages ⚡**
@@ -22,6 +24,7 @@ This uniform firmware across all nodes also ensures that all devices follow the 
 | **Feature**                  | **RF-DITS**                                                                                                                                  | **Common IoT Systems**                                                            |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | **Direct P2P Communication** | Enables efficient **node-to-node** RF messaging without centralized infrastructure, allowing low-latency, real-time control.                 | Relies on cloud servers, routers, or centralized servers for communication.       |
+| **Multi-Device Nodes** | Each RF-DITS **node** supports multiple devices (e.g., sensors, switches) physically wired to it, reducing the number of RF connections needed. | Traditional IoT nodes typically support only one device, requiring separate connections for each sensor or actuator. |
 | **Device Index Table (DIT)** | Provides a compact, structured mapping of device IDs to names and metadata for lightweight, efficient RF messaging.                          | Often requires repeated transmissions or cloud queries to access device metadata. |
 | **Security (SecNet)**        | **SecNet** is a user-defined security code embedded in all packets; value updates also use a **time-based nonce** to ensure integrity and prevent unauthorized changes. | Static keys or centralized servers; often vulnerable to replay attacks.           |
 | **Alarm Propagation**        | Push-based alarm notifications to multiple remotes.                                                                                          | Alarm notifications often require polling or querying centralized systems.        |
