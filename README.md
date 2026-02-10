@@ -10,6 +10,55 @@
 
 RF-DITS is built for **simplicity, efficiency, and security**. The **Device Index Table (DIT)** stores static data on all connected **devices**. Data that including each device's textual name, index alias and value datatype, read/write permissions, limits, and enumerated options.  Other nodes can request the DIT and store it in **permanent memory** as **remote-node configurations**, providing **reliable, persistent access** to device definitions and constraints without relying on a central system or transmitting repeatedly that information with every request.
 
+<table>
+<tr>
+<td>
+
+### Node #0 — RF Address: 0x43572849
+
+| Index | Device Name       | Device Type    |
+| ----- | ----------------- | -------------- |
+| 0     | Fan Switch        | DT_RW_ONOFF    |
+| 1     | Light Switch      | DT_RW_ONOFF    |
+| 2     | Heater Control    | DT_RW_ONOFF    |
+| 3     | Pump Relay        | DT_RW_ONOFF    |
+| 4     | Valve Actuator    | DT_RW_ONOFF    |
+| 5     | Temperature Input | DT_RO_ANAINPUT |
+| 6     | Distance Sensor   | DT_RO_DIST     |
+
+</td>
+<td>
+
+### Node #1 — RF Address: 0xAB12CD34
+
+| Index | Device Name        | Device Type    |
+| ----- | ------------------ | -------------- |
+| 0     | LED Light          | DT_RW_ONOFF    |
+| 1     | Temperature Sensor | DT_RO_ANAINPUT |
+| 2     | Humidity Sensor    | DT_RO_ANAINPUT |
+| 3     | Fan Switch         | DT_RW_ONOFF    |
+| 4     | Alarm Threshold    | DT_DC_SETPOINT |
+| 5     | Light Switch       | DT_RW_ONOFF    |
+| 6     | Heater Control     | DT_RW_ONOFF    |
+
+</td>
+<td>
+
+### Node #2 — RF Address: 0x99887766
+
+| Index | Device Name       | Device Type    |
+| ----- | ----------------- | -------------- |
+| 0     | Pump Relay        | DT_RW_ONOFF    |
+| 1     | Heater Control    | DT_RW_ONOFF    |
+| 2     | Valve Actuator    | DT_RW_ONOFF    |
+| 3     | Temperature Input | DT_RO_ANAINPUT |
+| 4     | LED Mode          | DT_RW_ONOFF    |
+| 5     | Distance Sensor   | DT_RO_DIST     |
+| 6     | Pressure Input    | DT_RO_ANAINPUT |
+
+</td>
+</tr>
+</table>
 ---
 
 ## **2. Key Features and Advantages ⚡**
