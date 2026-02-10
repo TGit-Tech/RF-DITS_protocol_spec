@@ -19,12 +19,29 @@ Each node supports multiple physically wired devices (e.g., sensors, switches, r
 
 ---
 
-## **2. Key Features and Advantages ⚡**
+## **2. RF-DITS vs Wi-Fi Models ⚡**
+
+RF-DITS is designed for **long-range control of multi-device stations**, where multiple sensors and actuators are physically wired to a single RF node. Unlike typical Wi-Fi IoT systems, which assign a radio to each device, RF-DITS uses **local wiring for short-distance connectivity** and reserves RF communication solely for **long-distance transport**. This approach simplifies deployment, reduces RF congestion, and aligns with real-world station-based systems.
+
+| **Aspect**         | **RF-DITS**                         | **Wi-Fi IoT (Per-Device Radio)** |
+| ------------------ | ----------------------------------- | -------------------------------- |
+| Local Connectivity | Wired devices in one station        | Wireless per device              |
+| RF Usage           | Single long-range radio per station | One radio per device             |
+| Range              | Multi-mile RF links                 | Short-range only                 |
+| Reliability        | Deterministic, wired                | Susceptible to interference      |
+| Complexity         | Simple, station-level addressing    | Many devices to configure        |
+| Power & Spectrum   | Low RF usage                        | Higher RF usage and contention   |
+
+> **Key Idea:** The efficiency and simplicity of RF-DITS features stem from its **station-based approach** — multiple wired devices under one node, managed with a single long-range RF link, rather than Wi-Fi’s “one radio per device” model.
+
+---
+
+## **3. Key Features and Advantages ⚡**
 
 | **Feature**                  | **RF-DITS**                                                                                                                                  | **Common IoT Systems**                                                            |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | **Direct P2P Communication** | Enables efficient **node-to-node** RF messaging without centralized infrastructure, allowing low-latency, real-time control.                 | Relies on cloud servers, routers, or centralized servers for communication.       |
-| **Multi-Device Nodes** | Each RF-DITS **node** supports multiple devices (e.g., sensors, switches) physically wired to it, reducing the number of RF connections needed. | Traditional IoT nodes typically support only one device, requiring separate connections for each sensor or actuator. |
+| **Multi-Device Nodes** | Each RF-DITS **node** supports multiple devices (e.g., sensors, switches) physically wired to it, reducing the number of RF connections needed. | Traditional IoT nodes typically support only one device, requiring Wi-Fi wireless connections for each sensor or actuator. |
 | **Device Index Table (DIT)** | Provides a compact, structured mapping of device IDs to names and metadata for lightweight, efficient RF messaging.                          | Often requires repeated transmissions or cloud queries to access device metadata. |
 | **Security (SecNet)**        | **SecNet** is a user-defined security code embedded in all packets; value updates also use a **time-based nonce** to ensure integrity and prevent unauthorized changes. | Static keys or centralized servers; often vulnerable to replay attacks.           |
 | **Alarm Propagation**        | Push-based alarm notifications to multiple remotes.                                                                                          | Alarm notifications often require polling or querying centralized systems.        |
@@ -34,7 +51,7 @@ Each node supports multiple physically wired devices (e.g., sensors, switches, r
 
 ---
 
-## **3. Device Tables (DIT) and MQTT Device Maps (‘Homie’) 🧩**
+## **4. Device Tables (DIT) and MQTT Device Maps (‘Homie’) 🧩**
 
 While **RF-DITS** is designed to operate completely without centralized infrastructure, it can also integrate into IoT systems such as **OpenHAB** and **Home Assistant** using **MQTT**, providing optional IP-based connectivity without altering the core RF protocol.
 
@@ -89,7 +106,7 @@ Below are examples of a Device Index Table (DIT) for Node #0 and a (DIT) for Nod
 
 ---
 
-## **4. Packet Types 📦**
+## **5. Packet Types 📦**
 
 | **Data Packet** | **Request**   | **Description**                                              |
 | --------------- | ------------- | ------------------------------------------------------------ |
@@ -101,7 +118,7 @@ Below are examples of a Device Index Table (DIT) for Node #0 and a (DIT) for Nod
 
 ---
 
-### **5. Device Type (DT) Configuration 🔧**
+### **6. Device Type (DT) Configuration 🔧**
 
 Each **Device Type (DT)** encapsulates the following configuration parameters, which are matched with the corresponding firmware code to ensure consistent device behavior:
 
@@ -119,7 +136,7 @@ These configurations ensure that the **firmware** and **communication protocol**
 
 ---
 
-### **6. Integer-Value Standard and Scaling 📏🔒**
+### **7. Integer-Value Standard and Scaling 📏🔒**
 
 To simplify **RF communication**, **RF-DITS** uses an **integer-only format** for transmitting device values. This format is particularly well-suited for **embedded systems** like **Arduino**, where **ADC (Analog-to-Digital Conversion)** and **DAC (Digital-to-Analog Conversion)** are limited to integer ranges (e.g., 0-1024 for analog readings).
 
@@ -137,7 +154,7 @@ This approach ensures that devices requiring better precision can transmit value
 ---
 
 
-## **7. Summary 📚**
+## **8. Summary 📚**
 
 RF-DITS offers a simple, secure, and portable solution for device management in remote-control applications. It provides key advantages over traditional IoT systems, including **no dependency on infrastructure**, efficient **alarm propagation**, **portability**, and **minimal communication overhead**. The optional **IoT** integration provides the flexibility to extend RF-DITS to cloud-based or home automation systems if needed, but it remains fully functional without the need for such infrastructure.
 
