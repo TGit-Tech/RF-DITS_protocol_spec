@@ -42,21 +42,6 @@ RF-DITS is built for **simplicity, efficiency, and security**. The **Device Inde
 | 6     | Heater Control     | DT_RW_ONOFF    |
 
 </td>
-<td>
-
-### Node #2 — RF Address: 0x99887766
-
-| Index | Device Name       | Device Type    |
-| ----- | ----------------- | -------------- |
-| 0     | Pump Relay        | DT_RW_ONOFF    |
-| 1     | Heater Control    | DT_RW_ONOFF    |
-| 2     | Valve Actuator    | DT_RW_ONOFF    |
-| 3     | Temperature Input | DT_RO_ANAINPUT |
-| 4     | LED Mode          | DT_RW_ONOFF    |
-| 5     | Distance Sensor   | DT_RO_DIST     |
-| 6     | Pressure Input    | DT_RO_ANAINPUT |
-
-</td>
 </tr>
 </table>
 ---
