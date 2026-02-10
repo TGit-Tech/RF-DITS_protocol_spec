@@ -14,6 +14,7 @@ RF-DITS is built for **simplicity, efficiency, and security**. The **Device Inde
 The **same firmware** runs on all nodes, whether they are **controller nodes** (handheld remotes) or **remote-controlled nodes** (with sensors and switches). The **hardware** and **firmware** are identical across all nodes; the **role of the node** is determined by the devices it connects to. A node could either act as a **controller** for remote devices or as a **remote-controlled node** that monitors and controls sensors and switches.  This allows for **flexible** and **interoperable** nodes that can seamlessly transition between roles, simplifying the system and eliminating the need for custom firmware for different node types.
 
 This uniform firmware across all nodes also ensures that all devices follow the same **Device Type (DT) configurations**, where each **DT** packs the same properties—such as **scaling**, **limits**, **permissions**, and **enumerated options**—regardless of the node type. This consistency simplifies interoperability and ensures that all devices behave predictably across the network, with no need for customized firmware for each node's role.
+
 ---
 
 ## **2. Key Features and Advantages ⚡**
