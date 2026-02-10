@@ -1,5 +1,5 @@
 ---
-
+---
 # **RF-DITS Protocol Specification 📡**
 
 **RF-DITS** (LoRa-RF Device Index Table with Security) is a lightweight, secure communication protocol that enables direct node-to-node **(peer-to-peer, P2P)** communication. It provides real-time device **control** and **monitoring**, including **alarm propagation**, while minimizing RF airtime using **indexed (non-text) communication**. RF-DITS operates without relying on any centralized infrastructure, making it ideal for portable control applications.
