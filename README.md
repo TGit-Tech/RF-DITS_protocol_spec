@@ -8,7 +8,7 @@
 
 ## **1. Overview 📝**
 
-RF-DITS is built for **simplicity, efficiency, and security**. The **Device Index Table (DIT)** stores static data on all connected **devices**. Data that including each device's textual name, index alias and value datatype, read/write permissions, limits, and enumerated options.  Other nodes can request the DIT and store it in **permanent memory** as **remote-node configurations**, providing **reliable, persistent access** to device definitions and constraints without relying on a central system or transmitting repeatedly that information with every request.
+RF-DITS is built for **simplicity, efficiency, and security**. The **Device Index Table (DIT)** stores static data on all connected **devices**. Data that includes each device's textual name, index alias and value datatype, read/write permissions, limits, and enumerated options.  Other nodes can request the DIT and store it in **permanent memory** as **remote-node configurations**, providing **reliable, persistent access** to device definitions and constraints without relying on a central system or transmitting repeatedly that information with every request.
 
 ---
 
@@ -18,7 +18,7 @@ RF-DITS is built for **simplicity, efficiency, and security**. The **Device Inde
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | **Direct P2P Communication** | Enables efficient **node-to-node** RF messaging without centralized infrastructure, allowing low-latency, real-time control.                 | Relies on cloud servers, routers, or centralized servers for communication.       |
 | **Device Index Table (DIT)** | Provides a compact, structured mapping of device IDs to names and metadata for lightweight, efficient RF messaging.                          | Often requires repeated transmissions or cloud queries to access device metadata. |
-| **Security (SecNet)**        | User-set **SecNet** code embedded in packets; value updates use a **time-based nonce** to ensure integrity and prevent unauthorized changes. | Static keys or centralized servers; often vulnerable to replay attacks.           |
+| **Security (SecNet)**        | **SecNet** is a user-defined security code embedded in all packets; value updates also use a **time-based nonce** to ensure integrity and prevent unauthorized changes. | Static keys or centralized servers; often vulnerable to replay attacks.           |
 | **Alarm Propagation**        | Push-based alarm notifications to multiple remotes.                                                                                          | Alarm notifications often require polling or querying centralized systems.        |
 | **Portability**              | Nodes can be moved easily for flexibility with no cloud dependence.                                                                          | Dependent on network infrastructure; relocation requires reconfiguration.         |
 | **Airtime Efficiency**       | Short packets, optimized for minimal airtime use.                                                                                            | Larger packets, causing higher airtime consumption.                               |
@@ -43,6 +43,7 @@ This mapping allows RF-DITS devices to be **automatically discoverable, hierarch
 By separating **RF efficiency** from **IP-level representation**, RF-DITS enables seamless coexistence between low-bandwidth RF control networks and higher-level IoT platforms—without imposing infrastructure requirements on the RF layer itself.
 
 ### Example DIT Tables
+Below are examples of a Device Index Table (DIT) for Node #0 and a (DIT) for Node #1. Each table shows the index, device name, and device type physically connected to that particular node.
 <table style="font-size:0.8em; border-collapse:collapse;">
 <tr>
 <td>
@@ -87,12 +88,48 @@ By separating **RF efficiency** from **IP-level representation**, RF-DITS enable
 | PKT_CONFIG      | PKT_REQCONFIG | Provides the node’s device definitions (Device Index Table). |
 | PKT_VAL         | PKT_REQVAL    | Contains the current value of a device.                      |
 | PKT_VALS        | PKT_REQVALS   | Contains the current values of multiple devices.             |
-| PKT_SETVAL      | —             | Updates a remote device with a new value.                    |
+| PKT_SETVAL      | —             | Updates a device value facilitating remote control.          |
 | PKT_ALARM       | —             | Sends a one-time alarm notification.                         |
 
 ---
 
-## **5. Summary 📚**
+### **5. Device Type (DT) Configuration 🔧**
+
+Each **Device Type (DT)** encapsulates the following configuration parameters, which are matched with the corresponding firmware code to ensure consistent device behavior:
+
+* **Value Limits**: Each **DT** specifies valid value ranges for its corresponding device. For example, a **temperature sensor (DT_ANATEMP)** may have a valid range from **-40°C to 125°C**, while a **distance sensor (DT_ANADIST)** may be limited to **0-500 meters**.
+
+* **Enumerated Options**: For devices with **enumerated states** (e.g., **ON/OFF**, **LOW/HIGH**), the **DT** defines the available states as integers for compact transmission. For example:
+
+  * **Relay (DT_RELAY)**: Enumerated options might include **ON = 1** and **OFF = 0**.
+
+* **Read/Write Permissions (RO/RW)**: Each **DT** defines whether a device’s value can be **read-only (RO)** or **read/write (RW)**. For example:
+
+  * A **temperature sensor (DT_ANATEMP)** might be **read-only**, while a **relay device (DT_RELAY)** might be **read/write** (since it can be both monitored and controlled).
+
+These configurations ensure that the **firmware** and **communication protocol** are in sync, providing a **reliable and consistent experience** across all devices.
+
+---
+
+### **6. Integer-Value Standard and Scaling 📏🔒**
+
+To simplify **RF communication**, **RF-DITS** uses an **integer-only format** for transmitting device values. This format is particularly well-suited for **embedded systems** like **Arduino**, where **ADC (Analog-to-Digital Conversion)** and **DAC (Digital-to-Analog Conversion)** are limited to integer ranges (e.g., 0-1024 for analog readings).
+
+While this standard works for many devices, some require **greater precision** (e.g., temperature or distance sensors). In these cases, **scaling** is applied, managed **by the firmware** specific to each **Device Type (DT)**.
+
+For example:
+
+* **Temperature Sensor (DT_ANATEMP)**: If the device reads **23.45°C**, the firmware scales the value by **100**, sending **2345** over the air.
+* **Distance Sensor (DT_ANADIST)**: If the device measures **12.3 meters**, the firmware scales the value by **10**, sending **123**.
+
+On reception, the scaled value is **converted back** to its original form by dividing it by the scaling factor (e.g., **2345** becomes **23.45°C** when divided by 100).
+
+This approach ensures that devices requiring better precision can transmit values efficiently, while still adhering to the **integer-only communication** model for all other devices.
+
+---
+
+
+## **7. Summary 📚**
 
 RF-DITS offers a simple, secure, and portable solution for device management in remote-control applications. It provides key advantages over traditional IoT systems, including **no dependency on infrastructure**, efficient **alarm propagation**, **portability**, and **minimal communication overhead**. The optional **IoT** integration provides the flexibility to extend RF-DITS to cloud-based or home automation systems if needed, but it remains fully functional without the need for such infrastructure.
 
