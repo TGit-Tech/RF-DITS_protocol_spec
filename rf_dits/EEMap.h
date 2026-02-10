@@ -7,18 +7,18 @@
 
 /******************************************************************************//**
  * @defgroup AEB [A]llocation-Size of [E]EPROM in [B]ytes.
- *  (30) Devices (12-bytes)[ TYPE. ID. 10NAME ] per Tode  = 360B x 10Todes
+ *  (30) Devices (12-bytes)[ TYPE. ID. 10NAME ] per Node  = 360B x 10Todes
  *  (10) Todes ( 13-bytes )[ RFH. RFL. VER. 10NAME ]      = +130B TOTAL: 3730
  *  LOCAL SETTINGS 3730 to 4096 = 366B / 30LocalDevices = 12B/ea
  * @{
  *********************************************************************************/
 //#define AEB_VER 1
 
-#define AEB_TODEALLOC   373       ///< Bytes to allocate for each Tode with Devices
-#define AEB_TODEHEAD    13        ///< Bytes to allocate for each Tode Definition
+#define AEB_TODEALLOC   373       ///< Bytes to allocate for each Node with Devices
+#define AEB_TODEHEAD    13        ///< Bytes to allocate for each Node Definition
 #define AEB_DEVALLOC    12        ///< Bytes to allocate for each Device
 #define AEB_MAXTODES    10        ///< Maximum Number of Todes
-#define AEB_MAXDEVICES  30        ///< Maximum Number of Devices per Tode
+#define AEB_MAXDEVICES  30        ///< Maximum Number of Devices per Node
 
 #define AEB_MAX         10        ///< Maximum Default Allocation for Char[]'s
 #define AEB_TODENAME    10        ///< TodeName Size to be (9)Chars + NULL
@@ -40,12 +40,12 @@
 #define EMC_DEVSETTINGS		  3795	///< 0xED3
 ///@}
 /******************************************************************************//**
- * @defgroup EMO [E]EPROM [M]emory [O]ffsets ( PER TODE )
+ * @defgroup EMO [E]EPROM [M]emory [O]ffsets ( PER Node )
  * @{
  *********************************************************************************/
 #define EMO_TODERF      0     //[0][1]      2-Byte RF Address
 #define EMO_TODEVER     2     //[2]         1-Byte Config Version (0~255)
-#define EMO_TODENAME    3     //[3]...[12]  10-Byte Tode Name
+#define EMO_TODENAME    3     //[3]...[12]  10-Byte Node Name
 
 //[DEV]ice
 #define EMO_DEVTYPE     0     //[0]         1-Byte Device Type

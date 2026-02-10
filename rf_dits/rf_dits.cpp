@@ -46,8 +46,12 @@ bool RxPacket::IsSecure() {                                       DBENTERL(("RxP
 }
 //-----------------------------------------------------------------------------------------------------
 bool RxPacket::IsValid() {
-  if ( Size==0 ) return false;
+  if ( Size==0 || Type() == PKT_NOTSET) return false;
   return true;
+}
+//-----------------------------------------------------------------------------------------------------
+bool RxPacket::IsREQ() {
+  return bitRead(Type(),PKT_ISREQBIT);
 }
 //-----------------------------------------------------------------------------------------------------
 int RxPacket::Value(byte _DITidx) {             DBENTERAL(("RxPacket::Value(GET) DITidx: "),(_DITidx))
@@ -69,7 +73,7 @@ void RxPacket::SaveTodeConfig(int _EEAddress) {
   DBINFOAAL(("RxPacket::SaveTodeConfig - Save Version EEPROM.update(?_EEAddress+EMO_TODEVER?, ?Version()? )"),(_EEAddress+EMO_TODEVER),(Version()))
 
   //#define PKB_TODEVER     8
-  //#define PKB_TODECONFIG  9     // Start Tode Config Dat
+  //#define PKB_TODECONFIG  9     // Start Node Config Dat
   DBINFOAL(("Byte Size: "),(Size))
   int iByte = PKB_TODECONFIG+1;               // Start Byte[] at TodeConfig +Version [10]
   byte DevConfig[AEB_DEVALLOC];for (int i=0;i<AEB_DEVALLOC;i++) {DevConfig[i]=0xFF;} 
@@ -127,14 +131,14 @@ TxPacket::TxPacket(byte _SecNet, byte _Type, int _ToRF, byte _Ver, byte _DevDITi
   DBINITAAL(("TxPacket::TxPacket[.,ToRF,Ver,.,.]: "),((unsigned int)_ToRF,HEX),(_Ver))
 
   // Packet-Type to Byte-Size ( Size is Byte[i]+1 )
-  if      ( _Type == PKT_GETCONFIG )  { DBINFOL(("TxPacket::TxPacket PKT_GETCONFIG")) Size = 8; }
-  else if ( _Type == PKT_GETVALS )    { DBINFOL(("TxPacket::TxPacket PKT_GETVALS")) Size = 9; }
-  else if ( _Type == PKT_GETVAL )     { DBINFOL(("TxPacket::TxPacket PKT_GETVAL")) Size = 10; }
-  else if ( _Type == PKT_SETVAL )     { DBINFOL(("TxPacket::TxPacket PKT_SETVAL")) Size = 12; }
-  else if ( _Type == PKT_GOTVAL )     { DBINFOL(("TxPacket::TxPacket PKT_GOTVAL")) Size = 12; }
+  if      ( _Type == PKT_REQCONFIG )  { DBINFOL(("TxPacket::TxPacket PKT_REQCONFIG")) Size = 8; }
+  else if ( _Type == PKT_REQVALS )    { DBINFOL(("TxPacket::TxPacket PKT_REQVALS")) Size = 9; }
+  else if ( _Type == PKT_REQVAL )     { DBINFOL(("TxPacket::TxPacket PKT_REQVAL")) Size = 10; }
+  else if ( _Type == PKT_REQSETVAL )     { DBINFOL(("TxPacket::TxPacket PKT_REQSETVAL")) Size = 12; }
+  else if ( _Type == PKT_REPVAL )     { DBINFOL(("TxPacket::TxPacket PKT_REPVAL")) Size = 12; }
   
-  else if ( _Type == PKT_GOTCONFIG )  { DBINFOL(("TxPacket::TxPacket PKT_GOTCONFIG")) Size=PKB_TODECONFIG; }    // Start TodeConfig at Byte[9]
-  else if ( _Type == PKT_GOTVALS ) { DBINFOL(("TxPacket::TxPacket PKT_GOTVALS")) Size=PKB_DITidx; }               // Start Values at Byte[9]
+  else if ( _Type == PKT_REPCONFIG )  { DBINFOL(("TxPacket::TxPacket PKT_REPCONFIG")) Size=PKB_TODECONFIG; }    // Start TodeConfig at Byte[9]
+  else if ( _Type == PKT_REPVALS ) { DBINFOL(("TxPacket::TxPacket PKT_REPVALS")) Size=PKB_DITidx; }               // Start Values at Byte[9]
   
   else { DBERRORAL(("UNIDENTIFIED Packet Type : "),(_Type)) return; }
 

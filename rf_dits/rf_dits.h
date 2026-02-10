@@ -19,17 +19,18 @@
  * @{
  ************************************************/
 #define PKT_NOTSET        0xFF
+#define PKT_ISREQBIT      5       // bit-5=1 for REQ PKTs else REPly
 
-// THIS-RADIO Requests Packet-Types
-#define PKT_GETCONFIG     0x7F    // 0b0111 1111 (bit-5 set)
-#define PKT_GETVALS       0x7E    // 0b0111 1110    
-#define PKT_GETVAL        0x7D
-#define PKT_SETVAL        0x7C
+// REQuest PacKet-Types            bit#7654 3210
+#define PKT_REQCONFIG     0x7F    // 0b0111 1111 
+#define PKT_REQVALS       0x7E    // 0b0111 1110    
+#define PKT_REQVAL        0x7D    // 0b0111 1101
+#define PKT_REQSETVAL     0x7C    // 0b0111 1100
 
-// Replies Packet-Types
-#define PKT_GOTCONFIG     0x5F    // 0b0101 1111 (bit-5 unset)
-#define PKT_GOTVALS       0x5E
-#define PKT_GOTVAL        0x5D    
+// REPly PacKet-Types                
+#define PKT_REPCONFIG     0x5F    // 0b0101 1111 (bit-5 is unset)
+#define PKT_REPVALS       0x5E    // 0b0101 1110
+#define PKT_REPVAL        0x5D    // 0b0101 1101
 ///@}
 /*********************************************//**
  * @defgroup PKB Radio Common PacKet-Bytes by idx
@@ -44,7 +45,7 @@
 #define PKB_FROM_RFH    6
 #define PKB_FROM_RFL    7
 #define PKB_TODEVER     8
-#define PKB_TODECONFIG  9     // Start Tode Config Data
+#define PKB_TODECONFIG  9     // Start Node Config Data
 #define PKB_DITidx      9     // First DITidx on GETVALS
 #define PKB_VALUEH      10
 #define PKB_VALUEL      11
@@ -69,12 +70,13 @@ class RxPacket {
     byte          Size = 0;
 
     bool          IsValid();
+    bool          IsREQ();
     byte          Type();
     int           FromRF();
     byte          Version();
     byte          DITidx();
 
-    int                   SetValue();                                       ///< PKT_SETVAL Value
+    int                   SetValue();                                       ///< PKT_REQSETVAL Value
     int                   Value(byte _DITidx);
     unsigned long         PacketStartTimeMS = 0;
     void                  SaveTodeConfig(int _EEAddress);
@@ -126,6 +128,7 @@ class TxPacket {
  *********************************************************************************************************************/
 class RadioI {
   public:
+    RxPacket*             Packet = 0;                       ///< The RF-Received Packet data
     virtual void          Address(unsigned int _RFAddress) {};  ///< SET Radio RF-Address
     virtual unsigned int  Address() {};                         ///< GET Radio RF-Address
     virtual void          AirSpeed(byte _Speed);                ///< SET Radio AirSpeed[3]
@@ -139,5 +142,4 @@ class RadioI {
     virtual void          Send(TxPacket* Tx){};
 };
 //_____________________________________________________________________________________________________________________
-
 #endif
