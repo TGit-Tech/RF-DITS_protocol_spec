@@ -1,124 +1,136 @@
 /******************************************************************************************************************//**
  * @file      rf_dits.ino
- * @brief     Example Arduino Sketch for the RF-DITS protocol on wireless-UART Ebyte E22 Transceiver.
- * @details   Main Sketch
- * @version   2629 [YYMD]
- * @bug       NA
- * @note      This is currently a WIP.  Check back soon for operational code.
- * @warning   See
- * @copyright MIT Public License
- * @todo      Wire and Test
- * @author    TGIT-TECH   WIP 2629
- **********************************************************************************************************************/
-#include "rf_dits.h"        //Include the Protocol code that creates TxPackets and decodes RxPackets
-#define RFSERIAL Serial1    //Arduino Serial object connected to Ebyte Radio
-RadioI* RF = 0;             //Interface to the Radio
+ * @brief     Clean RF-DITS protocol example using EEPROM and RAM managers
+ *********************************************************************************************************************/
+#include <EEPROM.h>
+#include "rf_dits.h"
+#include "DB.h"
 
-void setup() {
-  RFSERIAL.begin(9600);     // Begin Ebytes Radio Communication
-  RF = new RadioI();        // Initialize RF Radio Interface
+/******************************************************************************//**
+ * @defgroup DT [DT] Device-Type enumeration. Part of DITS protocol.
+ *  - You get 1-byte (not 0) to designate Device Type definitions.
+ *  - NO NOT USE '0'.  RF uses null-termination '\0' to seperate records.  @{
+ *********************************************************************************/
+// 0x[7] Device Types
+#define DT_ONOFF        0x7E    ///< On/Off Switching Device
+#define DT_DIST         0x7A    ///< Distance Sensing Device
+#define DT_STSTP3W      0x79    ///< Start Stop 3-Wire
+#define DT_ANAINPUT     0x78    ///< Analog Device (Pressure, Temperature)
+#define DT_ANAOUTPUT    0x77    ///< Analog Output (PWM control)
+#define DT_DLSETPOINT   0x76    ///< Dev Logic Control Boundary
+#define DT_DLMATH       0x75    ///< Dev Logic Compare / Math Device
+
+#define DT_MINBOUNDARY  0x75    ///< MINIMUM BOUNDARY CHECK FOR ADD DEVICE KEYS
+///@}
+/******************************************************************************//**
+ * @defgroup DA [DA] Device-Attributes.  Part of DITS protocol.
+ *  - You get 1-byte to add attributes to your Device Types.  You can use 0.
+ *********************************************************************************/
+// 0x[7] Device Types
+#define DA_RO           0x7E    ///< Read-Only Device
+#define DA_RW           0x7A    ///< Read/Write Device
+#define DA_SCALE10      0x79    ///< Scale the Value x10 for floating-point
+#define DA_SCALE100     0x78    ///< Scale the Value x100 for floating-point
+
+#define DT_MINBOUNDARY  0x75    ///< MINIMUM BOUNDARY CHECK FOR ADD DEVICE KEYS
+///@}
+/******************************************************************************//**
+ * @defgroup DCSP [DT] Device Control Set Point enumeration. NOT part of DITS. @{
+ *********************************************************************************/
+#define DCSPO_MIN   0
+#define DCSPO_OFF   0    ///< Less Than or Equal To
+#define DCSPO_ON    1    ///< Greater Than or Equal To
+#define DCSPO_INCR  2    ///< Equal To
+#define DCSPO_DECR  3
+#define DCSPO_MAX   3
+///@}
+/******************************************************************************//**
+ * @defgroup DCLM [DT] Device Control Logic Mathematics. NOT part of DITS     @{
+ *********************************************************************************/
+#define DCLM_ADD        0x00    ///< Less Than or Equal To
+#define DCLM_SUBTRACT   0x01    ///< Greater Than or Equal To
+#define DCLM_MULTIPLY   0x02    ///< Equal To
+#define DCLM_DIVIDE     0x03    ///< Not Equal To
+#define DCLM_AVERAGE    0x04
+#define DCLM_COPY       0x05
+#define DCLM_ICOPY      0x06
+///@}
+// Only use one of the below.  Both are there to simulate (2)Radio's on one Mega Board.
+// -------------------------------------------------------------------------------------------------
+// EEPROM instance of DITSEngine Call-back Implementation via 'overloading'
+// -------------------------------------------------------------------------------------------------
+class EEmgrDIT : public DITSEngine {
+  public:
+    //DITSEngine(uint16_t _pmemBeginAddr, uint8_t _MaxDITRecords, uint8_t _NameFieldBytes);
+    EEmgrDIT() : DITSEngine(0,140,10) {} // 0x0800 = 2,048-uint8_ts
+  protected:
+    virtual int RxReqDeviceValue(uint8_t _DevUID) override { return 42; }
+    virtual void RxReqDeviceSet(uint8_t _DevUID, int value) override { 
+        Serial.print(F("Rx Device Set on DevUID=")); Serial.print(_DevUID); 
+        Serial.print(F(", to Value = ")); Serial.println(value); 
+    }
+    virtual bool TxReady() override { return true;} //Simulation; actual radio would need checks.
+    virtual void TxData(uint8_t _uint8_t) override { Serial1.write(_uint8_t); }
+    virtual uint8_t pmem_read(int addr) override { return EEPROM.read(addr); }
+    virtual void pmem_write(int addr, uint8_t val) override { EEPROM.update(addr, val); }
+};
+
+// -------------------------------------------------------------------------------------------------
+// RAM-backed instance of DITSEngine 'Call-back' Implementation via 'overloading'
+// -------------------------------------------------------------------------------------------------
+class RAMmgrDIT : public DITSEngine {
+  public:
+    //DITSEngine(uint16_t _pmemBeginAddr, uint8_t _MaxDITRecords, uint8_t _NameFieldBytes);
+    RAMmgrDIT() : DITSEngine(0,140,10) {}
+  protected:
+    virtual int RxReqDeviceValue(uint8_t ditIdx) override { return 42; }
+    virtual void RxReqDeviceSet(uint8_t ditIdx, int value) override { 
+        Serial.print(F("RAM Set DITidx=")); Serial.print(ditIdx); 
+        Serial.print(F(" = ")); Serial.println(value); 
+    }
+    virtual bool TxReady() override { return true;} //Simulation; actual radio would need checks.
+    virtual void TxData(uint8_t _uint8_t) override { Serial2.write(_uint8_t); }
+    virtual uint8_t pmem_read(int addr) override { return RAM_EEPROM[addr]; }
+    virtual void pmem_write(int addr, uint8_t val) override { RAM_EEPROM[addr] = val; }
+  private: 
+    uint8_t RAM_EEPROM[0x0800];
+};
+
+EEmgrDIT  Radio1;
+RAMmgrDIT Radio2;
+//void UpdateThisNode(const char* name, uint16_t RFAddr);
+//bool AddThisNodeDevice(const char* name, uint8_t DevType);
+//bool DelThisNodeDevice(uint8_t devIdx);
+//void ProcessLoop();
+//uint8_t SecNetCode();
+//bool SecNetCode(uint8_t _SecNetCode);
+//void RxRadioData(uint8_t _uint8_t);
+
+// -------------------------------------------------------------------------------------------------
+// Setup
+// -------------------------------------------------------------------------------------------------
+void setup()
+{
+    Serial.begin(115200);
+    Serial.println(F("RF-DITS Clean Test"));
+
+    Serial1.begin(9600);
+    Serial2.begin(9600);
+
+    //UpdateThisNode(const char* name, uint16_t RFAddr)
+    Radio1.UpdateThisNode("Radio1", 0x0001);    // Must be unique.
+    Radio2.UpdateThisNode("Radio2", 0x0002);    // Must be unique.
+    Radio1.SecNetCode(0x4F); // Must match.
+    Radio2.SecNetCode(0x4F);
+
+    randomSeed(analogRead(A0));
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  bool bNewNode = false;
-
-  // Receive RF Data
-  if ( RF==0 ) { DBERRORL(("Sys::RFLoop RF==0")) return 0; }
-  if ( !RF->PacketAvailable() ) return;                                                 // Collect Bytes till PacketAvailable
-  
-  // 1. Check Packet is Valid
-  if (!RF->Packet->IsValid()) {DBERRORL(("!RF->Packet->IsValid()")) delete(RF->Packet); RF->Packet = 0; return; }
-  DBINFOAL(("Sys::RFLoop RF->Packet->Type() = "),(RF->Packet->Type(),HEX))
-
-  // 2. Obtain the TargetNode for the Packet
-  Node* TargetNode=0;                                                                   // Packets TargetNode
-  if ( RF->Packet->IsREQ() ) { TargetNode = ThisNode; }                                 // REQ packets are for ThisNode
-  else {                                                                                //..IsREPly are for Remote Nodes
-    TargetTode = RFTode(RF->Packet->FromRF(),false);                                    // Search if Remote Node already exists
-    bNewTode = (TargetNode==0 && RF->Packet->Type()==PKT_REPCONFIG);                    // If Node doesn't exist and Packet is a Config Create New Node
-    if (bNewNode) {TargetNode=RFTode(RF->Packet->FromRF(),true);}                       // Create a NewNode (,true)
-  }                                                                                     // 
-  if ( TargetTode==0 ) {                                                                // Check Target Node
-    DBERRORAL(("Sys::RFLoop TargetTode==0 PacketType:"),(RF->Packet->Type())) 
-    delete(RF->Packet); RF->Packet = 0; return; 
-  }
-  DBINFOAL(("Sys::RFLoop TargetTode->TodeIndex:"),(TargetTode->TodeIndex))
-
-  //------------------------- CONFIG ( No version control )----------------------------------------------------------
-  if ( RF->Packet->Type() == PKT_REPCONFIG ) {                                DBINFOL(("Sys::RFLoop PKT_REPCONFIG"))
-    if ( SetupMenu != 0 && AddATode != 0 ) AddATode->Status(STSRFGOT);
-    RF->Packet->SaveTodeConfig( TargetTode->EEAddress() );                    // Save the Node Configuration
-    TargetTode->EELoadDevices();                                              // Reload Node
-    if (bNewTode) {DelTodesList->Add(new MenuName(TargetTode->EEAddress(),+3, NAVDELTODE));}       // Add new Node to delete list
-    delete(RF->Packet); RF->Packet = 0; 
-    if ( CurrList == TargetTode ) CurrList->DispList(true);                   // If Node is On display refresh it.
-    return;                                                                   // Exit
-  }
-  if ( RF->Packet->Type() == PKT_REQCONFIG ) {                                DBINFOL(("Sys::RFLoop PKT_REQCONFIG"))
-    TxPacket Pkt(EEPROM.read(EMC_SECNET), PKT_REPCONFIG, 
-                 RF->Packet->FromRF(), TargetTode->Version() );               // Create TxPacket
-    Pkt.AddTodeConfig( TargetTode->EEAddress() );                             // Load TxPacket with Configuration
-    RF->Send(&Pkt);                                                           // Send Reply
-    delete(RF->Packet); RF->Packet = 0; return;                               // Exit
-  }
-
-  //-------------------------------- VERSION MATCH ------------------------------------------------------------------
-  if ( TargetTode->Version() != RF->Packet->Version() ) {                     // Check Version MATCH
-    DBERRORAAL(("Sys::RFLoop Node PACKET Version Mismatch(TodeVer,PktVer): "),
-               (TargetTode->Version()), (RF->Packet->Version()))              // Show MISMATCH
-    TxPacket Pkt(EEPROM.read(EMC_SECNET), PKT_REPCONFIG, 
-                 RF->Packet->FromRF(), TargetTode->Version() );               // MISMATCH Tx Update Config
-    Pkt.AddTodeConfig( TargetTode->EEAddress() );                             // Tx Add Node Config
-    RF->Send(&Pkt);                                                           // Send Node Config
-    delete(RF->Packet); RF->Packet = 0; return;                               // Exit
-  } else {
-    DBINFOL(("Sys::RFLoop() TargetTode->Version() == RF->Packet->Version()"))
-  }
-
-  //-------------------------------- SINGLE DEVICE -------------------------------------------------------------------
-  if ( RF->Packet->Type() == PKT_REQSETVAL || RF->Packet->Type() == PKT_REPVAL ) {
-    
-    Device* TargetDev=0;
-    int rfid = RF->Packet->RFID();
-    if ( 0<=rfid && rfid<AEB_MAXDEVICES ) TargetDev = TargetTode->Devices[rfid];    // Get TargetDev
-    if ( TargetDev==0 ) {                                                           // Check TargetDev
-      DBERRORL(("Sys::RFLoop TargetDev==0"))
-      delete(RF->Packet); RF->Packet = 0; return;                                   // ERROR Exit
-    }
-
-    if ( RF->Packet->Type() == PKT_REQSETVAL ) {                                       DBINFOL(("Sys::RFLoop PKT_REQSETVAL"))
-      TargetDev->Value(RF->Packet->SetValue(), STSRFSET);                           // Set Device Value & Reply
-      TxPacket Pkt(EEPROM.read(EMC_SECNET), PKT_REPVAL, RF->Packet->FromRF(), 
-                   TargetTode->Version(), TargetDev->RFID, TargetDev->Value() );    // GOTVAL the Set Value
-      RF->Send(&Pkt);                                                               // Send the Reply
-      
-    } else if ( RF->Packet->Type() == PKT_REPVAL ) {                                DBINFOL(("Sys::RFLoop PKT_REPVAL"))
-      TargetDev->Value( RF->Packet->Value( TargetDev->RFID ), STSRFGOT );           // Set GOT Value
-    } 
-    delete(RF->Packet); RF->Packet = 0; return;
-  }
-  
-  //-------------------------------- MULTI DEVICE ---------------------------------------------------------------------
-  if (RF->Packet->Type() == PKT_REQVALS ) {                                         DBINFOL(("Sys::RFLoop PKT_REQVALS"))
-    TxPacket Pkt(EEPROM.read(EMC_SECNET), PKT_REPVALS, RF->Packet->FromRF(), TargetTode->Version() );
-    for ( int i=0; i<AEB_MAXDEVICES; i++ ) {                                        // Append every Device Value
-      if ( TargetTode->Devices[i]!=0 ) {                                            // Iterate Devices[]
-        if ( TargetTode->Devices[i]->RFID<AEB_MAXDEVICES ) {                        // Check Device RFID
-          Pkt.AddValue(TargetTode->Devices[i]->RFID, TargetTode->Devices[i]->Value() ); }
-      }
-    }
-    RF->Send(&Pkt);                                                                 // Send Packet
-    
-  } else if ( RF->Packet->Type() == PKT_REPVALS ) {                                 DBINFOL(("Sys::RFLoop PKT_REPVALS"))
-    for ( int i=0; i<AEB_MAXDEVICES; i++ ) {                                        // Iterate Devices
-      if ( TargetTode->Devices[i]!=0 ) {                                            // Assign Device Value
-        TargetTode->Devices[i]->Value(RF->Packet->Value(TargetTode->Devices[i]->RFID),STSRFGOT);
-        if ( CurrList==TargetTode ) TargetTode->Devices[i]->DisplayValue();         // Update Display
-        DBINFOAL(("Sys::RFLoop PKT_REPVALS RFID: "),(TargetTode->Devices[i]->RFID))
-      }
-    }
-  }
-  // Delete Packet after Processing
-  delete(RF->Packet); RF->Packet = 0;
+// -------------------------------------------------------------------------------------------------
+// Loop
+// -------------------------------------------------------------------------------------------------
+void loop()
+{
+    if (Serial1.available()) { Radio1.RxData(Serial1.read()); }
+    if (Serial2.available()) { Radio2.RxData(Serial2.read()); }
 }
