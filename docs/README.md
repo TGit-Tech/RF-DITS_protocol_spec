@@ -1,5 +1,9 @@
 ---
 ---
+This is Currently a WIP as I extract the code from my Tode-RC project which you can visit to see how it has been implemented.
+Also there is a full user-manual and hardware deve guide at www.TGit-Tech.com
+Please wait till a Release is published before trying to use the code here. TY.
+
 # **RF-DITS Protocol Specification 📡**
 
 **RF-DITS** (LoRa-RF Device Index Table with Security) is a lightweight, secure communication protocol that enables direct node-to-node **(peer-to-peer, P2P)** communication. It provides real-time device **control** and **monitoring**, including **alarm propagation**, while minimizing RF airtime using **indexed (non-text) communication**. RF-DITS operates without relying on any centralized infrastructure, making it ideal for portable control applications.
