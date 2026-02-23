@@ -26,9 +26,10 @@
  * @defgroup DA [DA] Device-Attributes.  Part of DITS protocol.
  *  - You get 1-byte to add attributes to your Device Types.  You can use 0.
  *********************************************************************************/
-// 0x[7] Device Types
-#define DA_RO           0x7E    ///< Read-Only Device
-#define DA_RW           0x7A    ///< Read/Write Device
+// 0x[7] Device Types                  WS
+#define DA_RO           0x40    ///< 0b00xx xxxx Read-Only Device
+#define DA_RW           0x80    ///< 0b10xx xxxx R/Write Device no SS
+#define DA_RWSS         0xC0    ///< 0b11xx xxxx R/Write with (SS)Set Secured.
 #define DA_SCALE10      0x79    ///< Scale the Value x10 for floating-point
 #define DA_SCALE100     0x78    ///< Scale the Value x100 for floating-point
 
@@ -61,18 +62,21 @@
 // -------------------------------------------------------------------------------------------------
 class EEmgrDIT : public DITSEngine {
   public:
-    //DITSEngine(uint16_t _pmemBeginAddr, uint8_t _MaxDITRecords, uint8_t _NameFieldBytes);
-    EEmgrDIT() : DITSEngine(0,140,10) {} // 0x0800 = 2,048-uint8_ts
+    //DITSEngine(uint16_t _pmemBeginAddr, byte _MaxDITRecords, byte _NameFieldBytes);
+    EEmgrDIT() : DITSEngine(0,140,10) {} // 0x0800 = 2,048-bytes
   protected:
-    virtual int RxReqDeviceValue(uint8_t _DevUID) override { return 42; }
-    virtual void RxReqDeviceSet(uint8_t _DevUID, int value) override { 
+    virtual int RxReqDeviceValue(byte _DevUID) override { return 42; }
+    virtual void RxReqDeviceSet(byte _DevUID, int value) override { 
         Serial.print(F("Rx Device Set on DevUID=")); Serial.print(_DevUID); 
         Serial.print(F(", to Value = ")); Serial.println(value); 
     }
-    virtual bool TxReady() override { return true;} //Simulation; actual radio would need checks.
-    virtual void TxData(uint8_t _uint8_t) override { Serial1.write(_uint8_t); }
-    virtual uint8_t pmem_read(int addr) override { return EEPROM.read(addr); }
-    virtual void pmem_write(int addr, uint8_t val) override { EEPROM.update(addr, val); }
+    virtual void RxDataDevValue(byte _NodeIdx, byte _DevUID, int value) override {
+      // Record supplied values of a remote node.
+    }
+    virtual bool TxReady(uint16_t _ToRFAddr) override { return true;} //Simulation; actual radio would need checks.
+    virtual void TxData(byte _TxByte) override { Serial1.write(_TxByte); }
+    virtual byte pmem_read(int addr) override { return EEPROM.read(addr); }
+    virtual void pmem_write(int addr, byte val) override { EEPROM.update(addr, val); }
 };
 
 // -------------------------------------------------------------------------------------------------
@@ -80,31 +84,34 @@ class EEmgrDIT : public DITSEngine {
 // -------------------------------------------------------------------------------------------------
 class RAMmgrDIT : public DITSEngine {
   public:
-    //DITSEngine(uint16_t _pmemBeginAddr, uint8_t _MaxDITRecords, uint8_t _NameFieldBytes);
+    //DITSEngine(uint16_t _pmemBeginAddr, byte _MaxDITRecords, byte _NameFieldBytes);
     RAMmgrDIT() : DITSEngine(0,140,10) {}
   protected:
-    virtual int RxReqDeviceValue(uint8_t ditIdx) override { return 42; }
-    virtual void RxReqDeviceSet(uint8_t ditIdx, int value) override { 
+    virtual void RxDataDevValue(byte _NodeIdx, byte _DevUID, int value) override {
+      // Record supplied values of a remote node.
+    }
+    virtual int RxReqDeviceValue(byte ditIdx) override { return 42; }
+    virtual void RxReqDeviceSet(byte ditIdx, int value) override { 
         Serial.print(F("RAM Set DITidx=")); Serial.print(ditIdx); 
         Serial.print(F(" = ")); Serial.println(value); 
     }
-    virtual bool TxReady() override { return true;} //Simulation; actual radio would need checks.
-    virtual void TxData(uint8_t _uint8_t) override { Serial2.write(_uint8_t); }
-    virtual uint8_t pmem_read(int addr) override { return RAM_EEPROM[addr]; }
-    virtual void pmem_write(int addr, uint8_t val) override { RAM_EEPROM[addr] = val; }
+    virtual bool TxReady(uint16_t _ToRFAddr) override { return true;} //Simulation; actual radio would need checks.
+    virtual void TxData(byte _TxByte) override { Serial2.write(_TxByte); }
+    virtual byte pmem_read(int addr) override { return RAM_EEPROM[addr]; }
+    virtual void pmem_write(int addr, byte val) override { RAM_EEPROM[addr] = val; }
   private: 
-    uint8_t RAM_EEPROM[0x0800];
+    byte RAM_EEPROM[0x0800];
 };
 
 EEmgrDIT  Radio1;
 RAMmgrDIT Radio2;
 //void UpdateThisNode(const char* name, uint16_t RFAddr);
-//bool AddThisNodeDevice(const char* name, uint8_t DevType);
-//bool DelThisNodeDevice(uint8_t devIdx);
+//bool AddThisNodeDevice(const char* name, byte DevType);
+//bool DelThisNodeDevice(byte devIdx);
 //void ProcessLoop();
-//uint8_t SecNetCode();
-//bool SecNetCode(uint8_t _SecNetCode);
-//void RxRadioData(uint8_t _uint8_t);
+//byte SecNetCode();
+//bool SecNetCode(byte _SecNetCode);
+//void RxRadioData(byte _byte);
 
 // -------------------------------------------------------------------------------------------------
 // Setup

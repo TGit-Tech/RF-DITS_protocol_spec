@@ -50,19 +50,15 @@
  *        - Node-Tables are allocated separate from the device pool, so the overall memory boundary is determined by what fits.
  *
  * \section ProtoSpec Protocol Specification
- *    1.  Maximum uint8_ts per packet communication:           512 uint8_ts due to SecNet encoding.
- *        - The protocol is designed to perform segmentation when RadioPktMaxBytes is set to less than the number of payload uint8_ts required.
+ *    1.  Maximum bytes per packet communication:           512 bytes due to SecNet encoding.
+ *        - The protocol is designed to perform segmentation when RadioPktMaxBytes is set to less than the number of payload bytes required.
  *    2.  Number of possible SecNet code combinations:      128 unique (0x00 to 0x7F)
  *    3.  Maximum devices per node depends on (_NameFieldBytes).
- *        - All configuration information needs to fit in the 512 maximum uint8_ts per packet.
+ *        - All configuration information needs to fit in the 512 maximum bytes per packet.
  *        - Use equation.  Max Devices a Node = (512 - (4 + NameBytes)) / (3 + NameBytes).
  *        - So with a _NameFieldBytes = 10
  *          - (512 - (4 + 10)) = 498 / (3 + 10) = 13.  Equals 38 devices per node.
  *            ** NEW DIT TABLE **
- *      +-------+-------+-------+-------+----------------+
- *      | Byte0           | Byte1 | Byte2 | Byte3 | NameFieldBytes
- *  NODE| LOC#            | RFH   | RFL   | TVER  | Name
- *  DEV | NODEADDROFFSET  | DEVUID| DTYPE | DATTR | Name
  *
  *    DITS Pmem Allocation will start say at 0x0800  
  *    Every Device can determine Node by it's NodeAddrOffset written at Byte0 from the PMEM_DITS_BASE address
@@ -71,6 +67,47 @@
  *    Nodes Records will order incrementally from the base.
  *    Device Records will order from TOP to bottom of the DITS alloc.
  *    When the two meet in the middle the memory is full.
- *    
+ *
+ *                                          **Protocol Standard Bytes Table**
+ *                       +------------------------------------------------------------------------------------+
+ *                       |                              PACKET TYPE                                           |
+ *  +----+---------------+-----------+---------+--------+----------+--------+-----+----------+---------+------+
+ *  |Idx | Packet Order  | REQDEVITBL| REQVALS | REQVAL | REQNONCE | SETVAL | VAL | NONCERSP | DEVITBL | VALS |
+ *  +----+---------------+-----------+---------+--------+----------+--------+-----+----------+---------+------+
+ *  | 0  | PKB_TYPE      |     X     |    X    |   X    |    X     |   X    |  X  |    X     |    X    |  X   |
+ *  | 1  | PKB_SECH      |     X     |    X    |   X    |    X     |   X    |  X  |    X     |    X    |  X   |
+ *  | 2  | PKB_SECL      |     X     |    X    |   X    |    X     |   X    |  X  |    X     |    X    |  X   |
+ *  | 3  | PKB_FROM_RFH  |     X     |    X    |   X    |    X     |   X    |  X  |    X     |    X    |  X   |
+ *  | 4  | PKB_FROM_RFL  |     X     |    X    |   X    |    X     |   X    |  X  |    X     |    X    |  X   |
+ *  | 5  | PKB_DITVER    |           |    X    |   X    |    X     |   X    |  X  |    X     |    X    |  X   |
+ *  | 6  | PKB_DEVUID    |           |         |   X    |    X     |   X    |  X  |    X     |  (X*)   |(X*)  |
+ *  | 7  | PKB_VALUEH    |           |         |        |    X     |   X    |  X  |    X     |         |      |
+ *  | 8  | PKB_VALUEL    |           |         |        |    X     |   X    |  X  |    X     |         |      |
+ *  +----+---------------+-----------+---------+--------+----------+--------+-----+----------+---------+------+
+ *  (X*) = XDATA expansion to required payload; max allowed 512-bytes.
+ *  +-----------------------+ +-----------------+
+ *  | XDATA on DEVITBL      | | XDATA on VALS   |
+ *  +------+----------------+ +------+----------+
+ *  | Byte | Field          | | Byte | Field    |
+ *  +------+----------------+ +------+----------+
+ *  | 6    | NodeName0      | | 6    | DevUID   |
+ *  | 7    | NodeName1      | | 7    | ValueH   |
+ *  | 8    | NodeName2      | | 8    | ValueL   |
+ *  | 9    | NodeName3      | | 9    | DevUID   |
+ *  | 10   | NodeName4      | | 10   | ValueH   |
+ *  | ...  | ... until '\0' | | 11   | ValueL   |
+ *  | ?0   | DevType        | | ...  | ...      |
+ *  | ?1   | DevAttr        | +------+----------+
+ *  | ?2   | DevUID         |
+ *  | ?3   | DevName0       |
+ *  | ?4   | DevName1       |
+ *  | ?5   | DevName2       |
+ *  | ?6   | DevName3       |
+ *  | ?7   | DevName4       |
+ *  | ...  | ... until '\0' |
+ *  +------+----------------+ 
+ *
+ *
+ *
  *
  */
