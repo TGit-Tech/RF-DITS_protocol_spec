@@ -6,6 +6,9 @@
 #include "rf_dits.h"
 #include "DB.h"
 
+// Testing two radios on one arduino mega.
+// Wire TX1(pin18) to RX2(pin17)
+// Wire TX2(pin16) to RX1(pin19)
 /******************************************************************************//**
  * @defgroup DT [DT] Device-Type enumeration. Part of DITS protocol.
  *  - You get 1-byte (not 0) to designate Device Type definitions.
@@ -56,7 +59,9 @@
 #define DCLM_COPY       0x05
 #define DCLM_ICOPY      0x06
 ///@}
-// Only use one of the below.  Both are there to simulate (2)Radio's on one Mega Board.
+// Only use one of the below in actual implementation.
+//  Both are there to simulate (2)Radio's on one Mega Board.
+/*
 // -------------------------------------------------------------------------------------------------
 // EEPROM instance of DITSEngine Call-back Implementation via 'overloading'
 // -------------------------------------------------------------------------------------------------
@@ -78,39 +83,44 @@ class EEmgrDIT : public DITSEngine {
     virtual byte pmem_read(int addr) override { return EEPROM.read(addr); }
     virtual void pmem_write(int addr, byte val) override { EEPROM.update(addr, val); }
 };
-
+*/
 // -------------------------------------------------------------------------------------------------
 // RAM-backed instance of DITSEngine 'Call-back' Implementation via 'overloading'
 // -------------------------------------------------------------------------------------------------
 class RAMmgrDIT : public DITSEngine {
   public:
-    //DITSEngine(uint16_t _pmemBeginAddr, byte _MaxDITRecords, byte _NameFieldBytes);
-    RAMmgrDIT() : DITSEngine(0,140,10) {memset(RAM_EEPROM, 0xFF, sizeof(RAM_EEPROM));}
+    //DITSEngine(uint16_t _pmemBeginAddr, byte _MaxDITRecords, byte _NameFieldBytes), byte RxExpireMillis;
+    RAMmgrDIT(HardwareSerial& SerialPort) : DITSEngine(0,40,10,500), SPort(SerialPort) {memset(RAM_EEPROM, 0xFF, sizeof(RAM_EEPROM));}
   protected:
     virtual void RxDataDevValue(byte _NodeIdx, byte _DevUID, int value) override {
       // Record supplied values of a remote node.
     }
     virtual int RxReqDeviceValue(byte ditIdx) override { return 42; }
-    virtual void RxReqDeviceSet(byte ditIdx, int value) override { 
-        Serial.print(F("RAM Set DITidx=")); Serial.print(ditIdx); 
-        Serial.print(F(" = ")); Serial.println(value); 
+    virtual void RxReqDeviceSet(byte _DevUID, int value) override { 
+        Serial.print(F("INO.RxReqDeviceSet devUID("));Serial.print(_DevUID);Serial.print(") -to- "); Serial.print(value);
     }
     virtual bool TxReady(uint16_t _ToRFAddr) override { return true;} //Simulation; actual radio would need checks.
-    virtual void TxData(byte _TxByte) override { Serial2.write(_TxByte); }
+    virtual void TxData(byte _TxByte) override { 
+      Serial.print("Tx");Serial.print(_TxByte,HEX);
+      SPort.write(_TxByte); 
+    }
     virtual byte pmem_read(int addr) override { return RAM_EEPROM[addr]; }
     virtual void pmem_write(int addr, byte val) override { RAM_EEPROM[addr] = val; }
   private: 
-    byte RAM_EEPROM[0x0800];
+    byte RAM_EEPROM[0x0300];
+    HardwareSerial& SPort;
 };
 char tmpname[11]; // Must match _NameFieldBytes +1; just a helper array for char[] names.
 
 //EEmgrDIT  Radio1;
-RAMmgrDIT Radio2;
+RAMmgrDIT Radio1(Serial1);
+RAMmgrDIT Radio2(Serial2);
 
 //                           Type, SecH, SecL, RFH,  RFL,  VER , 'N',  'o',  'd',  'e',  '1',  '\0'
 byte testaddnode1dev1[20] = {0x4F, 0x02, 0x20, 0x34, 0x4E, 0x01, 0x4E, 0x6F, 0x64, 0x65, 0x31, 0x0,
                   DT_ONOFF, DA_RO, 0x00, 0x64, 0x65, 0x76, 0x31, 0x0};
 //                                 dUID,  'd',  'e',  'v',  '1', '\0'
+
 // -------------------------------------------------------------------------------------------------
 // Setup
 // -------------------------------------------------------------------------------------------------
@@ -119,57 +129,139 @@ void setup()
     Serial.begin(115200);
     Serial.println(F("RF-DITS Clean Test"));
 
+    Radio1.begin();   // You !MUST! call begin() for DITS to work.
+    Radio2.begin();
     Serial1.begin(9600);
     Serial2.begin(9600);
 
-    //DBDITAAAENTER((_pmemBeginAddr),(_MaxDITRecords),(_NameFieldBytes),("DITSEngine::DITSEngine(<BeginAddr>,<MaxDITS>,<NameBytes>)\n"))
-    Serial.print(Radio2.pmSecNetAddr);Serial.println(" :pmSecNetAddr");
-    Serial.print(Radio2.pmMaxDITRecords);Serial.println(" :pmMaxDITRecords");
-    Serial.print(Radio2.pmDITbase);Serial.println(" :pmDITbase");
-    Serial.print(Radio2.pmDITend);Serial.println(" :pmDITend");
-    Serial.print(Radio2.pmDITEndAddr);Serial.println(" :pmDITEndAddr");
-    Serial.print(Radio2.pmDITEndAddr-Radio2.pmSecNetAddr);Serial.println("<< Total Bytes Allocated for DIT Records.");
-
-    //UpdateThisNode(const char* name, uint16_t RFAddr)
-    //Radio1.UpdateThisNode("Radio1", 0x0001);    // Must be unique.
-    Radio2.UpdateThisNodeName("Radio2");    // Must be unique.
-    Radio2.UpdateThisNodeRFAddr(0x0202);
+    Radio1.UpdateThisNodeName("Radio1");
+    Radio1.UpdateThisNodeRFAddr(0x0001); // must be unique
+    Radio1.SecNetCode(0);                // must be same
+    Radio1.AddThisNodeDevice(DT_ONOFF, DA_RW, "devonoff");   // Add devices to Radio1.
+    Radio1.AddThisNodeDevice(DT_ANAINPUT, DA_RO, "devtemp");
+    
+    Radio2.UpdateThisNodeName("Radio2");
+    Radio2.UpdateThisNodeRFAddr(0x0002);
     Radio2.SecNetCode(0);
-    //Radio1.SecNetCode(0x4F); // Must match.
-    //Radio2.SecNetCode(0x4F);
 
-    // Load some 'nodes' into the DIT Engine.
-    // The only way to do this from implemeter-side is send packets.
-    /*
-    for(DITSEngine::NodeDIT node(0); node.IsValid(); node.NextAll()) {
+    // Check DIT Tables exist and have data.
+    Serial.print("SecNet1: ");Serial.println(Radio1.SecNetCode());
+    Serial.print("SecNet2: ");Serial.println(Radio2.SecNetCode());
+    DITSEngine::NodeDIT node1 = Radio1.Node(0);
+    DITSEngine::NodeDIT node2 = Radio2.Node(0);
+    node1.NGetName(tmpname);Serial.print("node1 name: ");Serial.println(tmpname);
+    node2.NGetName(tmpname);Serial.print("node2 name: ");Serial.println(tmpname);
+    char hexStr1[8];sprintf(hexStr1, "0x%04X", node1.NRFAddr());
+    char hexStr2[8];sprintf(hexStr2, "0x%04X", node2.NRFAddr());
+    Serial.print("node1 RF-Addr: ");Serial.println(hexStr1);
+    Serial.print("node2 RF-Addr: ");Serial.println(hexStr2);
 
-    }
-    */
-    Serial.print("SecNet: ");Serial.println(Radio2.SecNetCode());
-    DITSEngine::NodeDIT tnode = Radio2.Node(0);
-    tnode.NGetName(tmpname);
-    Serial.print("the name: ");
-    Serial.println(tmpname);
-    char hexStr[5];sprintf(hexStr, "0x%04X", tnode.NRFAddr());
-    Serial.print("the address: ");Serial.print(hexStr);Serial.println("");
-    //tnode = Radio2->Node(0);
-    //Serial.println(Radio2->Node(0)->DITidx());
+    // Test Rx.
+    // Send 'testaddnode1dev1' dummy packet to test Rx DEVITBL adding.
+    //for(int i=0; i<sizeof(testaddnode1dev1); i++) {
+      //Radio1.RxData(testaddnode1dev1[i]);
+    //}
 
-    //Send 'testaddnode1dev1' dummy packet to test Rx DEVITBL adding.
-    for(int i=0; i<sizeof(testaddnode1dev1); i++) {Radio2.RxData(testaddnode1dev1[i]);}
+    // Test Tx
+    //Radio1.TxSetRemoteDevVal(uint16_t nodeAddr, byte ditIdx, int value)
+    //Radio1.TxSetRemoteDevVal(0x0002, 0, 500);
+    //TxSetRemoteDevVal
 
-    randomSeed(analogRead(A0));
+    // from Radio2 request DEVITBL on Radio1
+    Radio2.TxAddRemoteNode(0x0001);
+
+    //randomSeed(analogRead(A0));
 }
-void Check() {
-    // Check engine added it.
+void DumpRadio1DITS() {
+    Serial.println(F("\nnvvvvvvvvvvvvvvvvvvvvvvvvvv RADIO1 DITS vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"));
+
+    // Step 1: Iterate through Nodes
+    for(DITSEngine::NodeDIT node = Radio1.Node(0); node.IsValid(); node.Next()) {
+        node.NGetName(tmpname);
+        Serial.print(F("NODE ["));
+        Serial.print(node.NodeIdx());
+        Serial.print(F("] "));
+        Serial.print(tmpname);
+        Serial.print(F(" (RF: 0x"));
+        Serial.print(node.NRFAddr(), HEX);
+        Serial.print(F(") (NDITVer: "));
+        Serial.print(node.NDITVer());
+        Serial.println(")");
+
+
+        // Step 2: Iterate through ALL devices to find children of this node
+        for(DITSEngine::DeviceDIT dev = Radio1.Device(0); dev.IsValid(); dev.Next()) {
+            // Only indent if this device belongs to the current node in the outer loop
+            if (dev.DNodeIdx() == node.NodeIdx()) {
+                dev.DGetName(tmpname);
+                Serial.print(F("  |-- DevUID: "));
+                Serial.print(dev.DevUID());
+                Serial.print(F(" | Type: "));
+                Serial.print(dev.DevType(), HEX);
+                Serial.print(F(" | Attr: 0x"));
+                Serial.print(dev.DevAttr(), HEX);
+                Serial.print(F(" | Name: "));
+                Serial.println(tmpname);
+            }
+        }
+    }
+    Serial.println(F("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"));
+}
+int iCheckCnt = 0;
+void DumpRadio2DITS() {
+    Serial.println(F("\nvvvvvvvvvvvvvvvvvvvvvvvvvv RADIO2 DITS vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"));
+
+    // Step 1: Iterate through Nodes
     for(DITSEngine::NodeDIT node = Radio2.Node(0); node.IsValid(); node.Next()) {
-      node.NGetName(tmpname);
-      Serial.println(tmpname);
+        node.NGetName(tmpname);
+        Serial.print(F("NODE ["));
+        Serial.print(node.NodeIdx());
+        Serial.print(F("] "));
+        Serial.print(tmpname);
+        Serial.print(F(" (RF: 0x"));
+        Serial.print(node.NRFAddr(), HEX);
+        Serial.print(F(") (NDITVer: "));
+        Serial.print(node.NDITVer());
+        Serial.println(")");
+
+
+        // Step 2: Iterate through ALL devices to find children of this node
+        for(DITSEngine::DeviceDIT dev = Radio2.Device(0); dev.IsValid(); dev.Next()) {
+            // Only indent if this device belongs to the current node in the outer loop
+            if (dev.DNodeIdx() == node.NodeIdx()) {
+                dev.DGetName(tmpname);
+                Serial.print(F("  |-- DevUID: "));
+                Serial.print(dev.DevUID());
+                Serial.print(F(" | Type: "));
+                Serial.print(dev.DevType(), HEX);
+                Serial.print(F(" | Attr: 0x"));
+                Serial.print(dev.DevAttr(), HEX);
+                Serial.print(F(" | Name: "));
+                Serial.println(tmpname);
+            }
+        }
     }
-    for(DITSEngine::DeviceDIT dev = Radio2.Device(0); dev.IsValid(); dev.Next()) {
-      dev.DGetName(tmpname);
-      Serial.println(tmpname);
+    Serial.println(F("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"));
+}                     
+void Check() {
+    iCheckCnt++;
+
+    // Check engine changes after commands.
+    if (iCheckCnt & 0x01) { // odd numbers
+      DumpRadio1DITS();
+      DumpRadio2DITS();
     }
+
+    // Do a runtime add device and delete to make sure NDITVer mis-match causes an 'update' to trigger.
+    if (iCheckCnt==2) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}
+    if (iCheckCnt==4) {Radio1.AddThisNodeDevice(DT_STSTP3W, DA_RW, "runtdist");}
+    if (iCheckCnt==6) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
+    if (iCheckCnt==8) {Radio1.DelThisNodeDevice(0);}
+    if (iCheckCnt==10) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
+    // Then add a RWSS and check Secure Set
+    if (iCheckCnt==12) {Radio1.AddThisNodeDevice(DT_ONOFF, DA_RWSS, "onoffSS");}
+    if (iCheckCnt==14) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
+    if (iCheckCnt==18) {Radio2.TxSetRemoteDevVal(0x0001, 0, 150);}  // now try to set the RWSS
 }
 
 uint32_t msTimer = 0;
@@ -178,8 +270,9 @@ uint32_t msTimer = 0;
 // -------------------------------------------------------------------------------------------------
 void loop()
 {
-  if (millis()-msTimer >= 1000) {msTimer=millis();Check();}
+  if (millis()-msTimer >= 5000) {msTimer=millis();Check();}
+  Radio1.ProcessLoop();
   Radio2.ProcessLoop();
-    //if (Serial1.available()) { Radio1.RxData(Serial1.read()); }
-    //if (Serial2.available()) { Radio2.RxData(Serial2.read()); }
+  if (Serial1.available()>0) { Radio1.RxData(Serial1.read()); }
+  if (Serial2.available()>0) { Radio2.RxData(Serial2.read()); }
 }

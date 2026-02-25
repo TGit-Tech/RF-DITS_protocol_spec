@@ -111,7 +111,7 @@
 class DITSEngine {
 public:
 
-  DITSEngine(uint16_t _pmemBeginAddr, byte _MaxDITRecords, byte _NameFieldBytes);
+  DITSEngine(uint16_t _pmemBeginAddr, byte _MaxDITRecords, byte _NameFieldBytes, uint32_t _RxExpireMillis = 30000);
   const byte   DITNameBytes;     // Just a variable that stores the size of a Name Field
   const byte   DITNameChar;      // Use this, which is +1 for null-term, to initialize name char[]s
   const uint16_t  pmMaxDITRecords;
@@ -203,6 +203,11 @@ public:
     // DIT Low-Level Access
     NodeDIT Node(byte idx) const {return NodeDIT(const_cast<DITSEngine*>(this), idx);}
     DeviceDIT Device(byte dditIdx) const {return DeviceDIT(const_cast<DITSEngine*>(this), dditIdx);}
+    /*********************************************************************************
+     * @brief Initializes the DITS Engine and prepares memory structures.
+     * @details This method must be called within the Arduino setup() function. 
+     ***********************************************************************************/
+    void begin();
     /************************************************************************************
      * @brief Updates the RF address of this node's DIT record.
      * @details Stores or updates the RF address of this node in persistent memory 
@@ -226,11 +231,12 @@ public:
     /************************************************************************************
      * @brief Adds a device to this node.
      * @details Adds a local device of the specified type to this node's device table (DIT record).
-     * @param[in] name The name of the device.
      * @param[in] DevType The type of device to add.
+     * @param[in] DevAttr The attributes for the device.
+     * @param[in] name The name of the device.
      * @return true if successfully added, false if the table is full or an error occurred.
      ***************************************************************************************/
-    bool AddThisNodeDevice(byte devType, const char* name);
+    bool AddThisNodeDevice(byte devType, byte devAttr, const char* name);
     /************************************************************************************
      * @brief Deletes a device from this node.
      * @details Removes a local device at the given index from this node's device table (DIT record).
@@ -303,14 +309,14 @@ public:
     * on the node identified by `nodeIdx`. The node's address is automatically
     * retrieved from the stored NodeDIT table.
     * @param nodeIdx Index of the target node in the NodeDIT table.
-    * @param ditIdx Index of the device on the remote node.
+    * @param devUID UID of the device on the remote node.
     * @param value The value to set on the remote device.
     * @return true if the PKT_SETVAL packet was successfully constructed and transmitted; 
     * @return false if local validation or transmission failed.
     * @note The return value reflects only the success of sending the packet locally. 
     * It does NOT indicate that the remote device applied the value.
     ***************************************************************************************/
-    bool TxSetRemoteDevVal(uint16_t nodeAddr, byte ditIdx, int value);
+    bool TxSetRemoteDevVal(uint16_t nodeIdx, byte devUID, int value);
   ///@}
 protected:
   //------------------------------------------------------------
@@ -396,8 +402,8 @@ private:
   //---------------------------------------------------------------------------------
   byte NDITStopIdx = 0;   ///< Last known Node block endstop idx
   byte DDITStopIdx = 0;   ///< Last known Device block endstop idx
+  uint32_t RxExpireMillis = 30000;
   uint16_t mRadioPktMaxBytes = PKC_RADIOPKTMAXBYTES_DEFAULT;   ///< The RadioPktMaxBytes per Radio Packet.
-  void ScanPmemForDITSTOP();
   byte AddNDIT();
   byte AddDDIT(byte _DNodeIdx);
   byte FindNodeDIT(uint16_t rfAddr, bool NotFoundAdd = false);
@@ -420,7 +426,10 @@ class DITSEngine::rfPacket {
     : rfPoolIdxs((_RadioPktMaxBytes<10)?52:(512 + (_RadioPktMaxBytes - 1)) / _RadioPktMaxBytes), 
       uiRadioPktMaxBytes((_RadioPktMaxBytes<10)?10:_RadioPktMaxBytes),
       SecNet(_SecNet) 
-    { rfPool = new byte*[rfPoolIdxs]; for (int i=0; i<rfPoolIdxs; i++) {rfPool[i]=nullptr;} }
+    { rfPool = new byte*[rfPoolIdxs]; 
+      for (int i=0; i<rfPoolIdxs; i++) {rfPool[i]=nullptr;} 
+      rfPool[0] = new byte[uiRadioPktMaxBytes];
+    }
     virtual ~rfPacket() {
       for (int i = 0; i<rfPoolIdxs; i++) {if (rfPool[i]) {delete[] rfPool[i];rfPool[i] = nullptr;}}
       delete[] rfPool; rfPool = nullptr;

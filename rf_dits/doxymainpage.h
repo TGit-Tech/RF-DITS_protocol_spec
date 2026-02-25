@@ -67,7 +67,7 @@
  *    Nodes Records will order incrementally from the base.
  *    Device Records will order from TOP to bottom of the DITS alloc.
  *    When the two meet in the middle the memory is full.
- *
+ * @code
  *                                          **Protocol Standard Bytes Table**
  *                       +------------------------------------------------------------------------------------+
  *                       |                              PACKET TYPE                                           |
@@ -106,7 +106,7 @@
  *  | ?7   | DevName4       |
  *  | ...  | ... until '\0' |
  *  +------+----------------+ 
- *
+ * @endcode
  *
  *
  *
