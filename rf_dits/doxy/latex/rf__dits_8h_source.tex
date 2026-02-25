@@ -1,0 +1,339 @@
+\doxysection{rf\+\_\+dits.\+h}
+\hypertarget{rf__dits_8h_source}{}\label{rf__dits_8h_source}\doxymbox{\hyperlink{rf__dits_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ \_RF\_DITS\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ \_RF\_DITS\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_d_b_8h}{DB.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Never\ change\ these\ top\ defines}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ BNONE\ \ \ \ \ 0xFF\ \ \ \ }}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ INONE\ \ \ \ \ 0xFFFF\ \ }}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ SECNETMAX\ 0x7F\ \ \ \ }}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ PMDITSTOP\ 0xFE\ \ \ \ }}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ THISNODE\ \ 0\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ VALNOTSET\ 0x8000\ \ }}
+\DoxyCodeLine{00017\ \ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ NodeDIT\ PMEM\ Offsets\ (per\ Node\ table)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ PMO\_NODEIDX\ \ \ \ \ 0\ \ \ }}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ PMO\_NRFADDRH\ \ \ \ 1\ \ \ }}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ PMO\_NRFADDRL\ \ \ \ 2\ \ \ }}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ PMO\_NDITVER\ \ \ \ \ 3\ \ \ }}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ DeviceDIT\ PMEM\ Offsets\ (per\ Device\ table)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ PMO\_DNODEIDX\ \ \ \ 0\ \ \ }}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ PMO\_DEVTYPE\ \ \ \ \ 1\ \ \ }}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ PMO\_DEVATTR\ \ \ \ \ 2\ \ \ }}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ PMO\_DEVUID\ \ \ \ \ \ 3\ \ \ }}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ Both\ Node\ and\ Device\ Name\ Offset\ must\ be\ the\ same.}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ PMO\_NAME\ \ \ \ \ \ \ \ 4\ \ \ }}
+\DoxyCodeLine{00033\ \ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ PKB\_TYPE\ \ \ \ \ \ \ \ 0\ \ \ }}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ PKB\_SECH\ \ \ \ \ \ \ \ 1\ \ \ }}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ PKB\_SECL\ \ \ \ \ \ \ \ 2\ \ \ }}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ PKB\_FROM\_RFH\ \ \ \ 3\ \ \ }}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ PKB\_FROM\_RFL\ \ \ \ 4\ \ \ }}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ PKB\_DITVER\ \ \ \ \ \ 5\ \ \ }}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ PKB\_DEVUID\ \ \ \ \ \ 6\ \ \ }}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ PKB\_VALUEH\ \ \ \ \ \ 7\ \ \ }}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ PKB\_VALUEL\ \ \ \ \ \ 8\ \ \ }}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ PKB\_XDATA\_BEG\ \ \ 6\ \ \ }}
+\DoxyCodeLine{00048\ \ }
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ Packet\ Constants}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ PKC\_ISREQBIT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 5\ \ \ \ \ }}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ PKC\_STATICBYTES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 58\ \ \ \ }}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ PKC\_RADIOPKTMAXBYTES\_MIN\ \ \ \ \ \ 20\ \ \ \ }}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ PKC\_RADIOPKTMAXBYTES\_DEFAULT\ \ 58\ \ \ \ }}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ PKC\_RADIOPKTMAXBYTES\_MAX\ \ \ \ \ \ 512\ \ \ }}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ PKC\_RXPKTEXPIRE\_DEFAULTMS\ \ \ \ \ 30000\ }}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ REQuest\ PacKet-\/Types\ (0x7F-\/0x60\ bit5=1)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ PKT\_REQ\_MAX\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x7F\ \ }}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ PKT\_REQDEVITBL\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x7F\ \ }}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ PKT\_REQVALS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x7E\ \ }}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ PKT\_REQVAL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x7D\ \ }}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ PKT\_REQNONCE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x7C\ \ }}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ PKT\_SETVAL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x7B\ \ }}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ PKT\_REQ\_MIN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x7B\ \ }}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ DATA\ Holding\ PacKet-\/Types\ (0x4F-\/0x40\ bit5=0)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ PKT\_DATA\_MAX\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x4F\ \ }}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ PKT\_DEVITBL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x4F\ \ }}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ PKT\_VALS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x4E\ \ }}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ PKT\_VAL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x4D\ \ }}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ PKT\_NONCERSP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x4C\ \ }}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ PKT\_DATA\_MIN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x4C\ \ }}
+\DoxyCodeLine{00077\ \ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{class\ }DITSEngine\ \{}
+\DoxyCodeLine{00112\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ DITSEngine(uint16\_t\ \_pmemBeginAddr,\ \textcolor{keywordtype}{byte}\ \_MaxDITRecords,\ \textcolor{keywordtype}{byte}\ \_NameFieldBytes);}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{byte}\ \ \ DITNameBytes;\ \ \ \ \ \textcolor{comment}{//\ Just\ a\ variable\ that\ stores\ the\ size\ of\ a\ Name\ Field}}
+\DoxyCodeLine{00116\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{byte}\ \ \ DITNameChar;\ \ \ \ \ \ \textcolor{comment}{//\ Use\ this,\ which\ is\ +1\ for\ null-\/term,\ to\ initialize\ name\ char[]s}}
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{const}\ uint16\_t\ \ pmMaxDITRecords;}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{const}\ uint16\_t\ \ pmSecNetAddr;\ \ \ \ \ \textcolor{comment}{//\ 1-\/Byte\ for\ SecNet,\ Const}}
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{const}\ uint16\_t\ \ pmDITbase;}
+\DoxyCodeLine{00120\ \ \ \textcolor{keyword}{const}\ uint16\_t\ \ pmDITend;}
+\DoxyCodeLine{00121\ \ \ \textcolor{keyword}{const}\ uint16\_t\ \ pmDITEndAddr;}
+\DoxyCodeLine{00122\ \ \ uint16\_t\ pmNDITAddr(\textcolor{keywordtype}{byte}\ idx)\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ pmDITbase\ +\ (idx\ *\ (\doxymbox{\hyperlink{rf__dits_8h_a6a2b7f209f9720a8f06d568878ba1ae9}{PMO\_NAME}}\ +\ DITNameBytes));\}}
+\DoxyCodeLine{00123\ \ \ uint16\_t\ pmDDITAddr(\textcolor{keywordtype}{byte}\ idx)\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ pmDITend\ \ -\/\ (idx\ *\ (\doxymbox{\hyperlink{rf__dits_8h_a6a2b7f209f9720a8f06d568878ba1ae9}{PMO\_NAME}}\ +\ DITNameBytes));\}}
+\DoxyCodeLine{00124\ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{NodeDIT}};}
+\DoxyCodeLine{00127\ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_device_d_i_t}{DeviceDIT}};}
+\DoxyCodeLine{00128\ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{NodeDIT}}*\ Node(\textcolor{keywordtype}{byte}\ idx)\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DIT\ Low-\/Level\ Access}}
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_device_d_i_t}{DeviceDIT}}*\ Device(\textcolor{keywordtype}{byte}\ nodeIdx,\ \textcolor{keywordtype}{byte}\ devIdx)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_aacbe19d7fa69b8e230848b70c13b81c3}{UpdateThisNode}}(uint16\_t\ RFAddr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_afbee3d9b37a1ff41e3fb679f154918dd}{AddThisNodeDevice}}(\textcolor{keywordtype}{byte}\ devType,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_acf26e08d9760bb5beec71fefa2e96827}{DelThisNodeDevice}}(\textcolor{keywordtype}{byte}\ devIdx);\ \ }
+\DoxyCodeLine{00158\ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a40fd9c22b447c4cd7487d0ee8cf8698e}{ProcessLoop}}();}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{byte}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a8660955199d09337b095dd60fc5675d2}{SecNetCode}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a8660955199d09337b095dd60fc5675d2}{SecNetCode}}(\textcolor{keywordtype}{byte}\ \_SecNetCode);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_ab321a5e410d341fe1ad214943acc0a95}{RxData}}(\textcolor{keywordtype}{byte}\ \_byte);}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a7f3fd11e0c0aa3f8145cf1d05c0eac04}{RadioPktMaxBytes}}(uint16\_t\ maxBytes);}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a2051e2cd516aceb47eb9dbe20a2ee630}{TxAddRemoteNode}}(\textcolor{keywordtype}{int}\ RFAddr);}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a9612fd6b94011425efcf3b609e2bca8a}{DelRemoteNode}}(\textcolor{keywordtype}{byte}\ nodeIdx);}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a1d7a3d01ca6459901ea27b939e2bfa22}{TxSetRemoteDevVal}}(uint16\_t\ nodeAddr,\ \textcolor{keywordtype}{byte}\ ditIdx,\ \textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00231\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00232\ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00242\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{byte}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a2827cdcab4cb3bc50cdfe0f943ab8b1d}{pmem\_read}}(\textcolor{keywordtype}{int}\ addr)\ =\ 0;}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00251\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_aef5afd491d75363d9e8d33307b4323e6}{pmem\_write}}(\textcolor{keywordtype}{int}\ addr,\ \textcolor{keywordtype}{byte}\ val)\ =\ 0;}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00270\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_ae259077dac2c7e3efceefc4d5da090db}{TxReady}}(uint16\_t\ \_ToRFAddr)\ =\ 0;}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00276\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a2673c26d9d2deedf9b79ca62b044c0b0}{TxData}}(\textcolor{keywordtype}{byte}\ \_TxByte)\ =\ 0;}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00282\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a57adadf5d7ce17a7cbee1f5cf5d5665a}{RxReqDeviceValue}}(\textcolor{keywordtype}{byte}\ \_DevUID)\ =\ 0;}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00288\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a35a97fde7237c58ba887d9def86f0c70}{RxReqDeviceSet}}(\textcolor{keywordtype}{byte}\ \_DevUID,\ \textcolor{keywordtype}{int}\ value)\ =\ 0;}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00297\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a02c8cc21885daea8aed6fe6464be7111}{RxDataDevValue}}(\textcolor{keywordtype}{byte}\ \_NodeIdx,\ \textcolor{keywordtype}{byte}\ \_DevUID,\ \textcolor{keywordtype}{int}\ value)\ =\ 0;}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00306\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a3d7e260254dd113e850438bdaa4b6cb6}{RxDITUpdate}}(\textcolor{keywordtype}{byte}\ nodeIdx)\ \{\}}
+\DoxyCodeLine{00308\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00309\ \ \ \textcolor{keyword}{class\ }rfPacket;}
+\DoxyCodeLine{00310\ \ \ \textcolor{keyword}{class\ }RxPacket;}
+\DoxyCodeLine{00311\ \ \ \textcolor{keyword}{class\ }TxPacket;}
+\DoxyCodeLine{00312\ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00313\ \ \ \textcolor{keywordtype}{byte}\ NDITStopIdx\ =\ 0;\ \ \ }
+\DoxyCodeLine{00314\ \ \ \textcolor{keywordtype}{byte}\ DDITStopIdx\ =\ 0;\ \ \ }
+\DoxyCodeLine{00315\ \ \ uint16\_t\ mRadioPktMaxBytes\ =\ \doxymbox{\hyperlink{group___p_k_t_gadb88f4cf5f0b580c2921757595a3baae}{PKC\_RADIOPKTMAXBYTES\_DEFAULT}};\ \ \ }
+\DoxyCodeLine{00316\ \ \ \textcolor{keywordtype}{void}\ ScanPmemForDITSTOP();}
+\DoxyCodeLine{00317\ \ \ \textcolor{keywordtype}{byte}\ AddNDIT();}
+\DoxyCodeLine{00318\ \ \ \textcolor{keywordtype}{byte}\ AddDDIT(\textcolor{keywordtype}{byte}\ \_DNodeIdx);}
+\DoxyCodeLine{00319\ \ \ \textcolor{keywordtype}{byte}\ FindNodeDIT(uint16\_t\ rfAddr,\ \textcolor{keywordtype}{bool}\ NotFoundAdd\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00320\ \ \ \textcolor{keywordtype}{byte}\ FindDeviceDIT(\textcolor{keywordtype}{byte}\ \_DNodeIdx,\ \textcolor{keywordtype}{byte}\ \_devUID,\ \textcolor{keywordtype}{bool}\ NotFoundAdd\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00321\ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00322\ \ \ RxPacket*\ rxPacket\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00323\ \ \ TxPacket*\ txPacket\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00324\ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00325\ \ \ \textcolor{keywordtype}{bool}\ RxProcessPacket();}
+\DoxyCodeLine{00326\ \ \ \textcolor{keywordtype}{bool}\ RxSaveNodeDEVITBL();}
+\DoxyCodeLine{00327\ \ \ \textcolor{keywordtype}{bool}\ TxSendThisNodeDEVITBL(uint16\_t\ RFAddr);}
+\DoxyCodeLine{00328\ \};}
+\DoxyCodeLine{00329\ \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{00330\ \textcolor{comment}{//\ -\/-\/-\/-\/\ NodeDIT\ -\/-\/-\/-\/}}
+\DoxyCodeLine{00331\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{DITSEngine::NodeDIT}}\ \{}
+\DoxyCodeLine{00332\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }DITSEngine;\ \ }
+\DoxyCodeLine{00334\ \ \ \ \ DITSEngine*\ pPtr;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{keywordtype}{byte}\ NDITidx\ =\ 0;\ \ \ \ \ \ }
+\DoxyCodeLine{00336\ \ \ \ \ NodeDIT(DITSEngine*\ \_ThisPtr,\ \textcolor{keywordtype}{byte}\ \_NDITidx\ =\ 0)\ :\ pPtr(\_ThisPtr),\ NDITidx(\_NDITidx)\ \{\}}
+\DoxyCodeLine{00337\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ Next()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{NDITidx++;\}}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ \ \ \ \ DITidx()\textcolor{keyword}{\ const\ \ \ \ \ \ \ }\{\textcolor{keywordflow}{return}\ NDITidx;\}}
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ IsValid()\textcolor{keyword}{\ const\ \ \ \ \ \ }\{\textcolor{keywordflow}{return}\ (NDITidx\ <\ pPtr-\/>NDITStopIdx);\}}
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ \ \ \ \ NodeIdx()\textcolor{keyword}{\ const\ \ \ \ \ \ }\{\textcolor{keywordflow}{return}\ IsValid()\ ?\ pPtr-\/>pmem\_read(pPtr-\/>pmNDITAddr(NDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_ad89aefc03717d87e92b5575a5a6db073}{PMO\_NODEIDX}})\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\}}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ NodeIdx(\textcolor{keywordtype}{byte}\ value)\ \ \{\textcolor{keywordflow}{if}\ (IsValid())\ pPtr-\/>pmem\_write(pPtr-\/>pmNDITAddr(NDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_ad89aefc03717d87e92b5575a5a6db073}{PMO\_NODEIDX}},\ value);\}}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ \ \ \ \ NRFAddrH()\textcolor{keyword}{\ const\ \ \ \ \ }\{\textcolor{keywordflow}{return}\ IsValid()\ ?\ pPtr-\/>pmem\_read(pPtr-\/>pmNDITAddr(NDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_afed0703f9388cca236d40f84ac351821}{PMO\_NRFADDRH}})\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\}}
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ NRFAddrH(\textcolor{keywordtype}{byte}\ value)\ \{\textcolor{keywordflow}{if}\ (IsValid())\ pPtr-\/>pmem\_write(pPtr-\/>pmNDITAddr(NDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_afed0703f9388cca236d40f84ac351821}{PMO\_NRFADDRH}},\ value);\}}
+\DoxyCodeLine{00345\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ \ \ \ \ NRFAddrL()\textcolor{keyword}{\ const\ \ \ \ \ }\{\textcolor{keywordflow}{return}\ IsValid()\ ?\ pPtr-\/>pmem\_read(pPtr-\/>pmNDITAddr(NDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a4ed480465e09a7dc4bcedb001a120d9e}{PMO\_NRFADDRL}})\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\}}
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ NRFAddrL(\textcolor{keywordtype}{byte}\ value)\ \{\textcolor{keywordflow}{if}\ (IsValid())\ pPtr-\/>pmem\_write(pPtr-\/>pmNDITAddr(NDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a4ed480465e09a7dc4bcedb001a120d9e}{PMO\_NRFADDRL}},\ value);\}}
+\DoxyCodeLine{00347\ \ \ \ \ uint16\_t\ \ NRFAddr()\textcolor{keyword}{\ const\ \ \ \ \ \ }\{\textcolor{keywordflow}{return}\ IsValid()\ ?\ word(NRFAddrH(),NRFAddrL())\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\}}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ \ \ \ \ NDITVer()\textcolor{keyword}{\ const\ \ \ \ \ \ }\{\textcolor{keywordflow}{return}\ IsValid()\ ?\ pPtr-\/>pmem\_read(pPtr-\/>pmNDITAddr(NDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_af23907b653b02904039c89e191ceff63}{PMO\_NDITVER}})\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\}}
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ NDITVer(\textcolor{keywordtype}{byte}\ value)\ \ \{\textcolor{keywordflow}{if}\ (IsValid())\ pPtr-\/>pmem\_write(pPtr-\/>pmNDITAddr(NDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_af23907b653b02904039c89e191ceff63}{PMO\_NDITVER}},\ value);\}}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordtype}{void}\ NSetName(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ value)\ \{}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!IsValid())\ \textcolor{keywordflow}{return};\ \textcolor{keywordtype}{byte}\ len\ =\ strlen(value);}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ pPtr-\/>DITNameBytes;\ i++)\ \{pPtr-\/>pmem\_write(pPtr-\/>pmNDITAddr(NDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a6a2b7f209f9720a8f06d568878ba1ae9}{PMO\_NAME}}\ +\ i,\ (i\ <\ len)\ ?\ value[i]\ :\ \textcolor{charliteral}{'\(\backslash\)0'});\}}
+\DoxyCodeLine{00353\ \ \ \ \ \}}
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{keywordtype}{void}\ NGetName(\textcolor{keywordtype}{char}*\ buffer)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!IsValid())\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ pPtr-\/>DITNameBytes;\ i++)\ \{buffer[i]\ =\ pPtr-\/>pmem\_read(pPtr-\/>pmNDITAddr(NDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a6a2b7f209f9720a8f06d568878ba1ae9}{PMO\_NAME}}\ +\ i);\}}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ buffer[pPtr-\/>DITNameBytes]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00358\ \ \ \ \ \}}
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsDeleted(\textcolor{keywordtype}{bool}\ deleteStatus\ =\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!IsValid())\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (deleteStatus\ \&\&\ NDITidx\ !=\ 0)\ \{pPtr-\/>pmem\_write(pPtr-\/>pmNDITAddr(NDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_ad89aefc03717d87e92b5575a5a6db073}{PMO\_NODEIDX}},\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}});\}}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pPtr-\/>pmem\_read(pPtr-\/>pmNDITAddr(NDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_ad89aefc03717d87e92b5575a5a6db073}{PMO\_NODEIDX}})\ ==\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};}
+\DoxyCodeLine{00363\ \ \ \ \ \}}
+\DoxyCodeLine{00364\ \};}
+\DoxyCodeLine{00365\ \textcolor{comment}{//\ -\/-\/-\/-\/\ DeviceDIT\ -\/-\/-\/-\/}}
+\DoxyCodeLine{00366\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_device_d_i_t}{DITSEngine::DeviceDIT}}\ \{}
+\DoxyCodeLine{00367\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }DITSEngine;}
+\DoxyCodeLine{00369\ \ \ \ \ DITSEngine*\ pPtr;}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordtype}{byte}\ DDITidx;}
+\DoxyCodeLine{00371\ \ \ \ \ DeviceDIT(DITSEngine*\ \_ThisPtr,\ \textcolor{keywordtype}{byte}\ \_DDITidx\ =\ 0)\ :\ pPtr(\_ThisPtr),\ DDITidx(\_DDITidx)\ \{\}}
+\DoxyCodeLine{00372\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordtype}{void}\ \ Next()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{DDITidx++;\}}
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ DITidx()\textcolor{keyword}{\ const\ \ \ \ \ \ \ }\{DDITidx;\}}
+\DoxyCodeLine{00375\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ IsValid()\textcolor{keyword}{\ const\ \ \ \ \ \ }\{\textcolor{keywordflow}{return}\ (DDITidx\ <\ pPtr-\/>DDITStopIdx);\}}
+\DoxyCodeLine{00376\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ DNodeIdx()\textcolor{keyword}{\ const\ \ \ \ \ }\{\textcolor{keywordflow}{return}\ IsValid()\ ?\ pPtr-\/>pmem\_read(pPtr-\/>pmDDITAddr(DDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a1937c16efd10f392766887361481dfd1}{PMO\_DNODEIDX}})\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\ \}}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keywordtype}{void}\ \ DNodeIdx(\textcolor{keywordtype}{byte}\ value)\ \{\textcolor{keywordflow}{if}\ (IsValid())\ pPtr-\/>pmem\_write(pPtr-\/>pmDDITAddr(DDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a1937c16efd10f392766887361481dfd1}{PMO\_DNODEIDX}},\ value);\ \}}
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ DevUID()\textcolor{keyword}{\ const\ \ \ \ \ \ \ }\{\textcolor{keywordflow}{return}\ IsValid()\ ?\ pPtr-\/>pmem\_read(pPtr-\/>pmDDITAddr(DDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_ade6129558c19c6c41d748969b073b2d8}{PMO\_DEVUID}})\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\ \}}
+\DoxyCodeLine{00379\ \ \ \ \ \textcolor{keywordtype}{void}\ \ DevUID(\textcolor{keywordtype}{byte}\ value)\ \ \ \{\textcolor{keywordflow}{if}\ (IsValid())\ pPtr-\/>pmem\_write(pPtr-\/>pmDDITAddr(DDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_ade6129558c19c6c41d748969b073b2d8}{PMO\_DEVUID}},\ value);\ \}}
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ DevType()\textcolor{keyword}{\ const\ \ \ \ \ \ }\{\textcolor{keywordflow}{return}\ IsValid()\ ?\ pPtr-\/>pmem\_read(pPtr-\/>pmDDITAddr(DDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a9e13a0617d09878153bdb7587d1a2096}{PMO\_DEVTYPE}})\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\ \}}
+\DoxyCodeLine{00381\ \ \ \ \ \textcolor{keywordtype}{void}\ \ DevType(\textcolor{keywordtype}{byte}\ value)\ \ \{\textcolor{keywordflow}{if}\ (IsValid())\ pPtr-\/>pmem\_write(pPtr-\/>pmDDITAddr(DDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a9e13a0617d09878153bdb7587d1a2096}{PMO\_DEVTYPE}},\ value);\ \}}
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ DevAttr()\textcolor{keyword}{\ const\ \ \ \ \ \ }\{\textcolor{keywordflow}{return}\ IsValid()\ ?\ pPtr-\/>pmem\_read(pPtr-\/>pmDDITAddr(DDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a7f5a89e899f1df513badfa7550074512}{PMO\_DEVATTR}})\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\ \}}
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{keywordtype}{void}\ \ DevAttr(\textcolor{keywordtype}{byte}\ value)\ \ \{\textcolor{keywordflow}{if}\ (IsValid())\ pPtr-\/>pmem\_write(pPtr-\/>pmDDITAddr(DDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a7f5a89e899f1df513badfa7550074512}{PMO\_DEVATTR}},\ value);\ \}}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keywordtype}{void}\ DSetName(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ value)\ \{}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!IsValid())\ \textcolor{keywordflow}{return};\ \textcolor{keywordtype}{byte}\ len\ =\ strlen(value);}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ pPtr-\/>DITNameBytes;\ i++)\ \{pPtr-\/>pmem\_write(pPtr-\/>pmDDITAddr(DDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a6a2b7f209f9720a8f06d568878ba1ae9}{PMO\_NAME}}\ +\ i,\ (i\ <\ len)\ ?\ value[i]\ :\ \textcolor{charliteral}{'\(\backslash\)0'});\}}
+\DoxyCodeLine{00388\ \ \ \ \ \}}
+\DoxyCodeLine{00389\ \ \ \ \ \textcolor{keywordtype}{void}\ DGetName(\textcolor{keywordtype}{char}*\ buffer)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!IsValid())\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ pPtr-\/>DITNameBytes;\ i++)\ \{buffer[i]\ =\ pPtr-\/>pmem\_read(pPtr-\/>pmDDITAddr(DDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a6a2b7f209f9720a8f06d568878ba1ae9}{PMO\_NAME}}\ +\ i);\}}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ buffer[pPtr-\/>DITNameBytes]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00393\ \ \ \ \ \}}
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsDeleted(\textcolor{keywordtype}{bool}\ deleteStatus\ =\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!IsValid())\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (deleteStatus)\ \{pPtr-\/>pmem\_write(pPtr-\/>pmDDITAddr(DDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a1937c16efd10f392766887361481dfd1}{PMO\_DNODEIDX}},\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}});\}}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pPtr-\/>pmem\_read(pPtr-\/>pmDDITAddr(DDITidx)\ +\ \doxymbox{\hyperlink{rf__dits_8h_a1937c16efd10f392766887361481dfd1}{PMO\_DNODEIDX}})\ ==\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};}
+\DoxyCodeLine{00398\ \ \ \ \ \}}
+\DoxyCodeLine{00399\ \};}
+\DoxyCodeLine{00400\ \textcolor{comment}{//\ -\/-\/-\/-\/\ rfPacket\ Nested\ Base\ Class\ -\/-\/-\/-\/}}
+\DoxyCodeLine{00401\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet}{DITSEngine::rfPacket}}\ \{}
+\DoxyCodeLine{00402\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00403\ \ \ \ \ rfPacket(uint16\_t\ \_RadioPktMaxBytes,\ \textcolor{keywordtype}{byte}\ \_SecNet)\ }
+\DoxyCodeLine{00404\ \ \ \ \ :\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a764a59f2e62470c87b55895cd72727dc}{rfPoolIdxs}}((\_RadioPktMaxBytes<10)?52:(512\ +\ (\_RadioPktMaxBytes\ -\/\ 1))\ /\ \_RadioPktMaxBytes),\ }
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a80d6c0a9d267681f6c2af296fccca311}{uiRadioPktMaxBytes}}((\_RadioPktMaxBytes<10)?10:\_RadioPktMaxBytes),}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_aad8c828e23bab688b61a348230c69879}{SecNet}}(\_SecNet)\ }
+\DoxyCodeLine{00407\ \ \ \ \ \{\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{byte}*[\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a764a59f2e62470c87b55895cd72727dc}{rfPoolIdxs}}];\ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i<\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a764a59f2e62470c87b55895cd72727dc}{rfPoolIdxs}};\ i++)\ \{\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[i]=\textcolor{keyword}{nullptr};\}\ \}}
+\DoxyCodeLine{00408\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~rfPacket()\ \{}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i<\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a764a59f2e62470c87b55895cd72727dc}{rfPoolIdxs}};\ i++)\ \{\textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[i])\ \{\textcolor{keyword}{delete}[]\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[i];\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[i]\ =\ \textcolor{keyword}{nullptr};\}\}}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}};\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00411\ \ \ \ \ \}}
+\DoxyCodeLine{00412\ \ \ \ \ uint16\_t\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a764a59f2e62470c87b55895cd72727dc}{rfPoolIdxs}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00413\ \ \ \ \ uint16\_t\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a80d6c0a9d267681f6c2af296fccca311}{uiRadioPktMaxBytes}};\ \ }
+\DoxyCodeLine{00414\ \ \ \ \ \textcolor{keywordtype}{byte}**\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00415\ \ \ \ \ uint16\_t\ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00416\ \ }
+\DoxyCodeLine{00417\ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00418\ \ \ \ \ \textcolor{keywordtype}{byte}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_aad8c828e23bab688b61a348230c69879}{SecNet}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00419\ \};}
+\DoxyCodeLine{00420\ \textcolor{comment}{//\ -\/-\/-\/-\/\ RxPacket\ Nested\ Derived\ -\/-\/-\/-\/}}
+\DoxyCodeLine{00421\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet}{DITSEngine::RxPacket}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet}{DITSEngine::rfPacket}}\ \{}
+\DoxyCodeLine{00422\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00423\ \ \ \ \ RxPacket(uint16\_t\ \_RadioPktMaxBytes,\ \textcolor{keywordtype}{byte}\ \_SecNet,\ uint32\_t\ \_expireMillis\ =\ 30000)}
+\DoxyCodeLine{00424\ \ \ \ \ :\ rfPacket(\_RadioPktMaxBytes,\ \_SecNet),\ PcktExprMS(\_expireMillis)\ \{\ PcktBegMS\ =\ millis();\ \}}
+\DoxyCodeLine{00425\ \ \ \ \ RxPacket(\textcolor{keyword}{const}\ RxPacket\&)\ =\ \textcolor{keyword}{delete};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no\ obj\ copies,\ destructor\ assurance}}
+\DoxyCodeLine{00426\ \ \ \ \ RxPacket\&\ operator=(\textcolor{keyword}{const}\ RxPacket\&)\ =\ \textcolor{keyword}{delete};\ \ \textcolor{comment}{//\ no\ obj\ copies,\ destructor\ assurance}}
+\DoxyCodeLine{00427\ \ \ \ \ }
+\DoxyCodeLine{00428\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ IsComplete(uint32\_t\ \_currMillis)\ \{\textcolor{keywordflow}{return}\ (PcktBegMS\ ==\ 0\ ||\ (\_currMillis\ -\/\ PcktBegMS)\ >\ PcktExprMS);\}}
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ IsValid()\ \ \{\textcolor{keywordflow}{return}\ (PcktBegMS\ ==\ 0\ ||\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}}\ !=\ 0\ ||\ PktType()\ !=\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}}\ ||\ IsSecure());\ \}}
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ IsREQ()\ \ \ \ \{\textcolor{keywordflow}{return}\ bitRead(PktType(),\ \doxymbox{\hyperlink{group___p_k_t_ga3209c959283cf197494e970bb7356458}{PKC\_ISREQBIT}});\ \}}
+\DoxyCodeLine{00431\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ PktType()\ \ \{\textcolor{keywordflow}{return}\ (\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}\ \&\&\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0])\ ?\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a144f4318260ec7dca78a3cdf96e76a9d}{PKB\_TYPE}}]\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\}}
+\DoxyCodeLine{00432\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ FromRFH()\ \ \{\textcolor{keywordflow}{return}\ (\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}\ \&\&\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0])\ ?\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_ae1eaa21193d421a73d57bae27108f9ac}{PKB\_FROM\_RFH}}]\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\}}
+\DoxyCodeLine{00433\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ FromRFL()\ \ \{\textcolor{keywordflow}{return}\ (\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}\ \&\&\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0])\ ?\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_aac88a9f196e9f3838f75abfbce125eb6}{PKB\_FROM\_RFL}}]\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\}}
+\DoxyCodeLine{00434\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ FromRF()\ \ \ \{\textcolor{keywordflow}{return}\ (\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}\ \&\&\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0])\ ?\ word(\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_ae1eaa21193d421a73d57bae27108f9ac}{PKB\_FROM\_RFH}}],\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_aac88a9f196e9f3838f75abfbce125eb6}{PKB\_FROM\_RFL}}])\ :\ \doxymbox{\hyperlink{rf__dits_8h_aff5dcc280bf801e02fef48f71f2a3af0}{INONE}};\}}
+\DoxyCodeLine{00435\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ NDITVer()\ \ \{\textcolor{keywordflow}{return}\ (\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}\ \&\&\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0])\ ?\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a8e3d3065b06dce68ede5b08d79e1f0fc}{PKB\_DITVER}}]\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\}}
+\DoxyCodeLine{00436\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ DevUID()\ \ \ \{\textcolor{keywordflow}{return}\ (\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}\ \&\&\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0])\ ?\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a612f2a1e0ff6f0c664e28125a7d8bb6d}{PKB\_DEVUID}}]\ :\ \doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}};\}}
+\DoxyCodeLine{00437\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ Value()\ \ \ \ \{\textcolor{keywordflow}{return}\ (\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}\ \&\&\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0])\ ?\ word(\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_acfbf095dbaf12f58e8226b659c156c87}{PKB\_VALUEH}}],\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a7386e1c51ebc482e621cedb6907a1b5e}{PKB\_VALUEL}}])\ :\ \doxymbox{\hyperlink{rf__dits_8h_aff5dcc280bf801e02fef48f71f2a3af0}{INONE}};\}}
+\DoxyCodeLine{00438\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_affba8b3fa5c8f4ed37be2bfb6736555f}{RxByte}}(\textcolor{keywordtype}{byte}\ \_Byte);\ \ \ \ \ }
+\DoxyCodeLine{00439\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00440\ \ \ \ \ uint32\_t\ PcktBegMS\ =\ 0;\ \ \ \ \ \ }
+\DoxyCodeLine{00441\ \ \ \ \ uint32\_t\ \textcolor{keyword}{const}\ PcktExprMS;\ \ \ }
+\DoxyCodeLine{00442\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsSecure();\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00443\ \ \ \ \ \textcolor{keywordtype}{int}\ NextIdx\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00444\ \};}
+\DoxyCodeLine{00445\ \textcolor{comment}{//\ -\/-\/-\/-\/\ TxPacket\ Nested\ Derived\ -\/-\/-\/-\/}}
+\DoxyCodeLine{00446\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_tx_packet}{DITSEngine::TxPacket}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet}{DITSEngine::rfPacket}}\ \{}
+\DoxyCodeLine{00447\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{comment}{//\ Constructor\ ensure\ RPMB\ is\ at\ least\ 10.}}
+\DoxyCodeLine{00449\ \ \ \ \ TxPacket(\textcolor{keywordtype}{byte}\ \_RadioPktMaxBytes,\ \textcolor{keywordtype}{byte}\ \_SecNet):\ rfPacket(\_RadioPktMaxBytes,\ \_SecNet)\ \{\}}
+\DoxyCodeLine{00450\ \ \ \ \ TxPacket(\textcolor{keyword}{const}\ TxPacket\&)\ =\ \textcolor{keyword}{delete};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no\ obj\ copies,\ destructor\ assurance}}
+\DoxyCodeLine{00451\ \ \ \ \ TxPacket\&\ operator=(\textcolor{keyword}{const}\ TxPacket\&)\ =\ \textcolor{keyword}{delete};\ \ \textcolor{comment}{//\ no\ obj\ copies,\ destructor\ assurance}}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \ \ \ \ \textcolor{keywordtype}{void}\ ToFrom(uint16\_t\ \_ToRF,\ uint16\_t\ \_FromRF)\ \{}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}}=+4;\ \textcolor{comment}{//\ (2)\ for\ SecNet}}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_ae1eaa21193d421a73d57bae27108f9ac}{PKB\_FROM\_RFH}}]\ =\ highByte(\_FromRF);}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_aac88a9f196e9f3838f75abfbce125eb6}{PKB\_FROM\_RFL}}]\ =\ lowByte(\_FromRF);\}}
+\DoxyCodeLine{00457\ \ \ \ \ \textcolor{keywordtype}{void}\ pktREQDEVITBL()\ \{}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}}+=1;}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a144f4318260ec7dca78a3cdf96e76a9d}{PKB\_TYPE}}]\ =\ \doxymbox{\hyperlink{group___p_k_t_ga63427302e944ccb91e304d2d6606f369}{PKT\_REQDEVITBL}};\}}
+\DoxyCodeLine{00460\ \ \ \ \ \textcolor{keywordtype}{void}\ pktREQVALS(\textcolor{keywordtype}{byte}\ \_DITVer)\ \{}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}}+=2;}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a144f4318260ec7dca78a3cdf96e76a9d}{PKB\_TYPE}}]\ =\ \doxymbox{\hyperlink{group___p_k_t_ga7c1bc07a61d66e5b3b1577cbcf4f8ec0}{PKT\_REQVALS}};}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a8e3d3065b06dce68ede5b08d79e1f0fc}{PKB\_DITVER}}]\ =\ \_DITVer;\}}
+\DoxyCodeLine{00464\ \ \ \ \ \textcolor{keywordtype}{void}\ pktREQVAL(\textcolor{keywordtype}{byte}\ \_DITVer,\ \textcolor{keywordtype}{byte}\ \_devUID)\ \{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}}+=3;}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a144f4318260ec7dca78a3cdf96e76a9d}{PKB\_TYPE}}]\ =\ \doxymbox{\hyperlink{group___p_k_t_ga8224fe96da8b55d8f1863362d9927747}{PKT\_REQVAL}};}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a8e3d3065b06dce68ede5b08d79e1f0fc}{PKB\_DITVER}}]\ =\ \_DITVer;}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a612f2a1e0ff6f0c664e28125a7d8bb6d}{PKB\_DEVUID}}]\ =\ \_devUID;\}}
+\DoxyCodeLine{00469\ \ \ \ \ \textcolor{keywordtype}{void}\ pktREQNONCE(\textcolor{keywordtype}{byte}\ \_DITVer,\ \textcolor{keywordtype}{byte}\ \_devUID,\ \textcolor{keywordtype}{int}\ \_challenge)\ \{}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}}+=5;}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a144f4318260ec7dca78a3cdf96e76a9d}{PKB\_TYPE}}]\ =\ \doxymbox{\hyperlink{group___p_k_t_gaa26747198a93a42f7e68067b8b606eaa}{PKT\_REQNONCE}};}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a8e3d3065b06dce68ede5b08d79e1f0fc}{PKB\_DITVER}}]\ =\ \_DITVer;}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a612f2a1e0ff6f0c664e28125a7d8bb6d}{PKB\_DEVUID}}]\ =\ \_devUID;}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_acfbf095dbaf12f58e8226b659c156c87}{PKB\_VALUEH}}]\ =\ highByte(\_challenge);}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a7386e1c51ebc482e621cedb6907a1b5e}{PKB\_VALUEL}}]\ =\ lowByte(\_challenge);\}}
+\DoxyCodeLine{00476\ \ \ \ \ \textcolor{keywordtype}{void}\ pktSETVAL(\textcolor{keywordtype}{byte}\ \_DITVer,\ \textcolor{keywordtype}{byte}\ \_devUID,\ \textcolor{keywordtype}{int}\ \_val)\ \{}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}}+=5;}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a144f4318260ec7dca78a3cdf96e76a9d}{PKB\_TYPE}}]\ =\ \doxymbox{\hyperlink{group___p_k_t_ga1a44749b87157655be7d0ab3dc206612}{PKT\_SETVAL}};}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a8e3d3065b06dce68ede5b08d79e1f0fc}{PKB\_DITVER}}]\ =\ \_DITVer;}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a612f2a1e0ff6f0c664e28125a7d8bb6d}{PKB\_DEVUID}}]\ =\ \_devUID;}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_acfbf095dbaf12f58e8226b659c156c87}{PKB\_VALUEH}}]\ =\ highByte(\_val);}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a7386e1c51ebc482e621cedb6907a1b5e}{PKB\_VALUEL}}]\ =\ lowByte(\_val);\}}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keywordtype}{void}\ pktDEVITBL(\textcolor{keywordtype}{byte}\ \_DITVer)\ \{}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}}+=2;}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a144f4318260ec7dca78a3cdf96e76a9d}{PKB\_TYPE}}]\ =\ \doxymbox{\hyperlink{group___p_k_t_ga053158e9ce31966a9109765bc295e8a7}{PKT\_DEVITBL}};}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a8e3d3065b06dce68ede5b08d79e1f0fc}{PKB\_DITVER}}]\ =\ \_DITVer;\}}
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keywordtype}{void}\ pktVALS(\textcolor{keywordtype}{byte}\ \_DITVer)\ \{}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}}+=2;\ \textcolor{comment}{//\ +XData}}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a144f4318260ec7dca78a3cdf96e76a9d}{PKB\_TYPE}}]\ =\ \doxymbox{\hyperlink{group___p_k_t_ga6c9c0aa070a665d17a75070b06904201}{PKT\_VALS}};}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a8e3d3065b06dce68ede5b08d79e1f0fc}{PKB\_DITVER}}]\ =\ \_DITVer;}
+\DoxyCodeLine{00491\ \ \ \ \ \}}
+\DoxyCodeLine{00492\ \ \ \ \ \textcolor{keywordtype}{void}\ pktVAL(\textcolor{keywordtype}{byte}\ \_DITVer,\ \textcolor{keywordtype}{byte}\ \_devUID,\ \textcolor{keywordtype}{int}\ \_val)\ \{}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}}+=5;}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a144f4318260ec7dca78a3cdf96e76a9d}{PKB\_TYPE}}]\ =\ \doxymbox{\hyperlink{group___p_k_t_ga883e124227e75b2937022a679f877ec6}{PKT\_VAL}};}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a8e3d3065b06dce68ede5b08d79e1f0fc}{PKB\_DITVER}}]\ =\ \_DITVer;}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a612f2a1e0ff6f0c664e28125a7d8bb6d}{PKB\_DEVUID}}]\ =\ \_devUID;}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_acfbf095dbaf12f58e8226b659c156c87}{PKB\_VALUEH}}]\ =\ highByte(\_val);}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a7386e1c51ebc482e621cedb6907a1b5e}{PKB\_VALUEL}}]\ =\ lowByte(\_val);}
+\DoxyCodeLine{00499\ \ \ \ \ \}}
+\DoxyCodeLine{00500\ \ \ \ \ \textcolor{keywordtype}{void}\ pktNONCERSP(\textcolor{keywordtype}{byte}\ \_DITVer,\ \textcolor{keywordtype}{byte}\ \_devUID,\ \textcolor{keywordtype}{int}\ \_val)\ \{}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}}+=5;}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a144f4318260ec7dca78a3cdf96e76a9d}{PKB\_TYPE}}]\ =\ \doxymbox{\hyperlink{group___p_k_t_gacceebe293f334d0c4cc18ef5822bfa1f}{PKT\_NONCERSP}};}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a8e3d3065b06dce68ede5b08d79e1f0fc}{PKB\_DITVER}}]\ =\ \_DITVer;}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a612f2a1e0ff6f0c664e28125a7d8bb6d}{PKB\_DEVUID}}]\ =\ \_devUID;}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_acfbf095dbaf12f58e8226b659c156c87}{PKB\_VALUEH}}]\ =\ highByte(\_val);}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rfPool}}[0][\doxymbox{\hyperlink{rf__dits_8h_a7386e1c51ebc482e621cedb6907a1b5e}{PKB\_VALUEL}}]\ =\ lowByte(\_val);}
+\DoxyCodeLine{00507\ \ \ \ \ \}}
+\DoxyCodeLine{00508\ }
+\DoxyCodeLine{00509\ \ \ \ \ uint16\_t\ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_tx_packet_a185f2c947173f46d3bb0b74a615ce01c}{ToRFAddr}}\ =\ 0xFFFF;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00510\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ AddTxByte(\textcolor{keywordtype}{byte}\ \_TxByte);}
+\DoxyCodeLine{00511\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ Secure();}
+\DoxyCodeLine{00512\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ IsSecured()\ \{\ \textcolor{keywordflow}{return}\ bSecured;\ \}}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00514\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00515\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ bSecured\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00516\ \};}
+\DoxyCodeLine{00517\ \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{00518\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,143 @@
+\doxysection{DB.\+h}
+\hypertarget{_d_b_8h_source}{}\label{_d_b_8h_source}\doxymbox{\hyperlink{_d_b_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ \_DB\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ \_DB\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ ON/OFF\ Importance-\/Level\ debug\ (All\ 0\ for\ release;\ Code-\/Section\ won't\ matter.)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ DB\_ERROR\ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ DB\_ENTER\ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ DB\_INFO\ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ ON/OFF\ Code-\/Sections}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ 0=All\ Importance-\/Levels\ OFF\ in\ this\ code-\/section.}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ 1=Active;\ Importance-\/levels\ as\ assigned\ above.}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ DB\_GEN\ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ DB\_DIT\ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ DB\_RF\ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ SERLINEZ(z)\ Serial.print((F(z)));}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ SERLINEYZ(y,z)\ Serial.print\ y;Serial.print(F("{})"{}));SERLINEZ(z)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ SERLINEXYZ(x,y,z)\ Serial.print\ x;Serial.print(F("{},"{}));SERLINEYZ(y,z)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ SERLINEWXYZ(w,x,y,z)\ Serial.print\ w;Serial.print(F("{},"{}));SERLINEXYZ(x,y,z)}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ GEN\ Code-\/Section\ DBERROR,\ DBENTER,\ DBINFO\ Macros}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ COMMA\ ,}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#if\ (DB\_ERROR\ \&\&\ DB\_GEN)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ DBAAAERROR(w,x,y,z)\ Serial.print(F("{}!ERROR!\ ("{}));SERLINEWXYZ(w,x,y,z)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ DBAAERROR(x,y,z)\ Serial.print(F("{}!ERROR!\ ("{}));SERLINEXYZ(x,y,z)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ DBAERROR(y,z)\ Serial.print(F("{}!ERROR!\ ("{}));SERLINEYZ(y,z)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ DBERROR(z)\ Serial.print(F("{}!ERROR!\ "{}));SERLINEZ(z)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ DBAAAERROR(w,x,y,z)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ DBAAERROR(x,y,z)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ DBAERROR(y,z)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ DBERROR(z)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#if\ (DB\_ENTER\ \&\&\ DB\_GEN)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ DBAAAENTER(w,x,y,z)\ Serial.print(F("{}\_\_>\ ("{}));SERLINEWXYZ(w,x,y,z)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ DBAAENTER(x,y,z)\ Serial.print(F("{}\_\_>\ ("{}));SERLINEXYZ(x,y,z)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ DBAENTER(y,z)\ Serial.print(F("{}\_\_>\ ("{}));SERLINEYZ(y,z)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ DBENTER(z)\ Serial.print(F("{}\_\_>\ "{}));SERLINEZ(z)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ DBAAAENTER(w,x,y,z)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ DBAAENTER(x,y,z)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ DBAENTER(y,z)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ DBENTER(z)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#if\ (DB\_INFO\ \&\&\ DB\_GEN)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ DBAAAINFO(w,x,y,z)\ Serial.print(F("{}...("{}));SERLINEWXYZ(w,x,y,z)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ DBAAINFO(x,y,z)\ Serial.print(F("{}...("{}));SERLINEXYZ(x,y,z)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ DBAINFO(y,z)\ Serial.print(F("{}...("{}));SERLINEYZ(y,z)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ DBINFO(z)\ Serial.print(F("{}...\ "{}));SERLINEZ(z)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ DBAAAINFO(w,x,y,z)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ DBAAINFO(x,y,z)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ DBAINFO(y,z)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ DBINFO(z)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ DIT\ Code-\/Section\ DBDITERROR,\ DBDITENTER,\ DBDITINFO\ Macros}}
+\DoxyCodeLine{00082\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#if\ (DB\_ERROR\ \&\&\ DB\_DIT)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ DBDITAAAERROR(w,x,y,z)\ Serial.print(F("{}!ERROR!DIT\ ("{}));SERLINEWXYZ(w,x,y,z)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ DBDITAAERROR(x,y,z)\ Serial.print(F("{}!ERROR!DIT\ ("{}));SERLINEXYZ(x,y,z)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ DBDITAERROR(y,z)\ Serial.print(F("{}!ERROR!DIT\ ("{}));SERLINEYZ(y,z)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ DBDITERROR(z)\ Serial.print(F("{}!ERROR!DIT\ "{}));SERLINEZ(z)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ DBDITAAAERROR(w,x,y,z)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ DBDITAAERROR(x,y,z)}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ DBDITAERROR(y,z)}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ DBDITERROR(z)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#if\ (DB\_ENTER\ \&\&\ DB\_DIT)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ DBDITAAAENTER(w,x,y,z)\ Serial.print(F("{}\_\_DIT>\ ("{}));SERLINEWXYZ(w,x,y,z)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ DBDITAAENTER(x,y,z)\ Serial.print(F("{}\_\_DIT>\ ("{}));SERLINEXYZ(x,y,z)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ DBDITAENTER(y,z)\ Serial.print(F("{}\_\_DIT>\ ("{}));SERLINEYZ(y,z)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ DBDITENTER(z)\ Serial.print(F("{}\_\_DIT>\ "{}));SERLINEZ(z)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ DBDITAAAENTER(w,x,y,z)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ DBDITAAENTER(x,y,z)}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ DBDITAENTER(y,z)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ DBDITENTER(z)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#if\ (DB\_INFO\ \&\&\ DB\_DIT)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ DBDITAAAINFO(w,x,y,z)\ Serial.print(F("{}...DIT("{}));SERLINEWXYZ(w,x,y,z)}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ DBDITAAINFO(x,y,z)\ Serial.print(F("{}...DIT("{}));SERLINEXYZ(x,y,z)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ DBDITAINFO(y,z)\ Serial.print(F("{}...DIT("{}));SERLINEYZ(y,z)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ DBDITINFO(z)\ Serial.print(F("{}...DIT\ "{}));SERLINEZ(z)}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ DBDITAAAINFO(w,x,y,z)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ DBDITAAINFO(x,y,z)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ DBDITAINFO(y,z)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ DBDITINFO(z)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00118\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ RF\ Code-\/Section\ DBRFERROR,\ DBRFENTER,\ DBRFINFO\ Macros}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#if\ (DB\_ERROR\ \&\&\ DB\_RF)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ DBRFAAAERROR(w,x,y,z)\ Serial.print(F("{}!ERROR!RF\ ("{}));SERLINEWXYZ(w,x,y,z)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ DBRFAAERROR(x,y,z)\ Serial.print(F("{}!ERROR!RF\ ("{}));SERLINEXYZ(x,y,z)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ DBRFAERROR(y,z)\ Serial.print(F("{}!ERROR!RF\ ("{}));SERLINEYZ(y,z)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ DBRFERROR(z)\ Serial.print(F("{}!ERROR!RF\ "{}));SERLINEZ(z)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ DBRFAAAERROR(w,x,y,z)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ DBRFAAERROR(x,y,z)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ DBRFAERROR(y,z)}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ DBRFERROR(z)}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#if\ (DB\_ENTER\ \&\&\ DB\_RF)}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ DBRFAAAENTER(w,x,y,z)\ Serial.print(F("{}\_\_RF>\ ("{}));SERLINEWXYZ(w,x,y,z)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ DBRFAAENTER(x,y,z)\ Serial.print(F("{}\_\_RF>\ ("{}));SERLINEXYZ(x,y,z)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ DBRFAENTER(y,z)\ Serial.print(F("{}\_\_RF>\ ("{}));SERLINEYZ(y,z)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ DBRFENTER(z)\ Serial.print(F("{}\_\_RF>\ "{}));SERLINEZ(z)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ DBRFAAAENTER(w,x,y,z)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ DBRFAAENTER(x,y,z)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ DBRFAENTER(y,z)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ DBRFENTER(z)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#if\ (DB\_INFO\ \&\&\ DB\_RF)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#define\ DBRFAAAINFO(w,x,y,z)\ Serial.print(F("{}...RF("{}));SERLINEWXYZ(w,x,y,z)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ DBRFAAINFO(x,y,z)\ Serial.print(F("{}...RF("{}));SERLINEXYZ(x,y,z)}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ DBRFAINFO(y,z)\ Serial.print(F("{}...RF("{}));SERLINEYZ(y,z)}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ DBRFINFO(z)\ Serial.print(F("{}...RF\ "{}));SERLINEZ(z)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ DBRFAAAINFO(w,x,y,z)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ DBRFAAINFO(x,y,z)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ DBRFAINFO(y,z)}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ DBRFINFO(z)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00157\ \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

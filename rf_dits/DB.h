@@ -25,7 +25,7 @@
 // ON/OFF Importance-Level debug (All 0 for release; Code-Section won't matter.)
 #define DB_ERROR       1
 #define DB_ENTER       1
-#define DB_INFO        0
+#define DB_INFO        1
 
 // ON/OFF Code-Sections
 // 0=All Importance-Levels OFF in this code-section.

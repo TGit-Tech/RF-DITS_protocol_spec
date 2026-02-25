@@ -1,0 +1,87 @@
+\chapter{Main Page }
+\hypertarget{index}{}\label{index}\index{Main Page@{Main Page}}
+\hypertarget{index_Files}{}\doxysection{\texorpdfstring{Files \& Abreviations}{Files \& Abreviations}}\label{index_Files}
+
+\begin{DoxyItemize}
+\item Firmware Date\+Code \+[YYMD]\+
+\begin{DoxyItemize}
+\item YY = Last two digits of the Year
+\item M = (1-\/9 is Jan-\/\+Sept),(A-\/C is Oct-\/\+Dec)
+\item D = (1-\/9 is 1-\/9),(A-\/V is 10-\/31) ~\newline
+~\newline
+
+\end{DoxyItemize}
+\item rf\+\_\+dits.\+ino = Example RF-\/\+DITS implementation
+\item \doxylink{rf__dits_8h}{rf\+\_\+dits.\+h} = Header File
+\item \doxylink{rf__dits_8cpp}{rf\+\_\+dits.\+cpp} = code file
+\item \doxylink{_d_b_8h}{DB.\+h} = Zero-\/cost debug macros
+\item \doxylink{__doxy_8h}{\+\_\+doxy.\+h} = This doxygen main page
+\end{DoxyItemize}\hypertarget{index_Overview}{}\doxysection{\texorpdfstring{Conceptual Overview}{Conceptual Overview}}\label{index_Overview}
+RF-\/\+DITS is an RF-\/\+Lo\+Ra protocol that indexes \textquotesingle{}nodes\textquotesingle{}, each having multiple \textquotesingle{}devices\textquotesingle{} wired to it. The protocol stores in the \textquotesingle{}thisnodes\textquotesingle{} persistent memory the following information:\+
+\begin{DoxyItemize}
+\item Names of other nodes
+\item Device types (including RO/\+\+RW permission, value limits, enumerated-\/set options, and value scaling)
+\item RF Addresses of other nodes it plans to communicate with.
+\end{DoxyItemize}
+
+Each node stores information about the other nodes it communicates with, which allows the protocol to use index-\/addressing rather than textual addressing for communication.
+
+
+\begin{DoxyItemize}
+\item pmem The persistant memory NDITs and DDITs information is stored-\/in.
+\item NDIT \+[N]\+ode \+[D]\+ev \+[I]\+ndex \+[T]\+able; An idx\textquotesingle{}ed list(\+NNode\+Idx) of nodes to communicate with inc. itself.
+\item DDIT \+[D]\+evice \+[D]\+ev \+[I]\+ndex \+[T]\+able; An idx\textquotesingle{}ed list(\+Dev\+UID) of Devices belonging to a \textquotesingle{}node\textquotesingle{}(DNode\+Idx).
+\end{DoxyItemize}\hypertarget{index_Limits}{}\doxysection{\texorpdfstring{Limits}{Limits}}\label{index_Limits}
+
+\begin{DoxyEnumerate}
+\item 255(0-\/254) Total Devices; that the DDIT Device Pool can store because it is byte addressed (0x\+FF is reserved).
+\item 255(0-\/254) Total Nodes; that the NDIT Device Pool can store because it is byte addressed (0x\+FF=Deleted).
+\end{DoxyEnumerate}\hypertarget{index_Concepts}{}\doxysection{\texorpdfstring{Index concepts that need to be pointed out.}{Index concepts that need to be pointed out.}}\label{index_Concepts}
+
+\begin{DoxyEnumerate}
+\item \textquotesingle{}Node\+Idx\textquotesingle{} -\/ The NDIT table index count. It is not used in RF and only used for local memory management.
+\begin{DoxyItemize}
+\item A Node\+Idx = 0x\+FF indicates that the table is flagged as deleted.
+\item \textquotesingle{}RFAddr\textquotesingle{} is the identifier used in Remote Acces Identity.
+\end{DoxyItemize}
+\item \textquotesingle{}Dev\+UID\textquotesingle{} -\/ The Remote Acces Identifier for a Device. (Not \textquotesingle{}DDITidx\textquotesingle{}).
+\begin{DoxyItemize}
+\item \textquotesingle{}DDITidx\textquotesingle{} is the index of a DDIT (device tables) record/\+slot stored in persistant memory.
+\item \textquotesingle{}Dev\+UID\textquotesingle{} is stored inside the DDIT record itself.
+\item Note:\+ However, \textquotesingle{}Dev\+UID\textquotesingle{} is once-\/derived during Add\+This\+Node\+Device on a continous-\/count of devices on a node.
+\item That continous-\/count of added devices on a node is to ensure uniqueness per node RF-\/\+Address.
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{index_DITPmem}{}\doxysection{\texorpdfstring{Persistant Memory Specification}{Persistant Memory Specification}}\label{index_DITPmem}
+
+\begin{DoxyEnumerate}
+\item Memory Limits:\+ Depending on \+\_\+\+Name\+Field\+Bytes and \+\_\+\+Max\+Node\+Tables persistant memory imposes limits.
+\begin{DoxyItemize}
+\item The memory manager requires (4 Bytes per node + \+\_\+\+Name\+Field\+Bytes).
+\item The memory manager requires (3 Bytes per Device + \+\_\+\+Name\+Field\+Bytes).
+\item Node-\/\+Tables are allocated separate from the device pool, so the overall memory boundary is determined by what fits.
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{index_ProtoSpec}{}\doxysection{\texorpdfstring{Protocol Specification}{Protocol Specification}}\label{index_ProtoSpec}
+
+\begin{DoxyEnumerate}
+\item Maximum bytes per packet communication:\+ 512 bytes due to Sec\+Net encoding.
+\begin{DoxyItemize}
+\item The protocol is designed to perform segmentation when Radio\+Pkt\+Max\+Bytes is set to less than the number of payload bytes required.
+\end{DoxyItemize}
+\item Number of possible Sec\+Net code combinations:\+ 128 unique (0x00 to 0x7F)
+\item Maximum devices per node depends on (\+\_\+\+Name\+Field\+Bytes).
+\begin{DoxyItemize}
+\item All configuration information needs to fit in the 512 maximum bytes per packet.
+\item Use equation. Max Devices a Node = (512 -\/ (4 + Name\+Bytes)) /\+ (3 + Name\+Bytes).
+\item So with a \+\_\+\+Name\+Field\+Bytes = 10
+\begin{DoxyItemize}
+\item (512 -\/ (4 + 10)) = 498 /\+ (3 + 10) = 13. Equals 38 devices per node. \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} NEW DIT TABLE \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyEnumerate}
+
+DITS Pmem Allocation will start say at 0x0800 ~\newline
+ Every Device can determine Node by it\textquotesingle{}s Node\+Addr\+Offset written at Byte0 from the PMEM\+\_\+\+DITS\+\_\+\+BASE address Devices can also use 0x\+FF as their delete because 0x\+FF offset put node at top of list Nodes will use Byte0 as thier display order or (0)this-\/node or 0x\+FF deleted Nodes Records will order incrementally from the base. Device Records will order from TOP to bottom of the DITS alloc. When the two meet in the middle the memory is full. \begin{DoxyVerb}                                  **Protocol Standard Bytes Table**
+               +------------------------------------------------------------------------------------+
+               |                              PACKET TYPE                                           |
+\end{DoxyVerb}
+ +-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/---+-\/-\/---+-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/---+-\/-\/-\/---+ \texorpdfstring{$\vert$}{|}\+Idx \texorpdfstring{$\vert$}{|} Packet Order \texorpdfstring{$\vert$}{|} REQDEVITBL\texorpdfstring{$\vert$}{|} REQVALS \texorpdfstring{$\vert$}{|} REQVAL \texorpdfstring{$\vert$}{|} REQNONCE \texorpdfstring{$\vert$}{|} SETVAL \texorpdfstring{$\vert$}{|} VAL \texorpdfstring{$\vert$}{|} NONCERSP \texorpdfstring{$\vert$}{|} DEVITBL \texorpdfstring{$\vert$}{|} VALS \texorpdfstring{$\vert$}{|} +-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/---+-\/-\/---+-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/---+-\/-\/-\/---+ \texorpdfstring{$\vert$}{|} 0 \texorpdfstring{$\vert$}{|} PKB\+\_\+\+TYPE \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 1 \texorpdfstring{$\vert$}{|} PKB\+\_\+\+SECH \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 2 \texorpdfstring{$\vert$}{|} PKB\+\_\+\+SECL \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 3 \texorpdfstring{$\vert$}{|} PKB\+\_\+\+FROM\+\_\+\+RFH \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 4 \texorpdfstring{$\vert$}{|} PKB\+\_\+\+FROM\+\_\+\+RFL \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 5 \texorpdfstring{$\vert$}{|} PKB\+\_\+\+DITVER \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 6 \texorpdfstring{$\vert$}{|} PKB\+\_\+\+DEVUID \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} (X\texorpdfstring{$\ast$}{*}) \texorpdfstring{$\vert$}{|}(X\texorpdfstring{$\ast$}{*}) \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 7 \texorpdfstring{$\vert$}{|} PKB\+\_\+\+VALUEH \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 8 \texorpdfstring{$\vert$}{|} PKB\+\_\+\+VALUEL \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} X \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} +-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/---+-\/-\/---+-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/---+-\/-\/-\/---+ (X\texorpdfstring{$\ast$}{*}) = XDATA expansion to required payload; max allowed 512-\/bytes. +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ \texorpdfstring{$\vert$}{|} XDATA on DEVITBL \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} XDATA on VALS \texorpdfstring{$\vert$}{|} +-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ +-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/---+ \texorpdfstring{$\vert$}{|} Byte \texorpdfstring{$\vert$}{|} Field \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} Byte \texorpdfstring{$\vert$}{|} Field \texorpdfstring{$\vert$}{|} +-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ +-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/---+ \texorpdfstring{$\vert$}{|} 6 \texorpdfstring{$\vert$}{|} Node\+Name0 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 6 \texorpdfstring{$\vert$}{|} Dev\+UID \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 7 \texorpdfstring{$\vert$}{|} Node\+Name1 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 7 \texorpdfstring{$\vert$}{|} ValueH \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 8 \texorpdfstring{$\vert$}{|} Node\+Name2 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 8 \texorpdfstring{$\vert$}{|} ValueL \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 9 \texorpdfstring{$\vert$}{|} Node\+Name3 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 9 \texorpdfstring{$\vert$}{|} Dev\+UID \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 10 \texorpdfstring{$\vert$}{|} Node\+Name4 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 10 \texorpdfstring{$\vert$}{|} ValueH \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} ... \texorpdfstring{$\vert$}{|} ... until \textquotesingle{}\textbackslash{}0\textquotesingle{} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 11 \texorpdfstring{$\vert$}{|} ValueL \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} ?0 \texorpdfstring{$\vert$}{|} Dev\+Type \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} ... \texorpdfstring{$\vert$}{|} ... \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} ?1 \texorpdfstring{$\vert$}{|} Dev\+Attr \texorpdfstring{$\vert$}{|} +-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/---+ \texorpdfstring{$\vert$}{|} ?2 \texorpdfstring{$\vert$}{|} Dev\+UID \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} ?3 \texorpdfstring{$\vert$}{|} Dev\+Name0 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} ?4 \texorpdfstring{$\vert$}{|} Dev\+Name1 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} ?5 \texorpdfstring{$\vert$}{|} Dev\+Name2 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} ?6 \texorpdfstring{$\vert$}{|} Dev\+Name3 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} ?7 \texorpdfstring{$\vert$}{|} Dev\+Name4 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} ... \texorpdfstring{$\vert$}{|} ... until \textquotesingle{}\textbackslash{}0\textquotesingle{} \texorpdfstring{$\vert$}{|} +-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ 

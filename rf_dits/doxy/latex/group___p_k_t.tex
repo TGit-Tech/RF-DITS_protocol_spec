@@ -1,0 +1,72 @@
+\doxysection{Radio Packet-\/\+Types }
+\hypertarget{group___p_k_t}{}\label{group___p_k_t}\index{Radio Packet-\/Types@{Radio Packet-\/Types}}
+
+
+bit-\/5 being 1 determines a request  
+
+
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group___p_k_t_ga3209c959283cf197494e970bb7356458}\label{group___p_k_t_ga3209c959283cf197494e970bb7356458} 
+\+\#define {\bfseries PKC\+\_\+\+ISREQBIT}~5
+\begin{DoxyCompactList}\small\item\em bit-\/5=1 in Packet-\/\+Type is for REQuests \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_gacd94bbecdfe520c64300d69e2ba8a03c}\label{group___p_k_t_gacd94bbecdfe520c64300d69e2ba8a03c} 
+\+\#define {\bfseries PKC\+\_\+\+STATICBYTES}~58
+\begin{DoxyCompactList}\small\item\em Number of statically allocated bytes (assigned in Rx/\+\+Tx-\/\+Packet classes). \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_ga30ff2647491507b5b292cdd92c79f9c6}\label{group___p_k_t_ga30ff2647491507b5b292cdd92c79f9c6} 
+\+\#define {\bfseries PKC\+\_\+\+RADIOPKTMAXBYTES\+\_\+\+MIN}~20
+\begin{DoxyCompactList}\small\item\em Minimum allowed value for \textquotesingle{}Radio\+Pkt\+Max\+Bytes\textquotesingle{}. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_gadb88f4cf5f0b580c2921757595a3baae}\label{group___p_k_t_gadb88f4cf5f0b580c2921757595a3baae} 
+\+\#define {\bfseries PKC\+\_\+\+RADIOPKTMAXBYTES\+\_\+\+DEFAULT}~58
+\begin{DoxyCompactList}\small\item\em Default for \textquotesingle{}Radio\+Pkt\+Max\+Bytes\textquotesingle{}. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_gaf1f850c4d4e8797249bc219b49d02dad}\label{group___p_k_t_gaf1f850c4d4e8797249bc219b49d02dad} 
+\+\#define {\bfseries PKC\+\_\+\+RADIOPKTMAXBYTES\+\_\+\+MAX}~512
+\begin{DoxyCompactList}\small\item\em Maximum allowed value for \textquotesingle{}Radio\+Pkt\+Max\+Bytes\textquotesingle{}. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_ga08c75603c09242affd2ffb0abb8935bf}\label{group___p_k_t_ga08c75603c09242affd2ffb0abb8935bf} 
+\+\#define {\bfseries PKC\+\_\+\+RXPKTEXPIRE\+\_\+\+DEFAULTMS}~30000
+\begin{DoxyCompactList}\small\item\em Maximum time (in milliseconds) that an Rx byte collection can exist before expiration. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_ga605fac35854a5e61913b341273e48a04}\label{group___p_k_t_ga605fac35854a5e61913b341273e48a04} 
+\+\#define {\bfseries PKT\+\_\+\+REQ\+\_\+\+MAX}~0x7F
+\begin{DoxyCompactList}\small\item\em Used to boundry check arguments. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_ga63427302e944ccb91e304d2d6606f369}\label{group___p_k_t_ga63427302e944ccb91e304d2d6606f369} 
+\+\#define {\bfseries PKT\+\_\+\+REQDEVITBL}~0x7F
+\begin{DoxyCompactList}\small\item\em REQ the DIT info. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_ga7c1bc07a61d66e5b3b1577cbcf4f8ec0}\label{group___p_k_t_ga7c1bc07a61d66e5b3b1577cbcf4f8ec0} 
+\+\#define {\bfseries PKT\+\_\+\+REQVALS}~0x7E
+\begin{DoxyCompactList}\small\item\em REQ all dev values. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_ga8224fe96da8b55d8f1863362d9927747}\label{group___p_k_t_ga8224fe96da8b55d8f1863362d9927747} 
+\+\#define {\bfseries PKT\+\_\+\+REQVAL}~0x7D
+\begin{DoxyCompactList}\small\item\em REQ a dev value. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_gaa26747198a93a42f7e68067b8b606eaa}\label{group___p_k_t_gaa26747198a93a42f7e68067b8b606eaa} 
+\+\#define {\bfseries PKT\+\_\+\+REQNONCE}~0x7C
+\begin{DoxyCompactList}\small\item\em REQ a Nonce Response. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_ga1a44749b87157655be7d0ab3dc206612}\label{group___p_k_t_ga1a44749b87157655be7d0ab3dc206612} 
+\+\#define {\bfseries PKT\+\_\+\+SETVAL}~0x7B
+\begin{DoxyCompactList}\small\item\em REQ to SET a Device Value. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_gaafb3353a8f6ab350a5bad9617a93af6d}\label{group___p_k_t_gaafb3353a8f6ab350a5bad9617a93af6d} 
+\+\#define {\bfseries PKT\+\_\+\+REQ\+\_\+\+MIN}~0x7B
+\begin{DoxyCompactList}\small\item\em Used to boundry check arguments. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_ga72e1a1cbd5fc1652675577881a02380f}\label{group___p_k_t_ga72e1a1cbd5fc1652675577881a02380f} 
+\+\#define {\bfseries PKT\+\_\+\+DATA\+\_\+\+MAX}~0x4F
+\begin{DoxyCompactList}\small\item\em Used to boundry check arguments. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_ga053158e9ce31966a9109765bc295e8a7}\label{group___p_k_t_ga053158e9ce31966a9109765bc295e8a7} 
+\+\#define {\bfseries PKT\+\_\+\+DEVITBL}~0x4F
+\begin{DoxyCompactList}\small\item\em The DIT-\/\+Table information. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_ga6c9c0aa070a665d17a75070b06904201}\label{group___p_k_t_ga6c9c0aa070a665d17a75070b06904201} 
+\+\#define {\bfseries PKT\+\_\+\+VALS}~0x4E
+\begin{DoxyCompactList}\small\item\em All Device values on a Node. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_ga883e124227e75b2937022a679f877ec6}\label{group___p_k_t_ga883e124227e75b2937022a679f877ec6} 
+\+\#define {\bfseries PKT\+\_\+\+VAL}~0x4D
+\begin{DoxyCompactList}\small\item\em A Device value. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_gacceebe293f334d0c4cc18ef5822bfa1f}\label{group___p_k_t_gacceebe293f334d0c4cc18ef5822bfa1f} 
+\+\#define {\bfseries PKT\+\_\+\+NONCERSP}~0x4C
+\begin{DoxyCompactList}\small\item\em The Req-\/nonce response. \end{DoxyCompactList}\item 
+\Hypertarget{group___p_k_t_ga2ae468c7e1c4bf34f8f357b376f9af80}\label{group___p_k_t_ga2ae468c7e1c4bf34f8f357b376f9af80} 
+\+\#define {\bfseries PKT\+\_\+\+DATA\+\_\+\+MIN}~0x4C
+\begin{DoxyCompactList}\small\item\em Used to boundry check arguments. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+bit-\/5 being 1 determines a request 
+

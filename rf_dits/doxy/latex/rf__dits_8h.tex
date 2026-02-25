@@ -1,0 +1,145 @@
+\doxysection{rf\+\_\+dits.\+h File Reference}
+\hypertarget{rf__dits_8h}{}\label{rf__dits_8h}\index{rf\_dits.h@{rf\_dits.h}}
+
+
+RF Device-\/\+Index-\/\+Table with Security protocol.  
+
+
+{\ttfamily \+\#include "{}DB.\+h"{}}\newline
+{\ttfamily \+\#include $<$Arduino.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine}{DITSEngine}}
+\begin{DoxyCompactList}\small\item\em Central engine managing Node and Device DIT tables, packet transport, and hardware abstraction. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{DITSEngine::\+\+Node\+DIT}}
+\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_device_d_i_t}{DITSEngine::\+\+Device\+DIT}}
+\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet}{DITSEngine::\+rf\+Packet}}
+\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet}{DITSEngine::\+\+Rx\+Packet}}
+\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_tx_packet}{DITSEngine::\+\+Tx\+Packet}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{rf__dits_8h_a2750a00190636997d66cf567af774f97}\label{rf__dits_8h_a2750a00190636997d66cf567af774f97} 
+\+\#define {\bfseries BNONE}~0x\+FF
+\begin{DoxyCompactList}\small\item\em Byte NONE/\+\+UNSET. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_aff5dcc280bf801e02fef48f71f2a3af0}\label{rf__dits_8h_aff5dcc280bf801e02fef48f71f2a3af0} 
+\+\#define {\bfseries INONE}~0x\+FFFF
+\begin{DoxyCompactList}\small\item\em Integer NONE/\+\+UNSET. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a979a00af6a6b738c900495236de1bd95}\label{rf__dits_8h_a979a00af6a6b738c900495236de1bd95} 
+\+\#define {\bfseries SECNETMAX}~0x7F
+\begin{DoxyCompactList}\small\item\em Max Number Sec\+Net can be (code tied, cannot change). \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a3f7660d56276e395f35faff1d3f8bf91}\label{rf__dits_8h_a3f7660d56276e395f35faff1d3f8bf91} 
+\+\#define {\bfseries PMDITSTOP}~0x\+FE
+\begin{DoxyCompactList}\small\item\em A sentinel value that marks the end of NDIT and DDIT records in PMEM. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_ade255e29af8e37d712efad21f4fbb797}\label{rf__dits_8h_ade255e29af8e37d712efad21f4fbb797} 
+\+\#define {\bfseries THISNODE}~0
+\begin{DoxyCompactList}\small\item\em Just to make the code more readable. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_ad54662a2f85767d6698c5c0aa32e9997}\label{rf__dits_8h_ad54662a2f85767d6698c5c0aa32e9997} 
+\+\#define {\bfseries VALNOTSET}~0x8000
+\begin{DoxyCompactList}\small\item\em Old Code in Rx\+Packet Val\+Set I believe. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_ad89aefc03717d87e92b5575a5a6db073}\label{rf__dits_8h_ad89aefc03717d87e92b5575a5a6db073} 
+\+\#define {\bfseries PMO\+\_\+\+NODEIDX}~0
+\begin{DoxyCompactList}\small\item\em Local; Index (1 byte, 0x\+FF delete, 0x\+FE DITSTOP). \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_afed0703f9388cca236d40f84ac351821}\label{rf__dits_8h_afed0703f9388cca236d40f84ac351821} 
+\+\#define {\bfseries PMO\+\_\+\+NRFADDRH}~1
+\begin{DoxyCompactList}\small\item\em Node RF high byte (1 byte). \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a4ed480465e09a7dc4bcedb001a120d9e}\label{rf__dits_8h_a4ed480465e09a7dc4bcedb001a120d9e} 
+\+\#define {\bfseries PMO\+\_\+\+NRFADDRL}~2
+\begin{DoxyCompactList}\small\item\em Node RF low byte (1 byte). \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_af23907b653b02904039c89e191ceff63}\label{rf__dits_8h_af23907b653b02904039c89e191ceff63} 
+\+\#define {\bfseries PMO\+\_\+\+NDITVER}~3
+\begin{DoxyCompactList}\small\item\em Node DIT Version (Table Version) (1 byte). \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a1937c16efd10f392766887361481dfd1}\label{rf__dits_8h_a1937c16efd10f392766887361481dfd1} 
+\+\#define {\bfseries PMO\+\_\+\+DNODEIDX}~0
+\begin{DoxyCompactList}\small\item\em Local; Device\textquotesingle{}s Node-\/\+Index (1 byte, 0x\+FF delete, 0x\+FE DITSTOP). \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a9e13a0617d09878153bdb7587d1a2096}\label{rf__dits_8h_a9e13a0617d09878153bdb7587d1a2096} 
+\+\#define {\bfseries PMO\+\_\+\+DEVTYPE}~1
+\begin{DoxyCompactList}\small\item\em Cannot be 0 due to \textquotesingle{}\textbackslash{}0\textquotesingle{} check on previous DIT name record. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a7f5a89e899f1df513badfa7550074512}\label{rf__dits_8h_a7f5a89e899f1df513badfa7550074512} 
+\+\#define {\bfseries PMO\+\_\+\+DEVATTR}~2
+\begin{DoxyCompactList}\small\item\em Device ATTR (1 byte). \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_ade6129558c19c6c41d748969b073b2d8}\label{rf__dits_8h_ade6129558c19c6c41d748969b073b2d8} 
+\+\#define {\bfseries PMO\+\_\+\+DEVUID}~3
+\begin{DoxyCompactList}\small\item\em Device UID per Node (1 byte). \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a6a2b7f209f9720a8f06d568878ba1ae9}\label{rf__dits_8h_a6a2b7f209f9720a8f06d568878ba1ae9} 
+\+\#define {\bfseries PMO\+\_\+\+NAME}~4
+\begin{DoxyCompactList}\small\item\em Name offset for both \+[N]\+ode \& \+[D]\+evice. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a144f4318260ec7dca78a3cdf96e76a9d}\label{rf__dits_8h_a144f4318260ec7dca78a3cdf96e76a9d} 
+\+\#define {\bfseries PKB\+\_\+\+TYPE}~0
+\begin{DoxyCompactList}\small\item\em Rx/\+\+Tx Packet-\/\+Type. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_aa48ec9981b1629c7d3b9b1edd1d5dc7e}\label{rf__dits_8h_aa48ec9981b1629c7d3b9b1edd1d5dc7e} 
+\+\#define {\bfseries PKB\+\_\+\+SECH}~1
+\begin{DoxyCompactList}\small\item\em Rx/\+\+Tx Sec\+Net High-\/\+Byte. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a08ecdea07a0a11ac296ebf4c74a54dfc}\label{rf__dits_8h_a08ecdea07a0a11ac296ebf4c74a54dfc} 
+\+\#define {\bfseries PKB\+\_\+\+SECL}~2
+\begin{DoxyCompactList}\small\item\em Rx/\+\+Tx Sec\+Net Low-\/\+Byte. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_ae1eaa21193d421a73d57bae27108f9ac}\label{rf__dits_8h_ae1eaa21193d421a73d57bae27108f9ac} 
+\+\#define {\bfseries PKB\+\_\+\+FROM\+\_\+\+RFH}~3
+\begin{DoxyCompactList}\small\item\em Rx/\+\+Tx Source Node RFAddr High-\/\+Byte. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_aac88a9f196e9f3838f75abfbce125eb6}\label{rf__dits_8h_aac88a9f196e9f3838f75abfbce125eb6} 
+\+\#define {\bfseries PKB\+\_\+\+FROM\+\_\+\+RFL}~4
+\begin{DoxyCompactList}\small\item\em Rx/\+\+Tx Source Node RFAddr Low-\/\+Byte. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a8e3d3065b06dce68ede5b08d79e1f0fc}\label{rf__dits_8h_a8e3d3065b06dce68ede5b08d79e1f0fc} 
+\+\#define {\bfseries PKB\+\_\+\+DITVER}~5
+\begin{DoxyCompactList}\small\item\em Rx/\+\+Tx Source Node DIT-\/\+Table Version. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a612f2a1e0ff6f0c664e28125a7d8bb6d}\label{rf__dits_8h_a612f2a1e0ff6f0c664e28125a7d8bb6d} 
+\+\#define {\bfseries PKB\+\_\+\+DEVUID}~6
+\begin{DoxyCompactList}\small\item\em Rx/\+\+Tx Device UID per Node. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_acfbf095dbaf12f58e8226b659c156c87}\label{rf__dits_8h_acfbf095dbaf12f58e8226b659c156c87} 
+\+\#define {\bfseries PKB\+\_\+\+VALUEH}~7
+\begin{DoxyCompactList}\small\item\em Rx/\+\+Tx Device Value Int-\/\+High-\/\+Byte. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a7386e1c51ebc482e621cedb6907a1b5e}\label{rf__dits_8h_a7386e1c51ebc482e621cedb6907a1b5e} 
+\+\#define {\bfseries PKB\+\_\+\+VALUEL}~8
+\begin{DoxyCompactList}\small\item\em Rx/\+\+Tx Device Value Int-\/\+Low-\/\+Byte. \end{DoxyCompactList}\item 
+\Hypertarget{rf__dits_8h_a99383bd84fa4ad85ded7f7da9b048bc8}\label{rf__dits_8h_a99383bd84fa4ad85ded7f7da9b048bc8} 
+\+\#define {\bfseries PKB\+\_\+\+XDATA\+\_\+\+BEG}~6
+\begin{DoxyCompactList}\small\item\em XDATA Start DEVITBL \& VALS. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKC\+\_\+\+ISREQBIT}~5
+\begin{DoxyCompactList}\small\item\em bit-\/5=1 in Packet-\/\+Type is for REQuests \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKC\+\_\+\+STATICBYTES}~58
+\begin{DoxyCompactList}\small\item\em Number of statically allocated bytes (assigned in Rx/\+\+Tx-\/\+Packet classes). \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKC\+\_\+\+RADIOPKTMAXBYTES\+\_\+\+MIN}~20
+\begin{DoxyCompactList}\small\item\em Minimum allowed value for \textquotesingle{}Radio\+Pkt\+Max\+Bytes\textquotesingle{}. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKC\+\_\+\+RADIOPKTMAXBYTES\+\_\+\+DEFAULT}~58
+\begin{DoxyCompactList}\small\item\em Default for \textquotesingle{}Radio\+Pkt\+Max\+Bytes\textquotesingle{}. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKC\+\_\+\+RADIOPKTMAXBYTES\+\_\+\+MAX}~512
+\begin{DoxyCompactList}\small\item\em Maximum allowed value for \textquotesingle{}Radio\+Pkt\+Max\+Bytes\textquotesingle{}. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKC\+\_\+\+RXPKTEXPIRE\+\_\+\+DEFAULTMS}~30000
+\begin{DoxyCompactList}\small\item\em Maximum time (in milliseconds) that an Rx byte collection can exist before expiration. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+REQ\+\_\+\+MAX}~0x7F
+\begin{DoxyCompactList}\small\item\em Used to boundry check arguments. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+REQDEVITBL}~0x7F
+\begin{DoxyCompactList}\small\item\em REQ the DIT info. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+REQVALS}~0x7E
+\begin{DoxyCompactList}\small\item\em REQ all dev values. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+REQVAL}~0x7D
+\begin{DoxyCompactList}\small\item\em REQ a dev value. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+REQNONCE}~0x7C
+\begin{DoxyCompactList}\small\item\em REQ a Nonce Response. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+SETVAL}~0x7B
+\begin{DoxyCompactList}\small\item\em REQ to SET a Device Value. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+REQ\+\_\+\+MIN}~0x7B
+\begin{DoxyCompactList}\small\item\em Used to boundry check arguments. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+DATA\+\_\+\+MAX}~0x4F
+\begin{DoxyCompactList}\small\item\em Used to boundry check arguments. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+DEVITBL}~0x4F
+\begin{DoxyCompactList}\small\item\em The DIT-\/\+Table information. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+VALS}~0x4E
+\begin{DoxyCompactList}\small\item\em All Device values on a Node. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+VAL}~0x4D
+\begin{DoxyCompactList}\small\item\em A Device value. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+NONCERSP}~0x4C
+\begin{DoxyCompactList}\small\item\em The Req-\/nonce response. \end{DoxyCompactList}\item 
+\+\#define {\bfseries PKT\+\_\+\+DATA\+\_\+\+MIN}~0x4C
+\begin{DoxyCompactList}\small\item\em Used to boundry check arguments. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+RF Device-\/\+Index-\/\+Table with Security protocol. 
+

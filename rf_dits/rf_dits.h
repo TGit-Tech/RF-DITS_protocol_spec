@@ -121,24 +121,108 @@ public:
   const uint16_t  pmDITEndAddr;
   uint16_t pmNDITAddr(byte idx) const {return pmDITbase + (idx * (PMO_NAME + DITNameBytes));}
   uint16_t pmDDITAddr(byte idx) const {return pmDITend  - (idx * (PMO_NAME + DITNameBytes));}
-  //------------------------------------------------------------
-  /// @defgroup DITSPUBLOC 1. DITS Public Local Management. @{
-  class NodeDIT;
-  class DeviceDIT;
-  const NodeDIT* Node(byte idx) const;                        // DIT Low-Level Access
-  const DeviceDIT* Device(byte nodeIdx, byte devIdx) const;
+
+  // ---- NodeDIT ----
+  class NodeDIT {
+    private:
+      friend class DITSEngine;  
+      DITSEngine* pPtr;         ///< pointer to the parent DITSEngine object
+      byte NDITidx = 0;      ///< idx tracker for NodeDIT object.
+      NodeDIT(DITSEngine* _ThisPtr, byte _NDITidx = 0) : pPtr(_ThisPtr), NDITidx(_NDITidx) {}
+    public:
+      void      Next()            { do{NDITidx++;} while(IsValid() && IsDeleted()); }
+      bool      IsValid() const   {return (NDITidx < pPtr->NDITStopIdx);}
+      byte      DITidx() const    {return NDITidx;}
+      byte      NodeIdx() const   {return IsValid() ? pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX) : BNONE;}
+      byte      NRFAddrH() const  {return IsValid() ? pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NRFADDRH) : BNONE;}
+      byte      NRFAddrL() const  {return IsValid() ? pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NRFADDRL) : BNONE;}
+      uint16_t  NRFAddr() const   {return IsValid() ? word(NRFAddrH(),NRFAddrL()) : BNONE;}
+      byte      NDITVer() const   {return IsValid() ? pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NDITVER) : BNONE;}
+      void NGetName(char* buffer) const {
+        if (!IsValid()) return;
+        for (int i = 0; i < pPtr->DITNameBytes; i++) {buffer[i] = pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NAME + i);}
+        buffer[pPtr->DITNameBytes] = '\0';}
+      bool IsDeleted() const {
+        if (!IsValid()) return true; return pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX) == BNONE; }
+    protected:
+      void      NextAll()            {NDITidx++;}
+      void      NodeIdx(byte value)  {if (IsValid()) pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX, value);}
+      void      NRFAddrH(byte value) {if (IsValid()) pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NRFADDRH, value);}
+      void      NRFAddrL(byte value) {if (IsValid()) pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NRFADDRL, value);}
+      void      NDITVer(byte value)  {if (IsValid()) pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NDITVER, value);}
+      void NSetName(const char* value) {
+        if (!IsValid()) return; byte len = strlen(value);
+        for (int i = 0; i < pPtr->DITNameBytes; i++) {pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NAME + i, (i < len) ? value[i] : '\0');}
+      }
+      bool IsDeleted(bool deleteStatus) {
+        if (!IsValid()) return true;
+        if (deleteStatus && NDITidx != 0) {pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX, BNONE);}
+        return pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX) == BNONE; }
+  };
+  // ---- DeviceDIT ----
+  class DeviceDIT {
+    private:
+      friend class DITSEngine;
+      DITSEngine* pPtr;
+      byte DDITidx;
+      DeviceDIT(DITSEngine* _ThisPtr, byte _DDITidx = 0) : pPtr(_ThisPtr), DDITidx(_DDITidx) {}
+    public:
+      void  Next()            { do{DDITidx++;} while(IsValid() && IsDeleted()); }
+      byte  DITidx() const    {return DDITidx;}
+      bool  IsValid() const   {return (DDITidx < pPtr->DDITStopIdx);}
+      byte  DNodeIdx() const  {return IsValid() ? pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX) : BNONE; }
+      byte  DevUID() const    {return IsValid() ? pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DEVUID) : BNONE; }
+      byte  DevType() const   {return IsValid() ? pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DEVTYPE) : BNONE; }
+      byte  DevAttr() const   {return IsValid() ? pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DEVATTR) : BNONE; }
+      void DGetName(char* buffer) const {
+        if (!IsValid()) return;
+        for (int i = 0; i < pPtr->DITNameBytes; i++) {buffer[i] = pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_NAME + i);}
+        buffer[pPtr->DITNameBytes] = '\0';
+      }
+      bool IsDeleted() const {
+        if (!IsValid()) return true; return pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX) == BNONE;
+      }
+    protected:
+      void  NextAll()            {DDITidx++;}
+      void  DNodeIdx(byte value) {if (IsValid()) pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX, value); }
+      void  DevUID(byte value)   {if (IsValid()) pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DEVUID, value); }
+      void  DevType(byte value)  {if (IsValid()) pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DEVTYPE, value); }
+      void  DevAttr(byte value)  {if (IsValid()) pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DEVATTR, value); }
+      void DSetName(const char* value) {
+        if (!IsValid()) return; byte len = strlen(value);
+        for (int i = 0; i < pPtr->DITNameBytes; i++) {pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_NAME + i, (i < len) ? value[i] : '\0');}
+      }
+      bool IsDeleted(bool deleteStatus) {
+        if (!IsValid()) return true;
+        if (deleteStatus) {pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX, BNONE);}
+        return pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX) == BNONE;
+      }
+  };
+    //------------------------------------------------------------
+    /// @defgroup DITSPUBLOC 1. DITS Public Local Management. @{
+    // DIT Low-Level Access
+    NodeDIT Node(byte idx) const {return NodeDIT(const_cast<DITSEngine*>(this), idx);}
+    DeviceDIT Device(byte dditIdx) const {return DeviceDIT(const_cast<DITSEngine*>(this), dditIdx);}
     /************************************************************************************
-     * @brief Updates or initializes this node's DIT record.
-     * @details Stores or updates this node's information in persistent memory as a DIT record.
-     * This record is shared with other nodes on the network via PKT_REQDEVITBL.
-     * It must be performed once on empty memory to initialize the node, but the data
-     * is persistent and can be updated later to keep the node record in sync
-     * with system state. The implementer is responsible for ensuring any changes are synchronized
-     * with the persistent storage layer and reflected in DIT communications.
-     * @param[in] name The human-readable name of this node.
-     * @param[in] RFAddr The RF address of this node.
+     * @brief Updates the RF address of this node's DIT record.
+     * @details Stores or updates the RF address of this node in persistent memory 
+     * as part of the DIT record. The RF address is used for communication with other 
+     * nodes on the network via PKT_REQDEVITBL. This update is critical for node 
+     * identification in the system and must be synchronized with persistent storage.
+     * @param[in] RFAddr The RF address of this node, typically a 16-bit value.
      ***************************************************************************************/
-    void UpdateThisNode(uint16_t RFAddr, const char* name);
+    void UpdateThisNodeRFAddr(uint16_t RFAddr);
+    /************************************************************************************
+     * @brief Updates the name of this node's DIT record.
+     * @details Stores or updates the human-readable name of this node in persistent 
+     * memory as part of the DIT record. The name is typically used for identification 
+     * purposes and will be shared with other nodes on the network. This update 
+     * should be synchronized with the persistent storage layer to ensure the name 
+     * is updated across all nodes. The name can be a string of any length defined by 
+     * the system.
+     * @param[in] name A string representing the human-readable name of the node.
+     ***************************************************************************************/
+    void UpdateThisNodeName(const char* name);
     /************************************************************************************
      * @brief Adds a device to this node.
      * @details Adds a local device of the specified type to this node's device table (DIT record).
@@ -327,76 +411,8 @@ private:
   bool TxSendThisNodeDEVITBL(uint16_t RFAddr);
 };
 //____________________________________________________________________________________________________________________________________________
-// ---- NodeDIT ----
-class DITSEngine::NodeDIT {
-  private:
-    friend class DITSEngine;  
-    DITSEngine* pPtr;         ///< pointer to the parent DITSEngine object
-    byte NDITidx = 0;      ///< idx tracker for NodeDIT object.
-    NodeDIT(DITSEngine* _ThisPtr, byte _NDITidx = 0) : pPtr(_ThisPtr), NDITidx(_NDITidx) {}
-  public:
-    void      Next()               {NDITidx++;}
-    byte      DITidx() const       {return NDITidx;}
-    bool      IsValid() const      {return (NDITidx < pPtr->NDITStopIdx);}
-    byte      NodeIdx() const      {return IsValid() ? pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX) : BNONE;}
-    void      NodeIdx(byte value)  {if (IsValid()) pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX, value);}
-    byte      NRFAddrH() const     {return IsValid() ? pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NRFADDRH) : BNONE;}
-    void      NRFAddrH(byte value) {if (IsValid()) pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NRFADDRH, value);}
-    byte      NRFAddrL() const     {return IsValid() ? pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NRFADDRL) : BNONE;}
-    void      NRFAddrL(byte value) {if (IsValid()) pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NRFADDRL, value);}
-    uint16_t  NRFAddr() const      {return IsValid() ? word(NRFAddrH(),NRFAddrL()) : BNONE;}
-    byte      NDITVer() const      {return IsValid() ? pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NDITVER) : BNONE;}
-    void      NDITVer(byte value)  {if (IsValid()) pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NDITVER, value);}
-    void NSetName(const char* value) {
-      if (!IsValid()) return; byte len = strlen(value);
-      for (int i = 0; i < pPtr->DITNameBytes; i++) {pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NAME + i, (i < len) ? value[i] : '\0');}
-    }
-    void NGetName(char* buffer) const {
-      if (!IsValid()) return;
-      for (int i = 0; i < pPtr->DITNameBytes; i++) {buffer[i] = pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NAME + i);}
-      buffer[pPtr->DITNameBytes] = '\0';
-    }
-    bool IsDeleted(bool deleteStatus = false) {
-      if (!IsValid()) return true;
-      if (deleteStatus && NDITidx != 0) {pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX, BNONE);}
-      return pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX) == BNONE;
-    }
-};
-// ---- DeviceDIT ----
-class DITSEngine::DeviceDIT {
-  private:
-    friend class DITSEngine;
-    DITSEngine* pPtr;
-    byte DDITidx;
-    DeviceDIT(DITSEngine* _ThisPtr, byte _DDITidx = 0) : pPtr(_ThisPtr), DDITidx(_DDITidx) {}
-  public:
-    void  Next()               {DDITidx++;}
-    byte  DITidx() const       {DDITidx;}
-    bool  IsValid() const      {return (DDITidx < pPtr->DDITStopIdx);}
-    byte  DNodeIdx() const     {return IsValid() ? pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX) : BNONE; }
-    void  DNodeIdx(byte value) {if (IsValid()) pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX, value); }
-    byte  DevUID() const       {return IsValid() ? pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DEVUID) : BNONE; }
-    void  DevUID(byte value)   {if (IsValid()) pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DEVUID, value); }
-    byte  DevType() const      {return IsValid() ? pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DEVTYPE) : BNONE; }
-    void  DevType(byte value)  {if (IsValid()) pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DEVTYPE, value); }
-    byte  DevAttr() const      {return IsValid() ? pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DEVATTR) : BNONE; }
-    void  DevAttr(byte value)  {if (IsValid()) pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DEVATTR, value); }
 
-    void DSetName(const char* value) {
-      if (!IsValid()) return; byte len = strlen(value);
-      for (int i = 0; i < pPtr->DITNameBytes; i++) {pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_NAME + i, (i < len) ? value[i] : '\0');}
-    }
-    void DGetName(char* buffer) const {
-      if (!IsValid()) return;
-      for (int i = 0; i < pPtr->DITNameBytes; i++) {buffer[i] = pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_NAME + i);}
-      buffer[pPtr->DITNameBytes] = '\0';
-    }
-    bool IsDeleted(bool deleteStatus = false) {
-      if (!IsValid()) return true;
-      if (deleteStatus) {pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX, BNONE);}
-      return pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX) == BNONE;
-    }
-};
+
 // ---- rfPacket Nested Base Class ----
 class DITSEngine::rfPacket {
   public:

@@ -1,0 +1,458 @@
+\doxysection{Debug Directives }
+\hypertarget{group___d_b}{}\label{group___d_b}\index{Debug Directives@{Debug Directives}}
+
+
+DBERROR \texorpdfstring{$\vert$}{|} DBENTER \texorpdfstring{$\vert$}{|} DBINFO.  
+
+
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group___d_b_ga0a23ceb7729ff23eb926a5c3b1501e47}\label{group___d_b_ga0a23ceb7729ff23eb926a5c3b1501e47} 
+\+\#define {\bfseries DB\+\_\+\+ERROR}~1
+\item 
+\Hypertarget{group___d_b_gae6a49ae54c31e415a3e655ca3b4006df}\label{group___d_b_gae6a49ae54c31e415a3e655ca3b4006df} 
+\+\#define {\bfseries DB\+\_\+\+ENTER}~1
+\item 
+\Hypertarget{group___d_b_ga064789cdfa5ddd548e676323e21447b0}\label{group___d_b_ga064789cdfa5ddd548e676323e21447b0} 
+\+\#define {\bfseries DB\+\_\+\+INFO}~0
+\item 
+\Hypertarget{group___d_b_ga86f04ed115733eb1b518915f8e4ba8bf}\label{group___d_b_ga86f04ed115733eb1b518915f8e4ba8bf} 
+\+\#define {\bfseries DB\+\_\+\+GEN}~1
+\item 
+\Hypertarget{group___d_b_ga6f13813fe281bf08a7d1e6a5ec1b924a}\label{group___d_b_ga6f13813fe281bf08a7d1e6a5ec1b924a} 
+\+\#define {\bfseries DB\+\_\+\+DIT}~1
+\item 
+\Hypertarget{group___d_b_gac2dbe569fee30f13f22767da80dd0f93}\label{group___d_b_gac2dbe569fee30f13f22767da80dd0f93} 
+\+\#define {\bfseries DB\+\_\+\+RF}~1
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}{SERLINEZ}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga1a22df9a1418e946258517298706a16c}{SERLINEYZ}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gade9c2c61efad56df78d2ec864381066d}{SERLINEXYZ}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}{SERLINEWXYZ}}(w,  x,  y,  z)
+\item 
+\Hypertarget{group___d_b_gaa2f49001be13949a16a57e6c99ab00ad}\label{group___d_b_gaa2f49001be13949a16a57e6c99ab00ad} 
+\+\#define {\bfseries COMMA}~,
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gad176491cfa98163ab5bfcdcc1b274339}{DBAAAERROR}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga18b910392cffc25dbeed7df8c4df295b}{DBAAERROR}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga56197fb13669b58a0b287ac1fa3e3b0e}{DBAERROR}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gadae38f77592d196b365797feed02046a}{DBERROR}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga6e03bcbcedd2e602ed355a0f3e09a687}{DBAAAENTER}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga2a900f614e1cbd20f64be53bc19e0e69}{DBAAENTER}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga13dcba896db1105b851ee4f429e9d2ea}{DBAENTER}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga13690b441acf86c9f339aa23d60d4efa}{DBENTER}}(z)
+\item 
+\Hypertarget{group___d_b_ga5ceaeaf9abc8b03b4c950cba88f8af4e}\label{group___d_b_ga5ceaeaf9abc8b03b4c950cba88f8af4e} 
+\+\#define {\bfseries DBAAAINFO}(w,  x,  y,  z)
+\item 
+\Hypertarget{group___d_b_ga08e3f1c482dc31a5df100f4a9b5a12e0}\label{group___d_b_ga08e3f1c482dc31a5df100f4a9b5a12e0} 
+\+\#define {\bfseries DBAAINFO}(x,  y,  z)
+\item 
+\Hypertarget{group___d_b_ga9edc3e7b6003b80df28212a76a559ff6}\label{group___d_b_ga9edc3e7b6003b80df28212a76a559ff6} 
+\+\#define {\bfseries DBAINFO}(y,  z)
+\item 
+\Hypertarget{group___d_b_ga7f7d0a691a98eb1ad54db65a17c6abbb}\label{group___d_b_ga7f7d0a691a98eb1ad54db65a17c6abbb} 
+\+\#define {\bfseries DBINFO}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaffb1c2a36809a0e86d22bc63e5896440}{DBDITAAAERROR}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gabb54a51839e9412f79a8db198130456e}{DBDITAAERROR}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga32aedab929ffafecfdb2b724b61aa210}{DBDITAERROR}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gadcc111d0a11c53002fcc5cfeccfdc60b}{DBDITERROR}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga89a1f9a4ce84e38233ca966205d9a804}{DBDITAAAENTER}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga0e52eefcf6a2d720466432fa27c02be7}{DBDITAAENTER}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga4c24a7645504e1e4b261983b5a681419}{DBDITAENTER}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaa321fa2eb85bffa3e30194f79b9aa97c}{DBDITENTER}}(z)
+\item 
+\Hypertarget{group___d_b_ga7bf0ec3045da8fa7ec00b4ff660f1847}\label{group___d_b_ga7bf0ec3045da8fa7ec00b4ff660f1847} 
+\+\#define {\bfseries DBDITAAAINFO}(w,  x,  y,  z)
+\item 
+\Hypertarget{group___d_b_gaba3b5f314b9809c852e0aec8f7f0b093}\label{group___d_b_gaba3b5f314b9809c852e0aec8f7f0b093} 
+\+\#define {\bfseries DBDITAAINFO}(x,  y,  z)
+\item 
+\Hypertarget{group___d_b_gadd660234058b505c4ddbe8e2988b9544}\label{group___d_b_gadd660234058b505c4ddbe8e2988b9544} 
+\+\#define {\bfseries DBDITAINFO}(y,  z)
+\item 
+\Hypertarget{group___d_b_ga4f8794deaf07cf0309ba26be2e7e4d2d}\label{group___d_b_ga4f8794deaf07cf0309ba26be2e7e4d2d} 
+\+\#define {\bfseries DBDITINFO}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga92fd47a73737f06134b3fab3176018c3}{DBRFAAAERROR}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gade0174a8f2f6dabae4431ccce3115f40}{DBRFAAERROR}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga23efa11279b8b4d9b590e8f437513dd8}{DBRFAERROR}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga919f0e20a37afff5580bc3f60c696b32}{DBRFERROR}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaa72b6a230fac35937d0602dede6534a8}{DBRFAAAENTER}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gab6fa7e408e0c7fa2f9fe9aa3b396fec9}{DBRFAAENTER}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga4ab4910bafc967346030378fbfdc364f}{DBRFAENTER}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga655f5d4a47c42f2a8fb60d48adb4c40e}{DBRFENTER}}(z)
+\item 
+\Hypertarget{group___d_b_gae7a2fbcdc97a8b0a47add96097560bc8}\label{group___d_b_gae7a2fbcdc97a8b0a47add96097560bc8} 
+\+\#define {\bfseries DBRFAAAINFO}(w,  x,  y,  z)
+\item 
+\Hypertarget{group___d_b_gaa81e446cdded5dc61c859e57ee3eb2df}\label{group___d_b_gaa81e446cdded5dc61c859e57ee3eb2df} 
+\+\#define {\bfseries DBRFAAINFO}(x,  y,  z)
+\item 
+\Hypertarget{group___d_b_ga2f436be5d129edfd7f5f67e228aef5f1}\label{group___d_b_ga2f436be5d129edfd7f5f67e228aef5f1} 
+\+\#define {\bfseries DBRFAINFO}(y,  z)
+\item 
+\Hypertarget{group___d_b_gaf2535f4704d778db3c3844f5cbc24f1f}\label{group___d_b_gaf2535f4704d778db3c3844f5cbc24f1f} 
+\+\#define {\bfseries DBRFINFO}(z)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+DBERROR \texorpdfstring{$\vert$}{|} DBENTER \texorpdfstring{$\vert$}{|} DBINFO. 
+
+
+\begin{DoxyItemize}
+\item Pre-\/\+Compiler Directives for Debug Messaging.
+\item Each-\/\+Type (ERROR,INFO) allows (1 or 2) \+[A]\+rgument Variables.
+\item Use \textquotesingle{}~\newline
+\textquotesingle{} in debug message for new-\/line
+\item Message-\/\+Type output is \textquotesingle{}!\+ERROR!\textquotesingle{}, \textquotesingle{}...\textquotesingle{}Info
+\item {\bfseries{NO}} trailing \textquotesingle{};\textquotesingle{} in source code. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{DBERROR((\textcolor{stringliteral}{"{}no\ new\ line"{}}))}
+\DoxyCodeLine{DBERROR((\textcolor{stringliteral}{"{}new\ line\ \(\backslash\)n"{}}))}
+\DoxyCodeLine{DBAERROR((Variable),(\textcolor{stringliteral}{"{}Error\ Message"{}}))}
+\DoxyCodeLine{DBAAERROR((Variable),(Variable),(\textcolor{stringliteral}{"{}Error\ Message"{}}))}
+\DoxyCodeLine{DBAAINFO((Variable),(Variable),(\textcolor{stringliteral}{"{}Info\ Message\ with\ new\ line\ \(\backslash\)n"{}}))}
+
+\end{DoxyCode}
+ 
+\end{DoxyItemize}
+
+\label{doc-define-members}
+\Hypertarget{group___d_b_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{group___d_b_ga6e03bcbcedd2e602ed355a0f3e09a687}\index{Debug Directives@{Debug Directives}!DBAAAENTER@{DBAAAENTER}}
+\index{DBAAAENTER@{DBAAAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAAAENTER}{DBAAAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga6e03bcbcedd2e602ed355a0f3e09a687} 
+\+\#define DBAAAENTER(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_>\ ("{}}));SERLINEWXYZ(w,x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_gad176491cfa98163ab5bfcdcc1b274339}\index{Debug Directives@{Debug Directives}!DBAAAERROR@{DBAAAERROR}}
+\index{DBAAAERROR@{DBAAAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAAAERROR}{DBAAAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_gad176491cfa98163ab5bfcdcc1b274339} 
+\+\#define DBAAAERROR(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!\ ("{}}));SERLINEWXYZ(w,x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga2a900f614e1cbd20f64be53bc19e0e69}\index{Debug Directives@{Debug Directives}!DBAAENTER@{DBAAENTER}}
+\index{DBAAENTER@{DBAAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAAENTER}{DBAAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga2a900f614e1cbd20f64be53bc19e0e69} 
+\+\#define DBAAENTER(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_>\ ("{}}));SERLINEXYZ(x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga18b910392cffc25dbeed7df8c4df295b}\index{Debug Directives@{Debug Directives}!DBAAERROR@{DBAAERROR}}
+\index{DBAAERROR@{DBAAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAAERROR}{DBAAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga18b910392cffc25dbeed7df8c4df295b} 
+\+\#define DBAAERROR(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!\ ("{}}));SERLINEXYZ(x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga13dcba896db1105b851ee4f429e9d2ea}\index{Debug Directives@{Debug Directives}!DBAENTER@{DBAENTER}}
+\index{DBAENTER@{DBAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAENTER}{DBAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga13dcba896db1105b851ee4f429e9d2ea} 
+\+\#define DBAENTER(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_>\ ("{}}));SERLINEYZ(y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga56197fb13669b58a0b287ac1fa3e3b0e}\index{Debug Directives@{Debug Directives}!DBAERROR@{DBAERROR}}
+\index{DBAERROR@{DBAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAERROR}{DBAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga56197fb13669b58a0b287ac1fa3e3b0e} 
+\+\#define DBAERROR(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!\ ("{}}));SERLINEYZ(y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga89a1f9a4ce84e38233ca966205d9a804}\index{Debug Directives@{Debug Directives}!DBDITAAAENTER@{DBDITAAAENTER}}
+\index{DBDITAAAENTER@{DBDITAAAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAAAENTER}{DBDITAAAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga89a1f9a4ce84e38233ca966205d9a804} 
+\+\#define DBDITAAAENTER(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_DIT>\ ("{}}));SERLINEWXYZ(w,x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_gaffb1c2a36809a0e86d22bc63e5896440}\index{Debug Directives@{Debug Directives}!DBDITAAAERROR@{DBDITAAAERROR}}
+\index{DBDITAAAERROR@{DBDITAAAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAAAERROR}{DBDITAAAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_gaffb1c2a36809a0e86d22bc63e5896440} 
+\+\#define DBDITAAAERROR(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!DIT\ ("{}}));SERLINEWXYZ(w,x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga0e52eefcf6a2d720466432fa27c02be7}\index{Debug Directives@{Debug Directives}!DBDITAAENTER@{DBDITAAENTER}}
+\index{DBDITAAENTER@{DBDITAAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAAENTER}{DBDITAAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga0e52eefcf6a2d720466432fa27c02be7} 
+\+\#define DBDITAAENTER(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_DIT>\ ("{}}));SERLINEXYZ(x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_gabb54a51839e9412f79a8db198130456e}\index{Debug Directives@{Debug Directives}!DBDITAAERROR@{DBDITAAERROR}}
+\index{DBDITAAERROR@{DBDITAAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAAERROR}{DBDITAAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_gabb54a51839e9412f79a8db198130456e} 
+\+\#define DBDITAAERROR(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!DIT\ ("{}}));SERLINEXYZ(x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga4c24a7645504e1e4b261983b5a681419}\index{Debug Directives@{Debug Directives}!DBDITAENTER@{DBDITAENTER}}
+\index{DBDITAENTER@{DBDITAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAENTER}{DBDITAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga4c24a7645504e1e4b261983b5a681419} 
+\+\#define DBDITAENTER(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_DIT>\ ("{}}));SERLINEYZ(y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga32aedab929ffafecfdb2b724b61aa210}\index{Debug Directives@{Debug Directives}!DBDITAERROR@{DBDITAERROR}}
+\index{DBDITAERROR@{DBDITAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAERROR}{DBDITAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga32aedab929ffafecfdb2b724b61aa210} 
+\+\#define DBDITAERROR(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!DIT\ ("{}}));SERLINEYZ(y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_gaa321fa2eb85bffa3e30194f79b9aa97c}\index{Debug Directives@{Debug Directives}!DBDITENTER@{DBDITENTER}}
+\index{DBDITENTER@{DBDITENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITENTER}{DBDITENTER}}
+{\footnotesize\ttfamily \label{group___d_b_gaa321fa2eb85bffa3e30194f79b9aa97c} 
+\+\#define DBDITENTER(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_DIT>\ "{}}));SERLINEZ(z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_gadcc111d0a11c53002fcc5cfeccfdc60b}\index{Debug Directives@{Debug Directives}!DBDITERROR@{DBDITERROR}}
+\index{DBDITERROR@{DBDITERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITERROR}{DBDITERROR}}
+{\footnotesize\ttfamily \label{group___d_b_gadcc111d0a11c53002fcc5cfeccfdc60b} 
+\+\#define DBDITERROR(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!DIT\ "{}}));SERLINEZ(z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga13690b441acf86c9f339aa23d60d4efa}\index{Debug Directives@{Debug Directives}!DBENTER@{DBENTER}}
+\index{DBENTER@{DBENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBENTER}{DBENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga13690b441acf86c9f339aa23d60d4efa} 
+\+\#define DBENTER(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_>\ "{}}));SERLINEZ(z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_gadae38f77592d196b365797feed02046a}\index{Debug Directives@{Debug Directives}!DBERROR@{DBERROR}}
+\index{DBERROR@{DBERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBERROR}{DBERROR}}
+{\footnotesize\ttfamily \label{group___d_b_gadae38f77592d196b365797feed02046a} 
+\+\#define DBERROR(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!\ "{}}));SERLINEZ(z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_gaa72b6a230fac35937d0602dede6534a8}\index{Debug Directives@{Debug Directives}!DBRFAAAENTER@{DBRFAAAENTER}}
+\index{DBRFAAAENTER@{DBRFAAAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAAAENTER}{DBRFAAAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_gaa72b6a230fac35937d0602dede6534a8} 
+\+\#define DBRFAAAENTER(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_RF>\ ("{}}));SERLINEWXYZ(w,x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga92fd47a73737f06134b3fab3176018c3}\index{Debug Directives@{Debug Directives}!DBRFAAAERROR@{DBRFAAAERROR}}
+\index{DBRFAAAERROR@{DBRFAAAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAAAERROR}{DBRFAAAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga92fd47a73737f06134b3fab3176018c3} 
+\+\#define DBRFAAAERROR(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!RF\ ("{}}));SERLINEWXYZ(w,x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_gab6fa7e408e0c7fa2f9fe9aa3b396fec9}\index{Debug Directives@{Debug Directives}!DBRFAAENTER@{DBRFAAENTER}}
+\index{DBRFAAENTER@{DBRFAAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAAENTER}{DBRFAAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_gab6fa7e408e0c7fa2f9fe9aa3b396fec9} 
+\+\#define DBRFAAENTER(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_RF>\ ("{}}));SERLINEXYZ(x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_gade0174a8f2f6dabae4431ccce3115f40}\index{Debug Directives@{Debug Directives}!DBRFAAERROR@{DBRFAAERROR}}
+\index{DBRFAAERROR@{DBRFAAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAAERROR}{DBRFAAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_gade0174a8f2f6dabae4431ccce3115f40} 
+\+\#define DBRFAAERROR(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!RF\ ("{}}));SERLINEXYZ(x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga4ab4910bafc967346030378fbfdc364f}\index{Debug Directives@{Debug Directives}!DBRFAENTER@{DBRFAENTER}}
+\index{DBRFAENTER@{DBRFAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAENTER}{DBRFAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga4ab4910bafc967346030378fbfdc364f} 
+\+\#define DBRFAENTER(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_RF>\ ("{}}));SERLINEYZ(y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga23efa11279b8b4d9b590e8f437513dd8}\index{Debug Directives@{Debug Directives}!DBRFAERROR@{DBRFAERROR}}
+\index{DBRFAERROR@{DBRFAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAERROR}{DBRFAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga23efa11279b8b4d9b590e8f437513dd8} 
+\+\#define DBRFAERROR(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!RF\ ("{}}));SERLINEYZ(y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga655f5d4a47c42f2a8fb60d48adb4c40e}\index{Debug Directives@{Debug Directives}!DBRFENTER@{DBRFENTER}}
+\index{DBRFENTER@{DBRFENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFENTER}{DBRFENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga655f5d4a47c42f2a8fb60d48adb4c40e} 
+\+\#define DBRFENTER(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_RF>\ "{}}));SERLINEZ(z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga919f0e20a37afff5580bc3f60c696b32}\index{Debug Directives@{Debug Directives}!DBRFERROR@{DBRFERROR}}
+\index{DBRFERROR@{DBRFERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFERROR}{DBRFERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga919f0e20a37afff5580bc3f60c696b32} 
+\+\#define DBRFERROR(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!RF\ "{}}));SERLINEZ(z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}\index{Debug Directives@{Debug Directives}!SERLINEWXYZ@{SERLINEWXYZ}}
+\index{SERLINEWXYZ@{SERLINEWXYZ}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{SERLINEWXYZ}{SERLINEWXYZ}}
+{\footnotesize\ttfamily \label{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0} 
+\+\#define SERLINEWXYZ(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ w;Serial.print(F(\textcolor{stringliteral}{"{},"{}}));SERLINEXYZ(x,y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_gade9c2c61efad56df78d2ec864381066d}\index{Debug Directives@{Debug Directives}!SERLINEXYZ@{SERLINEXYZ}}
+\index{SERLINEXYZ@{SERLINEXYZ}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{SERLINEXYZ}{SERLINEXYZ}}
+{\footnotesize\ttfamily \label{group___d_b_gade9c2c61efad56df78d2ec864381066d} 
+\+\#define SERLINEXYZ(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ x;Serial.print(F(\textcolor{stringliteral}{"{},"{}}));SERLINEYZ(y,z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga1a22df9a1418e946258517298706a16c}\index{Debug Directives@{Debug Directives}!SERLINEYZ@{SERLINEYZ}}
+\index{SERLINEYZ@{SERLINEYZ}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{SERLINEYZ}{SERLINEYZ}}
+{\footnotesize\ttfamily \label{group___d_b_ga1a22df9a1418e946258517298706a16c} 
+\+\#define SERLINEYZ(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ y;Serial.print(F(\textcolor{stringliteral}{"{})"{}}));SERLINEZ(z)}
+
+\end{DoxyCode}
+\Hypertarget{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}\index{Debug Directives@{Debug Directives}!SERLINEZ@{SERLINEZ}}
+\index{SERLINEZ@{SERLINEZ}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{SERLINEZ}{SERLINEZ}}
+{\footnotesize\ttfamily \label{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba} 
+\+\#define SERLINEZ(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print((F(z)));}
+
+\end{DoxyCode}
