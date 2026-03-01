@@ -1,6 +1,8 @@
 ---
 ---
-This is still a WIP.
+This is in the Beta Test phase.
+
+[Click here to view the documentation](https://tgit-tech.github.io/RF-DITS_protocol_spec/html/index.html)
 
 # **RF-DITS Protocol Specification 📡**
 
