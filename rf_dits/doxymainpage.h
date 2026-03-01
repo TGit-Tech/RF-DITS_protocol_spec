@@ -3,7 +3,7 @@
  * @section DESC RF-DITS description.
  *    RF-DITS (RF-LoRa Device Index Table with Security) is a lightweight, binary-based P2P mesh protocol that operates entirely
  *    without any centralized infrastructure. The protocol is architectured around a station based RF control point rather than
- *    a one-radio-per-device model.  Functionality is established through a P2P discovery process (PKT_REQDEVITBL) in which any
+ *    a one-radio-per-device model.  Functionality is established through a P2P discovery process (PKT_REQDITINFO) in which any
  *    node can upload the configuration (e.g. node name, wired devices names, device types and their attributes) of another node in
  *    order to provide binary-based control of it.
  *
@@ -19,7 +19,7 @@
  *    Every node (NDIT) record carries a version number (DITVER) that marks a static point of devices and node information.
  *    DITVER is incremented whenever a node adds, deletes or changes DIT information. Everytime a remote node tries to access 
  *    another node the remote node sends its last learned DITVER.  The reciever compares the two DITVER.  If the two do not
- *    match, the reciever denies the call and automatically sends the updated DIT information (PKT_DEVITBL). This versioning 
+ *    match, the reciever denies the call and automatically sends the updated DIT information (PKT_DITINFO). This versioning 
  *    system ensures the binary-based, device-addressing, packets remain perfectly synchronized.
  *
  * @section DITSPMEM Persistent Memory
@@ -73,13 +73,13 @@
  *        - The protocol is designed to perform segmentation when RadioPktMaxBytes is set to less than the number of payload bytes required.
  *        - This limit will affect maximum devices per node.  All information of a node must fit within that 512 byte limit.
  *        - For Example:  Using NameFieldBytes = 10
- *          - DEVITBL header requires 6-bytes.
+ *          - DITINFO header requires 6-bytes.
  *          - NodeName would require 10-bytes + 1('\0') = 11 bytes. (17 Total so-far)
  *          - Each Device would require 3(Type,Attr,UID) + 10-Name + 1('\0') = 14 bytes.
  *          - Therefore to stay under 512 bytes:  35 Maximum devices could exist on each node.
  *          - Check.  35-devices at 14-bytes/ea + 17 = 507 byte payload.
  *    2.  Number of possible SecNet code combinations:      128 unique (0x00 to 0x7F)
- *    3.  Because the protocol uses name termination for DEVITBL information it allows communication of two differently set `NameFieldBytes`.
+ *    3.  Because the protocol uses name termination for DITINFO information it allows communication of two differently set `NameFieldBytes`.
  *        - Example:  One node uses 20-character names and one node uses 10-character names; the two can still communicate.
  *        - The 10-character NameField node will only load 10-characters of the 20-character NameField node.
  *
@@ -88,7 +88,7 @@
  * <h3>Protocol Standard Bytes Table</h3>
  * <table class="doxtable">
  * <tr><th colspan="2"></th><th colspan="9" style="text-align:center;">PACKET TYPE</th></tr>
- * <tr><th>Idx</th><th>Byte Order  </th><th>REQDEVITBL</th><th>REQVALS</th><th>REQVAL </th><th>REQNONCE </th><th>SETVAL </th><th>VAL</th><th>NONCERSP </th><th>DEVITBL</th><th>VALS</th></tr>
+ * <tr><th>Idx</th><th>Byte Order  </th><th>REQDITINFO</th><th>REQVALS</th><th>REQVAL </th><th>REQNONCE </th><th>SETVAL </th><th>VAL</th><th>NONCERSP </th><th>DITINFO</th><th>VALS</th></tr>
  * <tr><td>0  </td><td>PKB_TYPE    </td><td>X         </td><td>X      </td><td>X      </td><td>X        </td><td>X      </td><td>X  </td><td>X        </td><td>X      </td><td>X</td></tr>
  * <tr><td>1  </td><td>PKB_SECH    </td><td>X         </td><td>X      </td><td>X      </td><td>X        </td><td>X      </td><td>X  </td><td>X        </td><td>X      </td><td>X</td></tr>
  * <tr><td>2  </td><td>PKB_SECL    </td><td>X         </td><td>X      </td><td>X      </td><td>X        </td><td>X      </td><td>X  </td><td>X        </td><td>X      </td><td>X</td></tr>
@@ -106,7 +106,7 @@
  * <tr>
  * <td style="vertical-align: top; border: none; padding-right: 20px;">
  * <table>
- * <tr><th colspan="2">XDATA on DEVITBL</th></tr>
+ * <tr><th colspan="2">XDATA on DITINFO</th></tr>
  * <tr><th>Byte</th><th>Field</th></tr>
  * <tr><td>6</td><td>NodeName0</td></tr>
  * <tr><td>7</td><td>NodeName1</td></tr>

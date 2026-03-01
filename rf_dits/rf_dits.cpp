@@ -197,7 +197,7 @@ bool DITSEngine::TxAddRemoteNode(int RFAddr) {
   NodeDIT node(this,0);
   txPacket = new TxPacket(mRadioPktMaxBytes,SecNetCode());
   txPacket->ToFrom(RFAddr, node.NRFAddr());
-  txPacket->pktREQDEVITBL();
+  txPacket->pktREQDITINFO();
   DBRFAINFO((RFAddr,HEX),("DITSEngine::TxAddRemoteNode(<RFAddr>) packet staged.\n"));
   return true;
 }
@@ -305,8 +305,8 @@ bool DITSEngine::RxProcessPacket() {
   NodeDIT thisnode(this,THISNODE);
   
   // DIT version matching not required.
-  if(rxPacket->PktType()==PKT_REQDEVITBL) {return TxSendThisNodeDEVITBL(rxPacket->FromRF());}
-  if(rxPacket->PktType()==PKT_DEVITBL) {return RxSaveNodeDEVITBL();}
+  if(rxPacket->PktType()==PKT_REQDITINFO) {return TxSendThisNodeDITINFO(rxPacket->FromRF());}
+  if(rxPacket->PktType()==PKT_DITINFO) {return RxSaveNodeDITINFO();}
   
   if(rxPacket->PktType()==PKT_REQNONCE) { 
     DBRFINFO(("DITSEngine::RxProcessPacket PKT_REQNONCE\n"))
@@ -340,7 +340,7 @@ bool DITSEngine::RxProcessPacket() {
   if(rxPacket->NDITVer()!=thisnode.NDITVer()) {
     DBRFINFO(("DITSEngine::RxProcessPacket rxPacket->NDITVer()!=thisnode.NDITVer() version mis-match.\n"))
     if(txPacket) {DBRFERROR(("DITSEngine::RxProcessPacket 'txPacket' Tx is busy.\n")) return false;} 
-    return TxSendThisNodeDEVITBL(rxPacket->FromRF());
+    return TxSendThisNodeDITINFO(rxPacket->FromRF());
   }
     
   if (rxPacket->PktType()==PKT_SETVAL) {
@@ -419,8 +419,8 @@ bool DITSEngine::RxProcessPacket() {
   // Todo: Call for updates.
 }
 //-----------------------------------------------------------------------------------------------------
-bool DITSEngine::RxSaveNodeDEVITBL() {                        
-  DBRFENTER(("DITSEngine::RxSaveNodeDEVITBL\n"))
+bool DITSEngine::RxSaveNodeDITINFO() {                        
+  DBRFENTER(("DITSEngine::RxSaveNodeDITINFO\n"))
    
   NodeDIT ditNode(this, FindNodeDIT(rxPacket->FromRF(),true));
   ditNode.NRFAddrH(rxPacket->FromRFH());
@@ -480,14 +480,14 @@ bool DITSEngine::RxSaveNodeDEVITBL() {
   }
 }
 //-----------------------------------------------------------------------------------------------------
-bool DITSEngine::TxSendThisNodeDEVITBL(uint16_t RFAddr) {
-  if(txPacket) {DBRFERROR(("DITSEngine::TxSendThisNodeDEVITBL 'txPacket' is busy.\n")) return false;}
-  DBRFAENTER((RFAddr,HEX),("DITSEngine::TxSendThisNodeDEVITBL(<RFAddr>)\n"))
+bool DITSEngine::TxSendThisNodeDITINFO(uint16_t RFAddr) {
+  if(txPacket) {DBRFERROR(("DITSEngine::TxSendThisNodeDITINFO 'txPacket' is busy.\n")) return false;}
+  DBRFAENTER((RFAddr,HEX),("DITSEngine::TxSendThisNodeDITINFO(<RFAddr>)\n"))
   
   NodeDIT thisnode(this,THISNODE);
   txPacket = new TxPacket(mRadioPktMaxBytes,SecNetCode());
   txPacket->ToFrom(rxPacket->FromRF(), thisnode.NRFAddr());
-  txPacket->pktDEVITBL(thisnode.NDITVer());
+  txPacket->pktDITINFO(thisnode.NDITVer());
   char nname[DITNameChar];                                            //Node-Name first
   thisnode.NGetName(nname);                                           //RF DITVer in header.
   for (int i=0; i<DITNameChar; i++) {

@@ -44,7 +44,7 @@
 #define PKB_VALUEH      7   ///< Rx/Tx Device Value Int-High-Byte
 #define PKB_VALUEL      8   ///< Rx/Tx Device Value Int-Low-Byte
 
-#define PKB_XDATA_BEG   6   ///< XDATA Start DEVITBL & VALS
+#define PKB_XDATA_BEG   6   ///< XDATA Start DITINFO & VALS
 ///@}
 /*********************************************/ /**
  * @defgroup PKT Radio Packet-Types 
@@ -57,12 +57,12 @@
 
 // REQuest PacKet-Types (0x7F-0x60 bit5=1)
 #define PKT_TYPEMIN                 0xF0  ///< Used to boundry check arguments
-#define PKT_REQDEVITBL              0xF0  ///< REQ the DIT info
+#define PKT_REQDITINFO              0xF0  ///< REQ the DIT info
 #define PKT_REQVALS                 0xF1  ///< REQ all dev values
 #define PKT_REQVAL                  0xF2  ///< REQ a dev value
 #define PKT_REQNONCE                0xF3  ///< REQ a Nonce Response
 #define PKT_SETVAL                  0xF4  ///< REQ to SET a Device Value
-#define PKT_DEVITBL                 0xF5  ///< The DIT-Table information
+#define PKT_DITINFO                 0xF5  ///< The DIT-Table information
 #define PKT_VALS                    0xF6  ///< All Device values on a Node
 #define PKT_VAL                     0xF7  ///< A Device value
 #define PKT_NONCERSP                0xF8  ///< The Req-nonce response
@@ -78,7 +78,7 @@
  *     - Supports EEPROM, RAM, or other persistent memory via overridable pmem_read()/pmem_write().
  * - Provides Rx/Tx packet handling for RF or UART transport.
  *     - Incoming bytes are processed via RxByte(), which automatically collects packets and validates them.
- *     - Outgoing packets can be generated internally when requested by the engine (e.g., REQDEVITBL, PKT_VAL).
+ *     - Outgoing packets can be generated internally when requested by the engine (e.g., REQDITINFO, PKT_VAL).
  * - Defines abstract hardware interface functions (virtual methods) for implementers to override:
  *     - ReadPin(), WritePin(), or other device-specific control logic.
  *
@@ -273,7 +273,7 @@ class DITSEngine {
     ///@brief Sets the maximum packet size for the radio interface.
     ///@details This function sets the maximum allowable packet size (in bytes) for the 
     ///radio interface used by the DITSEngine. The value is used to segment outgoing packets 
-    ///into smaller chunks (e.g., REQDEVITBL device pools) that fit within the radio's 
+    ///into smaller chunks (e.g., REQDITINFO device pools) that fit within the radio's 
     ///hardware limits. This ensures that the maximum allowed payload size per packet 
     ///does not exceed the radio's transmission capability.
     ///@param[in] maxBytes The maximum number of bytes a single radio packet can carry.
@@ -288,7 +288,7 @@ class DITSEngine {
     uint16_t RadioPktMaxBytes() { return mRadioPktMaxBytes; }
 
     ///@brief Send an RF request to upload a remote nodes DIT record to allow control of it.
-    ///@details Transmits the PKT_REQDEVITBL packet to a given RF address.  The remote nodes
+    ///@details Transmits the PKT_REQDITINFO packet to a given RF address.  The remote nodes
     /// DIT table will exist in this nodes DIT records if the request is fulfilled.
     ///@param[in] RFAddr 16-bit RF address of the remote node to add.
     ///@return true if packet was created successfully, else false.
@@ -397,8 +397,8 @@ private:
   TxPacket* txPacket = nullptr;
   //---------------------------------------------------------------------------------
   bool RxProcessPacket();
-  bool RxSaveNodeDEVITBL();
-  bool TxSendThisNodeDEVITBL(uint16_t RFAddr);
+  bool RxSaveNodeDITINFO();
+  bool TxSendThisNodeDITINFO(uint16_t RFAddr);
 };
 //____________________________________________________________________________________________________________________________________________
 // ---- rfPacket Nested Base Class ----
@@ -478,9 +478,9 @@ class DITSEngine::TxPacket : public DITSEngine::rfPacket {
       Size=+4; // (2) for SecNet
       rfPool[0][PKB_FROM_RFH] = highByte(_FromRF);
       rfPool[0][PKB_FROM_RFL] = lowByte(_FromRF);}
-    void pktREQDEVITBL() {
+    void pktREQDITINFO() {
       Size+=1;
-      rfPool[0][PKB_TYPE] = PKT_REQDEVITBL;}
+      rfPool[0][PKB_TYPE] = PKT_REQDITINFO;}
     void pktREQVALS(byte _DITVer) {
       Size+=2;
       rfPool[0][PKB_TYPE] = PKT_REQVALS;
@@ -504,9 +504,9 @@ class DITSEngine::TxPacket : public DITSEngine::rfPacket {
       rfPool[0][PKB_DEVUID] = _devUID;
       rfPool[0][PKB_VALUEH] = highByte(_val);
       rfPool[0][PKB_VALUEL] = lowByte(_val);}
-    void pktDEVITBL(byte _DITVer) {
+    void pktDITINFO(byte _DITVer) {
       Size+=2;
-      rfPool[0][PKB_TYPE] = PKT_DEVITBL;
+      rfPool[0][PKB_TYPE] = PKT_DITINFO;
       rfPool[0][PKB_DITVER] = _DITVer;}
     void pktVALS(byte _DITVer) {
       Size+=2; // +XData

@@ -196,7 +196,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the maximum packet size for the radio interface. </p>
-<p>This function sets the maximum allowable packet size (in bytes) for the radio interface used by the <a class="el" href="class_d_i_t_s_engine.html" title="Central engine managing Node and Device DIT tables, packet transport, and hardware abstraction.">DITSEngine</a>. The value is used to segment outgoing packets into smaller chunks (e.g., REQDEVITBL device pools) that fit within the radio's hardware limits. This ensures that the maximum allowed payload size per packet does not exceed the radio's transmission capability. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This function sets the maximum allowable packet size (in bytes) for the radio interface used by the <a class="el" href="class_d_i_t_s_engine.html" title="Central engine managing Node and Device DIT tables, packet transport, and hardware abstraction.">DITSEngine</a>. The value is used to segment outgoing packets into smaller chunks (e.g., REQDITINFO device pools) that fit within the radio's hardware limits. This ensures that the maximum allowed payload size per packet does not exceed the radio's transmission capability. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">maxBytes</td><td>The maximum number of bytes a single radio packet can carry. </td></tr>
   </table>
@@ -369,7 +369,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Send an RF request to upload a remote nodes DIT record to allow control of it. </p>
-<p>Transmits the PKT_REQDEVITBL packet to a given RF address. The remote nodes DIT table will exist in this nodes DIT records if the request is fulfilled. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Transmits the PKT_REQDITINFO packet to a given RF address. The remote nodes DIT table will exist in this nodes DIT records if the request is fulfilled. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">RFAddr</td><td>16-bit RF address of the remote node to add. </td></tr>
   </table>

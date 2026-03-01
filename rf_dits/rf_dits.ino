@@ -173,7 +173,7 @@ void setup()
     Serial.print("node2 RF-Addr: ");Serial.println(hexStr2);
 
     // Test Rx.
-    // Send 'testaddnode1dev1' dummy packet to test Rx DEVITBL adding.
+    // Send 'testaddnode1dev1' dummy packet to test Rx DITINFO adding.
     //for(int i=0; i<sizeof(testaddnode1dev1); i++) {
       //Radio1.RxData(testaddnode1dev1[i]);
     //}
@@ -183,7 +183,7 @@ void setup()
     //Radio1.TxSetRemoteDevVal(0x0002, 0, 500);
     //TxSetRemoteDevVal
 
-    // from Radio2 request DEVITBL on Radio1
+    // from Radio2 request DITINFO on Radio1
     Radio2.TxAddRemoteNode(0x0001);
 
     //randomSeed(analogRead(A0));

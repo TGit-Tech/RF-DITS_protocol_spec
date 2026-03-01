@@ -110,12 +110,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a338dda8986990342b3fddcd0ed29a9a8" id="r_a338dda8986990342b3fddcd0ed29a9a8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a338dda8986990342b3fddcd0ed29a9a8">TxPacket</a> (const TxPacket &amp;)=delete</td></tr>
 <tr class="memitem:a6c2c562f1537be905b534d64d5786e6d" id="r_a6c2c562f1537be905b534d64d5786e6d"><td class="memItemLeft"><a class="el" href="#a450c7ab6062ff92819b7a40b4979627a">TxPacket</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a6c2c562f1537be905b534d64d5786e6d">operator=</a> (const <a class="el" href="#a450c7ab6062ff92819b7a40b4979627a">TxPacket</a> &amp;)=delete</td></tr>
 <tr class="memitem:a4c45cfd5fea8e5a9a3dfa86081fc131a" id="r_a4c45cfd5fea8e5a9a3dfa86081fc131a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4c45cfd5fea8e5a9a3dfa86081fc131a">ToFrom</a> (uint16_t _ToRF, uint16_t _FromRF)</td></tr>
-<tr class="memitem:a083d095bb1f1ac0f85c0db377d75b9c8" id="r_a083d095bb1f1ac0f85c0db377d75b9c8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a083d095bb1f1ac0f85c0db377d75b9c8">pktREQDEVITBL</a> ()</td></tr>
+<tr class="memitem:a0d0358e80b9f9e3d88b08bd8a84d78ba" id="r_a0d0358e80b9f9e3d88b08bd8a84d78ba"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0d0358e80b9f9e3d88b08bd8a84d78ba">pktREQDITINFO</a> ()</td></tr>
 <tr class="memitem:a80c55ad2bc5f1617f842213e69301856" id="r_a80c55ad2bc5f1617f842213e69301856"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a80c55ad2bc5f1617f842213e69301856">pktREQVALS</a> (byte _DITVer)</td></tr>
 <tr class="memitem:a56c4713d29eae463eb60c05e9ca17526" id="r_a56c4713d29eae463eb60c05e9ca17526"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a56c4713d29eae463eb60c05e9ca17526">pktREQVAL</a> (byte _DITVer, byte _devUID)</td></tr>
 <tr class="memitem:a6714e00126abdcc18d0413de2cd96711" id="r_a6714e00126abdcc18d0413de2cd96711"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6714e00126abdcc18d0413de2cd96711">pktREQNONCE</a> (byte _DITVer, byte _devUID, int _challenge)</td></tr>
 <tr class="memitem:abfbac43c729ef464f04c3e4195589b2d" id="r_abfbac43c729ef464f04c3e4195589b2d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abfbac43c729ef464f04c3e4195589b2d">pktSETVAL</a> (byte _DITVer, byte _devUID, int _val)</td></tr>
-<tr class="memitem:af7ad364804cf5db2dd1ed0100b6e83f7" id="r_af7ad364804cf5db2dd1ed0100b6e83f7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af7ad364804cf5db2dd1ed0100b6e83f7">pktDEVITBL</a> (byte _DITVer)</td></tr>
+<tr class="memitem:ac112393c7f6e0ef736ddda0f7be5ccfe" id="r_ac112393c7f6e0ef736ddda0f7be5ccfe"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac112393c7f6e0ef736ddda0f7be5ccfe">pktDITINFO</a> (byte _DITVer)</td></tr>
 <tr class="memitem:a9a75d53ecceb1f485e1ffd0973c8c172" id="r_a9a75d53ecceb1f485e1ffd0973c8c172"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9a75d53ecceb1f485e1ffd0973c8c172">pktVALS</a> (byte _DITVer)</td></tr>
 <tr class="memitem:abca29bb84d7eb619a3cbf303c1f9639d" id="r_abca29bb84d7eb619a3cbf303c1f9639d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abca29bb84d7eb619a3cbf303c1f9639d">pktVAL</a> (byte _DITVer, byte _devUID, int _val)</td></tr>
 <tr class="memitem:ae68b3e17ab01ddd5919efbed10d7fd32" id="r_ae68b3e17ab01ddd5919efbed10d7fd32"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae68b3e17ab01ddd5919efbed10d7fd32">pktNONCERSP</a> (byte _DITVer, byte _devUID, int _val)</td></tr>
@@ -279,8 +279,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="af7ad364804cf5db2dd1ed0100b6e83f7" name="af7ad364804cf5db2dd1ed0100b6e83f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7ad364804cf5db2dd1ed0100b6e83f7">&#9670;&#160;</a></span>pktDEVITBL()</h2>
+<a id="ac112393c7f6e0ef736ddda0f7be5ccfe" name="ac112393c7f6e0ef736ddda0f7be5ccfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac112393c7f6e0ef736ddda0f7be5ccfe">&#9670;&#160;</a></span>pktDITINFO()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -289,7 +289,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DITSEngine::TxPacket::pktDEVITBL </td>
+          <td class="memname">void DITSEngine::TxPacket::pktDITINFO </td>
           <td>(</td>
           <td class="paramtype">byte</td>          <td class="paramname"><span class="paramname"><em>_DITVer</em></span></td><td>)</td>
           <td></td>
@@ -342,8 +342,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a083d095bb1f1ac0f85c0db377d75b9c8" name="a083d095bb1f1ac0f85c0db377d75b9c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a083d095bb1f1ac0f85c0db377d75b9c8">&#9670;&#160;</a></span>pktREQDEVITBL()</h2>
+<a id="a0d0358e80b9f9e3d88b08bd8a84d78ba" name="a0d0358e80b9f9e3d88b08bd8a84d78ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d0358e80b9f9e3d88b08bd8a84d78ba">&#9670;&#160;</a></span>pktREQDITINFO()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -352,7 +352,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DITSEngine::TxPacket::pktREQDEVITBL </td>
+          <td class="memname">void DITSEngine::TxPacket::pktREQDITINFO </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>

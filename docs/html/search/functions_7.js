@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['pktdevitbl_0',['pktDEVITBL',['../class_d_i_t_s_engine_1_1_tx_packet.html#af7ad364804cf5db2dd1ed0100b6e83f7',1,'DITSEngine::TxPacket']]],
+  ['pktditinfo_0',['pktDITINFO',['../class_d_i_t_s_engine_1_1_tx_packet.html#ac112393c7f6e0ef736ddda0f7be5ccfe',1,'DITSEngine::TxPacket']]],
   ['pktnoncersp_1',['pktNONCERSP',['../class_d_i_t_s_engine_1_1_tx_packet.html#ae68b3e17ab01ddd5919efbed10d7fd32',1,'DITSEngine::TxPacket']]],
-  ['pktreqdevitbl_2',['pktREQDEVITBL',['../class_d_i_t_s_engine_1_1_tx_packet.html#a083d095bb1f1ac0f85c0db377d75b9c8',1,'DITSEngine::TxPacket']]],
+  ['pktreqditinfo_2',['pktREQDITINFO',['../class_d_i_t_s_engine_1_1_tx_packet.html#a0d0358e80b9f9e3d88b08bd8a84d78ba',1,'DITSEngine::TxPacket']]],
   ['pktreqnonce_3',['pktREQNONCE',['../class_d_i_t_s_engine_1_1_tx_packet.html#a6714e00126abdcc18d0413de2cd96711',1,'DITSEngine::TxPacket']]],
   ['pktreqval_4',['pktREQVAL',['../class_d_i_t_s_engine_1_1_tx_packet.html#a56c4713d29eae463eb60c05e9ca17526',1,'DITSEngine::TxPacket']]],
   ['pktreqvals_5',['pktREQVALS',['../class_d_i_t_s_engine_1_1_tx_packet.html#a80c55ad2bc5f1617f842213e69301856',1,'DITSEngine::TxPacket']]],

@@ -82,7 +82,7 @@ bool DITSEngine::\+\+Radio\+Pkt\+Max\+Bytes (\begin{DoxyParamCaption}\item[{uint
 
 Sets the maximum packet size for the radio interface. 
 
-This function sets the maximum allowable packet size (in bytes) for the radio interface used by the \doxylink{class_d_i_t_s_engine}{DITSEngine}. The value is used to segment outgoing packets into smaller chunks (e.\+g., REQDEVITBL device pools) that fit within the radio\textquotesingle{}s hardware limits. This ensures that the maximum allowed payload size per packet does not exceed the radio\textquotesingle{}s transmission capability. 
+This function sets the maximum allowable packet size (in bytes) for the radio interface used by the \doxylink{class_d_i_t_s_engine}{DITSEngine}. The value is used to segment outgoing packets into smaller chunks (e.\+g., REQDITINFO device pools) that fit within the radio\textquotesingle{}s hardware limits. This ensures that the maximum allowed payload size per packet does not exceed the radio\textquotesingle{}s transmission capability. 
 \begin{DoxyParams}[1]{Parameters}
 \doxymbox{\texttt{in}}  & {\em max\+Bytes} & The maximum number of bytes a single radio packet can carry. \\
 \hline
@@ -207,7 +207,7 @@ bool DITSEngine::\+\+Tx\+Add\+Remote\+Node (\begin{DoxyParamCaption}\item[{int}]
 
 Send an RF request to upload a remote nodes DIT record to allow control of it. 
 
-Transmits the PKT\+\_\+\+REQDEVITBL packet to a given RF address. The remote nodes DIT table will exist in this nodes DIT records if the request is fulfilled. 
+Transmits the PKT\+\_\+\+REQDITINFO packet to a given RF address. The remote nodes DIT table will exist in this nodes DIT records if the request is fulfilled. 
 \begin{DoxyParams}[1]{Parameters}
 \doxymbox{\texttt{in}}  & {\em RFAddr} & 16-\/bit RF address of the remote node to add. \\
 \hline

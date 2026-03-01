@@ -198,7 +198,7 @@
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00197}00197\ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{NodeDIT}}\ node(\textcolor{keyword}{this},0);}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00198}00198\ \ \ txPacket\ =\ \textcolor{keyword}{new}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_tx_packet}{TxPacket}}(mRadioPktMaxBytes,\doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga8660955199d09337b095dd60fc5675d2}{SecNetCode}}());}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00199}00199\ \ \ txPacket-\/>ToFrom(RFAddr,\ node.\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a9ac6e4c9b191f27423479c4b8d1d2577}{NRFAddr}}());}
-\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00200}00200\ \ \ txPacket-\/>pktREQDEVITBL();}
+\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00200}00200\ \ \ txPacket-\/>pktREQDITINFO();}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00201}00201\ \ \ \doxymbox{\hyperlink{group___d_b_ga2f436be5d129edfd7f5f67e228aef5f1}{DBRFAINFO}}((RFAddr,HEX),(\textcolor{stringliteral}{"{}DITSEngine::TxAddRemoteNode(<RFAddr>)\ packet\ staged.\(\backslash\)n"{}}));}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00202}00202\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00203}00203\ \}}
@@ -302,8 +302,8 @@
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00305}00305\ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{NodeDIT}}\ thisnode(\textcolor{keyword}{this},\doxymbox{\hyperlink{rf__dits_8h_ade255e29af8e37d712efad21f4fbb797}{THISNODE}});}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00306}00306\ \ \ }
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00307}00307\ \ \ \textcolor{comment}{//\ DIT\ version\ matching\ not\ required.}}
-\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00308}00308\ \ \ \textcolor{keywordflow}{if}(rxPacket-\/>PktType()==\doxymbox{\hyperlink{group___p_k_t_ga63427302e944ccb91e304d2d6606f369}{PKT\_REQDEVITBL}})\ \{\textcolor{keywordflow}{return}\ TxSendThisNodeDEVITBL(rxPacket-\/>FromRF());\}}
-\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00309}00309\ \ \ \textcolor{keywordflow}{if}(rxPacket-\/>PktType()==\doxymbox{\hyperlink{group___p_k_t_ga053158e9ce31966a9109765bc295e8a7}{PKT\_DEVITBL}})\ \{\textcolor{keywordflow}{return}\ RxSaveNodeDEVITBL();\}}
+\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00308}00308\ \ \ \textcolor{keywordflow}{if}(rxPacket-\/>PktType()==\doxymbox{\hyperlink{group___p_k_t_ga3e5801a488cad81fab3b60a5cf9fd59d}{PKT\_REQDITINFO}})\ \{\textcolor{keywordflow}{return}\ TxSendThisNodeDITINFO(rxPacket-\/>FromRF());\}}
+\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00309}00309\ \ \ \textcolor{keywordflow}{if}(rxPacket-\/>PktType()==\doxymbox{\hyperlink{group___p_k_t_gaf4307c444b7a7ac1cfd3645bd1061283}{PKT\_DITINFO}})\ \{\textcolor{keywordflow}{return}\ RxSaveNodeDITINFO();\}}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00310}00310\ \ \ }
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00311}00311\ \ \ \textcolor{keywordflow}{if}(rxPacket-\/>PktType()==\doxymbox{\hyperlink{group___p_k_t_gaa26747198a93a42f7e68067b8b606eaa}{PKT\_REQNONCE}})\ \{\ }
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00312}00312\ \ \ \ \ \doxymbox{\hyperlink{group___d_b_gaf2535f4704d778db3c3844f5cbc24f1f}{DBRFINFO}}((\textcolor{stringliteral}{"{}DITSEngine::RxProcessPacket\ PKT\_REQNONCE\(\backslash\)n"{}}))}
@@ -337,7 +337,7 @@
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00340}00340\ \ \ if(rxPacket-\/>NDITVer()!=thisnode.NDITVer())\ \{}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00341}00341\ \ \ \ \ \doxymbox{\hyperlink{group___d_b_gaf2535f4704d778db3c3844f5cbc24f1f}{DBRFINFO}}((\textcolor{stringliteral}{"{}DITSEngine::RxProcessPacket\ rxPacket-\/>NDITVer()!=thisnode.NDITVer()\ version\ mis-\/match.\(\backslash\)n"{}}))}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00342}00342\ \ \ \ \ if(txPacket)\ \{\doxymbox{\hyperlink{group___d_b_ga919f0e20a37afff5580bc3f60c696b32}{DBRFERROR}}((\textcolor{stringliteral}{"{}DITSEngine::RxProcessPacket\ 'txPacket'\ Tx\ is\ busy.\(\backslash\)n"{}}))\ return\ false;\}\ }
-\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00343}00343\ \ \ \ \ return\ TxSendThisNodeDEVITBL(rxPacket-\/>FromRF());}
+\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00343}00343\ \ \ \ \ return\ TxSendThisNodeDITINFO(rxPacket-\/>FromRF());}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00344}00344\ \ \ \}}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00345}00345\ \ \ \ \ }
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00346}00346\ \ \ if\ (rxPacket-\/>PktType()==\doxymbox{\hyperlink{group___p_k_t_ga1a44749b87157655be7d0ab3dc206612}{PKT\_SETVAL}})\ \{}
@@ -416,8 +416,8 @@
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00419}00419\ \ \ \textcolor{comment}{//\ Todo:\ Call\ for\ updates.}}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00420}00420\ \}}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00421}00421\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00422}00422\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a9507f50b34b39ed2756dcb4a91340e4b}{DITSEngine}}::RxSaveNodeDEVITBL()\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00423}00423\ \ \ \doxymbox{\hyperlink{group___d_b_ga655f5d4a47c42f2a8fb60d48adb4c40e}{DBRFENTER}}((\textcolor{stringliteral}{"{}DITSEngine::RxSaveNodeDEVITBL\(\backslash\)n"{}}))}
+\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00422}00422\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_d_i_t_s_engine_a9507f50b34b39ed2756dcb4a91340e4b}{DITSEngine}}::RxSaveNodeDITINFO()\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00423}00423\ \ \ \doxymbox{\hyperlink{group___d_b_ga655f5d4a47c42f2a8fb60d48adb4c40e}{DBRFENTER}}((\textcolor{stringliteral}{"{}DITSEngine::RxSaveNodeDITINFO\(\backslash\)n"{}}))}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00424}00424\ \ \ \ }
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00425}00425\ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{NodeDIT}}\ ditNode(this,\ FindNodeDIT(rxPacket-\/>FromRF(),true));}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00426}00426\ \ \ ditNode.NRFAddrH(rxPacket-\/>FromRFH());}
@@ -477,14 +477,14 @@
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00480}00480\ \ \ \}}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00481}00481\ \}}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00482}00482\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00483}00483\ \textcolor{keywordtype}{bool}\ DITSEngine::TxSendThisNodeDEVITBL(uint16\_t\ RFAddr)\ \{}
-\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00484}00484\ \ \ \textcolor{keywordflow}{if}(txPacket)\ \{\doxymbox{\hyperlink{group___d_b_ga919f0e20a37afff5580bc3f60c696b32}{DBRFERROR}}((\textcolor{stringliteral}{"{}DITSEngine::TxSendThisNodeDEVITBL\ 'txPacket'\ is\ busy.\(\backslash\)n"{}}))\ return\ false;\}}
-\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00485}00485\ \ \ \doxymbox{\hyperlink{group___d_b_ga4ab4910bafc967346030378fbfdc364f}{DBRFAENTER}}((RFAddr,HEX),(\textcolor{stringliteral}{"{}DITSEngine::TxSendThisNodeDEVITBL(<RFAddr>)\(\backslash\)n"{}}))}
+\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00483}00483\ \textcolor{keywordtype}{bool}\ DITSEngine::TxSendThisNodeDITINFO(uint16\_t\ RFAddr)\ \{}
+\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00484}00484\ \ \ \textcolor{keywordflow}{if}(txPacket)\ \{\doxymbox{\hyperlink{group___d_b_ga919f0e20a37afff5580bc3f60c696b32}{DBRFERROR}}((\textcolor{stringliteral}{"{}DITSEngine::TxSendThisNodeDITINFO\ 'txPacket'\ is\ busy.\(\backslash\)n"{}}))\ return\ false;\}}
+\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00485}00485\ \ \ \doxymbox{\hyperlink{group___d_b_ga4ab4910bafc967346030378fbfdc364f}{DBRFAENTER}}((RFAddr,HEX),(\textcolor{stringliteral}{"{}DITSEngine::TxSendThisNodeDITINFO(<RFAddr>)\(\backslash\)n"{}}))}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00486}00486\ \ \ }
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00487}00487\ \ \ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{NodeDIT}}\ thisnode(this,\doxymbox{\hyperlink{rf__dits_8h_ade255e29af8e37d712efad21f4fbb797}{THISNODE}});}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00488}00488\ \ \ txPacket\ =\ new\ \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_tx_packet}{TxPacket}}(mRadioPktMaxBytes,\doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga8660955199d09337b095dd60fc5675d2}{SecNetCode}}());}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00489}00489\ \ \ txPacket-\/>ToFrom(rxPacket-\/>FromRF(),\ thisnode.NRFAddr());}
-\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00490}00490\ \ \ txPacket-\/>pktDEVITBL(thisnode.NDITVer());}
+\DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00490}00490\ \ \ txPacket-\/>pktDITINFO(thisnode.NDITVer());}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00491}00491\ \ \ \textcolor{keywordtype}{char}\ nname[\doxymbox{\hyperlink{class_d_i_t_s_engine_a41bf6bc426674456bc579e865901d271}{DITNameChar}}];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Node-\/Name\ first}}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00492}00492\ \ \ thisnode.NGetName(nname);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//RF\ DITVer\ in\ header.}}
 \DoxyCodeLine{\Hypertarget{rf__dits_8cpp_source_l00493}00493\ \ \ for\ (\textcolor{keywordtype}{int}\ i=0;\ i<\doxymbox{\hyperlink{class_d_i_t_s_engine_a41bf6bc426674456bc579e865901d271}{DITNameChar}};\ i++)\ \{}

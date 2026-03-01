@@ -1,12 +1,12 @@
 \chapter{Main Page }
 \hypertarget{index}{}\label{index}\index{Main Page@{Main Page}}
 \hypertarget{index_DESC}{}\doxysection{\texorpdfstring{RF-\/\+DITS description.}{RF-\/\+DITS description.}}\label{index_DESC}
-RF-\/\+DITS (RF-\/\+Lo\+Ra Device Index Table with Security) is a lightweight, binary-\/based P2P mesh protocol that operates entirely without any centralized infrastructure. The protocol is architectured around a station based RF control point rather than a one-\/radio-\/per-\/device model. Functionality is established through a P2P discovery process (PKT\+\_\+\+REQDEVITBL) in which any node can upload the configuration (e.\+g. node name, wired devices names, device types and their attributes) of another node in order to provide binary-\/based control of it.
+RF-\/\+DITS (RF-\/\+Lo\+Ra Device Index Table with Security) is a lightweight, binary-\/based P2P mesh protocol that operates entirely without any centralized infrastructure. The protocol is architectured around a station based RF control point rather than a one-\/radio-\/per-\/device model. Functionality is established through a P2P discovery process (PKT\+\_\+\+REQDITINFO) in which any node can upload the configuration (e.\+g. node name, wired devices names, device types and their attributes) of another node in order to provide binary-\/based control of it.
 
 Station nodes are configured at that station only, by wiring devices, assigning those devices names, types and other attributes. When another node wants to remotely control that station it \textquotesingle{}learns\textquotesingle{} and stores that stations configuration in persistent memory. Think of it like a regular \textquotesingle{}learn\textquotesingle{} button on a small remote but instead of just learning how to connect, it learns everything that connection is setup to control.\hypertarget{index_SYNC}{}\doxysection{\texorpdfstring{The DIT record and Synchronization Feature.}{The DIT record and Synchronization Feature.}}\label{index_SYNC}
 Every {\bfseries{Device}} has one DIT(\+Device Index Table) record (DDIT) and every {\bfseries{node}} has one DIT record (NDIT).
 
-Every node (NDIT) record carries a version number (DITVER) that marks a static point of devices and node information. DITVER is incremented whenever a node adds, deletes or changes DIT information. Everytime a remote node tries to access another node the remote node sends its last learned DITVER. The reciever compares the two DITVER. If the two do not match, the reciever denies the call and automatically sends the updated DIT information (PKT\+\_\+\+DEVITBL). This versioning system ensures the binary-\/based, device-\/addressing, packets remain perfectly synchronized.\hypertarget{index_DITSPMEM}{}\doxysection{\texorpdfstring{Persistent Memory}{Persistent Memory}}\label{index_DITSPMEM}
+Every node (NDIT) record carries a version number (DITVER) that marks a static point of devices and node information. DITVER is incremented whenever a node adds, deletes or changes DIT information. Everytime a remote node tries to access another node the remote node sends its last learned DITVER. The reciever compares the two DITVER. If the two do not match, the reciever denies the call and automatically sends the updated DIT information (PKT\+\_\+\+DITINFO). This versioning system ensures the binary-\/based, device-\/addressing, packets remain perfectly synchronized.\hypertarget{index_DITSPMEM}{}\doxysection{\texorpdfstring{Persistent Memory}{Persistent Memory}}\label{index_DITSPMEM}
 
 \begin{DoxyEnumerate}
 \item Persistent memory is allocated by the DITEngine Constructor arguments (e.\+g. pmem\+Begin\+Addr, Max\+DITRecords, Name\+Field\+Bytes)
@@ -71,7 +71,7 @@ Changing construtor arguments on a node will contaminate all previous records st
 \item This limit will affect maximum devices per node. All information of a node must fit within that 512 byte limit.
 \item For Example:\+ Using Name\+Field\+Bytes = 10
 \begin{DoxyItemize}
-\item DEVITBL header requires 6-\/bytes.
+\item DITINFO header requires 6-\/bytes.
 \item Node\+Name would require 10-\/bytes + 1(\textquotesingle{}\textbackslash{}0\textquotesingle{}) = 11 bytes. (17 Total so-\/far)
 \item Each Device would require 3(Type,Attr,UID) + 10-\/Name + 1(\textquotesingle{}\textbackslash{}0\textquotesingle{}) = 14 bytes.
 \item Therefore to stay under 512 bytes:\+ 35 Maximum devices could exist on each node.
@@ -79,7 +79,7 @@ Changing construtor arguments on a node will contaminate all previous records st
 \end{DoxyItemize}
 \end{DoxyItemize}
 \item Number of possible Sec\+Net code combinations:\+ 128 unique (0x00 to 0x7F)
-\item Because the protocol uses name termination for DEVITBL information it allows communication of two differently set {\ttfamily Name\+Field\+Bytes}.
+\item Because the protocol uses name termination for DITINFO information it allows communication of two differently set {\ttfamily Name\+Field\+Bytes}.
 \begin{DoxyItemize}
 \item Example:\+ One node uses 20-\/character names and one node uses 10-\/character names; the two can still communicate.
 \item The 10-\/character Name\+Field node will only load 10-\/characters of the 20-\/character Name\+Field node.
@@ -91,7 +91,7 @@ Changing construtor arguments on a node will contaminate all previous records st
  
 \begin{DoxyTable}{11}{}{}{2}
 \SetCell[c=2]{bg=\tableheadbgcolor,font=\bfseries}&&\SetCell[c=9]{bg=\tableheadbgcolor,font=\bfseries}PACKET TYPE&&&&&&&&\\
-\SetCell{bg=\tableheadbgcolor,font=\bfseries}Idx&\SetCell{bg=\tableheadbgcolor,font=\bfseries}Byte Order &\SetCell{bg=\tableheadbgcolor,font=\bfseries}REQDEVITBL&\SetCell{bg=\tableheadbgcolor,font=\bfseries}REQVALS&\SetCell{bg=\tableheadbgcolor,font=\bfseries}REQVAL &\SetCell{bg=\tableheadbgcolor,font=\bfseries}REQNONCE &\SetCell{bg=\tableheadbgcolor,font=\bfseries}SETVAL &\SetCell{bg=\tableheadbgcolor,font=\bfseries}VAL&\SetCell{bg=\tableheadbgcolor,font=\bfseries}NONCERSP &\SetCell{bg=\tableheadbgcolor,font=\bfseries}DEVITBL&\SetCell{bg=\tableheadbgcolor,font=\bfseries}VALS\\
+\SetCell{bg=\tableheadbgcolor,font=\bfseries}Idx&\SetCell{bg=\tableheadbgcolor,font=\bfseries}Byte Order &\SetCell{bg=\tableheadbgcolor,font=\bfseries}REQDITINFO&\SetCell{bg=\tableheadbgcolor,font=\bfseries}REQVALS&\SetCell{bg=\tableheadbgcolor,font=\bfseries}REQVAL &\SetCell{bg=\tableheadbgcolor,font=\bfseries}REQNONCE &\SetCell{bg=\tableheadbgcolor,font=\bfseries}SETVAL &\SetCell{bg=\tableheadbgcolor,font=\bfseries}VAL&\SetCell{bg=\tableheadbgcolor,font=\bfseries}NONCERSP &\SetCell{bg=\tableheadbgcolor,font=\bfseries}DITINFO&\SetCell{bg=\tableheadbgcolor,font=\bfseries}VALS\\
 0 &PKB\+\_\+\+TYPE &X &X &X &X &X &X &X &X &X\\
 1 &PKB\+\_\+\+SECH &X &X &X &X &X &X &X &X &X\\
 2 &PKB\+\_\+\+SECL &X &X &X &X &X &X &X &X &X\\
@@ -115,7 +115,7 @@ Changing construtor arguments on a node will contaminate all previous records st
  
 \begin{DoxyTable}{2}{}{}{0}
 \begin{DoxyTableNested}{2}{2}
-\SetCell[c=2]{bg=\tableheadbgcolor,font=\bfseries}XDATA on DEVITBL&\\
+\SetCell[c=2]{bg=\tableheadbgcolor,font=\bfseries}XDATA on DITINFO&\\
 \SetCell{bg=\tableheadbgcolor,font=\bfseries}Byte&\SetCell{bg=\tableheadbgcolor,font=\bfseries}Field\\
 6&Node\+Name0\\
 7&Node\+Name1\\

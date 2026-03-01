@@ -94,12 +94,12 @@ $(function(){initNavTree('index.html','',''); });
 <div class="contents">
 <div class="textblock"><h1 class="doxsection"><a class="anchor" id="DESC"></a>
 RF-DITS description.</h1>
-<p>RF-DITS (RF-LoRa Device Index Table with Security) is a lightweight, binary-based P2P mesh protocol that operates entirely without any centralized infrastructure. The protocol is architectured around a station based RF control point rather than a one-radio-per-device model. Functionality is established through a P2P discovery process (PKT_REQDEVITBL) in which any node can upload the configuration (e.g. node name, wired devices names, device types and their attributes) of another node in order to provide binary-based control of it.</p>
+<p>RF-DITS (RF-LoRa Device Index Table with Security) is a lightweight, binary-based P2P mesh protocol that operates entirely without any centralized infrastructure. The protocol is architectured around a station based RF control point rather than a one-radio-per-device model. Functionality is established through a P2P discovery process (PKT_REQDITINFO) in which any node can upload the configuration (e.g. node name, wired devices names, device types and their attributes) of another node in order to provide binary-based control of it.</p>
 <p>Station nodes are configured at that station only, by wiring devices, assigning those devices names, types and other attributes. When another node wants to remotely control that station it 'learns' and stores that stations configuration in persistent memory. Think of it like a regular 'learn' button on a small remote but instead of just learning how to connect, it learns everything that connection is setup to control.</p>
 <h1 class="doxsection"><a class="anchor" id="SYNC"></a>
 The DIT record and Synchronization Feature.</h1>
 <p>Every <b>Device</b> has one DIT(Device Index Table) record (DDIT) and every <b>node</b> has one DIT record (NDIT).</p>
-<p>Every node (NDIT) record carries a version number (DITVER) that marks a static point of devices and node information. DITVER is incremented whenever a node adds, deletes or changes DIT information. Everytime a remote node tries to access another node the remote node sends its last learned DITVER. The reciever compares the two DITVER. If the two do not match, the reciever denies the call and automatically sends the updated DIT information (PKT_DEVITBL). This versioning system ensures the binary-based, device-addressing, packets remain perfectly synchronized.</p>
+<p>Every node (NDIT) record carries a version number (DITVER) that marks a static point of devices and node information. DITVER is incremented whenever a node adds, deletes or changes DIT information. Everytime a remote node tries to access another node the remote node sends its last learned DITVER. The reciever compares the two DITVER. If the two do not match, the reciever denies the call and automatically sends the updated DIT information (PKT_DITINFO). This versioning system ensures the binary-based, device-addressing, packets remain perfectly synchronized.</p>
 <h1 class="doxsection"><a class="anchor" id="DITSPMEM"></a>
 Persistent Memory</h1>
 <ol>
@@ -171,7 +171,7 @@ Protocol Specification</h1>
 <li>The protocol is designed to perform segmentation when RadioPktMaxBytes is set to less than the number of payload bytes required.</li>
 <li>This limit will affect maximum devices per node. All information of a node must fit within that 512 byte limit.</li>
 <li>For Example: Using NameFieldBytes = 10<ul>
-<li>DEVITBL header requires 6-bytes.</li>
+<li>DITINFO header requires 6-bytes.</li>
 <li>NodeName would require 10-bytes + 1('\0') = 11 bytes. (17 Total so-far)</li>
 <li>Each Device would require 3(Type,Attr,UID) + 10-Name + 1('\0') = 14 bytes.</li>
 <li>Therefore to stay under 512 bytes: 35 Maximum devices could exist on each node.</li>
@@ -181,7 +181,7 @@ Protocol Specification</h1>
 </ul>
 </li>
 <li>Number of possible SecNet code combinations: 128 unique (0x00 to 0x7F)</li>
-<li>Because the protocol uses name termination for DEVITBL information it allows communication of two differently set <span class="tt">NameFieldBytes</span>.<ul>
+<li>Because the protocol uses name termination for DITINFO information it allows communication of two differently set <span class="tt">NameFieldBytes</span>.<ul>
 <li>Example: One node uses 20-character names and one node uses 10-character names; the two can still communicate.</li>
 <li>The 10-character NameField node will only load 10-characters of the 20-character NameField node.</li>
 </ul>
@@ -192,7 +192,7 @@ Protocol Specification</h1>
 <tr>
 <th colspan="2"></th><th colspan="9" style="text-align:center;">PACKET TYPE</th></tr>
 <tr>
-<th>Idx</th><th>Byte Order </th><th>REQDEVITBL</th><th>REQVALS</th><th>REQVAL </th><th>REQNONCE </th><th>SETVAL </th><th>VAL</th><th>NONCERSP </th><th>DEVITBL</th><th>VALS</th></tr>
+<th>Idx</th><th>Byte Order </th><th>REQDITINFO</th><th>REQVALS</th><th>REQVAL </th><th>REQNONCE </th><th>SETVAL </th><th>VAL</th><th>NONCERSP </th><th>DITINFO</th><th>VALS</th></tr>
 <tr>
 <td>0 </td><td>PKB_TYPE </td><td>X </td><td>X </td><td>X </td><td>X </td><td>X </td><td>X </td><td>X </td><td>X </td><td>X</td></tr>
 <tr>
@@ -216,7 +216,7 @@ Protocol Specification</h1>
 <tr>
 <td style="vertical-align: top; border: none; padding-right: 20px;"><table class="doxtable">
 <tr>
-<th colspan="2">XDATA on DEVITBL</th></tr>
+<th colspan="2">XDATA on DITINFO</th></tr>
 <tr>
 <th>Byte</th><th>Field</th></tr>
 <tr>
