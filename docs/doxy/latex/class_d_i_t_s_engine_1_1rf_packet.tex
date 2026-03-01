@@ -1,0 +1,164 @@
+\doxysection{DITSEngine::\+rf\+Packet Class Reference}
+\hypertarget{class_d_i_t_s_engine_1_1rf_packet}{}\label{class_d_i_t_s_engine_1_1rf_packet}\index{DITSEngine::rfPacket@{DITSEngine::rfPacket}}
+
+
+{\ttfamily \+\#include $<$rf\+\_\+dits.\+h$>$}
+
+Inheritance diagram for DITSEngine::\+rf\+Packet:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_d_i_t_s_engine_1_1rf_packet}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a3fa8f0720ecc4b1ee87417f06bacd93b}{rf\+Packet}} (uint16\+\_\+t \+\_\+\+Radio\+Pkt\+Max\+Bytes, byte \+\_\+\+Sec\+Net)
+\item 
+virtual \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_ab8391c806abb3b049cd945564a465ed0}{\texorpdfstring{$\sim$}{\string~}rf\+Packet}} ()
+\item 
+void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a278dc3fae585ac232b68b4ec60d58a1f}{dump\+RFPool}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t const \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a764a59f2e62470c87b55895cd72727dc}{rf\+Pool\+Idxs}}
+\begin{DoxyCompactList}\small\item\em The num of rf\+Pool\+[$<$\+Idxs$>$]\+. \end{DoxyCompactList}\item 
+uint16\+\_\+t const \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a80d6c0a9d267681f6c2af296fccca311}{ui\+Radio\+Pkt\+Max\+Bytes}}
+\begin{DoxyCompactList}\small\item\em The num of rf\+Pool\+[Idx]\+\+[$<$\+Radio\+Pkt\+Max\+Bytes$>$]\+. \end{DoxyCompactList}\item 
+byte \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rf\+Pool}}
+\begin{DoxyCompactList}\small\item\em Dyanmic pool of tx-\/bytes in \+[$<$\+Idxs$>$]\+\+[$<$\+Radio\+Pkt\+Max\+Bytes$>$]\+ form. \end{DoxyCompactList}\item 
+uint16\+\_\+t \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}} = 0
+\begin{DoxyCompactList}\small\item\em Max Packet size is 512-\/bytes due to Sec\+Net encoding. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a96dd36dc31ed021b636e44cd0ed048a5}{Sec\+Net}} = 0
+\begin{DoxyCompactList}\small\item\em The \textquotesingle{}Sec\+Net\textquotesingle{} code passed-\/in at Packet Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00405}{405}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_d_i_t_s_engine_1_1rf_packet_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_d_i_t_s_engine_1_1rf_packet_a3fa8f0720ecc4b1ee87417f06bacd93b}\index{DITSEngine::rfPacket@{DITSEngine::rfPacket}!rfPacket@{rfPacket}}
+\index{rfPacket@{rfPacket}!DITSEngine::rfPacket@{DITSEngine::rfPacket}}
+\doxysubsubsection{\texorpdfstring{rfPacket()}{rfPacket()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1rf_packet_a3fa8f0720ecc4b1ee87417f06bacd93b} 
+DITSEngine::\+rf\+Packet::\+rf\+Packet (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{\+\_\+\+Radio\+Pkt\+Max\+Bytes}{, }\item[{byte}]{\+\_\+\+Sec\+Net}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00407}{407}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1rf_packet_ab8391c806abb3b049cd945564a465ed0}\index{DITSEngine::rfPacket@{DITSEngine::rfPacket}!````~rfPacket@{\texorpdfstring{$\sim$}{\string~}rfPacket}}
+\index{````~rfPacket@{\texorpdfstring{$\sim$}{\string~}rfPacket}!DITSEngine::rfPacket@{DITSEngine::rfPacket}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}rfPacket()}{\string~rfPacket()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1rf_packet_ab8391c806abb3b049cd945564a465ed0} 
+virtual DITSEngine::\+rf\+Packet::\+\texorpdfstring{$\sim$}{\string~}rf\+Packet (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00415}{415}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_d_i_t_s_engine_1_1rf_packet_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_d_i_t_s_engine_1_1rf_packet_a278dc3fae585ac232b68b4ec60d58a1f}\index{DITSEngine::rfPacket@{DITSEngine::rfPacket}!dumpRFPool@{dumpRFPool}}
+\index{dumpRFPool@{dumpRFPool}!DITSEngine::rfPacket@{DITSEngine::rfPacket}}
+\doxysubsubsection{\texorpdfstring{dumpRFPool()}{dumpRFPool()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1rf_packet_a278dc3fae585ac232b68b4ec60d58a1f} 
+void DITSEngine::\+rf\+Packet::\+dump\+RFPool (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00420}{420}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_d_i_t_s_engine_1_1rf_packet_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}\index{DITSEngine::rfPacket@{DITSEngine::rfPacket}!rfPool@{rfPool}}
+\index{rfPool@{rfPool}!DITSEngine::rfPacket@{DITSEngine::rfPacket}}
+\doxysubsubsection{\texorpdfstring{rfPool}{rfPool}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea} 
+byte\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} DITSEngine::\+rf\+Packet::\+rf\+Pool}
+
+
+
+Dyanmic pool of tx-\/bytes in \+[$<$\+Idxs$>$]\+\+[$<$\+Radio\+Pkt\+Max\+Bytes$>$]\+ form. 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00438}{438}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1rf_packet_a764a59f2e62470c87b55895cd72727dc}\index{DITSEngine::rfPacket@{DITSEngine::rfPacket}!rfPoolIdxs@{rfPoolIdxs}}
+\index{rfPoolIdxs@{rfPoolIdxs}!DITSEngine::rfPacket@{DITSEngine::rfPacket}}
+\doxysubsubsection{\texorpdfstring{rfPoolIdxs}{rfPoolIdxs}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1rf_packet_a764a59f2e62470c87b55895cd72727dc} 
+uint16\+\_\+t const DITSEngine::\+rf\+Packet::\+rf\+Pool\+Idxs}
+
+
+
+The num of rf\+Pool\+[$<$\+Idxs$>$]\+. 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00436}{436}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1rf_packet_a96dd36dc31ed021b636e44cd0ed048a5}\index{DITSEngine::rfPacket@{DITSEngine::rfPacket}!SecNet@{SecNet}}
+\index{SecNet@{SecNet}!DITSEngine::rfPacket@{DITSEngine::rfPacket}}
+\doxysubsubsection{\texorpdfstring{SecNet}{SecNet}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1rf_packet_a96dd36dc31ed021b636e44cd0ed048a5} 
+byte DITSEngine::\+rf\+Packet::\+\+Sec\+Net = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The \textquotesingle{}Sec\+Net\textquotesingle{} code passed-\/in at Packet Constructor. 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00442}{442}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}\index{DITSEngine::rfPacket@{DITSEngine::rfPacket}!Size@{Size}}
+\index{Size@{Size}!DITSEngine::rfPacket@{DITSEngine::rfPacket}}
+\doxysubsubsection{\texorpdfstring{Size}{Size}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e} 
+uint16\+\_\+t DITSEngine::\+rf\+Packet::\+\+Size = 0}
+
+
+
+Max Packet size is 512-\/bytes due to Sec\+Net encoding. 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00439}{439}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1rf_packet_a80d6c0a9d267681f6c2af296fccca311}\index{DITSEngine::rfPacket@{DITSEngine::rfPacket}!uiRadioPktMaxBytes@{uiRadioPktMaxBytes}}
+\index{uiRadioPktMaxBytes@{uiRadioPktMaxBytes}!DITSEngine::rfPacket@{DITSEngine::rfPacket}}
+\doxysubsubsection{\texorpdfstring{uiRadioPktMaxBytes}{uiRadioPktMaxBytes}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1rf_packet_a80d6c0a9d267681f6c2af296fccca311} 
+uint16\+\_\+t const DITSEngine::\+rf\+Packet::\+ui\+Radio\+Pkt\+Max\+Bytes}
+
+
+
+The num of rf\+Pool\+[Idx]\+\+[$<$\+Radio\+Pkt\+Max\+Bytes$>$]\+. 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00437}{437}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+C:\+/\+\+Users/\+\+TGIT-\/\+TECH/\+\+Documents/\+!\+Git\+Hub/\+\+RF-\/\+DITS\+\_\+protocol\+\_\+spec/\+rf\+\_\+dits/\+\doxymbox{\hyperlink{rf__dits_8h}{rf\+\_\+dits.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,167 @@
+\chapter{Main Page }
+\hypertarget{index}{}\label{index}\index{Main Page@{Main Page}}
+\hypertarget{index_DESC}{}\doxysection{\texorpdfstring{RF-\/\+DITS description.}{RF-\/\+DITS description.}}\label{index_DESC}
+RF-\/\+DITS (RF-\/\+Lo\+Ra Device Index Table with Security) is a lightweight, binary-\/based P2P mesh protocol that operates entirely without any centralized infrastructure. The protocol is architectured around a station based RF control point rather than a one-\/radio-\/per-\/device model. Functionality is established through a P2P discovery process (PKT\+\_\+\+REQDEVITBL) in which any node can upload the configuration (e.\+g. node name, wired devices names, device types and their attributes) of another node in order to provide binary-\/based control of it.
+
+Station nodes are configured at that station only, by wiring devices, assigning those devices names, types and other attributes. When another node wants to remotely control that station it \textquotesingle{}learns\textquotesingle{} and stores that stations configuration in persistent memory. Think of it like a regular \textquotesingle{}learn\textquotesingle{} button on a small remote but instead of just learning how to connect, it learns everything that connection is setup to control.\hypertarget{index_SYNC}{}\doxysection{\texorpdfstring{The DIT record and Synchronization Feature.}{The DIT record and Synchronization Feature.}}\label{index_SYNC}
+Every {\bfseries{Device}} has one DIT(\+Device Index Table) record (DDIT) and every {\bfseries{node}} has one DIT record (NDIT).
+
+Every node (NDIT) record carries a version number (DITVER) that marks a static point of devices and node information. DITVER is incremented whenever a node adds, deletes or changes DIT information. Everytime a remote node tries to access another node the remote node sends its last learned DITVER. The reciever compares the two DITVER. If the two do not match, the reciever denies the call and automatically sends the updated DIT information (PKT\+\_\+\+DEVITBL). This versioning system ensures the binary-\/based, device-\/addressing, packets remain perfectly synchronized.\hypertarget{index_DITSPMEM}{}\doxysection{\texorpdfstring{Persistent Memory}{Persistent Memory}}\label{index_DITSPMEM}
+
+\begin{DoxyEnumerate}
+\item Persistent memory is allocated by the DITEngine Constructor arguments (e.\+g. pmem\+Begin\+Addr, Max\+DITRecords, Name\+Field\+Bytes)
+\begin{DoxyItemize}
+\item The Total Allocation will be = Max\+DITRecords \texorpdfstring{$\ast$}{*} (4 + Name\+Field\+Bytes) + 1.
+\begin{DoxyItemize}
+\item Example:\+ If you plan to control 10 outside nodes with 10 devices on each having a Name alloc of 10 characters.
+\item Total Allocation = (10x10+1\textquotesingle{}thisnode\textquotesingle{}) \texorpdfstring{$\ast$}{*} (4+10) + 1 = 1,415-\/bytes (too big for UNO)
+\item Example:\+ Adjust the Name\+Field\+Bytes or the Max\+DITRecords to fit in 1KB for UNO.
+\item For Example:\+ at 10 character names, 14/\+1\+KB = \texorpdfstring{$\sim$}{\string~}71 total DIT records.
+\item Check; Total Allocation = 70 \texorpdfstring{$\ast$}{*} (4 + 10) + 1 = 981-\/bytes (Okay for UNO)
+\end{DoxyItemize}
+\item Node Records (NDIT) are stored from the \textquotesingle{}base\textquotesingle{} onward (e.\+g. Addresses 1,15,29,43, etc...)
+\item Node Records are matched 1:\+1 from their \textquotesingle{}NDIT\textquotesingle{} record Idx to their Node\+Idx.
+\item Device Records (DDIT) are stored from the \textquotesingle{}end\textquotesingle{} inward (e.\+g. Addresses 500,486,472, etc...)
+\item Device Records are NOT matched 1:\+1 with their \textquotesingle{}DDIT\textquotesingle{} record index; thus the dev\+UID naming convention.
+\item Out of Memory is determined when the two collide.
+\item This onward/\+inward approach eliminates the need to set specific node boundaries and device boundaries/\+limits.
+\begin{DoxyItemize}
+\item Max\+DITRecords doesn\textquotesingle{}t limit the number of nodes or devices specifically.
+\item Max\+DITRecords only limits the total sum of both together (e.\+g. 1-\/DIT per node \& 1-\/DIT per device).
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\item Example Table below demonstrates the allocation.
+\begin{DoxyItemize}
+\item Sentinel 0x\+FF on \textquotesingle{}Byte0\textquotesingle{} (i.\+e. D/\+\+Node\+Idx) marks the record as deleted.
+\item Sentinel 0x\+FE on \textquotesingle{}Byte0\textquotesingle{} (i.\+e. D/\+\+Node\+Idx) marks the DITSTOP used to contain Node Records from Device Records.
+\item DITS will track and move the DITSTOP as records are expanded to facilate fast scanning and record boundaries.
+\item begin() scans persistant memory for these DITSTOP(s) making the markers persistent over power-\/cycles. 
+\end{DoxyItemize}
+\end{DoxyEnumerate}
+
+ 
+\begin{DoxyTable}{8}{}{}{0}
+\SetCell[c=3]{}\begin{center}Local Record Management Only\end{center} &&&\SetCell[c=4]{}\begin{center}Data Used in RF Communication\end{center} &&&&\\
+\SetCell{bg=\tableheadbgcolor,font=\bfseries}pmem\+Addr &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Idx&\SetCell{bg=\tableheadbgcolor,font=\bfseries}Byte0 &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Byte1 &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Byte2 &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Byte3&\SetCell{bg=\tableheadbgcolor,font=\bfseries}Variable Name &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Content/\+\+Descriptor\\
+pmem\+Begin\+Addr&NA &Sec\+Net \\
+\texorpdfstring{$^\wedge$}{\string^}+1 &0 &Node\+Idx&RFAddrH&RFAddrL&DITVer&Name\+Field\+Bytes&Node \+[0]\+ DIT Record.\\
+\texorpdfstring{$^\wedge$}{\string^}+4+\+Name &1 &Node\+Idx&RFAddrH&RFAddrL&DITVer&Name\+Field\+Bytes&Node \+[1]\+ DIT Record.\\
+\texorpdfstring{$^\wedge$}{\string^}+4+\+Name &2 &Node\+Idx&RFAddrH&RFAddrL&DITVer&Name\+Field\+Bytes&Node \+[2]\+ DIT Record.\\
+\texorpdfstring{$^\wedge$}{\string^}+4+\+Name &3 &DITSTOP&.......&.......&......&..............&DITSTOP Node Records.\\
+.............&...&.......&.......&.......&......&..............&Blank Space \\
+v-\/4-\/\+Name &3 &DITSTOP&.......&.......&......&..............&DITSTOP Device Records.\\
+v-\/4-\/\+Name &2 &DNode\+Idx&Dev\+Type&Dev\+Attr&Dev\+UID&Name\+Field\+Bytes&Device\+[2]\+ DIT Record\\
+v-\/4-\/\+Name &1 &DNode\+Idx&Dev\+Type&Dev\+Attr&Dev\+UID&Name\+Field\+Bytes&Device\+[1]\+ DIT Record\\
+pm\+DITend &0 &DNode\+Idx&Dev\+Type&Dev\+Attr&Dev\+UID&Name\+Field\+Bytes&Device\+[0]\+ DIT Record\\
+pm\+DITEnd\+Addr &\SetCell[c=6]{}&&&&&&Actual End is 4+Name\\
+\end{DoxyTable}
+
+
+\begin{DoxyImportant}{Important}
+Changing construtor arguments on a node will contaminate all previous records stored in persistent memory. In theory (ill advised) one could change just the Max\+DITRecords and retain previous records but their Device Scanning Loops will expand accordingly. It is advised that anytime one needs to change a constructor argument that they write down previous records and start fresh.
+\end{DoxyImportant}
+\hypertarget{index_ProtoSpec}{}\doxysection{\texorpdfstring{Protocol Specification}{Protocol Specification}}\label{index_ProtoSpec}
+
+\begin{DoxyEnumerate}
+\item Maximum bytes per packet communication:\+ 512 bytes due to Sec\+Net encoding.
+\begin{DoxyItemize}
+\item The protocol is designed to perform segmentation when Radio\+Pkt\+Max\+Bytes is set to less than the number of payload bytes required.
+\item This limit will affect maximum devices per node. All information of a node must fit within that 512 byte limit.
+\item For Example:\+ Using Name\+Field\+Bytes = 10
+\begin{DoxyItemize}
+\item DEVITBL header requires 6-\/bytes.
+\item Node\+Name would require 10-\/bytes + 1(\textquotesingle{}\textbackslash{}0\textquotesingle{}) = 11 bytes. (17 Total so-\/far)
+\item Each Device would require 3(Type,Attr,UID) + 10-\/Name + 1(\textquotesingle{}\textbackslash{}0\textquotesingle{}) = 14 bytes.
+\item Therefore to stay under 512 bytes:\+ 35 Maximum devices could exist on each node.
+\item Check. 35-\/devices at 14-\/bytes/\+ea + 17 = 507 byte payload.
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item Number of possible Sec\+Net code combinations:\+ 128 unique (0x00 to 0x7F)
+\item Because the protocol uses name termination for DEVITBL information it allows communication of two differently set {\ttfamily Name\+Field\+Bytes}.
+\begin{DoxyItemize}
+\item Example:\+ One node uses 20-\/character names and one node uses 10-\/character names; the two can still communicate.
+\item The 10-\/character Name\+Field node will only load 10-\/characters of the 20-\/character Name\+Field node.
+\end{DoxyItemize}
+\end{DoxyEnumerate}
+
+ \doxysubsubsection*{Protocol Standard Bytes Table}
+
+ 
+\begin{DoxyTable}{11}{}{}{2}
+\SetCell[c=2]{bg=\tableheadbgcolor,font=\bfseries}&&\SetCell[c=9]{bg=\tableheadbgcolor,font=\bfseries}PACKET TYPE&&&&&&&&\\
+\SetCell{bg=\tableheadbgcolor,font=\bfseries}Idx&\SetCell{bg=\tableheadbgcolor,font=\bfseries}Byte Order &\SetCell{bg=\tableheadbgcolor,font=\bfseries}REQDEVITBL&\SetCell{bg=\tableheadbgcolor,font=\bfseries}REQVALS&\SetCell{bg=\tableheadbgcolor,font=\bfseries}REQVAL &\SetCell{bg=\tableheadbgcolor,font=\bfseries}REQNONCE &\SetCell{bg=\tableheadbgcolor,font=\bfseries}SETVAL &\SetCell{bg=\tableheadbgcolor,font=\bfseries}VAL&\SetCell{bg=\tableheadbgcolor,font=\bfseries}NONCERSP &\SetCell{bg=\tableheadbgcolor,font=\bfseries}DEVITBL&\SetCell{bg=\tableheadbgcolor,font=\bfseries}VALS\\
+0 &PKB\+\_\+\+TYPE &X &X &X &X &X &X &X &X &X\\
+1 &PKB\+\_\+\+SECH &X &X &X &X &X &X &X &X &X\\
+2 &PKB\+\_\+\+SECL &X &X &X &X &X &X &X &X &X\\
+3 &PKB\+\_\+\+FROM\+\_\+\+RFH&X &X &X &X &X &X &X &X &X\\
+4 &PKB\+\_\+\+FROM\+\_\+\+RFL&X &X &X &X &X &X &X &X &X\\
+5 &PKB\+\_\+\+DITVER &&X &X &X &X &X &X &X &X\\
+6 &PKB\+\_\+\+DEVUID &&&X &X &X &X &X &(X\texorpdfstring{$\ast$}{*}) &(X\texorpdfstring{$\ast$}{*})\\
+7 &PKB\+\_\+\+VALUEH &&&&X &X &X &X &&\\
+8 &PKB\+\_\+\+VALUEL &&&&X &X &X &X &&\\
+\end{DoxyTable}
+
+
+
+
+ (X\texorpdfstring{$\ast$}{*}) = XDATA expansion to required payload; max allowed 512-\/bytes.
+
+ 
+
+
+
+ 
+\begin{DoxyTable}{2}{}{}{0}
+\begin{DoxyTableNested}{2}{2}
+\SetCell[c=2]{bg=\tableheadbgcolor,font=\bfseries}XDATA on DEVITBL&\\
+\SetCell{bg=\tableheadbgcolor,font=\bfseries}Byte&\SetCell{bg=\tableheadbgcolor,font=\bfseries}Field\\
+6&Node\+Name0\\
+7&Node\+Name1\\
+8&Node\+Name2\\
+9&Node\+Name3\\
+10&Node\+Name4\\
+...&... until \textquotesingle{}\textbackslash{}0\textquotesingle{}\\
+?0&Dev\+Type\\
+?1&Dev\+Attr\\
+?2&Dev\+UID\\
+?3&Dev\+Name0\\
+...&... until \textquotesingle{}\textbackslash{}0\textquotesingle{}\\
+?0&Dev\+Type\\
+?1&Dev\+Attr\\
+?2&Dev\+UID\\
+?3&Dev\+Name0\\
+...&... until \textquotesingle{}\textbackslash{}0\textquotesingle{}\\
+\SetCell[c=2]{bg=\tableheadbgcolor,font=\bfseries}etc, etc...&\\
+\end{DoxyTableNested}
+&\begin{DoxyTableNested}{2}{2}
+\SetCell[c=2]{bg=\tableheadbgcolor,font=\bfseries}XDATA on VALS&\\
+\SetCell{bg=\tableheadbgcolor,font=\bfseries}Byte&\SetCell{bg=\tableheadbgcolor,font=\bfseries}Field\\
+6&Dev\+UID\\
+7&ValueH\\
+8&ValueL\\
+9&Dev\+UID\\
+10&ValueH\\
+11&ValueL\\
+...&...\\
+\end{DoxyTableNested}
+\\
+\end{DoxyTable}
+ \hypertarget{index_Files}{}\doxysection{\texorpdfstring{Files \& Abreviations}{Files \& Abreviations}}\label{index_Files}
+
+\begin{DoxyItemize}
+\item Firmware Date\+Code \+[YYMD]\+
+\begin{DoxyItemize}
+\item YY = Last two digits of the Year
+\item M = (1-\/9 is Jan-\/\+Sept),(A-\/C is Oct-\/\+Dec)
+\item D = (1-\/9 is 1-\/9),(A-\/V is 10-\/31) ~\newline
+~\newline
+
+\end{DoxyItemize}
+\item rf\+\_\+dits.\+ino = Example RF-\/\+DITS implementation
+\item \doxylink{rf__dits_8h}{rf\+\_\+dits.\+h} = Header File
+\item \doxylink{rf__dits_8cpp}{rf\+\_\+dits.\+cpp} = code file
+\item \doxylink{_d_b_8h}{DB.\+h} = Zero-\/cost debug macros
+\item \+\_\+doxy.\+h = This doxygen main page 
+\end{DoxyItemize}

@@ -1,0 +1,190 @@
+\doxysection{
+\begin{DoxyEnumerate}
+\item DITS Core Management 
+\end{DoxyEnumerate}}
+\hypertarget{group___d_i_t_s}{}\label{group___d_i_t_s}\index{DITS Core Management@{DITS Core Management}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{DITSEngine::\+\+Node\+DIT}}
+\begin{DoxyCompactList}\small\item\em A \doxylink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT} structure that points directly to persistent memory. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_device_d_i_t}{DITSEngine::\+\+Device\+DIT}}
+\begin{DoxyCompactList}\small\item\em A \doxylink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT} structure that points directly to persistent memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_ga62900422f9babe6f5583423bd232ff10}{DITSEngine::\+begin}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the DITS Engine and prepares memory structures. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_ga40fd9c22b447c4cd7487d0ee8cf8698e}{DITSEngine::\+\+Process\+Loop}} ()
+\begin{DoxyCompactList}\small\item\em Engine periodic processing loop. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_gacb1f9c34a1898077e08d0fa25cc3a5bd}{DITSEngine::\+\+Update\+This\+Node\+RFAddr}} (uint16\+\_\+t RFAddr)
+\begin{DoxyCompactList}\small\item\em Updates the RF address for this node in DIT records. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_gab8c0e8514973fa8b384cf673d8f755e3}{DITSEngine::\+\+Update\+This\+Node\+Name}} (const char \texorpdfstring{$\ast$}{*}name)
+\begin{DoxyCompactList}\small\item\em Updates the name of this node in DIT records. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_gaa363f0e7401d3bb863a86e88f8a67299}{DITSEngine::\+\+Add\+This\+Node\+Device}} (byte dev\+Type, byte dev\+Attr, const char \texorpdfstring{$\ast$}{*}name)
+\begin{DoxyCompactList}\small\item\em Adds a device to this node. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_gacf26e08d9760bb5beec71fefa2e96827}{DITSEngine::\+\+Del\+This\+Node\+Device}} (byte dev\+Idx)
+\begin{DoxyCompactList}\small\item\em Deletes a device from this node. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT}} \doxymbox{\hyperlink{group___d_i_t_s_ga18ac1f631d67e249c0be8b70d79e9507}{DITSEngine::\+\+Node}} (byte idx) const
+\begin{DoxyCompactList}\small\item\em A \doxylink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT} object for implementers to access DIT records. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT}} \doxymbox{\hyperlink{group___d_i_t_s_ga98d8b790ce0b60cba9e2d4fdfb3ded1a}{DITSEngine::\+\+Device}} (byte ddit\+Idx) const
+\begin{DoxyCompactList}\small\item\em A \doxylink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT} object for implementers to access DIT records. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\label{doc-func-members}
+\Hypertarget{group___d_i_t_s_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group___d_i_t_s_gaa363f0e7401d3bb863a86e88f8a67299}\index{1. DITS Core Management@{1. DITS Core Management}!AddThisNodeDevice@{AddThisNodeDevice}}
+\index{AddThisNodeDevice@{AddThisNodeDevice}!1. DITS Core Management@{1. DITS Core Management}}
+\doxysubsubsection{\texorpdfstring{AddThisNodeDevice()}{AddThisNodeDevice()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_gaa363f0e7401d3bb863a86e88f8a67299} 
+bool DITSEngine::\+\+Add\+This\+Node\+Device (\begin{DoxyParamCaption}\item[{byte}]{dev\+Type}{, }\item[{byte}]{dev\+Attr}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{}\end{DoxyParamCaption})}
+
+
+
+Adds a device to this node. 
+
+Adds a local device of the specified type to this node\textquotesingle{}s device table (DIT record). 
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Dev\+Type} & The type of device to add. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em Dev\+Attr} & The attributes for the device. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em name} & The name of the device. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if successfully added, false if the table is full or an error occurred. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00090}{90}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{group___d_i_t_s_ga62900422f9babe6f5583423bd232ff10}\index{1. DITS Core Management@{1. DITS Core Management}!begin@{begin}}
+\index{begin@{begin}!1. DITS Core Management@{1. DITS Core Management}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_ga62900422f9babe6f5583423bd232ff10} 
+void DITSEngine::\+begin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the DITS Engine and prepares memory structures. 
+
+\begin{DoxyImportant}{Important}
+Must be called only once before any other calls (e.\+g. within setup()). 
+\end{DoxyImportant}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00032}{32}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{group___d_i_t_s_gacf26e08d9760bb5beec71fefa2e96827}\index{1. DITS Core Management@{1. DITS Core Management}!DelThisNodeDevice@{DelThisNodeDevice}}
+\index{DelThisNodeDevice@{DelThisNodeDevice}!1. DITS Core Management@{1. DITS Core Management}}
+\doxysubsubsection{\texorpdfstring{DelThisNodeDevice()}{DelThisNodeDevice()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_gacf26e08d9760bb5beec71fefa2e96827} 
+bool DITSEngine::\+\+Del\+This\+Node\+Device (\begin{DoxyParamCaption}\item[{byte}]{dev\+Idx}{}\end{DoxyParamCaption})}
+
+
+
+Deletes a device from this node. 
+
+Removes a local device at the given index from this node\textquotesingle{}s device table (DIT record). 
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em dev\+Idx} & Index of the device to remove. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if successfully removed, false if index is invalid. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00130}{130}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{group___d_i_t_s_ga98d8b790ce0b60cba9e2d4fdfb3ded1a}\index{1. DITS Core Management@{1. DITS Core Management}!Device@{Device}}
+\index{Device@{Device}!1. DITS Core Management@{1. DITS Core Management}}
+\doxysubsubsection{\texorpdfstring{Device()}{Device()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_ga98d8b790ce0b60cba9e2d4fdfb3ded1a} 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT}} DITSEngine::\+\+Device (\begin{DoxyParamCaption}\item[{byte}]{ddit\+Idx}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A \doxylink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT} object for implementers to access DIT records. 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00239}{239}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___d_i_t_s_ga18ac1f631d67e249c0be8b70d79e9507}\index{1. DITS Core Management@{1. DITS Core Management}!Node@{Node}}
+\index{Node@{Node}!1. DITS Core Management@{1. DITS Core Management}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_ga18ac1f631d67e249c0be8b70d79e9507} 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT}} DITSEngine::\+\+Node (\begin{DoxyParamCaption}\item[{byte}]{idx}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A \doxylink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT} object for implementers to access DIT records. 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00237}{237}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___d_i_t_s_ga40fd9c22b447c4cd7487d0ee8cf8698e}\index{1. DITS Core Management@{1. DITS Core Management}!ProcessLoop@{ProcessLoop}}
+\index{ProcessLoop@{ProcessLoop}!1. DITS Core Management@{1. DITS Core Management}}
+\doxysubsubsection{\texorpdfstring{ProcessLoop()}{ProcessLoop()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_ga40fd9c22b447c4cd7487d0ee8cf8698e} 
+void DITSEngine::\+\+Process\+Loop (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Engine periodic processing loop. 
+
+Must be called regularly from main loop(). Handles packet timeout and future time-\/based tasks. 
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00145}{145}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{group___d_i_t_s_gab8c0e8514973fa8b384cf673d8f755e3}\index{1. DITS Core Management@{1. DITS Core Management}!UpdateThisNodeName@{UpdateThisNodeName}}
+\index{UpdateThisNodeName@{UpdateThisNodeName}!1. DITS Core Management@{1. DITS Core Management}}
+\doxysubsubsection{\texorpdfstring{UpdateThisNodeName()}{UpdateThisNodeName()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_gab8c0e8514973fa8b384cf673d8f755e3} 
+void DITSEngine::\+\+Update\+This\+Node\+Name (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{}\end{DoxyParamCaption})}
+
+
+
+Updates the name of this node in DIT records. 
+
+The human-\/readable name of this node. \begin{DoxyNote}{Note}
+The name length is defined by the \doxylink{class_d_i_t_s_engine}{DITSEngine} \textquotesingle{}Name\+Field\+Bytes\textquotesingle{} constructor argument. Use \textquotesingle{}char\+[DITName\+Char]\+\textquotesingle{} to allocate the char buffer. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em name} & A string representing the human-\/readable name of the node. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00067}{67}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{group___d_i_t_s_gacb1f9c34a1898077e08d0fa25cc3a5bd}\index{1. DITS Core Management@{1. DITS Core Management}!UpdateThisNodeRFAddr@{UpdateThisNodeRFAddr}}
+\index{UpdateThisNodeRFAddr@{UpdateThisNodeRFAddr}!1. DITS Core Management@{1. DITS Core Management}}
+\doxysubsubsection{\texorpdfstring{UpdateThisNodeRFAddr()}{UpdateThisNodeRFAddr()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_gacb1f9c34a1898077e08d0fa25cc3a5bd} 
+void DITSEngine::\+\+Update\+This\+Node\+RFAddr (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{RFAddr}{}\end{DoxyParamCaption})}
+
+
+
+Updates the RF address for this node in DIT records. 
+
+This RF address is used for communications within the protocol. \begin{DoxyImportant}{Important}
+Keeping this updated is critical for node identification. 
+\end{DoxyImportant}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em RFAddr} & The RF address of this node. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00078}{78}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+

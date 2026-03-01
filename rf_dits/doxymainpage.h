@@ -1,6 +1,150 @@
-/*! \mainpage Main Page
+/*! @mainpage Main Page
  * 
- * \section Files Files & Abreviations
+ * @section DESC RF-DITS description.
+ *    RF-DITS (RF-LoRa Device Index Table with Security) is a lightweight, binary-based P2P mesh protocol that operates entirely
+ *    without any centralized infrastructure. The protocol is architectured around a station based RF control point rather than
+ *    a one-radio-per-device model.  Functionality is established through a P2P discovery process (PKT_REQDEVITBL) in which any
+ *    node can upload the configuration (e.g. node name, wired devices names, device types and their attributes) of another node in
+ *    order to provide binary-based control of it.
+ *
+ *    Station nodes are configured at that station only, by wiring devices, assigning those devices names, types and other attributes.
+ *    When another node wants to remotely control that station it 'learns' and stores that stations configuration in persistent memory.
+ *    Think of it like a regular 'learn' button on a small remote but instead of just learning how to connect, it learns everything
+ *    that connection is setup to control.
+ *
+ * @section SYNC The DIT record and Synchronization Feature.
+ *     
+ *    Every **Device** has one DIT(Device Index Table) record (DDIT) and every **node** has one DIT record (NDIT).
+ * 
+ *    Every node (NDIT) record carries a version number (DITVER) that marks a static point of devices and node information.
+ *    DITVER is incremented whenever a node adds, deletes or changes DIT information. Everytime a remote node tries to access 
+ *    another node the remote node sends its last learned DITVER.  The reciever compares the two DITVER.  If the two do not
+ *    match, the reciever denies the call and automatically sends the updated DIT information (PKT_DEVITBL). This versioning 
+ *    system ensures the binary-based, device-addressing, packets remain perfectly synchronized.
+ *
+ * @section DITSPMEM Persistent Memory
+ * <ol>
+ *    <li> Persistent memory is allocated by the DITEngine Constructor arguments (e.g. pmemBeginAddr, MaxDITRecords, NameFieldBytes)
+ *        - The Total Allocation will be = MaxDITRecords * (4 + NameFieldBytes) + 1.
+ *            - Example: If you plan to control 10 outside nodes with 10 devices on each having a Name alloc of 10 characters.
+ *            - Total Allocation = (10x10+1'thisnode') * (4+10) + 1 = 1,415-bytes (too big for UNO)
+ *            - Example: Adjust the NameFieldBytes or the MaxDITRecords to fit in 1KB for UNO.
+ *            - For Example: at 10 character names, 14/1KB = ~71 total DIT records.
+ *            - Check; Total Allocation = 70 * (4 + 10) + 1 = 981-bytes (Okay for UNO)
+ *        - Node Records (NDIT) are stored from the 'base' onward (e.g. Addresses 1,15,29,43, etc...)
+ *        - Node Records are matched 1:1 from their 'NDIT' record Idx to their NodeIdx.
+ *        - Device Records (DDIT) are stored from the 'end' inward (e.g. Addresses 500,486,472, etc...)
+ *        - Device Records are NOT matched 1:1 with their 'DDIT' record index; thus the devUID naming convention.
+ *        - Out of Memory is determined when the two collide.
+ *        - This onward/inward approach eliminates the need to set specific node boundaries and device boundaries/limits.
+ *            - MaxDITRecords doesn't limit the number of nodes or devices specifically.
+ *            - MaxDITRecords only limits the total sum of both together (e.g. 1-DIT per node & 1-DIT per device).
+ *
+ *    <li> Example Table below demonstrates the allocation.
+ *        - Sentinel 0xFF on 'Byte0' (i.e. D/NodeIdx) marks the record as deleted.
+ *        - Sentinel 0xFE on 'Byte0' (i.e. D/NodeIdx) marks the DITSTOP used to contain Node Records from Device Records.
+ *        - DITS will track and move the DITSTOP as records are expanded to facilate fast scanning and record boundaries.
+ *        - begin() scans persistant memory for these DITSTOP(s) making the markers persistent over power-cycles.
+ * </ol><p></p>
+ * <div style="margin-left: 40px;">
+ * <table>
+ * <tr><td colspan="3"><center>Local Record Management Only</center></td><td colspan="4"><center>Data Used in RF Communication</center></td><td></td></tr>
+ * <tr><th>pmemAddr     </th><th>Idx</th><th>Byte0  </th><th>Byte1  </th><th>Byte2  </th><th>Byte3</th><th>Variable Name  </th><th>Content/Descriptor</th></tr>
+ * <tr><td>pmemBeginAddr</td><td>NA </td><td>SecNet </td></tr>
+ * <tr><td>^+1          </td><td>0  </td><td>NodeIdx</td><td>RFAddrH</td><td>RFAddrL</td><td>DITVer</td><td>NameFieldBytes</td><td>Node [0] DIT Record.</td></tr>
+ * <tr><td>^+4+Name     </td><td>1  </td><td>NodeIdx</td><td>RFAddrH</td><td>RFAddrL</td><td>DITVer</td><td>NameFieldBytes</td><td>Node [1] DIT Record.</td></tr>
+ * <tr><td>^+4+Name     </td><td>2  </td><td>NodeIdx</td><td>RFAddrH</td><td>RFAddrL</td><td>DITVer</td><td>NameFieldBytes</td><td>Node [2] DIT Record.</td></tr>
+ * <tr><td>^+4+Name     </td><td>3  </td><td>DITSTOP</td><td>.......</td><td>.......</td><td>......</td><td>..............</td><td>DITSTOP Node Records.</td></tr>
+ * <tr><td>.............</td><td>...</td><td>.......</td><td>.......</td><td>.......</td><td>......</td><td>..............</td><td>Blank Space         </td></tr>
+ * <tr><td>v-4-Name     </td><td>3  </td><td>DITSTOP</td><td>.......</td><td>.......</td><td>......</td><td>..............</td><td>DITSTOP Device Records.</td></tr>
+ * <tr><td>v-4-Name     </td><td>2  </td><td>DNodeIdx</td><td>DevType</td><td>DevAttr</td><td>DevUID</td><td>NameFieldBytes</td><td>Device[2] DIT Record</td></tr>
+ * <tr><td>v-4-Name     </td><td>1  </td><td>DNodeIdx</td><td>DevType</td><td>DevAttr</td><td>DevUID</td><td>NameFieldBytes</td><td>Device[1] DIT Record</td></tr>
+ * <tr><td>pmDITend     </td><td>0  </td><td>DNodeIdx</td><td>DevType</td><td>DevAttr</td><td>DevUID</td><td>NameFieldBytes</td><td>Device[0] DIT Record</td></tr>
+ * <tr><td>pmDITEndAddr </td><td colspan="6"></td><td>Actual End is 4+Name</td></tr>
+ * </table>
+ * </div>
+ *
+ * @important Changing construtor arguments on a node will contaminate all previous records stored in persistent memory.  In theory (ill advised) one could
+ *            change just the MaxDITRecords and retain previous records but their Device Scanning Loops will expand accordingly.  It is advised that anytime
+ *            one needs to change a constructor argument that they write down previous records and start fresh.
+ * 
+ * @section ProtoSpec Protocol Specification
+ *    1.  Maximum bytes per packet communication:           512 bytes due to SecNet encoding.
+ *        - The protocol is designed to perform segmentation when RadioPktMaxBytes is set to less than the number of payload bytes required.
+ *        - This limit will affect maximum devices per node.  All information of a node must fit within that 512 byte limit.
+ *        - For Example:  Using NameFieldBytes = 10
+ *          - DEVITBL header requires 6-bytes.
+ *          - NodeName would require 10-bytes + 1('\0') = 11 bytes. (17 Total so-far)
+ *          - Each Device would require 3(Type,Attr,UID) + 10-Name + 1('\0') = 14 bytes.
+ *          - Therefore to stay under 512 bytes:  35 Maximum devices could exist on each node.
+ *          - Check.  35-devices at 14-bytes/ea + 17 = 507 byte payload.
+ *    2.  Number of possible SecNet code combinations:      128 unique (0x00 to 0x7F)
+ *    3.  Because the protocol uses name termination for DEVITBL information it allows communication of two differently set `NameFieldBytes`.
+ *        - Example:  One node uses 20-character names and one node uses 10-character names; the two can still communicate.
+ *        - The 10-character NameField node will only load 10-characters of the 20-character NameField node.
+ *
+ *  
+ * <div style="margin-left: 40px;">
+ * <h3>Protocol Standard Bytes Table</h3>
+ * <table class="doxtable">
+ * <tr><th colspan="2"></th><th colspan="9" style="text-align:center;">PACKET TYPE</th></tr>
+ * <tr><th>Idx</th><th>Byte Order  </th><th>REQDEVITBL</th><th>REQVALS</th><th>REQVAL </th><th>REQNONCE </th><th>SETVAL </th><th>VAL</th><th>NONCERSP </th><th>DEVITBL</th><th>VALS</th></tr>
+ * <tr><td>0  </td><td>PKB_TYPE    </td><td>X         </td><td>X      </td><td>X      </td><td>X        </td><td>X      </td><td>X  </td><td>X        </td><td>X      </td><td>X</td></tr>
+ * <tr><td>1  </td><td>PKB_SECH    </td><td>X         </td><td>X      </td><td>X      </td><td>X        </td><td>X      </td><td>X  </td><td>X        </td><td>X      </td><td>X</td></tr>
+ * <tr><td>2  </td><td>PKB_SECL    </td><td>X         </td><td>X      </td><td>X      </td><td>X        </td><td>X      </td><td>X  </td><td>X        </td><td>X      </td><td>X</td></tr>
+ * <tr><td>3  </td><td>PKB_FROM_RFH</td><td>X         </td><td>X      </td><td>X      </td><td>X        </td><td>X      </td><td>X  </td><td>X        </td><td>X      </td><td>X</td></tr>
+ * <tr><td>4  </td><td>PKB_FROM_RFL</td><td>X         </td><td>X      </td><td>X      </td><td>X        </td><td>X      </td><td>X  </td><td>X        </td><td>X      </td><td>X</td></tr>
+ * <tr><td>5  </td><td>PKB_DITVER  </td><td>          </td><td>X      </td><td>X      </td><td>X        </td><td>X      </td><td>X  </td><td>X        </td><td>X      </td><td>X</td></tr>
+ * <tr><td>6  </td><td>PKB_DEVUID  </td><td>          </td><td>       </td><td>X      </td><td>X        </td><td>X      </td><td>X  </td><td>X        </td><td>(X*)   </td><td>(X*)</td></tr>
+ * <tr><td>7  </td><td>PKB_VALUEH  </td><td>          </td><td>       </td><td>       </td><td>X        </td><td>X      </td><td>X  </td><td>X        </td><td>       </td><td></td></tr>
+ * <tr><td>8  </td><td>PKB_VALUEL  </td><td>          </td><td>       </td><td>       </td><td>X        </td><td>X      </td><td>X  </td><td>X        </td><td>       </td><td></td></tr>
+ * </table>
+ * <p></p>
+ * (X*) = XDATA expansion to required payload; max allowed 512-bytes.</i></p>
+ * <p></p>
+ * <table>
+ * <tr>
+ * <td style="vertical-align: top; border: none; padding-right: 20px;">
+ * <table>
+ * <tr><th colspan="2">XDATA on DEVITBL</th></tr>
+ * <tr><th>Byte</th><th>Field</th></tr>
+ * <tr><td>6</td><td>NodeName0</td></tr>
+ * <tr><td>7</td><td>NodeName1</td></tr>
+ * <tr><td>8</td><td>NodeName2</td></tr>
+ * <tr><td>9</td><td>NodeName3</td></tr>
+ * <tr><td>10</td><td>NodeName4</td></tr>
+ * <tr><td>...</td><td>... until '\0'</td></tr>
+ * <tr><td>?0</td><td>DevType</td></tr>
+ * <tr><td>?1</td><td>DevAttr</td></tr>
+ * <tr><td>?2</td><td>DevUID</td></tr>
+ * <tr><td>?3</td><td>DevName0</td></tr>
+ * <tr><td>...</td><td>... until '\0'</td></tr>
+ * <tr><td>?0</td><td>DevType</td></tr>
+ * <tr><td>?1</td><td>DevAttr</td></tr>
+ * <tr><td>?2</td><td>DevUID</td></tr>
+ * <tr><td>?3</td><td>DevName0</td></tr>
+ * <tr><td>...</td><td>... until '\0'</td></tr>
+ * <tr><th colspan="2">etc, etc...</th></tr>
+ * </table>
+ * </td>
+ * <td style="vertical-align: top; border: none;">
+ * <table class="doxtable">
+ * <tr><th colspan="2">XDATA on VALS</th></tr>
+ * <tr><th>Byte</th><th>Field</th></tr>
+ * <tr><td>6</td><td>DevUID</td></tr>
+ * <tr><td>7</td><td>ValueH</td></tr>
+ * <tr><td>8</td><td>ValueL</td></tr>
+ * <tr><td>9</td><td>DevUID</td></tr>
+ * <tr><td>10</td><td>ValueH</td></tr>
+ * <tr><td>11</td><td>ValueL</td></tr>
+ * <tr><td>...</td><td>...</td></tr>
+ * </table>
+ * </td>
+ * </tr>
+ * </table>
+ * </div>
+ * <p></p>
+ * @section Files Files & Abreviations
  *  - Firmware DateCode [YYMD]
  *    - YY = Last two digits of the Year
  *    - M = (1-9 is Jan-Sept),(A-C is Oct-Dec)
@@ -11,103 +155,5 @@
  *  - rf_dits.cpp   = code file
  *  - DB.h          = Zero-cost debug macros
  *  - _doxy.h       = This doxygen main page
- *  
- *
- * \section Overview Conceptual Overview
- *    RF-DITS is an RF-LoRa protocol that indexes 'nodes', each having multiple 
- *    'devices' wired to it. The protocol stores in the 'thisnodes' persistent memory the 
- *    following information:
- *    - Names of other nodes
- *    - Device types (including RO/RW permission, value limits, enumerated-set options, and value scaling)
- *    - RF Addresses of other nodes it plans to communicate with.
- * 
- *    Each node stores information about the other nodes it communicates with, which allows 
- *    the protocol to use index-addressing rather than textual addressing for communication.
- *  
- *  - pmem      The persistant memory NDITs and DDITs information is stored-in.
- *  - NDIT      [N]ode   [D]ev [I]ndex [T]able;  An idx'ed list(NNodeIdx) of nodes to communicate with inc. itself.
- *  - DDIT      [D]evice [D]ev [I]ndex [T]able;  An idx'ed list(DevUID) of Devices belonging to a 'node'(DNodeIdx).
- *    
- * \section Limits Limits
- *    1.  255(0-254) Total Devices; that the DDIT Device Pool can store because it is byte addressed (0xFF is reserved).
- *    2.  255(0-254) Total Nodes; that the NDIT Device Pool can store because it is byte addressed (0xFF=Deleted).
- *
- * \section Concepts Index concepts that need to be pointed out.
- *    1.  'NodeIdx' - The NDIT table index count.  It is not used in RF and only used for local memory management.
- *          - A NodeIdx = 0xFF indicates that the table is flagged as deleted.
- *          - 'RFAddr' is the identifier used in Remote Acces Identity.
- *
- *    2.  'DevUID' - The Remote Acces Identifier for a Device.  (Not 'DDITidx').
- *          - 'DDITidx' is the index of a DDIT (device tables) record/slot stored in persistant memory.
- *          - 'DevUID' is stored inside the DDIT record itself.
- *          - Note: However, 'DevUID' is once-derived during AddThisNodeDevice on a continous-count of devices on a node.
- *          - That continous-count of added devices on a node is to ensure uniqueness per node RF-Address.
- *
- * \section DITPmem Persistant Memory Specification
- *    1.  Memory Limits:  Depending on _NameFieldBytes and _MaxNodeTables persistant memory imposes limits.
- *        - The memory manager requires (4 Bytes per node + _NameFieldBytes).
- *        - The memory manager requires (3 Bytes per Device + _NameFieldBytes).
- *        - Node-Tables are allocated separate from the device pool, so the overall memory boundary is determined by what fits.
- *
- * \section ProtoSpec Protocol Specification
- *    1.  Maximum bytes per packet communication:           512 bytes due to SecNet encoding.
- *        - The protocol is designed to perform segmentation when RadioPktMaxBytes is set to less than the number of payload bytes required.
- *    2.  Number of possible SecNet code combinations:      128 unique (0x00 to 0x7F)
- *    3.  Maximum devices per node depends on (_NameFieldBytes).
- *        - All configuration information needs to fit in the 512 maximum bytes per packet.
- *        - Use equation.  Max Devices a Node = (512 - (4 + NameBytes)) / (3 + NameBytes).
- *        - So with a _NameFieldBytes = 10
- *          - (512 - (4 + 10)) = 498 / (3 + 10) = 13.  Equals 38 devices per node.
- *            ** NEW DIT TABLE **
- *
- *    DITS Pmem Allocation will start say at 0x0800  
- *    Every Device can determine Node by it's NodeAddrOffset written at Byte0 from the PMEM_DITS_BASE address
- *    Devices can also use 0xFF as their delete because 0xFF offset put node at top of list
- *    Nodes will use Byte0 as thier display order or (0)this-node or 0xFF deleted
- *    Nodes Records will order incrementally from the base.
- *    Device Records will order from TOP to bottom of the DITS alloc.
- *    When the two meet in the middle the memory is full.
- * @code
- *                                          **Protocol Standard Bytes Table**
- *                       +------------------------------------------------------------------------------------+
- *                       |                              PACKET TYPE                                           |
- *  +----+---------------+-----------+---------+--------+----------+--------+-----+----------+---------+------+
- *  |Idx | Packet Order  | REQDEVITBL| REQVALS | REQVAL | REQNONCE | SETVAL | VAL | NONCERSP | DEVITBL | VALS |
- *  +----+---------------+-----------+---------+--------+----------+--------+-----+----------+---------+------+
- *  | 0  | PKB_TYPE      |     X     |    X    |   X    |    X     |   X    |  X  |    X     |    X    |  X   |
- *  | 1  | PKB_SECH      |     X     |    X    |   X    |    X     |   X    |  X  |    X     |    X    |  X   |
- *  | 2  | PKB_SECL      |     X     |    X    |   X    |    X     |   X    |  X  |    X     |    X    |  X   |
- *  | 3  | PKB_FROM_RFH  |     X     |    X    |   X    |    X     |   X    |  X  |    X     |    X    |  X   |
- *  | 4  | PKB_FROM_RFL  |     X     |    X    |   X    |    X     |   X    |  X  |    X     |    X    |  X   |
- *  | 5  | PKB_DITVER    |           |    X    |   X    |    X     |   X    |  X  |    X     |    X    |  X   |
- *  | 6  | PKB_DEVUID    |           |         |   X    |    X     |   X    |  X  |    X     |  (X*)   |(X*)  |
- *  | 7  | PKB_VALUEH    |           |         |        |    X     |   X    |  X  |    X     |         |      |
- *  | 8  | PKB_VALUEL    |           |         |        |    X     |   X    |  X  |    X     |         |      |
- *  +----+---------------+-----------+---------+--------+----------+--------+-----+----------+---------+------+
- *  (X*) = XDATA expansion to required payload; max allowed 512-bytes.
- *  +-----------------------+ +-----------------+
- *  | XDATA on DEVITBL      | | XDATA on VALS   |
- *  +------+----------------+ +------+----------+
- *  | Byte | Field          | | Byte | Field    |
- *  +------+----------------+ +------+----------+
- *  | 6    | NodeName0      | | 6    | DevUID   |
- *  | 7    | NodeName1      | | 7    | ValueH   |
- *  | 8    | NodeName2      | | 8    | ValueL   |
- *  | 9    | NodeName3      | | 9    | DevUID   |
- *  | 10   | NodeName4      | | 10   | ValueH   |
- *  | ...  | ... until '\0' | | 11   | ValueL   |
- *  | ?0   | DevType        | | ...  | ...      |
- *  | ?1   | DevAttr        | +------+----------+
- *  | ?2   | DevUID         |
- *  | ?3   | DevName0       |
- *  | ?4   | DevName1       |
- *  | ?5   | DevName2       |
- *  | ?6   | DevName3       |
- *  | ?7   | DevName4       |
- *  | ...  | ... until '\0' |
- *  +------+----------------+ 
- * @endcode
- *
- *
  *
  */

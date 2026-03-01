@@ -1,0 +1,269 @@
+\doxysection{
+\begin{DoxyEnumerate}
+\item DITS RF Control. 
+\end{DoxyEnumerate}}
+\hypertarget{group___d_i_t_s_p_u_b_r_e_m}{}\label{group___d_i_t_s_p_u_b_r_e_m}\index{DITS RF Control.@{DITS RF Control.}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+byte \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga8660955199d09337b095dd60fc5675d2}{DITSEngine::\+\+Sec\+Net\+Code}} () const
+\begin{DoxyCompactList}\small\item\em Get the \textquotesingle{}Sec\+Net\textquotesingle{} code. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_gaf57bf1a667da440cdfb6bd43cad32fc7}{DITSEngine::\+\+Sec\+Net\+Code}} (byte \+\_\+\+Sec\+Net\+Code)
+\begin{DoxyCompactList}\small\item\em Set the \textquotesingle{}Sec\+Net\textquotesingle{} code. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_gad39d1af6b052b176c06cf5d68e6bb632}{DITSEngine::\+\+Rx\+Expire\+MS}} (uint32\+\_\+t \+\_\+\+Rx\+Expire\+MS)
+\begin{DoxyCompactList}\small\item\em Sets the maximum time(ms) allowed to build an Rx packet. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga50e56a110284c62048ec30de904e0ff4}{DITSEngine::\+\+Rx\+Expire\+MS}} ()
+\begin{DoxyCompactList}\small\item\em Gets the Rx\+Expire\+MS setting. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_gab321a5e410d341fe1ad214943acc0a95}{DITSEngine::\+\+Rx\+Data}} (byte \+\_\+byte)
+\begin{DoxyCompactList}\small\item\em Processes an incoming byte of radio data and appends it to the current packet. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga7f3fd11e0c0aa3f8145cf1d05c0eac04}{DITSEngine::\+\+Radio\+Pkt\+Max\+Bytes}} (uint16\+\_\+t max\+Bytes)
+\begin{DoxyCompactList}\small\item\em Sets the maximum packet size for the radio interface. \end{DoxyCompactList}\item 
+uint16\+\_\+t \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga2865f5089aad8ee4f540b7f34e7b40a6}{DITSEngine::\+\+Radio\+Pkt\+Max\+Bytes}} ()
+\begin{DoxyCompactList}\small\item\em Gets the maximum packet size for the radio interface. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga2051e2cd516aceb47eb9dbe20a2ee630}{DITSEngine::\+\+Tx\+Add\+Remote\+Node}} (int RFAddr)
+\begin{DoxyCompactList}\small\item\em Send an RF request to upload a remote nodes DIT record to allow control of it. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga9612fd6b94011425efcf3b609e2bca8a}{DITSEngine::\+\+Del\+Remote\+Node}} (byte node\+Idx)
+\begin{DoxyCompactList}\small\item\em Delete a remote node. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_gaf0b21c1ced46be0ba37c73ba5d792ef1}{DITSEngine::\+\+Tx\+Set\+Remote\+Dev\+Val}} (byte node\+Idx, byte dev\+UID, int value)
+\begin{DoxyCompactList}\small\item\em Send an RF request to write/\+set a new value for a device on a remote node. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_gaea75cd4aa0dfcac2902b726ee2cef26c}{DITSEngine::\+\+Tx\+Get\+Remote\+Dev\+Vals}} (byte node\+Idx)
+\begin{DoxyCompactList}\small\item\em Send an RF request to read/\+get the values of all devices on a remote node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\label{doc-func-members}
+\Hypertarget{group___d_i_t_s_p_u_b_r_e_m_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group___d_i_t_s_p_u_b_r_e_m_ga9612fd6b94011425efcf3b609e2bca8a}\index{2. DITS RF Control.@{2. DITS RF Control.}!DelRemoteNode@{DelRemoteNode}}
+\index{DelRemoteNode@{DelRemoteNode}!2. DITS RF Control.@{2. DITS RF Control.}}
+\doxysubsubsection{\texorpdfstring{DelRemoteNode()}{DelRemoteNode()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_p_u_b_r_e_m_ga9612fd6b94011425efcf3b609e2bca8a} 
+void DITSEngine::\+\+Del\+Remote\+Node (\begin{DoxyParamCaption}\item[{byte}]{node\+Idx}{}\end{DoxyParamCaption})}
+
+
+
+Delete a remote node. 
+
+Removes the specified remote node record from this nodes DIT records. 
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em node\+Idx} & Index of the remote node to delete. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00205}{205}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{group___d_i_t_s_p_u_b_r_e_m_ga2865f5089aad8ee4f540b7f34e7b40a6}\index{2. DITS RF Control.@{2. DITS RF Control.}!RadioPktMaxBytes@{RadioPktMaxBytes}}
+\index{RadioPktMaxBytes@{RadioPktMaxBytes}!2. DITS RF Control.@{2. DITS RF Control.}}
+\doxysubsubsection{\texorpdfstring{RadioPktMaxBytes()}{RadioPktMaxBytes()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_p_u_b_r_e_m_ga2865f5089aad8ee4f540b7f34e7b40a6} 
+uint16\+\_\+t DITSEngine::\+\+Radio\+Pkt\+Max\+Bytes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the maximum packet size for the radio interface. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___d_i_t_s_p_u_b_r_e_m_ga7f3fd11e0c0aa3f8145cf1d05c0eac04}{Radio\+Pkt\+Max\+Bytes(uint16\+\_\+t)} 
+\end{DoxySeeAlso}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00288}{288}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___d_i_t_s_p_u_b_r_e_m_ga7f3fd11e0c0aa3f8145cf1d05c0eac04}\index{2. DITS RF Control.@{2. DITS RF Control.}!RadioPktMaxBytes@{RadioPktMaxBytes}}
+\index{RadioPktMaxBytes@{RadioPktMaxBytes}!2. DITS RF Control.@{2. DITS RF Control.}}
+\doxysubsubsection{\texorpdfstring{RadioPktMaxBytes()}{RadioPktMaxBytes()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_p_u_b_r_e_m_ga7f3fd11e0c0aa3f8145cf1d05c0eac04} 
+bool DITSEngine::\+\+Radio\+Pkt\+Max\+Bytes (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{max\+Bytes}{}\end{DoxyParamCaption})}
+
+
+
+Sets the maximum packet size for the radio interface. 
+
+This function sets the maximum allowable packet size (in bytes) for the radio interface used by the \doxylink{class_d_i_t_s_engine}{DITSEngine}. The value is used to segment outgoing packets into smaller chunks (e.\+g., REQDEVITBL device pools) that fit within the radio\textquotesingle{}s hardware limits. This ensures that the maximum allowed payload size per packet does not exceed the radio\textquotesingle{}s transmission capability. 
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em max\+Bytes} & The maximum number of bytes a single radio packet can carry. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The value is volatile and resets to 58 bytes after every power cycle. The valid range for {\ttfamily max\+Bytes} is 10 to 512 bytes. Any value out of this range will be ignored. The 512-\/byte limit is defined by the protocol, not the radio hardware. 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+true if the value was set successfully, or false if the value is out of range. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00188}{188}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{group___d_i_t_s_p_u_b_r_e_m_gab321a5e410d341fe1ad214943acc0a95}\index{2. DITS RF Control.@{2. DITS RF Control.}!RxData@{RxData}}
+\index{RxData@{RxData}!2. DITS RF Control.@{2. DITS RF Control.}}
+\doxysubsubsection{\texorpdfstring{RxData()}{RxData()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_p_u_b_r_e_m_gab321a5e410d341fe1ad214943acc0a95} 
+void DITSEngine::\+\+Rx\+Data (\begin{DoxyParamCaption}\item[{byte}]{\+\_\+byte}{}\end{DoxyParamCaption})}
+
+
+
+Processes an incoming byte of radio data and appends it to the current packet. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em \+\_\+byte} & A byte of data from the radio to be processed. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00182}{182}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{group___d_i_t_s_p_u_b_r_e_m_ga50e56a110284c62048ec30de904e0ff4}\index{2. DITS RF Control.@{2. DITS RF Control.}!RxExpireMS@{RxExpireMS}}
+\index{RxExpireMS@{RxExpireMS}!2. DITS RF Control.@{2. DITS RF Control.}}
+\doxysubsubsection{\texorpdfstring{RxExpireMS()}{RxExpireMS()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_p_u_b_r_e_m_ga50e56a110284c62048ec30de904e0ff4} 
+uint32\+\_\+t DITSEngine::\+\+Rx\+Expire\+MS (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the Rx\+Expire\+MS setting. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___d_i_t_s_p_u_b_r_e_m_gad39d1af6b052b176c06cf5d68e6bb632}{Rx\+Expire\+MS(uint32\+\_\+t)} 
+\end{DoxySeeAlso}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00267}{267}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___d_i_t_s_p_u_b_r_e_m_gad39d1af6b052b176c06cf5d68e6bb632}\index{2. DITS RF Control.@{2. DITS RF Control.}!RxExpireMS@{RxExpireMS}}
+\index{RxExpireMS@{RxExpireMS}!2. DITS RF Control.@{2. DITS RF Control.}}
+\doxysubsubsection{\texorpdfstring{RxExpireMS()}{RxExpireMS()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_p_u_b_r_e_m_gad39d1af6b052b176c06cf5d68e6bb632} 
+void DITSEngine::\+\+Rx\+Expire\+MS (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{\+\_\+\+Rx\+Expire\+MS}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the maximum time(ms) allowed to build an Rx packet. 
+
+This timeout should reflect maximum RF range latency and data rate. Reducing this value can improve throughput by releasing the Rx byte collection from incomplete or corrupted frames but can also prevent slow incoming packets from ever getting recieved. 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+Rx\+Expire\+MS} & The timeout in milliseconds. Default is 30s (30000). \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___d_i_t_s_p_u_b_r_e_m_gab321a5e410d341fe1ad214943acc0a95}{Rx\+Data} 
+\end{DoxySeeAlso}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00263}{263}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___d_i_t_s_p_u_b_r_e_m_ga8660955199d09337b095dd60fc5675d2}\index{2. DITS RF Control.@{2. DITS RF Control.}!SecNetCode@{SecNetCode}}
+\index{SecNetCode@{SecNetCode}!2. DITS RF Control.@{2. DITS RF Control.}}
+\doxysubsubsection{\texorpdfstring{SecNetCode()}{SecNetCode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_p_u_b_r_e_m_ga8660955199d09337b095dd60fc5675d2} 
+byte DITSEngine::\+\+Sec\+Net\+Code (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Get the \textquotesingle{}Sec\+Net\textquotesingle{} code. 
+
+This function returns the security network code in persistent memory. The Sec\+Net code is used to uniquely secure and identify the nodes that are part of a specific user\textquotesingle{}s node network, ensuring that only authorized nodes can communicate. \begin{DoxyReturn}{Returns}
+The current Sec\+Net code stored in persistent memory. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00060}{60}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{group___d_i_t_s_p_u_b_r_e_m_gaf57bf1a667da440cdfb6bd43cad32fc7}\index{2. DITS RF Control.@{2. DITS RF Control.}!SecNetCode@{SecNetCode}}
+\index{SecNetCode@{SecNetCode}!2. DITS RF Control.@{2. DITS RF Control.}}
+\doxysubsubsection{\texorpdfstring{SecNetCode()}{SecNetCode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_p_u_b_r_e_m_gaf57bf1a667da440cdfb6bd43cad32fc7} 
+bool DITSEngine::\+\+Sec\+Net\+Code (\begin{DoxyParamCaption}\item[{byte}]{\+\_\+\+Sec\+Net\+Code}{}\end{DoxyParamCaption})}
+
+
+
+Set the \textquotesingle{}Sec\+Net\textquotesingle{} code. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___d_i_t_s_p_u_b_r_e_m_ga8660955199d09337b095dd60fc5675d2}{Sec\+Net\+Code() const } 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em \+\_\+\+Sec\+Net\+Code} & Sets the new security network code (0x00-\/0x7F). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the code was in range and written without error. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00062}{62}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{group___d_i_t_s_p_u_b_r_e_m_ga2051e2cd516aceb47eb9dbe20a2ee630}\index{2. DITS RF Control.@{2. DITS RF Control.}!TxAddRemoteNode@{TxAddRemoteNode}}
+\index{TxAddRemoteNode@{TxAddRemoteNode}!2. DITS RF Control.@{2. DITS RF Control.}}
+\doxysubsubsection{\texorpdfstring{TxAddRemoteNode()}{TxAddRemoteNode()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_p_u_b_r_e_m_ga2051e2cd516aceb47eb9dbe20a2ee630} 
+bool DITSEngine::\+\+Tx\+Add\+Remote\+Node (\begin{DoxyParamCaption}\item[{int}]{RFAddr}{}\end{DoxyParamCaption})}
+
+
+
+Send an RF request to upload a remote nodes DIT record to allow control of it. 
+
+Transmits the PKT\+\_\+\+REQDEVITBL packet to a given RF address. The remote nodes DIT table will exist in this nodes DIT records if the request is fulfilled. 
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em RFAddr} & 16-\/bit RF address of the remote node to add. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if packet was created successfully, else false. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00195}{195}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{group___d_i_t_s_p_u_b_r_e_m_gaea75cd4aa0dfcac2902b726ee2cef26c}\index{2. DITS RF Control.@{2. DITS RF Control.}!TxGetRemoteDevVals@{TxGetRemoteDevVals}}
+\index{TxGetRemoteDevVals@{TxGetRemoteDevVals}!2. DITS RF Control.@{2. DITS RF Control.}}
+\doxysubsubsection{\texorpdfstring{TxGetRemoteDevVals()}{TxGetRemoteDevVals()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_p_u_b_r_e_m_gaea75cd4aa0dfcac2902b726ee2cef26c} 
+bool DITSEngine::\+\+Tx\+Get\+Remote\+Dev\+Vals (\begin{DoxyParamCaption}\item[{byte}]{node\+Idx}{}\end{DoxyParamCaption})}
+
+
+
+Send an RF request to read/\+get the values of all devices on a remote node. 
+
+Transmits the PKT\+\_\+\+REQVALS packet to a remote node. 
+\begin{DoxyParams}{Parameters}
+{\em node\+Idx} & Index of the target node in DIT records. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if packet was created successfully, else false. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00222}{222}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{group___d_i_t_s_p_u_b_r_e_m_gaf0b21c1ced46be0ba37c73ba5d792ef1}\index{2. DITS RF Control.@{2. DITS RF Control.}!TxSetRemoteDevVal@{TxSetRemoteDevVal}}
+\index{TxSetRemoteDevVal@{TxSetRemoteDevVal}!2. DITS RF Control.@{2. DITS RF Control.}}
+\doxysubsubsection{\texorpdfstring{TxSetRemoteDevVal()}{TxSetRemoteDevVal()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_p_u_b_r_e_m_gaf0b21c1ced46be0ba37c73ba5d792ef1} 
+bool DITSEngine::\+\+Tx\+Set\+Remote\+Dev\+Val (\begin{DoxyParamCaption}\item[{byte}]{node\+Idx}{, }\item[{byte}]{dev\+UID}{, }\item[{int}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Send an RF request to write/\+set a new value for a device on a remote node. 
+
+Transmits the PKT\+\_\+\+SETVAL packet to a remote node. 
+\begin{DoxyParams}{Parameters}
+{\em node\+Idx} & Index of the target node in DIT records. \\
+\hline
+{\em dev\+UID} & UID of the device to write/\+set a new value for. \\
+\hline
+{\em value} & The value to set on the remote device. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if packet was created successfully, else false. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00211}{211}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+

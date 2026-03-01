@@ -1,0 +1,190 @@
+\doxysection{DITS Implementer Callback Functions to be overloaded. }
+\hypertarget{group___d_i_t_s_i}{}\label{group___d_i_t_s_i}\index{DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual byte \doxymbox{\hyperlink{group___d_i_t_s_i_ga2827cdcab4cb3bc50cdfe0f943ab8b1d}{DITSEngine::\+pmem\+\_\+read}} (int addr)=0
+\begin{DoxyCompactList}\small\item\em Read a byte from persistent memory. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{group___d_i_t_s_i_gaef5afd491d75363d9e8d33307b4323e6}{DITSEngine::\+pmem\+\_\+write}} (int addr, byte val)=0
+\begin{DoxyCompactList}\small\item\em Write a byte to persistent memory. \end{DoxyCompactList}\item 
+virtual bool \doxymbox{\hyperlink{group___d_i_t_s_i_gae259077dac2c7e3efceefc4d5da090db}{DITSEngine::\+\+Tx\+Ready}} (uint16\+\_\+t \+\_\+\+To\+RFAddr)=0
+\begin{DoxyCompactList}\small\item\em Indicates when UART and the RF radio are ready to accept transmit data. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{group___d_i_t_s_i_ga2673c26d9d2deedf9b79ca62b044c0b0}{DITSEngine::\+\+Tx\+Data}} (byte \+\_\+\+Tx\+Byte)=0
+\begin{DoxyCompactList}\small\item\em Implements the bridge between protocol transmit data and the RF radio. \end{DoxyCompactList}\item 
+virtual int \doxymbox{\hyperlink{group___d_i_t_s_i_ga57adadf5d7ce17a7cbee1f5cf5d5665a}{DITSEngine::\+\+Rx\+Req\+Device\+Value}} (byte \+\_\+\+Dev\+UID)=0
+\begin{DoxyCompactList}\small\item\em Called when a remote node requests the current value of a device on this node. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{group___d_i_t_s_i_ga35a97fde7237c58ba887d9def86f0c70}{DITSEngine::\+\+Rx\+Req\+Device\+Set}} (byte \+\_\+\+Dev\+UID, int value)=0
+\begin{DoxyCompactList}\small\item\em Called when a remote node wants to set a value on this device. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{group___d_i_t_s_i_ga02c8cc21885daea8aed6fe6464be7111}{DITSEngine::\+\+Rx\+Data\+Dev\+Value}} (byte \+\_\+\+Node\+Idx, byte \+\_\+\+Dev\+UID, int value)=0
+\begin{DoxyCompactList}\small\item\em Called when a remote node sends the current value of a device on its node. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{group___d_i_t_s_i_ga3d7e260254dd113e850438bdaa4b6cb6}{DITSEngine::\+\+Rx\+DITUpdate}} (byte node\+Idx)
+\begin{DoxyCompactList}\small\item\em Notification that the DIT table has changed due to received network data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\label{doc-func-members}
+\Hypertarget{group___d_i_t_s_i_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group___d_i_t_s_i_ga2827cdcab4cb3bc50cdfe0f943ab8b1d}\index{DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}!pmem\_read@{pmem\_read}}
+\index{pmem\_read@{pmem\_read}!DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}}
+\doxysubsubsection{\texorpdfstring{pmem\_read()}{pmem\_read()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_i_ga2827cdcab4cb3bc50cdfe0f943ab8b1d} 
+virtual byte DITSEngine::\+pmem\+\_\+read (\begin{DoxyParamCaption}\item[{int}]{addr}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Read a byte from persistent memory. 
+
+The engine uses this function to retrieve stored Node or Device metadata from persistent storage. Implementers should override this method to provide platform-\/specific access to EEPROM, flash, or other memory backends. 
+\begin{DoxyParams}{Parameters}
+{\em addr} & Memory address to read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The byte stored at the given memory address. 
+\end{DoxyReturn}
+\Hypertarget{group___d_i_t_s_i_gaef5afd491d75363d9e8d33307b4323e6}\index{DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}!pmem\_write@{pmem\_write}}
+\index{pmem\_write@{pmem\_write}!DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}}
+\doxysubsubsection{\texorpdfstring{pmem\_write()}{pmem\_write()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_i_gaef5afd491d75363d9e8d33307b4323e6} 
+virtual void DITSEngine::\+pmem\+\_\+write (\begin{DoxyParamCaption}\item[{int}]{addr}{, }\item[{byte}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Write a byte to persistent memory. 
+
+The engine uses this function to persist Node or Device metadata. Implementers should override this method to provide platform-\/specific storage access, such as EEPROM, flash, or other memory mechanisms. 
+\begin{DoxyParams}{Parameters}
+{\em addr} & Memory address to write to. \\
+\hline
+{\em val} & The byte value to store. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group___d_i_t_s_i_ga02c8cc21885daea8aed6fe6464be7111}\index{DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}!RxDataDevValue@{RxDataDevValue}}
+\index{RxDataDevValue@{RxDataDevValue}!DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}}
+\doxysubsubsection{\texorpdfstring{RxDataDevValue()}{RxDataDevValue()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_i_ga02c8cc21885daea8aed6fe6464be7111} 
+virtual void DITSEngine::\+\+Rx\+Data\+Dev\+Value (\begin{DoxyParamCaption}\item[{byte}]{\+\_\+\+Node\+Idx}{, }\item[{byte}]{\+\_\+\+Dev\+UID}{, }\item[{int}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Called when a remote node sends the current value of a device on its node. 
+
+This callback is invoked when a remote node sends the current value of a device by its {\ttfamily Dev\+UID} to this node. 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+Node\+Idx} & Index of the remote node in the local DIT table. \\
+\hline
+{\em \+\_\+\+Dev\+UID} & Unique device identifier within the remote node. \\
+\hline
+{\em value} & The value of the device on the remote node. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group___d_i_t_s_i_ga3d7e260254dd113e850438bdaa4b6cb6}\index{DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}!RxDITUpdate@{RxDITUpdate}}
+\index{RxDITUpdate@{RxDITUpdate}!DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}}
+\doxysubsubsection{\texorpdfstring{RxDITUpdate()}{RxDITUpdate()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_i_ga3d7e260254dd113e850438bdaa4b6cb6} 
+virtual void DITSEngine::\+\+Rx\+DITUpdate (\begin{DoxyParamCaption}\item[{byte}]{node\+Idx}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Notification that the DIT table has changed due to received network data. 
+
+This callback is invoked when the DIT table is modified as a result of packet processing, such as discovering a new remote node or synchronizing due to a detected DIT table mismatch. All internal storage updates are completed before this function is called. \begin{DoxyNote}{Note}
+DIT table change initiated by the implementer does not trigger this callback. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em node\+Idx} & Index of the node entry affected by the change. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00394}{394}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___d_i_t_s_i_ga35a97fde7237c58ba887d9def86f0c70}\index{DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}!RxReqDeviceSet@{RxReqDeviceSet}}
+\index{RxReqDeviceSet@{RxReqDeviceSet}!DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}}
+\doxysubsubsection{\texorpdfstring{RxReqDeviceSet()}{RxReqDeviceSet()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_i_ga35a97fde7237c58ba887d9def86f0c70} 
+virtual void DITSEngine::\+\+Rx\+Req\+Device\+Set (\begin{DoxyParamCaption}\item[{byte}]{\+\_\+\+Dev\+UID}{, }\item[{int}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Called when a remote node wants to set a value on this device. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dit\+Idx} & Index of the device in the local DIT table. \\
+\hline
+{\em value} & Value to set. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group___d_i_t_s_i_ga57adadf5d7ce17a7cbee1f5cf5d5665a}\index{DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}!RxReqDeviceValue@{RxReqDeviceValue}}
+\index{RxReqDeviceValue@{RxReqDeviceValue}!DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}}
+\doxysubsubsection{\texorpdfstring{RxReqDeviceValue()}{RxReqDeviceValue()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_i_ga57adadf5d7ce17a7cbee1f5cf5d5665a} 
+virtual int DITSEngine::\+\+Rx\+Req\+Device\+Value (\begin{DoxyParamCaption}\item[{byte}]{\+\_\+\+Dev\+UID}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Called when a remote node requests the current value of a device on this node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dit\+Idx} & Index of the device in the local DIT table. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The current value of the device. 
+\end{DoxyReturn}
+\Hypertarget{group___d_i_t_s_i_ga2673c26d9d2deedf9b79ca62b044c0b0}\index{DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}!TxData@{TxData}}
+\index{TxData@{TxData}!DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}}
+\doxysubsubsection{\texorpdfstring{TxData()}{TxData()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_i_ga2673c26d9d2deedf9b79ca62b044c0b0} 
+virtual void DITSEngine::\+\+Tx\+Data (\begin{DoxyParamCaption}\item[{byte}]{\+\_\+\+Tx\+Byte}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Implements the bridge between protocol transmit data and the RF radio. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+byte} & A byte from the protocol engine to pass to the RF radio for transmit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+\doxylink{group___d_i_t_s_i_gae259077dac2c7e3efceefc4d5da090db}{Tx\+Ready()} indicates when the protocol can send bytes. 
+\end{DoxyNote}
+\Hypertarget{group___d_i_t_s_i_gae259077dac2c7e3efceefc4d5da090db}\index{DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}!TxReady@{TxReady}}
+\index{TxReady@{TxReady}!DITS Implementer Callback Functions to be overloaded.@{DITS Implementer Callback Functions to be overloaded.}}
+\doxysubsubsection{\texorpdfstring{TxReady()}{TxReady()}}
+{\footnotesize\ttfamily \label{group___d_i_t_s_i_gae259077dac2c7e3efceefc4d5da090db} 
+virtual bool DITSEngine::\+\+Tx\+Ready (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{\+\_\+\+To\+RFAddr}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Indicates when UART and the RF radio are ready to accept transmit data. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em \+\_\+\+To\+RFAddr} & The destination address of the packet waiting to be sent. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if transmission may proceed, false otherwise.
+\end{DoxyReturn}
+Typical considerations include:\+
+\begin{DoxyItemize}
+\item UART buffer availability (e.\+g., Serial.\+available\+For\+Write()).
+\item RF radio-\/ready signals (e.\+g., AUX pin on E22).
+\item The configured Radio\+Pkt\+Max\+Bytes value.
+\item The radio\textquotesingle{}s specific header requirments (e.\+g. address, channel, etc...) ~\newline
+
+\end{DoxyItemize}
+
+\begin{DoxyNote}{Note}
+It is the implementers responsibility to send the radio its appropriate header just before returning true. The protocol will always provide the destination address of the packet by passing it to {\ttfamily \+\_\+\+To\+RFAddr} on every call. Address 0x\+FFFF will be passed if there is no destination address. This allows radio usage flexibility. 
+
+If Radio\+Pkt\+Max\+Bytes is known to always be less than the UART buffer depth, the implementer may choose to wait until enough space is available in the UART buffer to signal ready. Otherwise, simply checking that the UART buffer is not full is sufficient. 
+\end{DoxyNote}

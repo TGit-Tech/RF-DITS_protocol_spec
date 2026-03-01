@@ -1,0 +1,216 @@
+\doxysection{DITSEngine::\+Rx\+Packet Class Reference}
+\hypertarget{class_d_i_t_s_engine_1_1_rx_packet}{}\label{class_d_i_t_s_engine_1_1_rx_packet}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+
+
+{\ttfamily \+\#include $<$rf\+\_\+dits.\+h$>$}
+
+Inheritance diagram for DITSEngine::\+Rx\+Packet:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_d_i_t_s_engine_1_1_rx_packet}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_acb01b1f8a396f495bb055958e57035ee}{Rx\+Packet}} (uint16\+\_\+t \+\_\+\+Radio\+Pkt\+Max\+Bytes, byte \+\_\+\+Sec\+Net, uint32\+\_\+t \+\_\+expire\+Millis=30000)
+\item 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_a9796b24cf876a76cd61e370cc0267f74}{Rx\+Packet}} (const Rx\+Packet \&)=delete
+\item 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_acb01b1f8a396f495bb055958e57035ee}{Rx\+Packet}} \& \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_a396430d475079694c616211f449b435b}{operator=}} (const \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_acb01b1f8a396f495bb055958e57035ee}{Rx\+Packet}} \&)=delete
+\item 
+bool \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_abfac86f71df6d807a2aaa032474f56de}{Is\+Complete}} (uint32\+\_\+t \+\_\+curr\+Millis)
+\item 
+bool \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_ad6f60297b108d9aad67dd9c0780a6a67}{Is\+Valid}} ()
+\item 
+byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_ae9a3747da4d6cd314b79590cf345aa9c}{Pkt\+Type}} ()
+\item 
+byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_acd91005efc0f121e5a9c0fd24a03b1c8}{From\+RFH}} ()
+\item 
+byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_a5a3a1bfc924029098c0a19bc8b495ef6}{From\+RFL}} ()
+\item 
+int \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_ac31cc3d08446e3ed4c0b96db72836347}{From\+RF}} ()
+\item 
+byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_a8021436f5b132eab42c694b0e7a9620f}{NDITVer}} ()
+\item 
+byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_ada77e094c31e9a75083239dc5ed14dee}{Dev\+UID}} ()
+\item 
+int \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_aad9de210cc541a1939cc62292db23892}{Value}} ()
+\item 
+void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_affba8b3fa5c8f4ed37be2bfb6736555f}{Rx\+Byte}} (byte \+\_\+\+Byte)
+\begin{DoxyCompactList}\small\item\em Receives UART byte from Radio\+Rx. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet}{DITSEngine::\+rf\+Packet}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a3fa8f0720ecc4b1ee87417f06bacd93b}{rf\+Packet}} (uint16\+\_\+t \+\_\+\+Radio\+Pkt\+Max\+Bytes, byte \+\_\+\+Sec\+Net)
+\item 
+virtual \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_ab8391c806abb3b049cd945564a465ed0}{\texorpdfstring{$\sim$}{\string~}rf\+Packet}} ()
+\item 
+void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a278dc3fae585ac232b68b4ec60d58a1f}{dump\+RFPool}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet}{DITSEngine::\+rf\+Packet}}}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t const \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a764a59f2e62470c87b55895cd72727dc}{rf\+Pool\+Idxs}}
+\begin{DoxyCompactList}\small\item\em The num of rf\+Pool\+[$<$\+Idxs$>$]\+. \end{DoxyCompactList}\item 
+uint16\+\_\+t const \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a80d6c0a9d267681f6c2af296fccca311}{ui\+Radio\+Pkt\+Max\+Bytes}}
+\begin{DoxyCompactList}\small\item\em The num of rf\+Pool\+[Idx]\+\+[$<$\+Radio\+Pkt\+Max\+Bytes$>$]\+. \end{DoxyCompactList}\item 
+byte \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a50a826172236af140c79c2113daedeea}{rf\+Pool}}
+\begin{DoxyCompactList}\small\item\em Dyanmic pool of tx-\/bytes in \+[$<$\+Idxs$>$]\+\+[$<$\+Radio\+Pkt\+Max\+Bytes$>$]\+ form. \end{DoxyCompactList}\item 
+uint16\+\_\+t \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a7b801c73b7b3ef5f6f2d9c0392437f0e}{Size}} = 0
+\begin{DoxyCompactList}\small\item\em Max Packet size is 512-\/bytes due to Sec\+Net encoding. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet}{DITSEngine::\+rf\+Packet}}}
+\begin{DoxyCompactItemize}
+\item 
+byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet_a96dd36dc31ed021b636e44cd0ed048a5}{Sec\+Net}} = 0
+\begin{DoxyCompactList}\small\item\em The \textquotesingle{}Sec\+Net\textquotesingle{} code passed-\/in at Packet Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00445}{445}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_acb01b1f8a396f495bb055958e57035ee}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!RxPacket@{RxPacket}}
+\index{RxPacket@{RxPacket}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{RxPacket()}{RxPacket()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_acb01b1f8a396f495bb055958e57035ee} 
+DITSEngine::\+\+Rx\+Packet::\+\+Rx\+Packet (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{\+\_\+\+Radio\+Pkt\+Max\+Bytes}{, }\item[{byte}]{\+\_\+\+Sec\+Net}{, }\item[{uint32\+\_\+t}]{\+\_\+expire\+Millis}{ = {\ttfamily 30000}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00447}{447}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_a9796b24cf876a76cd61e370cc0267f74}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!RxPacket@{RxPacket}}
+\index{RxPacket@{RxPacket}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{RxPacket()}{RxPacket()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_a9796b24cf876a76cd61e370cc0267f74} 
+DITSEngine::\+\+Rx\+Packet::\+\+Rx\+Packet (\begin{DoxyParamCaption}\item[{const Rx\+Packet \&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_ada77e094c31e9a75083239dc5ed14dee}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!DevUID@{DevUID}}
+\index{DevUID@{DevUID}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{DevUID()}{DevUID()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_ada77e094c31e9a75083239dc5ed14dee} 
+byte DITSEngine::\+\+Rx\+Packet::\+\+Dev\+UID (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00459}{459}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_ac31cc3d08446e3ed4c0b96db72836347}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!FromRF@{FromRF}}
+\index{FromRF@{FromRF}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{FromRF()}{FromRF()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_ac31cc3d08446e3ed4c0b96db72836347} 
+int DITSEngine::\+\+Rx\+Packet::\+\+From\+RF (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00457}{457}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_acd91005efc0f121e5a9c0fd24a03b1c8}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!FromRFH@{FromRFH}}
+\index{FromRFH@{FromRFH}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{FromRFH()}{FromRFH()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_acd91005efc0f121e5a9c0fd24a03b1c8} 
+byte DITSEngine::\+\+Rx\+Packet::\+\+From\+RFH (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00455}{455}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_a5a3a1bfc924029098c0a19bc8b495ef6}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!FromRFL@{FromRFL}}
+\index{FromRFL@{FromRFL}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{FromRFL()}{FromRFL()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_a5a3a1bfc924029098c0a19bc8b495ef6} 
+byte DITSEngine::\+\+Rx\+Packet::\+\+From\+RFL (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00456}{456}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_abfac86f71df6d807a2aaa032474f56de}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!IsComplete@{IsComplete}}
+\index{IsComplete@{IsComplete}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{IsComplete()}{IsComplete()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_abfac86f71df6d807a2aaa032474f56de} 
+bool DITSEngine::\+\+Rx\+Packet::\+\+Is\+Complete (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{\+\_\+curr\+Millis}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00452}{452}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_ad6f60297b108d9aad67dd9c0780a6a67}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!IsValid@{IsValid}}
+\index{IsValid@{IsValid}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{IsValid()}{IsValid()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_ad6f60297b108d9aad67dd9c0780a6a67} 
+bool DITSEngine::\+\+Rx\+Packet::\+\+Is\+Valid (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00453}{453}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_a8021436f5b132eab42c694b0e7a9620f}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!NDITVer@{NDITVer}}
+\index{NDITVer@{NDITVer}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{NDITVer()}{NDITVer()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_a8021436f5b132eab42c694b0e7a9620f} 
+byte DITSEngine::\+\+Rx\+Packet::\+\+NDITVer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00458}{458}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_a396430d475079694c616211f449b435b}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!operator=@{operator=}}
+\index{operator=@{operator=}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_a396430d475079694c616211f449b435b} 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_acb01b1f8a396f495bb055958e57035ee}{Rx\+Packet}} \& DITSEngine::\+\+Rx\+Packet::\+operator= (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet_acb01b1f8a396f495bb055958e57035ee}{Rx\+Packet}} \&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_ae9a3747da4d6cd314b79590cf345aa9c}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!PktType@{PktType}}
+\index{PktType@{PktType}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{PktType()}{PktType()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_ae9a3747da4d6cd314b79590cf345aa9c} 
+byte DITSEngine::\+\+Rx\+Packet::\+\+Pkt\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00454}{454}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_affba8b3fa5c8f4ed37be2bfb6736555f}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!RxByte@{RxByte}}
+\index{RxByte@{RxByte}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{RxByte()}{RxByte()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_affba8b3fa5c8f4ed37be2bfb6736555f} 
+void DITSEngine::\+\+Rx\+Packet::\+\+Rx\+Byte (\begin{DoxyParamCaption}\item[{byte}]{\+\_\+\+Byte}{}\end{DoxyParamCaption})}
+
+
+
+Receives UART byte from Radio\+Rx. 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00516}{516}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_rx_packet_aad9de210cc541a1939cc62292db23892}\index{DITSEngine::RxPacket@{DITSEngine::RxPacket}!Value@{Value}}
+\index{Value@{Value}!DITSEngine::RxPacket@{DITSEngine::RxPacket}}
+\doxysubsubsection{\texorpdfstring{Value()}{Value()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_rx_packet_aad9de210cc541a1939cc62292db23892} 
+int DITSEngine::\+\+Rx\+Packet::\+\+Value (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00460}{460}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+C:\+/\+\+Users/\+\+TGIT-\/\+TECH/\+\+Documents/\+!\+Git\+Hub/\+\+RF-\/\+DITS\+\_\+protocol\+\_\+spec/\+rf\+\_\+dits/\+\doxymbox{\hyperlink{rf__dits_8h}{rf\+\_\+dits.\+h}}\item 
+C:\+/\+\+Users/\+\+TGIT-\/\+TECH/\+\+Documents/\+!\+Git\+Hub/\+\+RF-\/\+DITS\+\_\+protocol\+\_\+spec/\+rf\+\_\+dits/\+\doxymbox{\hyperlink{rf__dits_8cpp}{rf\+\_\+dits.\+cpp}}\end{DoxyCompactItemize}

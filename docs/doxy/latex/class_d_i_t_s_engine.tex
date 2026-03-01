@@ -1,0 +1,186 @@
+\doxysection{DITSEngine Class Reference}
+\hypertarget{class_d_i_t_s_engine}{}\label{class_d_i_t_s_engine}\index{DITSEngine@{DITSEngine}}
+
+
+Central engine managing Node and Device DIT tables, packet transport, and hardware abstraction.  
+
+
+
+
+{\ttfamily \+\#include $<$rf\+\_\+dits.\+h$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT}}
+\begin{DoxyCompactList}\small\item\em A \doxylink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT} structure that points directly to persistent memory. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT}}
+\begin{DoxyCompactList}\small\item\em A \doxylink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT} structure that points directly to persistent memory. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1rf_packet}{rf\+Packet}}
+\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_rx_packet}{Rx\+Packet}}
+\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_tx_packet}{Tx\+Packet}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_a9507f50b34b39ed2756dcb4a91340e4b}{DITSEngine}} (uint16\+\_\+t \+\_\+pmem\+Begin\+Addr, byte \+\_\+\+Max\+DITRecords, byte \+\_\+\+Name\+Field\+Bytes)
+\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_ga62900422f9babe6f5583423bd232ff10}{begin}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the DITS Engine and prepares memory structures. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_ga40fd9c22b447c4cd7487d0ee8cf8698e}{Process\+Loop}} ()
+\begin{DoxyCompactList}\small\item\em Engine periodic processing loop. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_gacb1f9c34a1898077e08d0fa25cc3a5bd}{Update\+This\+Node\+RFAddr}} (uint16\+\_\+t RFAddr)
+\begin{DoxyCompactList}\small\item\em Updates the RF address for this node in DIT records. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_gab8c0e8514973fa8b384cf673d8f755e3}{Update\+This\+Node\+Name}} (const char \texorpdfstring{$\ast$}{*}name)
+\begin{DoxyCompactList}\small\item\em Updates the name of this node in DIT records. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_gaa363f0e7401d3bb863a86e88f8a67299}{Add\+This\+Node\+Device}} (byte dev\+Type, byte dev\+Attr, const char \texorpdfstring{$\ast$}{*}name)
+\begin{DoxyCompactList}\small\item\em Adds a device to this node. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_gacf26e08d9760bb5beec71fefa2e96827}{Del\+This\+Node\+Device}} (byte dev\+Idx)
+\begin{DoxyCompactList}\small\item\em Deletes a device from this node. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT}} \doxymbox{\hyperlink{group___d_i_t_s_ga18ac1f631d67e249c0be8b70d79e9507}{Node}} (byte idx) const
+\begin{DoxyCompactList}\small\item\em A \doxylink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT} object for implementers to access DIT records. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT}} \doxymbox{\hyperlink{group___d_i_t_s_ga98d8b790ce0b60cba9e2d4fdfb3ded1a}{Device}} (byte ddit\+Idx) const
+\begin{DoxyCompactList}\small\item\em A \doxylink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT} object for implementers to access DIT records. \end{DoxyCompactList}\item 
+byte \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga8660955199d09337b095dd60fc5675d2}{Sec\+Net\+Code}} () const
+\begin{DoxyCompactList}\small\item\em Get the \textquotesingle{}Sec\+Net\textquotesingle{} code. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_gaf57bf1a667da440cdfb6bd43cad32fc7}{Sec\+Net\+Code}} (byte \+\_\+\+Sec\+Net\+Code)
+\begin{DoxyCompactList}\small\item\em Set the \textquotesingle{}Sec\+Net\textquotesingle{} code. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_gad39d1af6b052b176c06cf5d68e6bb632}{Rx\+Expire\+MS}} (uint32\+\_\+t \+\_\+\+Rx\+Expire\+MS)
+\begin{DoxyCompactList}\small\item\em Sets the maximum time(ms) allowed to build an Rx packet. \end{DoxyCompactList}\item 
+uint32\+\_\+t \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga50e56a110284c62048ec30de904e0ff4}{Rx\+Expire\+MS}} ()
+\begin{DoxyCompactList}\small\item\em Gets the Rx\+Expire\+MS setting. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_gab321a5e410d341fe1ad214943acc0a95}{Rx\+Data}} (byte \+\_\+byte)
+\begin{DoxyCompactList}\small\item\em Processes an incoming byte of radio data and appends it to the current packet. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga7f3fd11e0c0aa3f8145cf1d05c0eac04}{Radio\+Pkt\+Max\+Bytes}} (uint16\+\_\+t max\+Bytes)
+\begin{DoxyCompactList}\small\item\em Sets the maximum packet size for the radio interface. \end{DoxyCompactList}\item 
+uint16\+\_\+t \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga2865f5089aad8ee4f540b7f34e7b40a6}{Radio\+Pkt\+Max\+Bytes}} ()
+\begin{DoxyCompactList}\small\item\em Gets the maximum packet size for the radio interface. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga2051e2cd516aceb47eb9dbe20a2ee630}{Tx\+Add\+Remote\+Node}} (int RFAddr)
+\begin{DoxyCompactList}\small\item\em Send an RF request to upload a remote nodes DIT record to allow control of it. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga9612fd6b94011425efcf3b609e2bca8a}{Del\+Remote\+Node}} (byte node\+Idx)
+\begin{DoxyCompactList}\small\item\em Delete a remote node. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_gaf0b21c1ced46be0ba37c73ba5d792ef1}{Tx\+Set\+Remote\+Dev\+Val}} (byte node\+Idx, byte dev\+UID, int value)
+\begin{DoxyCompactList}\small\item\em Send an RF request to write/\+set a new value for a device on a remote node. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_gaea75cd4aa0dfcac2902b726ee2cef26c}{Tx\+Get\+Remote\+Dev\+Vals}} (byte node\+Idx)
+\begin{DoxyCompactList}\small\item\em Send an RF request to read/\+get the values of all devices on a remote node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const byte \doxymbox{\hyperlink{class_d_i_t_s_engine_a41bf6bc426674456bc579e865901d271}{DITName\+Char}}
+\begin{DoxyCompactList}\small\item\em Use char\+[DITName\+Char]\+ to allocate; which is DITName\+Bytes +1 for null-\/term. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual byte \doxymbox{\hyperlink{group___o_v_e_r_l_o_a_d_ga2827cdcab4cb3bc50cdfe0f943ab8b1d}{pmem\+\_\+read}} (int addr)=0
+\begin{DoxyCompactList}\small\item\em Read a byte from persistent memory. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{group___o_v_e_r_l_o_a_d_gaef5afd491d75363d9e8d33307b4323e6}{pmem\+\_\+write}} (int addr, byte val)=0
+\begin{DoxyCompactList}\small\item\em Write a byte to persistent memory. \end{DoxyCompactList}\item 
+virtual bool \doxymbox{\hyperlink{group___o_v_e_r_l_o_a_d_gae259077dac2c7e3efceefc4d5da090db}{Tx\+Ready}} (uint16\+\_\+t \+\_\+\+To\+RFAddr)=0
+\begin{DoxyCompactList}\small\item\em Called when the protol has bytes to send to the RF Radio. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{group___o_v_e_r_l_o_a_d_ga2673c26d9d2deedf9b79ca62b044c0b0}{Tx\+Data}} (byte \+\_\+\+Tx\+Byte)=0
+\begin{DoxyCompactList}\small\item\em Implements the bridge between protocol transmit data and the RF radio. \end{DoxyCompactList}\item 
+virtual int \doxymbox{\hyperlink{group___o_v_e_r_l_o_a_d_ga57adadf5d7ce17a7cbee1f5cf5d5665a}{Rx\+Req\+Device\+Value}} (byte \+\_\+\+Dev\+UID)=0
+\begin{DoxyCompactList}\small\item\em Called when a remote node requests the current value of a device on this node. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{group___o_v_e_r_l_o_a_d_ga35a97fde7237c58ba887d9def86f0c70}{Rx\+Req\+Device\+Set}} (byte \+\_\+\+Dev\+UID, int value)=0
+\begin{DoxyCompactList}\small\item\em Called when a remote node wants to set a device value on this node. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{group___o_v_e_r_l_o_a_d_ga02c8cc21885daea8aed6fe6464be7111}{Rx\+Data\+Dev\+Value}} (byte \+\_\+\+Node\+Idx, byte \+\_\+\+Dev\+UID, int value)=0
+\begin{DoxyCompactList}\small\item\em Called when this node recieves a remote nodes device reading(s). \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{group___o_v_e_r_l_o_a_d_ga3d7e260254dd113e850438bdaa4b6cb6}{Rx\+DITUpdate}} (byte node\+Idx)
+\begin{DoxyCompactList}\small\item\em Notification that the DIT table has changed due to received network data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Central engine managing Node and Device DIT tables, packet transport, and hardware abstraction. 
+
+Responsibilities:\+
+\begin{DoxyItemize}
+\item Encapsulates Node/\+\+Device metadata (DIT tables) and provides read-\/only access to implementers.
+\item Handles memory storage and retrieval of Node/\+\+Device metadata via a pluggable memory backend.
+\begin{DoxyItemize}
+\item Supports EEPROM, RAM, or other persistent memory via overridable \doxylink{group___o_v_e_r_l_o_a_d_ga2827cdcab4cb3bc50cdfe0f943ab8b1d}{pmem\+\_\+read()}/\+pmem\+\_\+write().
+\end{DoxyItemize}
+\item Provides Rx/\+\+Tx packet handling for RF or UART transport.
+\begin{DoxyItemize}
+\item Incoming bytes are processed via Rx\+Byte(), which automatically collects packets and validates them.
+\item Outgoing packets can be generated internally when requested by the engine (e.\+g., REQDEVITBL, PKT\+\_\+\+VAL).
+\end{DoxyItemize}
+\item Defines abstract hardware interface functions (virtual methods) for implementers to override:\+
+\begin{DoxyItemize}
+\item Read\+Pin(), Write\+Pin(), or other device-\/specific control logic.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+Behavior Notes:\+
+\begin{DoxyItemize}
+\item On construction, scans Node Pool and Device Pool to track last-\/used memory blocks.
+\item When writing a new Node/\+\+Device:\+
+\begin{DoxyItemize}
+\item If idx is provided, overwrites that block.
+\item If idx==-\/1 (default), finds first deleted block or appends at the end.
+\item Updates last-\/used address when writing at the end.
+\end{DoxyItemize}
+\item Deletion simply marks the first byte of a block as 0x\+FF.
+\item Node/\+\+Device structures are exposed as read-\/only nested types (\doxylink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT} /\+ \doxylink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT}).
+\item Event propagation (alarms, device value changes) is outside the scope of this engine.
+\end{DoxyItemize}
+
+Access Notes:\+
+\begin{DoxyItemize}
+\item Implementers interact via:\+
+\begin{DoxyItemize}
+\item {\ttfamily const Node\+DIT\texorpdfstring{$\ast$}{*} Get\+Node(idx)} or {\ttfamily const Device\+DIT\texorpdfstring{$\ast$}{*} Get\+Device(node\+Idx, dev\+Idx)} for read-\/only access.
+\item Virtual hardware functions for physical control.
+\item Rx/\+\+Tx functions for communication; engine handles protocol-\/specific packet construction and parsing.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+Purpose:\+
+\begin{DoxyItemize}
+\item Separates protocol logic, memory storage, and hardware control from implementer code.
+\item Provides a single, cohesive interface for accessing DIT metadata, handling packets, and controlling hardware. 
+\end{DoxyItemize}
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00105}{105}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_d_i_t_s_engine_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_d_i_t_s_engine_a9507f50b34b39ed2756dcb4a91340e4b}\index{DITSEngine@{DITSEngine}!DITSEngine@{DITSEngine}}
+\index{DITSEngine@{DITSEngine}!DITSEngine@{DITSEngine}}
+\doxysubsubsection{\texorpdfstring{DITSEngine()}{DITSEngine()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_a9507f50b34b39ed2756dcb4a91340e4b} 
+DITSEngine::\+\+DITSEngine (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{\+\_\+pmem\+Begin\+Addr}{, }\item[{byte}]{\+\_\+\+Max\+DITRecords}{, }\item[{byte}]{\+\_\+\+Name\+Field\+Bytes}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00027}{27}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_d_i_t_s_engine_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_d_i_t_s_engine_a41bf6bc426674456bc579e865901d271}\index{DITSEngine@{DITSEngine}!DITNameChar@{DITNameChar}}
+\index{DITNameChar@{DITNameChar}!DITSEngine@{DITSEngine}}
+\doxysubsubsection{\texorpdfstring{DITNameChar}{DITNameChar}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_a41bf6bc426674456bc579e865901d271} 
+const byte DITSEngine::\+\+DITName\+Char}
+
+
+
+Use char\+[DITName\+Char]\+ to allocate; which is DITName\+Bytes +1 for null-\/term. 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00108}{108}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+C:\+/\+\+Users/\+\+TGIT-\/\+TECH/\+\+Documents/\+!\+Git\+Hub/\+\+RF-\/\+DITS\+\_\+protocol\+\_\+spec/\+rf\+\_\+dits/\+\doxymbox{\hyperlink{rf__dits_8h}{rf\+\_\+dits.\+h}}\item 
+C:\+/\+\+Users/\+\+TGIT-\/\+TECH/\+\+Documents/\+!\+Git\+Hub/\+\+RF-\/\+DITS\+\_\+protocol\+\_\+spec/\+rf\+\_\+dits/\+\doxymbox{\hyperlink{rf__dits_8cpp}{rf\+\_\+dits.\+cpp}}\end{DoxyCompactItemize}

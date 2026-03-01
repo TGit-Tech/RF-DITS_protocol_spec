@@ -1,0 +1,258 @@
+\doxysection{DITSEngine::\+Node\+DIT Class Reference}
+\hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t}{}\label{class_d_i_t_s_engine_1_1_node_d_i_t}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+
+
+A \doxylink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT} structure that points directly to persistent memory.  
+
+
+
+
+{\ttfamily \+\#include $<$rf\+\_\+dits.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a52e892f45452ea0a6fdac5728bda5d3e}{Next}} ()
+\item 
+bool \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_ad0af0a4e851d654d530626326e61b6e3}{Is\+Valid}} () const
+\item 
+byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_ab44f3dd378d29cc43bb038fa3e87ab19}{DITidx}} () const
+\item 
+byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a5e5f80855b145b137099902ef49f4ba7}{Node\+Idx}} () const
+\item 
+byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a0387857313303fcbe297b9666dcd1d06}{NRFAddrH}} () const
+\item 
+byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a4cc5451bbfc149ad9b71890551aa157d}{NRFAddrL}} () const
+\item 
+uint16\+\_\+t \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a9ac6e4c9b191f27423479c4b8d1d2577}{NRFAddr}} () const
+\item 
+byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_aa1aafca8289ca0538555fb2a18de9e14}{NDITVer}} () const
+\item 
+void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a8977febcc53e4e68ff265248e4c57624}{NGet\+Name}} (char \texorpdfstring{$\ast$}{*}buffer) const
+\item 
+bool \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_ad9b385568f78048ba74d21a36fa00a58}{Is\+Deleted}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_afbbb916e0ca3379cf2f7e022ec78fc1b}{Next\+All}} ()
+\item 
+void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_ae2c68bd4969cba8fb4083ba0bb77ae52}{Node\+Idx}} (byte value)
+\item 
+void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a2ab627fa60ec9cc940e94febaf3414be}{NRFAddrH}} (byte value)
+\item 
+void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a254a3740b9a9e642aa40a32fb005f5e1}{NRFAddrL}} (byte value)
+\item 
+void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a3ec31140d82acbb1c14e404a930880f4}{NDITVer}} (byte value)
+\item 
+void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_adf3369a468f23d868e18b98998618aa0}{NSet\+Name}} (const char \texorpdfstring{$\ast$}{*}value)
+\item 
+bool \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a3c1b8c0527d64d5d7d738bcca6f0b162}{Is\+Deleted}} (bool delete\+Status)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a0082f46c13f459cee5c05296b6bd57d5}{DITSEngine}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A \doxylink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT} structure that points directly to persistent memory. 
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00160}{160}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_ab44f3dd378d29cc43bb038fa3e87ab19}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!DITidx@{DITidx}}
+\index{DITidx@{DITidx}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{DITidx()}{DITidx()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_ab44f3dd378d29cc43bb038fa3e87ab19} 
+byte DITSEngine::\+\+Node\+DIT::\+\+DITidx (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00169}{169}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_ad9b385568f78048ba74d21a36fa00a58}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!IsDeleted@{IsDeleted}}
+\index{IsDeleted@{IsDeleted}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{IsDeleted()}{IsDeleted()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_ad9b385568f78048ba74d21a36fa00a58} 
+bool DITSEngine::\+\+Node\+DIT::\+\+Is\+Deleted (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00179}{179}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a3c1b8c0527d64d5d7d738bcca6f0b162}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!IsDeleted@{IsDeleted}}
+\index{IsDeleted@{IsDeleted}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{IsDeleted()}{IsDeleted()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a3c1b8c0527d64d5d7d738bcca6f0b162} 
+bool DITSEngine::\+\+Node\+DIT::\+\+Is\+Deleted (\begin{DoxyParamCaption}\item[{bool}]{delete\+Status}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00191}{191}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_ad0af0a4e851d654d530626326e61b6e3}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!IsValid@{IsValid}}
+\index{IsValid@{IsValid}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{IsValid()}{IsValid()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_ad0af0a4e851d654d530626326e61b6e3} 
+bool DITSEngine::\+\+Node\+DIT::\+\+Is\+Valid (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00168}{168}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_aa1aafca8289ca0538555fb2a18de9e14}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NDITVer@{NDITVer}}
+\index{NDITVer@{NDITVer}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{NDITVer()}{NDITVer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_aa1aafca8289ca0538555fb2a18de9e14} 
+byte DITSEngine::\+\+Node\+DIT::\+\+NDITVer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00174}{174}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a3ec31140d82acbb1c14e404a930880f4}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NDITVer@{NDITVer}}
+\index{NDITVer@{NDITVer}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{NDITVer()}{NDITVer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a3ec31140d82acbb1c14e404a930880f4} 
+void DITSEngine::\+\+Node\+DIT::\+\+NDITVer (\begin{DoxyParamCaption}\item[{byte}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00186}{186}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a52e892f45452ea0a6fdac5728bda5d3e}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!Next@{Next}}
+\index{Next@{Next}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{Next()}{Next()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a52e892f45452ea0a6fdac5728bda5d3e} 
+void DITSEngine::\+\+Node\+DIT::\+\+Next (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00167}{167}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_afbbb916e0ca3379cf2f7e022ec78fc1b}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NextAll@{NextAll}}
+\index{NextAll@{NextAll}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{NextAll()}{NextAll()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_afbbb916e0ca3379cf2f7e022ec78fc1b} 
+void DITSEngine::\+\+Node\+DIT::\+\+Next\+All (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00182}{182}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a8977febcc53e4e68ff265248e4c57624}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NGetName@{NGetName}}
+\index{NGetName@{NGetName}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{NGetName()}{NGetName()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a8977febcc53e4e68ff265248e4c57624} 
+void DITSEngine::\+\+Node\+DIT::\+\+NGet\+Name (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00175}{175}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a5e5f80855b145b137099902ef49f4ba7}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NodeIdx@{NodeIdx}}
+\index{NodeIdx@{NodeIdx}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{NodeIdx()}{NodeIdx()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a5e5f80855b145b137099902ef49f4ba7} 
+byte DITSEngine::\+\+Node\+DIT::\+\+Node\+Idx (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00170}{170}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_ae2c68bd4969cba8fb4083ba0bb77ae52}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NodeIdx@{NodeIdx}}
+\index{NodeIdx@{NodeIdx}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{NodeIdx()}{NodeIdx()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_ae2c68bd4969cba8fb4083ba0bb77ae52} 
+void DITSEngine::\+\+Node\+DIT::\+\+Node\+Idx (\begin{DoxyParamCaption}\item[{byte}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00183}{183}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a9ac6e4c9b191f27423479c4b8d1d2577}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NRFAddr@{NRFAddr}}
+\index{NRFAddr@{NRFAddr}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{NRFAddr()}{NRFAddr()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a9ac6e4c9b191f27423479c4b8d1d2577} 
+uint16\+\_\+t DITSEngine::\+\+Node\+DIT::\+\+NRFAddr (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00173}{173}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a0387857313303fcbe297b9666dcd1d06}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NRFAddrH@{NRFAddrH}}
+\index{NRFAddrH@{NRFAddrH}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{NRFAddrH()}{NRFAddrH()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a0387857313303fcbe297b9666dcd1d06} 
+byte DITSEngine::\+\+Node\+DIT::\+\+NRFAddrH (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00171}{171}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a2ab627fa60ec9cc940e94febaf3414be}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NRFAddrH@{NRFAddrH}}
+\index{NRFAddrH@{NRFAddrH}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{NRFAddrH()}{NRFAddrH()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a2ab627fa60ec9cc940e94febaf3414be} 
+void DITSEngine::\+\+Node\+DIT::\+\+NRFAddrH (\begin{DoxyParamCaption}\item[{byte}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00184}{184}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a4cc5451bbfc149ad9b71890551aa157d}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NRFAddrL@{NRFAddrL}}
+\index{NRFAddrL@{NRFAddrL}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{NRFAddrL()}{NRFAddrL()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a4cc5451bbfc149ad9b71890551aa157d} 
+byte DITSEngine::\+\+Node\+DIT::\+\+NRFAddrL (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00172}{172}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a254a3740b9a9e642aa40a32fb005f5e1}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NRFAddrL@{NRFAddrL}}
+\index{NRFAddrL@{NRFAddrL}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{NRFAddrL()}{NRFAddrL()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a254a3740b9a9e642aa40a32fb005f5e1} 
+void DITSEngine::\+\+Node\+DIT::\+\+NRFAddrL (\begin{DoxyParamCaption}\item[{byte}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00185}{185}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_adf3369a468f23d868e18b98998618aa0}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NSetName@{NSetName}}
+\index{NSetName@{NSetName}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{NSetName()}{NSetName()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_adf3369a468f23d868e18b98998618aa0} 
+void DITSEngine::\+\+Node\+DIT::\+\+NSet\+Name (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00187}{187}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+
+
+\label{doc-related-members}
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_doc-related-members}
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a0082f46c13f459cee5c05296b6bd57d5}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!DITSEngine@{DITSEngine}}
+\index{DITSEngine@{DITSEngine}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{DITSEngine}{DITSEngine}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a0082f46c13f459cee5c05296b6bd57d5} 
+friend class \doxymbox{\hyperlink{class_d_i_t_s_engine}{DITSEngine}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00162}{162}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+C:\+/\+\+Users/\+\+TGIT-\/\+TECH/\+\+Documents/\+!\+Git\+Hub/\+\+RF-\/\+DITS\+\_\+protocol\+\_\+spec/\+rf\+\_\+dits/\+\doxymbox{\hyperlink{rf__dits_8h}{rf\+\_\+dits.\+h}}\end{DoxyCompactItemize}

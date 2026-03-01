@@ -1,0 +1,966 @@
+\doxysection{Debug Directives }
+\hypertarget{group___d_b}{}\label{group___d_b}\index{Debug Directives@{Debug Directives}}
+
+
+DBERROR \texorpdfstring{$\vert$}{|} DBENTER \texorpdfstring{$\vert$}{|} DBINFO.  
+
+
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga0a23ceb7729ff23eb926a5c3b1501e47}{DB\+\_\+\+ERROR}}~1
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gae6a49ae54c31e415a3e655ca3b4006df}{DB\+\_\+\+ENTER}}~1
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga064789cdfa5ddd548e676323e21447b0}{DB\+\_\+\+INFO}}~1
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga6f6c7d53f333ffa75dcf69e35c5177f4}{DB\+\_\+\+NONE}}~1
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga86f04ed115733eb1b518915f8e4ba8bf}{DB\+\_\+\+GEN}}~1
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga6f13813fe281bf08a7d1e6a5ec1b924a}{DB\+\_\+\+DIT}}~1
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gac2dbe569fee30f13f22767da80dd0f93}{DB\+\_\+\+RF}}~1
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}{SERLINEZ}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga1a22df9a1418e946258517298706a16c}{SERLINEYZ}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gade9c2c61efad56df78d2ec864381066d}{SERLINEXYZ}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}{SERLINEWXYZ}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaa2f49001be13949a16a57e6c99ab00ad}{COMMA}}~,
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gad176491cfa98163ab5bfcdcc1b274339}{DBAAAERROR}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga18b910392cffc25dbeed7df8c4df295b}{DBAAERROR}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga56197fb13669b58a0b287ac1fa3e3b0e}{DBAERROR}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gadae38f77592d196b365797feed02046a}{DBERROR}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga05ee35048a9fbf654a4e74545bea598f}{DBERRORSP}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga6e03bcbcedd2e602ed355a0f3e09a687}{DBAAAENTER}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga2a900f614e1cbd20f64be53bc19e0e69}{DBAAENTER}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga13dcba896db1105b851ee4f429e9d2ea}{DBAENTER}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga13690b441acf86c9f339aa23d60d4efa}{DBENTER}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga802df7fb77050eee24810e387700a848}{DBENTERSP}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga5ceaeaf9abc8b03b4c950cba88f8af4e}{DBAAAINFO}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga08e3f1c482dc31a5df100f4a9b5a12e0}{DBAAINFO}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga9edc3e7b6003b80df28212a76a559ff6}{DBAINFO}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga7f7d0a691a98eb1ad54db65a17c6abbb}{DBINFO}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaa8c77af60aa033b160eafd35f84a14bb}{DBINFOSP}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaffb1c2a36809a0e86d22bc63e5896440}{DBDITAAAERROR}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gabb54a51839e9412f79a8db198130456e}{DBDITAAERROR}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga32aedab929ffafecfdb2b724b61aa210}{DBDITAERROR}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gadcc111d0a11c53002fcc5cfeccfdc60b}{DBDITERROR}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga77e1e33017110c423e7cba012a6c5d37}{DBDITERRORSP}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga89a1f9a4ce84e38233ca966205d9a804}{DBDITAAAENTER}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga0e52eefcf6a2d720466432fa27c02be7}{DBDITAAENTER}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga4c24a7645504e1e4b261983b5a681419}{DBDITAENTER}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaa321fa2eb85bffa3e30194f79b9aa97c}{DBDITENTER}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gad0d85aeca3ce3a61621126ee1b3a245c}{DBDITENTERSP}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga7bf0ec3045da8fa7ec00b4ff660f1847}{DBDITAAAINFO}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaba3b5f314b9809c852e0aec8f7f0b093}{DBDITAAINFO}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gadd660234058b505c4ddbe8e2988b9544}{DBDITAINFO}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga4f8794deaf07cf0309ba26be2e7e4d2d}{DBDITINFO}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaa3f01ddc9a1ce498d258f405aca626b9}{DBDITINFOSP}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga92fd47a73737f06134b3fab3176018c3}{DBRFAAAERROR}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gade0174a8f2f6dabae4431ccce3115f40}{DBRFAAERROR}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga23efa11279b8b4d9b590e8f437513dd8}{DBRFAERROR}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga919f0e20a37afff5580bc3f60c696b32}{DBRFERROR}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga6a6393945207973514048d490f38b935}{DBRFERRORSP}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaa72b6a230fac35937d0602dede6534a8}{DBRFAAAENTER}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gab6fa7e408e0c7fa2f9fe9aa3b396fec9}{DBRFAAENTER}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga4ab4910bafc967346030378fbfdc364f}{DBRFAENTER}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga655f5d4a47c42f2a8fb60d48adb4c40e}{DBRFENTER}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga1aaf82d5fa43d0b8ef320ddd919c5f80}{DBRFENTERSP}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gae7a2fbcdc97a8b0a47add96097560bc8}{DBRFAAAINFO}}(w,  x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaa81e446cdded5dc61c859e57ee3eb2df}{DBRFAAINFO}}(x,  y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga2f436be5d129edfd7f5f67e228aef5f1}{DBRFAINFO}}(y,  z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_gaf2535f4704d778db3c3844f5cbc24f1f}{DBRFINFO}}(z)
+\item 
+\+\#define \doxymbox{\hyperlink{group___d_b_ga671830606c0dda62c8ae371da466c168}{DBRFINFOSP}}(z)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+DBERROR \texorpdfstring{$\vert$}{|} DBENTER \texorpdfstring{$\vert$}{|} DBINFO. 
+
+
+\begin{DoxyItemize}
+\item Pre-\/\+Compiler Directives for Debug Messaging.
+\item Each-\/\+Type (ERROR,INFO) allows (1 or 2) \+[A]\+rgument Variables.
+\item Use \textquotesingle{}~\newline
+\textquotesingle{} in debug message for new-\/line
+\item Message-\/\+Type output is \textquotesingle{}!\+ERROR!\textquotesingle{}, \textquotesingle{}...\textquotesingle{}Info
+\item {\bfseries{NO}} trailing \textquotesingle{};\textquotesingle{} in source code. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{group___d_b_gadae38f77592d196b365797feed02046a}{DBERROR}}((\textcolor{stringliteral}{"{}no\ new\ line"{}}))}
+\DoxyCodeLine{\doxymbox{\hyperlink{group___d_b_gadae38f77592d196b365797feed02046a}{DBERROR}}((\textcolor{stringliteral}{"{}new\ line\ \(\backslash\)n"{}}))}
+\DoxyCodeLine{\doxymbox{\hyperlink{group___d_b_ga56197fb13669b58a0b287ac1fa3e3b0e}{DBAERROR}}((Variable),(\textcolor{stringliteral}{"{}Error\ Message"{}}))}
+\DoxyCodeLine{\doxymbox{\hyperlink{group___d_b_ga18b910392cffc25dbeed7df8c4df295b}{DBAAERROR}}((Variable),(Variable),(\textcolor{stringliteral}{"{}Error\ Message"{}}))}
+\DoxyCodeLine{\doxymbox{\hyperlink{group___d_b_ga08e3f1c482dc31a5df100f4a9b5a12e0}{DBAAINFO}}((Variable),(Variable),(\textcolor{stringliteral}{"{}Info\ Message\ with\ new\ line\ \(\backslash\)n"{}}))}
+
+\end{DoxyCode}
+ 
+\end{DoxyItemize}
+
+\label{doc-define-members}
+\Hypertarget{group___d_b_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{group___d_b_gaa2f49001be13949a16a57e6c99ab00ad}\index{Debug Directives@{Debug Directives}!COMMA@{COMMA}}
+\index{COMMA@{COMMA}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{COMMA}{COMMA}}
+{\footnotesize\ttfamily \label{group___d_b_gaa2f49001be13949a16a57e6c99ab00ad} 
+\+\#define COMMA~,}
+
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00045}{45}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga6f13813fe281bf08a7d1e6a5ec1b924a}\index{Debug Directives@{Debug Directives}!DB\_DIT@{DB\_DIT}}
+\index{DB\_DIT@{DB\_DIT}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DB\_DIT}{DB\_DIT}}
+{\footnotesize\ttfamily \label{group___d_b_ga6f13813fe281bf08a7d1e6a5ec1b924a} 
+\+\#define DB\+\_\+\+DIT~1}
+
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00035}{35}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gae6a49ae54c31e415a3e655ca3b4006df}\index{Debug Directives@{Debug Directives}!DB\_ENTER@{DB\_ENTER}}
+\index{DB\_ENTER@{DB\_ENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DB\_ENTER}{DB\_ENTER}}
+{\footnotesize\ttfamily \label{group___d_b_gae6a49ae54c31e415a3e655ca3b4006df} 
+\+\#define DB\+\_\+\+ENTER~1}
+
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00027}{27}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga0a23ceb7729ff23eb926a5c3b1501e47}\index{Debug Directives@{Debug Directives}!DB\_ERROR@{DB\_ERROR}}
+\index{DB\_ERROR@{DB\_ERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DB\_ERROR}{DB\_ERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga0a23ceb7729ff23eb926a5c3b1501e47} 
+\+\#define DB\+\_\+\+ERROR~1}
+
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00026}{26}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga86f04ed115733eb1b518915f8e4ba8bf}\index{Debug Directives@{Debug Directives}!DB\_GEN@{DB\_GEN}}
+\index{DB\_GEN@{DB\_GEN}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DB\_GEN}{DB\_GEN}}
+{\footnotesize\ttfamily \label{group___d_b_ga86f04ed115733eb1b518915f8e4ba8bf} 
+\+\#define DB\+\_\+\+GEN~1}
+
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00034}{34}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga064789cdfa5ddd548e676323e21447b0}\index{Debug Directives@{Debug Directives}!DB\_INFO@{DB\_INFO}}
+\index{DB\_INFO@{DB\_INFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DB\_INFO}{DB\_INFO}}
+{\footnotesize\ttfamily \label{group___d_b_ga064789cdfa5ddd548e676323e21447b0} 
+\+\#define DB\+\_\+\+INFO~1}
+
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga6f6c7d53f333ffa75dcf69e35c5177f4}\index{Debug Directives@{Debug Directives}!DB\_NONE@{DB\_NONE}}
+\index{DB\_NONE@{DB\_NONE}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DB\_NONE}{DB\_NONE}}
+{\footnotesize\ttfamily \label{group___d_b_ga6f6c7d53f333ffa75dcf69e35c5177f4} 
+\+\#define DB\+\_\+\+NONE~1}
+
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00029}{29}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gac2dbe569fee30f13f22767da80dd0f93}\index{Debug Directives@{Debug Directives}!DB\_RF@{DB\_RF}}
+\index{DB\_RF@{DB\_RF}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DB\_RF}{DB\_RF}}
+{\footnotesize\ttfamily \label{group___d_b_gac2dbe569fee30f13f22767da80dd0f93} 
+\+\#define DB\+\_\+\+RF~1}
+
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00036}{36}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga6e03bcbcedd2e602ed355a0f3e09a687}\index{Debug Directives@{Debug Directives}!DBAAAENTER@{DBAAAENTER}}
+\index{DBAAAENTER@{DBAAAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAAAENTER}{DBAAAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga6e03bcbcedd2e602ed355a0f3e09a687} 
+\+\#define DBAAAENTER(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_>\ ("{}}));\doxymbox{\hyperlink{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}{SERLINEWXYZ}}(w,x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00061}{61}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gad176491cfa98163ab5bfcdcc1b274339}\index{Debug Directives@{Debug Directives}!DBAAAERROR@{DBAAAERROR}}
+\index{DBAAAERROR@{DBAAAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAAAERROR}{DBAAAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_gad176491cfa98163ab5bfcdcc1b274339} 
+\+\#define DBAAAERROR(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!\ ("{}}));\doxymbox{\hyperlink{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}{SERLINEWXYZ}}(w,x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00047}{47}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga5ceaeaf9abc8b03b4c950cba88f8af4e}\index{Debug Directives@{Debug Directives}!DBAAAINFO@{DBAAAINFO}}
+\index{DBAAAINFO@{DBAAAINFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAAAINFO}{DBAAAINFO}}
+{\footnotesize\ttfamily \label{group___d_b_ga5ceaeaf9abc8b03b4c950cba88f8af4e} 
+\+\#define DBAAAINFO(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}...("{}}));\doxymbox{\hyperlink{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}{SERLINEWXYZ}}(w,x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00075}{75}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga2a900f614e1cbd20f64be53bc19e0e69}\index{Debug Directives@{Debug Directives}!DBAAENTER@{DBAAENTER}}
+\index{DBAAENTER@{DBAAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAAENTER}{DBAAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga2a900f614e1cbd20f64be53bc19e0e69} 
+\+\#define DBAAENTER(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_>\ ("{}}));\doxymbox{\hyperlink{group___d_b_gade9c2c61efad56df78d2ec864381066d}{SERLINEXYZ}}(x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00062}{62}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga18b910392cffc25dbeed7df8c4df295b}\index{Debug Directives@{Debug Directives}!DBAAERROR@{DBAAERROR}}
+\index{DBAAERROR@{DBAAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAAERROR}{DBAAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga18b910392cffc25dbeed7df8c4df295b} 
+\+\#define DBAAERROR(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!\ ("{}}));\doxymbox{\hyperlink{group___d_b_gade9c2c61efad56df78d2ec864381066d}{SERLINEXYZ}}(x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00048}{48}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga08e3f1c482dc31a5df100f4a9b5a12e0}\index{Debug Directives@{Debug Directives}!DBAAINFO@{DBAAINFO}}
+\index{DBAAINFO@{DBAAINFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAAINFO}{DBAAINFO}}
+{\footnotesize\ttfamily \label{group___d_b_ga08e3f1c482dc31a5df100f4a9b5a12e0} 
+\+\#define DBAAINFO(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}...("{}}));\doxymbox{\hyperlink{group___d_b_gade9c2c61efad56df78d2ec864381066d}{SERLINEXYZ}}(x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00076}{76}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga13dcba896db1105b851ee4f429e9d2ea}\index{Debug Directives@{Debug Directives}!DBAENTER@{DBAENTER}}
+\index{DBAENTER@{DBAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAENTER}{DBAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga13dcba896db1105b851ee4f429e9d2ea} 
+\+\#define DBAENTER(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_>\ ("{}}));\doxymbox{\hyperlink{group___d_b_ga1a22df9a1418e946258517298706a16c}{SERLINEYZ}}(y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00063}{63}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga56197fb13669b58a0b287ac1fa3e3b0e}\index{Debug Directives@{Debug Directives}!DBAERROR@{DBAERROR}}
+\index{DBAERROR@{DBAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAERROR}{DBAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga56197fb13669b58a0b287ac1fa3e3b0e} 
+\+\#define DBAERROR(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!\ ("{}}));\doxymbox{\hyperlink{group___d_b_ga1a22df9a1418e946258517298706a16c}{SERLINEYZ}}(y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00049}{49}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga9edc3e7b6003b80df28212a76a559ff6}\index{Debug Directives@{Debug Directives}!DBAINFO@{DBAINFO}}
+\index{DBAINFO@{DBAINFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBAINFO}{DBAINFO}}
+{\footnotesize\ttfamily \label{group___d_b_ga9edc3e7b6003b80df28212a76a559ff6} 
+\+\#define DBAINFO(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}...("{}}));\doxymbox{\hyperlink{group___d_b_ga1a22df9a1418e946258517298706a16c}{SERLINEYZ}}(y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00077}{77}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga89a1f9a4ce84e38233ca966205d9a804}\index{Debug Directives@{Debug Directives}!DBDITAAAENTER@{DBDITAAAENTER}}
+\index{DBDITAAAENTER@{DBDITAAAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAAAENTER}{DBDITAAAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga89a1f9a4ce84e38233ca966205d9a804} 
+\+\#define DBDITAAAENTER(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_DIT>\ ("{}}));\doxymbox{\hyperlink{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}{SERLINEWXYZ}}(w,x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00105}{105}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gaffb1c2a36809a0e86d22bc63e5896440}\index{Debug Directives@{Debug Directives}!DBDITAAAERROR@{DBDITAAAERROR}}
+\index{DBDITAAAERROR@{DBDITAAAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAAAERROR}{DBDITAAAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_gaffb1c2a36809a0e86d22bc63e5896440} 
+\+\#define DBDITAAAERROR(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!DIT\ ("{}}));\doxymbox{\hyperlink{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}{SERLINEWXYZ}}(w,x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00091}{91}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga7bf0ec3045da8fa7ec00b4ff660f1847}\index{Debug Directives@{Debug Directives}!DBDITAAAINFO@{DBDITAAAINFO}}
+\index{DBDITAAAINFO@{DBDITAAAINFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAAAINFO}{DBDITAAAINFO}}
+{\footnotesize\ttfamily \label{group___d_b_ga7bf0ec3045da8fa7ec00b4ff660f1847} 
+\+\#define DBDITAAAINFO(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}...DIT("{}}));\doxymbox{\hyperlink{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}{SERLINEWXYZ}}(w,x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00119}{119}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga0e52eefcf6a2d720466432fa27c02be7}\index{Debug Directives@{Debug Directives}!DBDITAAENTER@{DBDITAAENTER}}
+\index{DBDITAAENTER@{DBDITAAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAAENTER}{DBDITAAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga0e52eefcf6a2d720466432fa27c02be7} 
+\+\#define DBDITAAENTER(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_DIT>\ ("{}}));\doxymbox{\hyperlink{group___d_b_gade9c2c61efad56df78d2ec864381066d}{SERLINEXYZ}}(x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00106}{106}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gabb54a51839e9412f79a8db198130456e}\index{Debug Directives@{Debug Directives}!DBDITAAERROR@{DBDITAAERROR}}
+\index{DBDITAAERROR@{DBDITAAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAAERROR}{DBDITAAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_gabb54a51839e9412f79a8db198130456e} 
+\+\#define DBDITAAERROR(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!DIT\ ("{}}));\doxymbox{\hyperlink{group___d_b_gade9c2c61efad56df78d2ec864381066d}{SERLINEXYZ}}(x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00092}{92}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gaba3b5f314b9809c852e0aec8f7f0b093}\index{Debug Directives@{Debug Directives}!DBDITAAINFO@{DBDITAAINFO}}
+\index{DBDITAAINFO@{DBDITAAINFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAAINFO}{DBDITAAINFO}}
+{\footnotesize\ttfamily \label{group___d_b_gaba3b5f314b9809c852e0aec8f7f0b093} 
+\+\#define DBDITAAINFO(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}...DIT("{}}));\doxymbox{\hyperlink{group___d_b_gade9c2c61efad56df78d2ec864381066d}{SERLINEXYZ}}(x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00120}{120}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga4c24a7645504e1e4b261983b5a681419}\index{Debug Directives@{Debug Directives}!DBDITAENTER@{DBDITAENTER}}
+\index{DBDITAENTER@{DBDITAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAENTER}{DBDITAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga4c24a7645504e1e4b261983b5a681419} 
+\+\#define DBDITAENTER(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_DIT>\ ("{}}));\doxymbox{\hyperlink{group___d_b_ga1a22df9a1418e946258517298706a16c}{SERLINEYZ}}(y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00107}{107}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga32aedab929ffafecfdb2b724b61aa210}\index{Debug Directives@{Debug Directives}!DBDITAERROR@{DBDITAERROR}}
+\index{DBDITAERROR@{DBDITAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAERROR}{DBDITAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga32aedab929ffafecfdb2b724b61aa210} 
+\+\#define DBDITAERROR(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!DIT\ ("{}}));\doxymbox{\hyperlink{group___d_b_ga1a22df9a1418e946258517298706a16c}{SERLINEYZ}}(y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00093}{93}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gadd660234058b505c4ddbe8e2988b9544}\index{Debug Directives@{Debug Directives}!DBDITAINFO@{DBDITAINFO}}
+\index{DBDITAINFO@{DBDITAINFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITAINFO}{DBDITAINFO}}
+{\footnotesize\ttfamily \label{group___d_b_gadd660234058b505c4ddbe8e2988b9544} 
+\+\#define DBDITAINFO(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}...DIT("{}}));\doxymbox{\hyperlink{group___d_b_ga1a22df9a1418e946258517298706a16c}{SERLINEYZ}}(y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00121}{121}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gaa321fa2eb85bffa3e30194f79b9aa97c}\index{Debug Directives@{Debug Directives}!DBDITENTER@{DBDITENTER}}
+\index{DBDITENTER@{DBDITENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITENTER}{DBDITENTER}}
+{\footnotesize\ttfamily \label{group___d_b_gaa321fa2eb85bffa3e30194f79b9aa97c} 
+\+\#define DBDITENTER(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_DIT>\ "{}}));\doxymbox{\hyperlink{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}{SERLINEZ}}(z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00108}{108}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gad0d85aeca3ce3a61621126ee1b3a245c}\index{Debug Directives@{Debug Directives}!DBDITENTERSP@{DBDITENTERSP}}
+\index{DBDITENTERSP@{DBDITENTERSP}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITENTERSP}{DBDITENTERSP}}
+{\footnotesize\ttfamily \label{group___d_b_gad0d85aeca3ce3a61621126ee1b3a245c} 
+\+\#define DBDITENTERSP(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ z;}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00109}{109}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gadcc111d0a11c53002fcc5cfeccfdc60b}\index{Debug Directives@{Debug Directives}!DBDITERROR@{DBDITERROR}}
+\index{DBDITERROR@{DBDITERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITERROR}{DBDITERROR}}
+{\footnotesize\ttfamily \label{group___d_b_gadcc111d0a11c53002fcc5cfeccfdc60b} 
+\+\#define DBDITERROR(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!DIT\ "{}}));\doxymbox{\hyperlink{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}{SERLINEZ}}(z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00094}{94}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga77e1e33017110c423e7cba012a6c5d37}\index{Debug Directives@{Debug Directives}!DBDITERRORSP@{DBDITERRORSP}}
+\index{DBDITERRORSP@{DBDITERRORSP}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITERRORSP}{DBDITERRORSP}}
+{\footnotesize\ttfamily \label{group___d_b_ga77e1e33017110c423e7cba012a6c5d37} 
+\+\#define DBDITERRORSP(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ z;}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00095}{95}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga4f8794deaf07cf0309ba26be2e7e4d2d}\index{Debug Directives@{Debug Directives}!DBDITINFO@{DBDITINFO}}
+\index{DBDITINFO@{DBDITINFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITINFO}{DBDITINFO}}
+{\footnotesize\ttfamily \label{group___d_b_ga4f8794deaf07cf0309ba26be2e7e4d2d} 
+\+\#define DBDITINFO(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}...DIT\ "{}}));\doxymbox{\hyperlink{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}{SERLINEZ}}(z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00122}{122}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gaa3f01ddc9a1ce498d258f405aca626b9}\index{Debug Directives@{Debug Directives}!DBDITINFOSP@{DBDITINFOSP}}
+\index{DBDITINFOSP@{DBDITINFOSP}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBDITINFOSP}{DBDITINFOSP}}
+{\footnotesize\ttfamily \label{group___d_b_gaa3f01ddc9a1ce498d258f405aca626b9} 
+\+\#define DBDITINFOSP(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ z;}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00123}{123}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga13690b441acf86c9f339aa23d60d4efa}\index{Debug Directives@{Debug Directives}!DBENTER@{DBENTER}}
+\index{DBENTER@{DBENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBENTER}{DBENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga13690b441acf86c9f339aa23d60d4efa} 
+\+\#define DBENTER(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_>\ "{}}));\doxymbox{\hyperlink{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}{SERLINEZ}}(z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00064}{64}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga802df7fb77050eee24810e387700a848}\index{Debug Directives@{Debug Directives}!DBENTERSP@{DBENTERSP}}
+\index{DBENTERSP@{DBENTERSP}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBENTERSP}{DBENTERSP}}
+{\footnotesize\ttfamily \label{group___d_b_ga802df7fb77050eee24810e387700a848} 
+\+\#define DBENTERSP(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ z;}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00065}{65}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gadae38f77592d196b365797feed02046a}\index{Debug Directives@{Debug Directives}!DBERROR@{DBERROR}}
+\index{DBERROR@{DBERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBERROR}{DBERROR}}
+{\footnotesize\ttfamily \label{group___d_b_gadae38f77592d196b365797feed02046a} 
+\+\#define DBERROR(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!\ "{}}));\doxymbox{\hyperlink{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}{SERLINEZ}}(z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00050}{50}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga05ee35048a9fbf654a4e74545bea598f}\index{Debug Directives@{Debug Directives}!DBERRORSP@{DBERRORSP}}
+\index{DBERRORSP@{DBERRORSP}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBERRORSP}{DBERRORSP}}
+{\footnotesize\ttfamily \label{group___d_b_ga05ee35048a9fbf654a4e74545bea598f} 
+\+\#define DBERRORSP(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ z;}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00051}{51}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga7f7d0a691a98eb1ad54db65a17c6abbb}\index{Debug Directives@{Debug Directives}!DBINFO@{DBINFO}}
+\index{DBINFO@{DBINFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBINFO}{DBINFO}}
+{\footnotesize\ttfamily \label{group___d_b_ga7f7d0a691a98eb1ad54db65a17c6abbb} 
+\+\#define DBINFO(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}...\ "{}}));\doxymbox{\hyperlink{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}{SERLINEZ}}(z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00078}{78}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gaa8c77af60aa033b160eafd35f84a14bb}\index{Debug Directives@{Debug Directives}!DBINFOSP@{DBINFOSP}}
+\index{DBINFOSP@{DBINFOSP}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBINFOSP}{DBINFOSP}}
+{\footnotesize\ttfamily \label{group___d_b_gaa8c77af60aa033b160eafd35f84a14bb} 
+\+\#define DBINFOSP(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ z;}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00079}{79}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gaa72b6a230fac35937d0602dede6534a8}\index{Debug Directives@{Debug Directives}!DBRFAAAENTER@{DBRFAAAENTER}}
+\index{DBRFAAAENTER@{DBRFAAAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAAAENTER}{DBRFAAAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_gaa72b6a230fac35937d0602dede6534a8} 
+\+\#define DBRFAAAENTER(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_RF>\ ("{}}));\doxymbox{\hyperlink{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}{SERLINEWXYZ}}(w,x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00149}{149}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga92fd47a73737f06134b3fab3176018c3}\index{Debug Directives@{Debug Directives}!DBRFAAAERROR@{DBRFAAAERROR}}
+\index{DBRFAAAERROR@{DBRFAAAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAAAERROR}{DBRFAAAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga92fd47a73737f06134b3fab3176018c3} 
+\+\#define DBRFAAAERROR(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!RF\ ("{}}));\doxymbox{\hyperlink{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}{SERLINEWXYZ}}(w,x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00135}{135}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gae7a2fbcdc97a8b0a47add96097560bc8}\index{Debug Directives@{Debug Directives}!DBRFAAAINFO@{DBRFAAAINFO}}
+\index{DBRFAAAINFO@{DBRFAAAINFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAAAINFO}{DBRFAAAINFO}}
+{\footnotesize\ttfamily \label{group___d_b_gae7a2fbcdc97a8b0a47add96097560bc8} 
+\+\#define DBRFAAAINFO(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}...RF("{}}));\doxymbox{\hyperlink{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}{SERLINEWXYZ}}(w,x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00163}{163}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gab6fa7e408e0c7fa2f9fe9aa3b396fec9}\index{Debug Directives@{Debug Directives}!DBRFAAENTER@{DBRFAAENTER}}
+\index{DBRFAAENTER@{DBRFAAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAAENTER}{DBRFAAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_gab6fa7e408e0c7fa2f9fe9aa3b396fec9} 
+\+\#define DBRFAAENTER(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_RF>\ ("{}}));\doxymbox{\hyperlink{group___d_b_gade9c2c61efad56df78d2ec864381066d}{SERLINEXYZ}}(x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00150}{150}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gade0174a8f2f6dabae4431ccce3115f40}\index{Debug Directives@{Debug Directives}!DBRFAAERROR@{DBRFAAERROR}}
+\index{DBRFAAERROR@{DBRFAAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAAERROR}{DBRFAAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_gade0174a8f2f6dabae4431ccce3115f40} 
+\+\#define DBRFAAERROR(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!RF\ ("{}}));\doxymbox{\hyperlink{group___d_b_gade9c2c61efad56df78d2ec864381066d}{SERLINEXYZ}}(x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00136}{136}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gaa81e446cdded5dc61c859e57ee3eb2df}\index{Debug Directives@{Debug Directives}!DBRFAAINFO@{DBRFAAINFO}}
+\index{DBRFAAINFO@{DBRFAAINFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAAINFO}{DBRFAAINFO}}
+{\footnotesize\ttfamily \label{group___d_b_gaa81e446cdded5dc61c859e57ee3eb2df} 
+\+\#define DBRFAAINFO(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}...RF("{}}));\doxymbox{\hyperlink{group___d_b_gade9c2c61efad56df78d2ec864381066d}{SERLINEXYZ}}(x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00164}{164}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga4ab4910bafc967346030378fbfdc364f}\index{Debug Directives@{Debug Directives}!DBRFAENTER@{DBRFAENTER}}
+\index{DBRFAENTER@{DBRFAENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAENTER}{DBRFAENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga4ab4910bafc967346030378fbfdc364f} 
+\+\#define DBRFAENTER(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_RF>\ ("{}}));\doxymbox{\hyperlink{group___d_b_ga1a22df9a1418e946258517298706a16c}{SERLINEYZ}}(y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00151}{151}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga23efa11279b8b4d9b590e8f437513dd8}\index{Debug Directives@{Debug Directives}!DBRFAERROR@{DBRFAERROR}}
+\index{DBRFAERROR@{DBRFAERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAERROR}{DBRFAERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga23efa11279b8b4d9b590e8f437513dd8} 
+\+\#define DBRFAERROR(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!RF\ ("{}}));\doxymbox{\hyperlink{group___d_b_ga1a22df9a1418e946258517298706a16c}{SERLINEYZ}}(y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00137}{137}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga2f436be5d129edfd7f5f67e228aef5f1}\index{Debug Directives@{Debug Directives}!DBRFAINFO@{DBRFAINFO}}
+\index{DBRFAINFO@{DBRFAINFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFAINFO}{DBRFAINFO}}
+{\footnotesize\ttfamily \label{group___d_b_ga2f436be5d129edfd7f5f67e228aef5f1} 
+\+\#define DBRFAINFO(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}...RF("{}}));\doxymbox{\hyperlink{group___d_b_ga1a22df9a1418e946258517298706a16c}{SERLINEYZ}}(y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00165}{165}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga655f5d4a47c42f2a8fb60d48adb4c40e}\index{Debug Directives@{Debug Directives}!DBRFENTER@{DBRFENTER}}
+\index{DBRFENTER@{DBRFENTER}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFENTER}{DBRFENTER}}
+{\footnotesize\ttfamily \label{group___d_b_ga655f5d4a47c42f2a8fb60d48adb4c40e} 
+\+\#define DBRFENTER(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}\_\_RF>\ "{}}));\doxymbox{\hyperlink{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}{SERLINEZ}}(z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00152}{152}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga1aaf82d5fa43d0b8ef320ddd919c5f80}\index{Debug Directives@{Debug Directives}!DBRFENTERSP@{DBRFENTERSP}}
+\index{DBRFENTERSP@{DBRFENTERSP}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFENTERSP}{DBRFENTERSP}}
+{\footnotesize\ttfamily \label{group___d_b_ga1aaf82d5fa43d0b8ef320ddd919c5f80} 
+\+\#define DBRFENTERSP(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ z;}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00153}{153}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga919f0e20a37afff5580bc3f60c696b32}\index{Debug Directives@{Debug Directives}!DBRFERROR@{DBRFERROR}}
+\index{DBRFERROR@{DBRFERROR}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFERROR}{DBRFERROR}}
+{\footnotesize\ttfamily \label{group___d_b_ga919f0e20a37afff5580bc3f60c696b32} 
+\+\#define DBRFERROR(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}!ERROR!RF\ "{}}));\doxymbox{\hyperlink{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}{SERLINEZ}}(z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00138}{138}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga6a6393945207973514048d490f38b935}\index{Debug Directives@{Debug Directives}!DBRFERRORSP@{DBRFERRORSP}}
+\index{DBRFERRORSP@{DBRFERRORSP}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFERRORSP}{DBRFERRORSP}}
+{\footnotesize\ttfamily \label{group___d_b_ga6a6393945207973514048d490f38b935} 
+\+\#define DBRFERRORSP(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ z;}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00139}{139}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gaf2535f4704d778db3c3844f5cbc24f1f}\index{Debug Directives@{Debug Directives}!DBRFINFO@{DBRFINFO}}
+\index{DBRFINFO@{DBRFINFO}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFINFO}{DBRFINFO}}
+{\footnotesize\ttfamily \label{group___d_b_gaf2535f4704d778db3c3844f5cbc24f1f} 
+\+\#define DBRFINFO(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print(F(\textcolor{stringliteral}{"{}...RF\ "{}}));\doxymbox{\hyperlink{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}{SERLINEZ}}(z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00166}{166}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga671830606c0dda62c8ae371da466c168}\index{Debug Directives@{Debug Directives}!DBRFINFOSP@{DBRFINFOSP}}
+\index{DBRFINFOSP@{DBRFINFOSP}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{DBRFINFOSP}{DBRFINFOSP}}
+{\footnotesize\ttfamily \label{group___d_b_ga671830606c0dda62c8ae371da466c168} 
+\+\#define DBRFINFOSP(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ z;}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00167}{167}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0}\index{Debug Directives@{Debug Directives}!SERLINEWXYZ@{SERLINEWXYZ}}
+\index{SERLINEWXYZ@{SERLINEWXYZ}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{SERLINEWXYZ}{SERLINEWXYZ}}
+{\footnotesize\ttfamily \label{group___d_b_gaa734d8c42282db0510d151fcb0d4a1e0} 
+\+\#define SERLINEWXYZ(\begin{DoxyParamCaption}\item[{}]{w}{, }\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ w;Serial.print(F(\textcolor{stringliteral}{"{},"{}}));\doxymbox{\hyperlink{group___d_b_gade9c2c61efad56df78d2ec864381066d}{SERLINEXYZ}}(x,y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00041}{41}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_gade9c2c61efad56df78d2ec864381066d}\index{Debug Directives@{Debug Directives}!SERLINEXYZ@{SERLINEXYZ}}
+\index{SERLINEXYZ@{SERLINEXYZ}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{SERLINEXYZ}{SERLINEXYZ}}
+{\footnotesize\ttfamily \label{group___d_b_gade9c2c61efad56df78d2ec864381066d} 
+\+\#define SERLINEXYZ(\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ x;Serial.print(F(\textcolor{stringliteral}{"{},"{}}));\doxymbox{\hyperlink{group___d_b_ga1a22df9a1418e946258517298706a16c}{SERLINEYZ}}(y,z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00040}{40}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga1a22df9a1418e946258517298706a16c}\index{Debug Directives@{Debug Directives}!SERLINEYZ@{SERLINEYZ}}
+\index{SERLINEYZ@{SERLINEYZ}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{SERLINEYZ}{SERLINEYZ}}
+{\footnotesize\ttfamily \label{group___d_b_ga1a22df9a1418e946258517298706a16c} 
+\+\#define SERLINEYZ(\begin{DoxyParamCaption}\item[{}]{y}{, }\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print\ y;Serial.print(F(\textcolor{stringliteral}{"{})"{}}));\doxymbox{\hyperlink{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}{SERLINEZ}}(z)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+
+\Hypertarget{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba}\index{Debug Directives@{Debug Directives}!SERLINEZ@{SERLINEZ}}
+\index{SERLINEZ@{SERLINEZ}!Debug Directives@{Debug Directives}}
+\doxysubsubsection{\texorpdfstring{SERLINEZ}{SERLINEZ}}
+{\footnotesize\ttfamily \label{group___d_b_ga3a5fcd96baf06b2d90ec104c308be1ba} 
+\+\#define SERLINEZ(\begin{DoxyParamCaption}\item[{}]{z}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Serial.print((F(z)));}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{_d_b_8h_source_l00038}{38}} of file \doxymbox{\hyperlink{_d_b_8h_source}{DB.\+h}}.
+

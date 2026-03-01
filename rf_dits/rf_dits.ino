@@ -59,9 +59,11 @@
 #define DCLM_COPY       0x05
 #define DCLM_ICOPY      0x06
 ///@}
-// Only use one of the below in actual implementation.
-//  Both are there to simulate (2)Radio's on one Mega Board.
-/*
+
+uint32_t msTimer = 0;   
+int iTestStep = 0;
+
+/*  This is an example using *real* persistant memory
 // -------------------------------------------------------------------------------------------------
 // EEPROM instance of DITSEngine Call-back Implementation via 'overloading'
 // -------------------------------------------------------------------------------------------------
@@ -84,13 +86,15 @@ class EEmgrDIT : public DITSEngine {
     virtual void pmem_write(int addr, byte val) override { EEPROM.update(addr, val); }
 };
 */
+
 // -------------------------------------------------------------------------------------------------
-// RAM-backed instance of DITSEngine 'Call-back' Implementation via 'overloading'
+// RAM-backed instance of DITSEngine 'Call-back' used for simulation and testing (no EEPROM wear-out)
 // -------------------------------------------------------------------------------------------------
 class RAMmgrDIT : public DITSEngine {
   public:
-    //DITSEngine(uint16_t _pmemBeginAddr, byte _MaxDITRecords, byte _NameFieldBytes), byte RxExpireMillis;
-    RAMmgrDIT(HardwareSerial& SerialPort) : DITSEngine(0,40,10,500), SPort(SerialPort) {memset(RAM_EEPROM, 0xFF, sizeof(RAM_EEPROM));}
+    //DITSEngine(uint16_t _pmemBeginAddr, byte _MaxDITRecords, byte _NameFieldBytes);
+    // Total Persistant Memory Allocated = MaxDITRecords * (NameFieldBytes + 4) + 1
+    RAMmgrDIT(HardwareSerial& SerialPort) : DITSEngine(0,40,10), SPort(SerialPort) {memset(RAM_EEPROM, 0xFF, sizeof(RAM_EEPROM));}
   protected:
     virtual void RxDataDevValue(byte _NodeIdx, byte _DevUID, int value) override {
       // Record supplied values of a remote node.
@@ -99,13 +103,17 @@ class RAMmgrDIT : public DITSEngine {
     virtual void RxReqDeviceSet(byte _DevUID, int value) override { 
         Serial.print(F("INO.RxReqDeviceSet devUID("));Serial.print(_DevUID);Serial.print(") -to- "); Serial.print(value);
     }
-    virtual bool TxReady(uint16_t _ToRFAddr) override { return true;} //Simulation; actual radio would need checks.
-    virtual void TxData(byte _TxByte) override { 
-      Serial.print("Tx");Serial.print(_TxByte,HEX);
-      SPort.write(_TxByte); 
-    }
+    virtual bool TxReady(uint16_t _ToRFAddr) override { 
+      return SPort.availableForWrite() > 58; // We know Mega UART has 64b buffer so okay to use this.
+    } //Simulation; actual radio would need checks.
+    virtual void TxData(byte _TxByte) override { SPort.write(_TxByte); }
     virtual byte pmem_read(int addr) override { return RAM_EEPROM[addr]; }
     virtual void pmem_write(int addr, byte val) override { RAM_EEPROM[addr] = val; }
+    virtual void RxDITUpdate(byte nodeIdx) override {
+      // A call-back to notify implementer Rx has changed the DIT records for 'nodeIdx'.
+      // This is useful for keeping a display updated with new changes occuring behind the scenes through Rx communication.
+      // Note:  This is only called via Rx.  Implementer DIT changes do not trigger this call-back
+    }
   private: 
     byte RAM_EEPROM[0x0300];
     HardwareSerial& SPort;
@@ -133,16 +141,24 @@ void setup()
     Radio2.begin();
     Serial1.begin(9600);
     Serial2.begin(9600);
-
-    Radio1.UpdateThisNodeName("Radio1");
-    Radio1.UpdateThisNodeRFAddr(0x0001); // must be unique
-    Radio1.SecNetCode(0);                // must be same
-    Radio1.AddThisNodeDevice(DT_ONOFF, DA_RW, "devonoff");   // Add devices to Radio1.
-    Radio1.AddThisNodeDevice(DT_ANAINPUT, DA_RO, "devtemp");
     
+    // Standard settings.
+    Radio1.RadioPktMaxBytes(58);          // 58 is the default.  This can be deleted.
+    Radio1.RxExpireMS(500);               // 30s is the default.  We keep small for wired-comm.
+    Radio1.UpdateThisNodeName("Radio1");  // Make sure this node has a readable name.
+    Radio1.UpdateThisNodeRFAddr(0x0001);  // Make sure DITS has the correct RF Address on record.
+    Radio1.SecNetCode(0);                 // Assign the 'User' network security code.
+
+    Radio2.RadioPktMaxBytes(58);
+    Radio2.RxExpireMS(500);
     Radio2.UpdateThisNodeName("Radio2");
     Radio2.UpdateThisNodeRFAddr(0x0002);
     Radio2.SecNetCode(0);
+    
+    Radio1.AddThisNodeDevice(DT_ONOFF, DA_RW, "devonoff");   // Add devices to Radio1.
+    Radio1.AddThisNodeDevice(DT_ANAINPUT, DA_RO, "devtemp");
+    
+    
 
     // Check DIT Tables exist and have data.
     Serial.print("SecNet1: ");Serial.println(Radio1.SecNetCode());
@@ -178,101 +194,74 @@ void DumpRadio1DITS() {
     // Step 1: Iterate through Nodes
     for(DITSEngine::NodeDIT node = Radio1.Node(0); node.IsValid(); node.Next()) {
         node.NGetName(tmpname);
-        Serial.print(F("NODE ["));
-        Serial.print(node.NodeIdx());
-        Serial.print(F("] "));
-        Serial.print(tmpname);
-        Serial.print(F(" (RF: 0x"));
-        Serial.print(node.NRFAddr(), HEX);
-        Serial.print(F(") (NDITVer: "));
-        Serial.print(node.NDITVer());
-        Serial.println(")");
-
-
-        // Step 2: Iterate through ALL devices to find children of this node
+        Serial.print(F("NODE ["));Serial.print(node.NodeIdx());Serial.print(F("] "));
+        Serial.print(tmpname);Serial.print(F(" (RF: 0x"));Serial.print(node.NRFAddr(), HEX);
+        Serial.print(F(") (NDITVer: "));Serial.print(node.NDITVer());Serial.println(")");
+      // Step 2: Iterate through ALL devices to find children of this node
         for(DITSEngine::DeviceDIT dev = Radio1.Device(0); dev.IsValid(); dev.Next()) {
-            // Only indent if this device belongs to the current node in the outer loop
-            if (dev.DNodeIdx() == node.NodeIdx()) {
+            if (dev.DNodeIdx() == node.NodeIdx()) { // if device belongs to current node.
                 dev.DGetName(tmpname);
-                Serial.print(F("  |-- DevUID: "));
-                Serial.print(dev.DevUID());
-                Serial.print(F(" | Type: "));
-                Serial.print(dev.DevType(), HEX);
-                Serial.print(F(" | Attr: 0x"));
-                Serial.print(dev.DevAttr(), HEX);
-                Serial.print(F(" | Name: "));
-                Serial.println(tmpname);
+                Serial.print(F("  |-- DevUID: "));Serial.print(dev.DevUID());
+                Serial.print(F(" | Type: "));Serial.print(dev.DevType(), HEX);
+                Serial.print(F(" | Attr: 0x"));Serial.print(dev.DevAttr(), HEX);
+                Serial.print(F(" | Name: "));Serial.println(tmpname);
             }
         }
     }
     Serial.println(F("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"));
 }
-int iCheckCnt = 0;
 void DumpRadio2DITS() {
     Serial.println(F("\nvvvvvvvvvvvvvvvvvvvvvvvvvv RADIO2 DITS vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"));
-
     // Step 1: Iterate through Nodes
     for(DITSEngine::NodeDIT node = Radio2.Node(0); node.IsValid(); node.Next()) {
         node.NGetName(tmpname);
-        Serial.print(F("NODE ["));
-        Serial.print(node.NodeIdx());
-        Serial.print(F("] "));
-        Serial.print(tmpname);
-        Serial.print(F(" (RF: 0x"));
-        Serial.print(node.NRFAddr(), HEX);
-        Serial.print(F(") (NDITVer: "));
-        Serial.print(node.NDITVer());
-        Serial.println(")");
-
-
-        // Step 2: Iterate through ALL devices to find children of this node
+        Serial.print(F("NODE ["));Serial.print(node.NodeIdx());Serial.print(F("] "));
+        Serial.print(tmpname);Serial.print(F(" (RF: 0x"));Serial.print(node.NRFAddr(), HEX);
+        Serial.print(F(") (NDITVer: "));Serial.print(node.NDITVer());Serial.println(")");
+      // Step 2: Iterate through ALL devices to find children of this node
         for(DITSEngine::DeviceDIT dev = Radio2.Device(0); dev.IsValid(); dev.Next()) {
-            // Only indent if this device belongs to the current node in the outer loop
-            if (dev.DNodeIdx() == node.NodeIdx()) {
+            if (dev.DNodeIdx() == node.NodeIdx()) { // if device belongs to current node.
                 dev.DGetName(tmpname);
-                Serial.print(F("  |-- DevUID: "));
-                Serial.print(dev.DevUID());
-                Serial.print(F(" | Type: "));
-                Serial.print(dev.DevType(), HEX);
-                Serial.print(F(" | Attr: 0x"));
-                Serial.print(dev.DevAttr(), HEX);
-                Serial.print(F(" | Name: "));
-                Serial.println(tmpname);
+                Serial.print(F("  |-- DevUID: "));Serial.print(dev.DevUID());
+                Serial.print(F(" | Type: "));Serial.print(dev.DevType(), HEX);
+                Serial.print(F(" | Attr: 0x"));Serial.print(dev.DevAttr(), HEX);
+                Serial.print(F(" | Name: "));Serial.println(tmpname);
             }
         }
     }
     Serial.println(F("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"));
-}                     
-void Check() {
-    iCheckCnt++;
+}                
 
-    // Check engine changes after commands.
-    if (iCheckCnt & 0x01) { // odd numbers
-      DumpRadio1DITS();
-      DumpRadio2DITS();
-    }
+void RunTestStep() {
+    iTestStep++;
+
+    // Dump DITS on odd numbers.  Check engine changes after commands.
+    if (iTestStep & 0x01) { DumpRadio1DITS(); DumpRadio2DITS(); }
 
     // Do a runtime add device and delete to make sure NDITVer mis-match causes an 'update' to trigger.
-    if (iCheckCnt==2) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}
-    if (iCheckCnt==4) {Radio1.AddThisNodeDevice(DT_STSTP3W, DA_RW, "runtdist");}
-    if (iCheckCnt==6) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
-    if (iCheckCnt==8) {Radio1.DelThisNodeDevice(0);}
-    if (iCheckCnt==10) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
-    // Then add a RWSS and check Secure Set
-    if (iCheckCnt==12) {Radio1.AddThisNodeDevice(DT_ONOFF, DA_RWSS, "onoffSS");}
-    if (iCheckCnt==14) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
-    if (iCheckCnt==18) {Radio2.TxSetRemoteDevVal(0x0001, 0, 150);}  // now try to set the RWSS
-}
+    if (iTestStep==2) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}
+    if (iTestStep==4) {Radio1.AddThisNodeDevice(DT_STSTP3W, DA_RW, "runtdist");}
 
-uint32_t msTimer = 0;
+    if (iTestStep==6) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
+    if (iTestStep==8) {Radio1.DelThisNodeDevice(0);}
+    if (iTestStep==10) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
+    
+    // Then add a RWSS and check Secure Set
+    if (iTestStep==12) {Radio1.AddThisNodeDevice(DT_ONOFF, DA_RWSS, "onoffSS");}
+    if (iTestStep==14) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
+    if (iTestStep==18) {Radio2.TxSetRemoteDevVal(0x0001, 0, 150);}  // now try to set the RWSS
+
+    // Repeat Test Steps
+    if (iTestStep >= 20) iTestStep=0;
+}
 // -------------------------------------------------------------------------------------------------
 // Loop
 // -------------------------------------------------------------------------------------------------
 void loop()
 {
-  if (millis()-msTimer >= 5000) {msTimer=millis();Check();}
+  if (millis()-msTimer >= 2000) { msTimer=millis(); RunTestStep();}
   Radio1.ProcessLoop();
   Radio2.ProcessLoop();
-  if (Serial1.available()>0) { Radio1.RxData(Serial1.read()); }
-  if (Serial2.available()>0) { Radio2.RxData(Serial2.read()); }
+  while (Serial1.available()>0) {Radio1.RxData(Serial1.read());}
+  while (Serial2.available()>0) {Radio2.RxData(Serial2.read());}
 }
