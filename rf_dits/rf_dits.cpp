@@ -30,8 +30,8 @@ DITSEngine::DITSEngine(uint16_t _pmemBeginAddr, byte _MaxDITRecords, byte _NameF
       DITNameBytes(_NameFieldBytes), DITNameChar(_NameFieldBytes+1) { }
 //-------------------------------------------------------------------------------------------------
 void DITSEngine::begin() {
-  for (byte idx=0; idx<pmMaxDITRecords; ++idx) {if (pmem_read(pmNDITAddr(idx))==PMDITSTOP) {NDITStopIdx=idx; break;}}
-  for (byte idx=0; idx<pmMaxDITRecords; ++idx) {if (pmem_read(pmDDITAddr(idx))==PMDITSTOP) {DDITStopIdx=idx; break;}}
+  for (byte idx=0; idx<pmMaxDITRecords && idx<256 ; ++idx) {if (pmem_read(pmNDITAddr(idx))==PMDITSTOP) {NDITStopIdx=idx; break;}}
+  for (uint16_t idx=0; idx<pmMaxDITRecords; ++idx) {if (pmem_read(pmDDITAddr(idx))==PMDITSTOP) {DDITStopIdx=idx; break;}}
   if (NDITStopIdx==0) {
     pmem_write(pmNDITAddr(0), BNONE);           // To pass Valid test spot(0) will be deleted on fresh mem.
     pmem_write(pmNDITAddr(0) + PMO_NDITVER, 0); // Initial NDIT Version.
@@ -141,6 +141,86 @@ bool DITSEngine::DelThisNodeDevice(byte _devUID) {
   DBDITAINFO((_devUID),("DITSEngine::DelThisNodeDevice(<devUID>) not found.\n"))
   return false;  // Return false if the device not found.
 }
+//-------------------------------------------------------------------------------------------------NodeDIT
+bool DITSEngine::NodeDIT::Next() {
+  for(byte i=NDITidx+1; i<pPtr->NDITStopIdx; i++) {
+    if (pPtr->pmem_read(pPtr->pmNDITAddr(i))!=BNONE) {NDITidx = i;return true;}
+  }
+  return false;
+}
+//-------------------------------------------------------------------------------------------------
+bool DITSEngine::NodeDIT::Prev() {
+  byte i=NDITidx;
+  while(i>0) {i--;if(pPtr->pmem_read(pPtr->pmNDITAddr(i))!=BNONE) {NDITidx = i;return true;}}
+  return false;
+}
+//-------------------------------------------------------------------------------------------------
+void DITSEngine::NodeDIT::NGetName(char* buffer) const {
+  if (!IsValid()) return;
+  for (int i = 0; i < pPtr->DITNameBytes; i++) {buffer[i] = pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NAME + i);}
+  buffer[pPtr->DITNameBytes] = '\0';
+}
+//-------------------------------------------------------------------------------------------------
+void DITSEngine::NodeDIT::NSetName(const char* value) {
+  if (!IsValid()) return; byte len = strlen(value);
+  for (int i = 0; i < pPtr->DITNameBytes; i++) {pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NAME + i, (i < len) ? value[i] : '\0');}
+}
+//-------------------------------------------------------------------------------------------------
+bool DITSEngine::NodeDIT::IsDeleted() const {
+  if (!IsValid()) return true; return pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX) == BNONE; 
+}
+//-------------------------------------------------------------------------------------------------
+bool DITSEngine::NodeDIT::IsDeleted(bool deleteStatus) {
+  if (!IsValid()) return true;
+  if (deleteStatus && NDITidx != 0) {pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX, BNONE);}
+  return pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX) == BNONE; 
+}
+//-------------------------------------------------------------------------------------------------DeviceDIT
+bool DITSEngine::DeviceDIT::Next(byte nodeIdx) {
+  for(uint16_t i=DDITidx+1; i<pPtr->DDITStopIdx; i++) {
+    byte dnodeIdx = pPtr->pmem_read(pPtr->pmDDITAddr(i) + PMO_DNODEIDX);
+    if (dnodeIdx==BNONE) continue;                      // Skip deleted
+    if (nodeIdx!=BNONE && dnodeIdx!=nodeIdx) continue;  // Match on request.
+    DDITidx = i;
+    return true;
+  }
+  return false;
+}
+//-------------------------------------------------------------------------------------------------
+bool DITSEngine::DeviceDIT::Prev(byte nodeIdx) {
+  uint16_t i=DDITidx;
+  if(i >= pPtr->DDITStopIdx) {i = pPtr->DDITStopIdx;}
+  while(i>0) {
+    i--;
+    byte dnodeIdx = pPtr->pmem_read(pPtr->pmDDITAddr(i) + PMO_DNODEIDX);
+    if (dnodeIdx==BNONE) continue;                      // Skip deleted
+    if (nodeIdx!=BNONE && dnodeIdx!=nodeIdx) continue;  // Match on request.
+    DDITidx = i;
+    return true;
+  }
+  return false;
+}
+//-------------------------------------------------------------------------------------------------
+void DITSEngine::DeviceDIT::DGetName(char* buffer) const {
+  if (!IsValid()) return;
+  for (int i = 0; i < pPtr->DITNameBytes; i++) {buffer[i] = pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_NAME + i);}
+  buffer[pPtr->DITNameBytes] = '\0';
+}
+//-------------------------------------------------------------------------------------------------
+void DITSEngine::DeviceDIT::DSetName(const char* value) {
+  if (!IsValid()) return; byte len = strlen(value);
+    for (int i = 0; i < pPtr->DITNameBytes; i++) {pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_NAME + i, (i < len) ? value[i] : '\0');}
+}
+//-------------------------------------------------------------------------------------------------
+bool DITSEngine::DeviceDIT::IsDeleted() const {
+  if (!IsValid()) return true; return pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX) == BNONE;
+}
+//-------------------------------------------------------------------------------------------------
+bool DITSEngine::DeviceDIT::IsDeleted(bool deleteStatus) {
+  if (!IsValid()) return true;
+  if (deleteStatus) {pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX, BNONE);}
+  return pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX) == BNONE;
+}
 //########################## 2. DITS Public RF Management.########################################
 void DITSEngine::ProcessLoop() {
   
@@ -220,6 +300,7 @@ bool DITSEngine::TxSetRemoteDevVal(byte nodeIdx, byte devUID, int value) {
 }
 //-------------------------------------------------------------------------------------------------
 bool DITSEngine::TxGetRemoteDevVals(byte nodeIdx) {
+  DBRFAENTER((nodeIdx),("DITSEngine::TxGetRemoteDevVals(<nodeIdx>)\n"))
   if (txPacket) {DBRFERROR(("DITSEngine::TxSetRemoteDevVal 'txPacket' Tx Busy.\n")) return false;}
   NodeDIT tonode(this,nodeIdx);
   NodeDIT thisnode(this,THISNODE);
@@ -229,13 +310,13 @@ bool DITSEngine::TxGetRemoteDevVals(byte nodeIdx) {
 }
 //########################## 3. DITS Private Local Management.########################################
 byte DITSEngine::FindNodeDIT(uint16_t rfAddr, bool NotFoundAdd) {
+  DBDITAAENTER((rfAddr,HEX),(NotFoundAdd),("DITSEngine::FindNodeDIT(<rfAddr>,<NotFoundAdd>)\n"))
   byte rfLow = lowByte(rfAddr);    // extract low byte
   byte rfHigh = highByte(rfAddr);  // extract high byte
-  DBRFAAINFO((rfHigh,HEX),(rfLow,HEX),("DITSEngine::FindNodeDIT <rfHigh><rfLow>\n"))
   byte delDIT = BNONE;
   for(NodeDIT node(this); node.IsValid(); node.NextAll()) {
     if(node.IsDeleted()) {
-      DBRFAAINFO((node.NRFAddr()),(node.DITidx()),("DITSEngine::FindNodeDIT <RFAddr><DITidx> is deleted.\n"))
+      DBDITAAINFO((node.NRFAddr()),(node.DITidx()),("DITSEngine::FindNodeDIT <RFAddr><DITidx> is deleted.\n"))
       if(delDIT==BNONE){delDIT=node.DITidx();} 
       continue;
     }
@@ -250,23 +331,27 @@ byte DITSEngine::FindNodeDIT(uint16_t rfAddr, bool NotFoundAdd) {
   return BNONE;
 }
 //-------------------------------------------------------------------------------------------------
-byte DITSEngine::FindDeviceDIT(byte _DNodeIdx, byte _devUID, bool NotFoundAdd) {
-  byte delDIT = BNONE;
+uint16_t DITSEngine::FindDeviceDIT(byte _DNodeIdx, byte _devUID, bool NotFoundAdd) {
+  DBDITAAAENTER((_DNodeIdx),(_devUID),(NotFoundAdd),("DITSEngine::FindDeviceDIT(<DNodeIdx>,<devUID>,<NotFoundAdd>)\n"))
+  uint16_t delDIT = INONE;
   for(DeviceDIT dev(this); dev.IsValid(); dev.NextAll()) {
-    if(dev.IsDeleted()) {if(delDIT==BNONE){delDIT=dev.DITidx();} continue;}
+    if(dev.IsDeleted()) {if(delDIT==INONE){delDIT=dev.DITidx();} continue;}
     if(dev.DNodeIdx()!=_DNodeIdx) continue;
     if(dev.DevUID()!=_devUID) continue;
+    DBDITINFO(("DITSEngine::FindDeviceDIT found DDIT.\n"))
     return dev.DITidx();
   }
   if (NotFoundAdd) {
-    if (delDIT!=BNONE) {
+    if (delDIT!=INONE) {
+      DBDITINFO(("DITSEngine::FindDeviceDIT new DDIT.\n"))
       DeviceDIT dDIT(this,delDIT);
       dDIT.DNodeIdx(_DNodeIdx);
       return dDIT.DITidx();
     }
+    DBDITINFO(("DITSEngine::FindDeviceDIT new AddDDIT().\n"))
     return AddDDIT(_DNodeIdx);
   }
-  return BNONE;
+  return INONE;
 }
 //-------------------------------------------------------------------------------------------------
 byte DITSEngine::AddNDIT() {
@@ -280,10 +365,10 @@ byte DITSEngine::AddNDIT() {
   return NDITStopIdx - 1;
 }
 //-------------------------------------------------------------------------------------------------
-byte DITSEngine::AddDDIT(byte _DNodeIdx) {
+uint16_t DITSEngine::AddDDIT(byte _DNodeIdx) {
   if ( DDITStopIdx+NDITStopIdx+2 > pmMaxDITRecords) {   // Check DIT Record boundary
     DBDITERROR(("DITSEngine::AddDDIT DDITStopIdx+NDITStopIdx+2>pmMaxDITRecords Out of Memory.\n"))
-    return BNONE;
+    return INONE;
   }
   pmem_write(pmDDITAddr(DDITStopIdx) + PMO_DNODEIDX, _DNodeIdx);  // write DNodeIdx at last STOP
   DDITStopIdx++;                                                  // Incr DDIT STOP
@@ -318,9 +403,9 @@ bool DITSEngine::RxProcessPacket() {
     return true;
   }
 
+  // ---- Check Nonce before SETVAL activates ----
   if(rxPacket->PktType()==PKT_NONCERSP) {
     DBRFINFO(("DITSEngine::RxProcessPacket PKT_NONCERSP\n"))
-    // ---- Check Nonce before SETVAL activates ----
     unsigned long nowMS = millis();
     if (rxPacket->Value() != s_challengeNonce) { 
       DBRFERROR(("DITSEngine::RxProcessPacket SETVAL nonce mismatch\n"))
@@ -346,10 +431,10 @@ bool DITSEngine::RxProcessPacket() {
   if (rxPacket->PktType()==PKT_SETVAL) {
     DBRFINFO(("DITSEngine::RxProcessPacket PKT_SETVAL\n"))
     bool RWSS = false;
-    for (DeviceDIT dev(this); dev.IsValid(); dev.NextAll()) {                       // Find devices DIT
+    for (DeviceDIT dev(this); dev.IsValid(); dev.NextAll()) {                 // Find devices DIT
       if (dev.IsDeleted()) continue; if (dev.DNodeIdx()!=THISNODE) continue;
       if (dev.DevUID()==rxPacket->DevUID()) {
-        RWSS = (dev.DevAttr() & 0xC0)==0xC0; break;
+        RWSS = (dev.DevAttr() & 0xC0) == 0x80; break;
       }  // Check if RWSS
     }
     if (!RWSS) {RxReqDeviceSet(rxPacket->DevUID(), rxPacket->Value()); return true;}

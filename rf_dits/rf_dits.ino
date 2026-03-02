@@ -26,15 +26,20 @@
 #define DT_MINBOUNDARY  0x75    ///< MINIMUM BOUNDARY CHECK FOR ADD DEVICE KEYS
 ///@}
 /******************************************************************************//**
- * @defgroup DA [DA] Device-Attributes.  Part of DITS protocol.
+ * @defgroup DA [DA] Device-Attributes.
  *  - You get 1-byte to add attributes to your Device Types.  You can use 0.
  *********************************************************************************/
 // 0x[7] Device Types                  WS
-#define DA_RO           0x40    ///< 0b00xx xxxx Read-Only Device
-#define DA_RW           0x80    ///< 0b10xx xxxx R/Write Device no SS
-#define DA_RWSS         0xC0    ///< 0b11xx xxxx R/Write with (SS)Set Secured.
-#define DA_SCALE10      0x79    ///< Scale the Value x10 for floating-point
-#define DA_SCALE100     0x78    ///< Scale the Value x100 for floating-point
+#define DA_RO           0x00    ///< 0b00xx xxxx Read-Only Device
+#define DA_RW           0x40    ///< 0b01xx xxxx R/Write Device no SS
+#define DA_RWSS         0x80    ///< 0b10xx xxxx R/Write with (SS)Secured Set (DITS specific).
+#define DA_UNDEF        0xC0    ///< 0b11xx xxxx Undefined
+#define ACCESS_MASK     0xC0    ///< 0bxx11 xxxx Mask bits 7,6
+#define DA_SCALE1       0x00    ///< 0bxx00 xxxx No Value Scale
+#define DA_SCALE10      0x10    ///< 0bxx01 xxxx Scale Value x10.
+#define DA_SCALE100     0x20    ///< 0bxx10 xxxx Scale Value x100
+#define DA_SCALE1000    0x30    ///< 0bxx11 xxxx Scale Value x1000
+#define SCALE_MASK      0x30    ///< 0bxx11 xxxx Mask bits 5,4
 
 #define DT_MINBOUNDARY  0x75    ///< MINIMUM BOUNDARY CHECK FOR ADD DEVICE KEYS
 ///@}
@@ -118,22 +123,18 @@ class RAMmgrDIT : public DITSEngine {
     byte RAM_EEPROM[0x0300];
     HardwareSerial& SPort;
 };
-char tmpname[11]; // Must match _NameFieldBytes +1; just a helper array for char[] names.
 
 //EEmgrDIT  Radio1;
 RAMmgrDIT Radio1(Serial1);
 RAMmgrDIT Radio2(Serial2);
-
-//                           Type, SecH, SecL, RFH,  RFL,  VER , 'N',  'o',  'd',  'e',  '1',  '\0'
-byte testaddnode1dev1[20] = {0x4F, 0x02, 0x20, 0x34, 0x4E, 0x01, 0x4E, 0x6F, 0x64, 0x65, 0x31, 0x0,
-                  DT_ONOFF, DA_RO, 0x00, 0x64, 0x65, 0x76, 0x31, 0x0};
-//                                 dUID,  'd',  'e',  'v',  '1', '\0'
+char* tmpname; // General use array for Names
 
 // -------------------------------------------------------------------------------------------------
 // Setup
 // -------------------------------------------------------------------------------------------------
 void setup()
 {
+    tmpname = new char[Radio1.DITNameChar];
     Serial.begin(115200);
     Serial.println(F("RF-DITS Clean Test"));
 
@@ -189,46 +190,44 @@ void setup()
     //randomSeed(analogRead(A0));
 }
 void DumpRadio1DITS() {
-    Serial.println(F("\nnvvvvvvvvvvvvvvvvvvvvvvvvvv RADIO1 DITS vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"));
-
-    // Step 1: Iterate through Nodes
-    for(DITSEngine::NodeDIT node = Radio1.Node(0); node.IsValid(); node.Next()) {
-        node.NGetName(tmpname);
-        Serial.print(F("NODE ["));Serial.print(node.NodeIdx());Serial.print(F("] "));
-        Serial.print(tmpname);Serial.print(F(" (RF: 0x"));Serial.print(node.NRFAddr(), HEX);
-        Serial.print(F(") (NDITVer: "));Serial.print(node.NDITVer());Serial.println(")");
-      // Step 2: Iterate through ALL devices to find children of this node
-        for(DITSEngine::DeviceDIT dev = Radio1.Device(0); dev.IsValid(); dev.Next()) {
-            if (dev.DNodeIdx() == node.NodeIdx()) { // if device belongs to current node.
-                dev.DGetName(tmpname);
-                Serial.print(F("  |-- DevUID: "));Serial.print(dev.DevUID());
-                Serial.print(F(" | Type: "));Serial.print(dev.DevType(), HEX);
-                Serial.print(F(" | Attr: 0x"));Serial.print(dev.DevAttr(), HEX);
-                Serial.print(F(" | Name: "));Serial.println(tmpname);
-            }
-        }
+  Serial.println(F("\nnvvvvvvvvvvvvvvvvvvvvvvvvvv RADIO1 DITS vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"));
+  // Step 1: Iterate through Nodes
+  DITSEngine::NodeDIT node = Radio1.Node();
+  while (node.Next()) {
+    node.NGetName(tmpname);
+    Serial.print(F("NODE ["));Serial.print(node.NodeIdx());Serial.print(F("] "));
+    Serial.print(tmpname);Serial.print(F(" (RF: 0x"));Serial.print(node.NRFAddr(), HEX);
+    Serial.print(F(") (NDITVer: "));Serial.print(node.NDITVer());Serial.println(")");
+   // Step 2: Iterate through ALL devices to find children of this node
+    DITSEngine::DeviceDIT dev = Radio1.Device();
+    while (dev.Next(node.NodeIdx())) {    // List Devices matching node.
+      dev.DGetName(tmpname);
+      Serial.print(F("  |-- DevUID: "));Serial.print(dev.DevUID());
+      Serial.print(F(" | Type: "));Serial.print(dev.DevType(), HEX);
+      Serial.print(F(" | Attr: 0x"));Serial.print(dev.DevAttr(), HEX);
+      Serial.print(F(" | Name: "));Serial.println(tmpname);
     }
-    Serial.println(F("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"));
+  }
+  Serial.println(F("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"));
 }
 void DumpRadio2DITS() {
     Serial.println(F("\nvvvvvvvvvvvvvvvvvvvvvvvvvv RADIO2 DITS vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"));
     // Step 1: Iterate through Nodes
-    for(DITSEngine::NodeDIT node = Radio2.Node(0); node.IsValid(); node.Next()) {
-        node.NGetName(tmpname);
-        Serial.print(F("NODE ["));Serial.print(node.NodeIdx());Serial.print(F("] "));
-        Serial.print(tmpname);Serial.print(F(" (RF: 0x"));Serial.print(node.NRFAddr(), HEX);
-        Serial.print(F(") (NDITVer: "));Serial.print(node.NDITVer());Serial.println(")");
-      // Step 2: Iterate through ALL devices to find children of this node
-        for(DITSEngine::DeviceDIT dev = Radio2.Device(0); dev.IsValid(); dev.Next()) {
-            if (dev.DNodeIdx() == node.NodeIdx()) { // if device belongs to current node.
-                dev.DGetName(tmpname);
-                Serial.print(F("  |-- DevUID: "));Serial.print(dev.DevUID());
-                Serial.print(F(" | Type: "));Serial.print(dev.DevType(), HEX);
-                Serial.print(F(" | Attr: 0x"));Serial.print(dev.DevAttr(), HEX);
-                Serial.print(F(" | Name: "));Serial.println(tmpname);
-            }
-        }
-    }
+    DITSEngine::NodeDIT node = Radio2.Node();
+    while(node.Next()) {
+      node.NGetName(tmpname);
+      Serial.print(F("NODE ["));Serial.print(node.NodeIdx());Serial.print(F("] "));
+      Serial.print(tmpname);Serial.print(F(" (RF: 0x"));Serial.print(node.NRFAddr(), HEX);
+      Serial.print(F(") (NDITVer: "));Serial.print(node.NDITVer());Serial.println(")");
+      DITSEngine::DeviceDIT dev = Radio2.Device();
+      while(dev.Next(node.NodeIdx())) {     // List Devices matching node.
+        dev.DGetName(tmpname);
+        Serial.print(F("  |-- DevUID: "));Serial.print(dev.DevUID());
+        Serial.print(F(" | Type: "));Serial.print(dev.DevType(), HEX);
+        Serial.print(F(" | Attr: 0x"));Serial.print(dev.DevAttr(), HEX);
+        Serial.print(F(" | Name: "));Serial.println(tmpname);
+      };
+    };
     Serial.println(F("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"));
 }                
 

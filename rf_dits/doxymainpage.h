@@ -144,6 +144,28 @@
  * </table>
  * </div>
  * <p></p>
+ *
+ *  @section NONCE Secure Set Feature.
+ *
+ *  Suggested device access permission flags encoded in the top two bits of DevAttr.
+ *  The protocol enforces RWSS ('10') only; all other encodings are left to the
+ *  implementer’s discretion.
+ *
+ *      - 00 = RO   (Read-Only)
+ *      - 01 = RW   (Read/Write)
+ *      - 10 = RWSS (Read/Write Secure-Set)
+ *      - 11 = Reserved / Undefined
+ *
+ *  When the protocol receives (Rx) a PKT_SETVAL request, it retrieves the DevAttr value
+ *  for the target device and evaluates the top two bits. If the access permission
+ *  flags are set to '10' (code ref: RWSS = (dev.DevAttr() & 0xC0) == 0x80 ):
+ *
+ *      1. The protocol stages the SETVAL request and does not execute it immediately.
+ *      2. It transmits a nonce challenge (PKT_REQNONCE) to the requester.
+ *      3. It waits for a valid nonce response (PKT_NONCERSP).
+ *      4. Upon successful nonce verification, it releases and executes the original
+ *         SETVAL request; otherwise, the staged request is discarded.
+ *
  * @section Files Files & Abreviations
  *  - Firmware DateCode [YYMD]
  *    - YY = Last two digits of the Year

@@ -26,7 +26,6 @@
 #define DB_ERROR       1
 #define DB_ENTER       1
 #define DB_INFO        1
-#define DB_NONE        1
 
 // ON/OFF Code-Sections
 // 0=All Importance-Levels OFF in this code-section.
