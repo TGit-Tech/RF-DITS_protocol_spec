@@ -14,9 +14,9 @@
 #define PMDITSTOP 0xFE    ///< A sentinel value that marks the end of NDIT and DDIT records in PMEM.
 #define THISNODE  0       ///< Just to make the code more readable.
 #define VALNOTSET 0x8000  ///< Old Code in RxPacket ValSet I believe
-/******************************************************************************/ /**
- * @defgroup PMO [P]ersistant [M]emory [O]ffsets. 0 is stored/used Locally Only  @{
- *********************************************************************************/
+
+///@defgroup PMO Persistant Memory Offsets. 0 is stored/used Locally Only  
+///@{
 // NodeDIT PMEM Offsets (per Node table)
 #define PMO_NODEIDX     0   ///< Local; Index (1 byte, 0xFF delete, 0xFE DITSTOP)
 #define PMO_NRFADDRH    1   ///< Node RF high byte (1 byte)
@@ -30,10 +30,9 @@
 // Both Node and Device Name Offset must be the same.
 #define PMO_NAME        4   ///< Name offset for both [N]ode & [D]evice
 ///@}
-/********************************************************/ /**
- * @defgroup PKB Radio Packet Byte Order/Offsets idx 
- * @{
- ************************************************************/
+
+///@defgroup PKB Radio Packet Byte Order/Offsets idx 
+///@{
 #define PKB_TYPE        0   ///< Rx/Tx Packet-Type
 #define PKB_SECH        1   ///< Rx/Tx SecNet High-Byte
 #define PKB_SECL        2   ///< Rx/Tx SecNet Low-Byte
@@ -46,10 +45,8 @@
 
 #define PKB_XDATA_BEG   6   ///< XDATA Start DITINFO & VALS
 ///@}
-/*********************************************/ /**
- * @defgroup PKT Radio Packet-Types 
- * @{
- ************************************************/
+///@defgroup PKT Radio Packet-Types 
+///@{
 // Packet Constants
 #define PKC_RADIOPKTMAXBYTES_MIN      10    ///< Minimum allowed value for 'RadioPktMaxBytes'
 #define PKC_RADIOPKTMAXBYTES_DEFAULT  58    ///< Default for 'RadioPktMaxBytes'
@@ -68,40 +65,52 @@
 #define PKT_NONCERSP                0xF8  ///< The Req-nonce response
 #define PKT_TYPEMAX                 0xF8  ///< Used to boundry check arguments
 ///@}
-/******************************************************************************************************************/ /**
- * @class   DITSEngine
- * @brief   Central engine managing Node and Device DIT tables, packet transport, and hardware abstraction.
- *
- * Responsibilities:
- * - Encapsulates Node/Device metadata (DIT tables) and provides read-only access to implementers.
- * - Handles memory storage and retrieval of Node/Device metadata via a pluggable memory backend.
- *     - Supports EEPROM, RAM, or other persistent memory via overridable pmem_read()/pmem_write().
- * - Provides Rx/Tx packet handling for RF or UART transport.
- *     - Incoming bytes are processed via RxByte(), which automatically collects packets and validates them.
- *     - Outgoing packets can be generated internally when requested by the engine (e.g., REQDITINFO, PKT_VAL).
- * - Defines abstract hardware interface functions (virtual methods) for implementers to override:
- *     - ReadPin(), WritePin(), or other device-specific control logic.
- *
- * Behavior Notes:
- * - On construction, scans Node Pool and Device Pool to track last-used memory blocks.
- * - When writing a new Node/Device:
- *     - If idx is provided, overwrites that block.
- *     - If idx==-1 (default), finds first deleted block or appends at the end.
- *     - Updates last-used address when writing at the end.
- * - Deletion simply marks the first byte of a block as 0xFF.
- * - Node/Device structures are exposed as read-only nested types (NodeDIT / DeviceDIT).
- * - Event propagation (alarms, device value changes) is outside the scope of this engine.
- *
- * Access Notes:
- * - Implementers interact via:
- *     - `const NodeDIT* GetNode(idx)` or `const DeviceDIT* GetDevice(nodeIdx, devIdx)` for read-only access.
- *     - Virtual hardware functions for physical control.
- *     - Rx/Tx functions for communication; engine handles protocol-specific packet construction and parsing.
- *
- * Purpose:
- * - Separates protocol logic, memory storage, and hardware control from implementer code.
- * - Provides a single, cohesive interface for accessing DIT metadata, handling packets, and controlling hardware.
- *********************************************************************************************************************/
+///@defgroup DEVACCESS Device Access Permissions (via DevAttr)
+///@{
+#define DNOTSET     0x00  ///< 0b0000 0000 Permissions Not Set
+#define DRO         0x40  ///< 0b0100 0000 Device Read Only
+#define DRW         0x80  ///< 0b1000 0000 Device Read/Write
+#define DRWSS       0xC0  ///< 0b1100 0000Device Read/Write with Secure Set
+#define DACCESSMSK  0xC0  ///< Mask DevAttr for Access bits
+///@}
+///@defgroup DVALSCALE Device Value Scaling (via DevAttr)
+#define DSCALE1     0x00  ///< 0b0000 0000 Device Value No-Scaling
+#define DSCALE10    0x10  ///< 0b0001 0000 Device Value */ by 10
+#define DSCALE100   0x20  ///< 0b0010 0000 Device value */ by 100
+#define DSCALE1000  0x30  ///< 0b0011 0000 Device value */ by 1000
+#define DSCALEMSK   0x30  ///< Mask DevAttr for Scaling bits
+///@}
+///@class   DITSEngine
+///@brief   Central engine managing Node and Device DIT tables, packet transport, and hardware abstraction.
+///@details Responsibilities:
+///     - Encapsulates Node/Device metadata (DIT tables) and provides read-only access to implementers.
+///     - Handles memory storage and retrieval of Node/Device metadata via a pluggable memory backend.
+///     - Supports EEPROM, RAM, or other persistent memory via overridable pmem_read()/pmem_write().
+///  - Provides Rx/Tx packet handling for RF or UART transport.
+///     - Incoming bytes are processed via RxByte(), which automatically collects packets and validates them.
+///     - Outgoing packets can be generated internally when requested by the engine (e.g., REQDITINFO, PKT_VAL).
+///  - Defines abstract hardware interface functions (virtual methods) for implementers to override:
+///     - ReadPin(), WritePin(), or other device-specific control logic.
+///
+/// Behavior Notes:
+///  - On construction, scans Node Pool and Device Pool to track last-used memory blocks.
+///  - When writing a new Node/Device:
+///     - If idx is provided, overwrites that block.
+///     - If idx==-1 (default), finds first deleted block or appends at the end.
+///     - Updates last-used address when writing at the end.
+///  - Deletion simply marks the first byte of a block as 0xFF.
+///  - Node/Device structures are exposed as read-only nested types (NodeDIT / DeviceDIT).
+///  - Event propagation (alarms, device value changes) is outside the scope of this engine.
+///
+///Access Notes:
+///- Implementers interact via:
+///    - `const NodeDIT* GetNode(idx)` or `const DeviceDIT* GetDevice(nodeIdx, devIdx)` for read-only access.
+///    - Virtual hardware functions for physical control.
+///    - Rx/Tx functions for communication; engine handles protocol-specific packet construction and parsing.
+///
+///Purpose:
+///- Separates protocol logic, memory storage, and hardware control from implementer code.
+///- Provides a single, cohesive interface for accessing DIT metadata, handling packets, and controlling hardware.
 class DITSEngine {
   public:
     DITSEngine(uint16_t _pmemBeginAddr, byte _MaxDITRecords, byte _NameFieldBytes);
@@ -161,11 +170,21 @@ class DITSEngine {
       private:
         friend class DITSEngine;  
         DITSEngine* pPtr;         ///< pointer to the parent DITSEngine object for 'pmem' access.
-        byte NDITidx = 0;         ///< idx tracker for NodeDIT object. (byte ties to NodeIdx)
-        NodeDIT(DITSEngine* _ThisPtr, byte _NDITidx = 0) : pPtr(_ThisPtr), NDITidx(_NDITidx) {}
+        byte NDITidx = BNONE;     ///< idx tracker for NodeDIT object. (byte ties to NodeIdx)
+        NodeDIT(DITSEngine* _ThisPtr, byte _NDITidx = BNONE) : pPtr(_ThisPtr), NDITidx(_NDITidx) {}
       public:
-        bool      Next();           ///< Goes to next NDIT record, skips deleted, stops incr at end and returns false.
-        bool      Prev();           ///< Goes to prev NDIT record, skips deleted, stops at (0) and returns false.
+        ///@brief Advances the iterator to the next NDIT entry.
+        ///@note The iterator remains at its current position if no next entries are found.
+        ///@param[in] InclDel (default false = skip deleted). True allows stopping at deleted entries.
+        ///@return true if the iterator successfully advanced; false if the end of records is reached.
+        bool Next(bool InclDel = false);
+
+        ///@brief Moves the iterator to the previous NDIT entry.
+        ///@note The iterator remains at its current position if no previous entries are found.
+        ///@param[in] InclDel (default false = skip deleted). True allows stopping at deleted entries.
+        ///@return true if the iterator successfully moved; false if the beginning of records is reached.
+        bool Prev(bool InclDel = false);
+
         bool      IsValid() const   {return (NDITidx < pPtr->NDITStopIdx);}
         byte      DITidx() const    {return NDITidx;}
         byte      NodeIdx() const   {return IsValid() ? pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX) : BNONE;}
@@ -176,7 +195,6 @@ class DITSEngine {
         void NGetName(char* buffer) const;
         bool IsDeleted() const;
       protected:
-        void      NextAll()            {NDITidx++;}
         void      NodeIdx(byte value)  {if (IsValid()) pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX, value);}
         void      NRFAddrH(byte value) {if (IsValid()) pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NRFADDRH, value);}
         void      NRFAddrL(byte value) {if (IsValid()) pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NRFADDRL, value);}
@@ -190,11 +208,23 @@ class DITSEngine {
       private:
         friend class DITSEngine;
         DITSEngine* pPtr;
-        uint16_t DDITidx;
-        DeviceDIT(DITSEngine* _ThisPtr, uint16_t _DDITidx = 0) : pPtr(_ThisPtr), DDITidx(_DDITidx) {}
+        uint16_t DDITidx = INONE;
+        DeviceDIT(DITSEngine* _ThisPtr, uint16_t _DDITidx = INONE) : pPtr(_ThisPtr), DDITidx(_DDITidx) {}
       public:
-        bool      Next(byte nodeIdx = BNONE); ///< Goes to next DDIT record, skips deleted, stops incr at end and returns false.
-        bool      Prev(byte nodeIdx = BNONE); ///< Goes to prev DDIT record, skips deleted, stops at (0) and returns false.
+        ///@brief Advances the iterator to the next table entry.
+        ///@note The iterator remains at its current position if no next entries are found.
+        ///@param[in] nodeIdx (default BNONE = no filter) Skips non-deleted entries that don't match nodeIdx.
+        ///@param[in] InclDel (default false = skip deleted). True allows stopping at deleted entries (no node match possible).
+        ///@return true if the iterator successfully advanced to a matching entry; false if the end of records is reached.
+        bool Next(byte nodeIdx = BNONE, bool InclDel = false);
+
+        ///@brief Moves the iterator to the previous table entry.
+        ///@note The iterator remains at its current position if no previous entries are found.
+        ///@param[in] nodeIdx (default BNONE = no filter) Skips non-deleted entries that don't match nodeIdx.
+        ///@param[in] InclDel (default false = skip deleted). True allows stopping at deleted entries (no node match possible).
+        ///@return true if the iterator successfully moved to a matching entry; false if the beginning of records is reached.
+        bool Prev(byte nodeIdx = BNONE, bool InclDel = false);
+
         uint16_t  DITidx() const    {return DDITidx;}
         bool      IsValid() const   {return (DDITidx < pPtr->DDITStopIdx);}
         byte      DNodeIdx() const  {return IsValid() ? pPtr->pmem_read(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX) : BNONE; }
@@ -204,7 +234,6 @@ class DITSEngine {
         void      DGetName(char* buffer) const;
         bool      IsDeleted() const;
       protected:
-        void  NextAll()            {DDITidx++;}
         void  DNodeIdx(byte value) {if (IsValid()) pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DNODEIDX, value); }
         void  DevUID(byte value)   {if (IsValid()) pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DEVUID, value); }
         void  DevType(byte value)  {if (IsValid()) pPtr->pmem_write(pPtr->pmDDITAddr(DDITidx) + PMO_DEVTYPE, value); }

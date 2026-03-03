@@ -95,12 +95,11 @@ bool DITSEngine::AddThisNodeDevice(byte devType, byte devAttr, const char* name)
   memset(devUIDMask, 0, sizeof(devUIDMask));      // Set all bytes in the array to 0
   
   uint16_t freeDITidx = BNONE;
-  for (DeviceDIT dev(this); dev.IsValid(); dev.NextAll()) {
+  DeviceDIT dev(this);
+  while (dev.Next(THISNODE,true)) {
     if(dev.IsDeleted()) {if (freeDITidx==BNONE) {freeDITidx = dev.DITidx();}  continue;}
-    if(dev.DNodeIdx()==0) {
-      byte thisUID = dev.DevUID();
-      bitSet(devUIDMask[thisUID/32], thisUID%32);
-    }
+    byte thisUID = dev.DevUID();
+    bitSet(devUIDMask[thisUID/32], thisUID%32);
   }
   //------------------------------------------------------
   byte devUID = BNONE;
@@ -116,12 +115,12 @@ bool DITSEngine::AddThisNodeDevice(byte devType, byte devAttr, const char* name)
   //------------------------------------------------------
   if (freeDITidx == BNONE) { freeDITidx = AddDDIT(THISNODE); }
   NodeDIT node(this,THISNODE);
-  DeviceDIT dev(this,freeDITidx); // Now, create the DeviceDIT struct and assign the values
-  dev.DNodeIdx(0);                // Associate locally with "this node"(0)
-  dev.DevUID(devUID);             // Assign the DevUID found above
-  dev.DevAttr(devAttr);
-  dev.DevType(devType);           // Assign devType
-  dev.DSetName(name);             // Assign the name
+  DeviceDIT newdev(this,freeDITidx); // Now, create the DeviceDIT struct and assign the values
+  newdev.DNodeIdx(0);                // Associate locally with "this node"(0)
+  newdev.DevUID(devUID);             // Assign the DevUID found above
+  newdev.DevAttr(devAttr);
+  newdev.DevType(devType);           // Assign devType
+  newdev.DSetName(name);             // Assign the name
   node.NDITVer(node.NDITVer() + 1);
   DBDITAAINFO((freeDITidx),(devUID),("DITSEngine::AddThisNodeDevice added-at <freeDITidx>,<devUID>\n"))
   return true;                    // Return success
@@ -130,8 +129,8 @@ bool DITSEngine::AddThisNodeDevice(byte devType, byte devAttr, const char* name)
 bool DITSEngine::DelThisNodeDevice(byte _devUID) {
   DBDITAENTER((_devUID),("DITSEngine::DelThisNodeDevice(<devUID>)\n"))
   NodeDIT node(this,THISNODE);
-  for(DeviceDIT dev(this); dev.IsValid(); dev.NextAll()) {
-    if (dev.DNodeIdx()!=0) continue;
+  DeviceDIT dev(this);
+  while(dev.Next(THISNODE)) {
     if (dev.DevUID()==_devUID) {
       dev.IsDeleted(true);
       node.NDITVer(node.NDITVer() + 1);
@@ -142,16 +141,21 @@ bool DITSEngine::DelThisNodeDevice(byte _devUID) {
   return false;  // Return false if the device not found.
 }
 //-------------------------------------------------------------------------------------------------NodeDIT
-bool DITSEngine::NodeDIT::Next() {
-  for(byte i=NDITidx+1; i<pPtr->NDITStopIdx; i++) {
-    if (pPtr->pmem_read(pPtr->pmNDITAddr(i))!=BNONE) {NDITidx = i;return true;}
+bool DITSEngine::NodeDIT::Next(bool InclDel) {
+  byte i = (NDITidx==BNONE) ? 0 : NDITidx + 1;
+  while (i<pPtr->NDITStopIdx) {
+    if (InclDel || pPtr->pmem_read(pPtr->pmNDITAddr(i))!=BNONE) { NDITidx = i; return true; }
+    i++;
   }
   return false;
 }
 //-------------------------------------------------------------------------------------------------
-bool DITSEngine::NodeDIT::Prev() {
-  byte i=NDITidx;
-  while(i>0) {i--;if(pPtr->pmem_read(pPtr->pmNDITAddr(i))!=BNONE) {NDITidx = i;return true;}}
+bool DITSEngine::NodeDIT::Prev(bool InclDel) {
+  if(NDITidx>=pPtr->NDITStopIdx) NDITidx = pPtr->NDITStopIdx;
+  byte i = NDITidx;
+  while(i>0) {
+    i--; if (InclDel || pPtr->pmem_read(pPtr->pmNDITAddr(i))!=BNONE) {NDITidx = i;return true;}
+  }
   return false;
 }
 //-------------------------------------------------------------------------------------------------
@@ -176,27 +180,35 @@ bool DITSEngine::NodeDIT::IsDeleted(bool deleteStatus) {
   return pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX) == BNONE; 
 }
 //-------------------------------------------------------------------------------------------------DeviceDIT
-bool DITSEngine::DeviceDIT::Next(byte nodeIdx) {
-  for(uint16_t i=DDITidx+1; i<pPtr->DDITStopIdx; i++) {
+bool DITSEngine::DeviceDIT::Next(byte nodeIdx, bool InclDel) {
+  uint16_t i = (DDITidx==INONE) ? 0 : DDITidx + 1;
+  while (i<pPtr->DDITStopIdx) {
+    if (InclDel && nodeIdx==BNONE) { DDITidx = i; return true; }
     byte dnodeIdx = pPtr->pmem_read(pPtr->pmDDITAddr(i) + PMO_DNODEIDX);
-    if (dnodeIdx==BNONE) continue;                      // Skip deleted
-    if (nodeIdx!=BNONE && dnodeIdx!=nodeIdx) continue;  // Match on request.
-    DDITidx = i;
-    return true;
+    // Cannot 'nodeIdx' match a deleted device.  dnodeIdx==0xFF so return all deleted idxes.
+    if (InclDel && dnodeIdx==BNONE) { DDITidx = i; return true; }
+    //chk 'isn't del' and (no-matching -or- it matches)
+    if (dnodeIdx!=BNONE && (nodeIdx == BNONE || dnodeIdx == nodeIdx)) {
+      DDITidx = i; return true;
+    }
+    i++;
   }
   return false;
 }
 //-------------------------------------------------------------------------------------------------
-bool DITSEngine::DeviceDIT::Prev(byte nodeIdx) {
+bool DITSEngine::DeviceDIT::Prev(byte nodeIdx, bool InclDel) {
+  if(DDITidx>= pPtr->DDITStopIdx) {DDITidx = pPtr->DDITStopIdx;}
   uint16_t i=DDITidx;
-  if(i >= pPtr->DDITStopIdx) {i = pPtr->DDITStopIdx;}
   while(i>0) {
     i--;
+    if (InclDel && nodeIdx == BNONE) { DDITidx = i; return true; }
     byte dnodeIdx = pPtr->pmem_read(pPtr->pmDDITAddr(i) + PMO_DNODEIDX);
-    if (dnodeIdx==BNONE) continue;                      // Skip deleted
-    if (nodeIdx!=BNONE && dnodeIdx!=nodeIdx) continue;  // Match on request.
-    DDITidx = i;
-    return true;
+    // Cannot 'nodeIdx' match a deleted device.  dnodeIdx==0xFF so return all deleted idxes.
+    if (InclDel && dnodeIdx==BNONE) { DDITidx = i; return true; }
+    //chk 'isn't del' and (no-matching -or- it matches)
+    if (dnodeIdx!=BNONE && (nodeIdx == BNONE || dnodeIdx == nodeIdx)) {
+      DDITidx = i; return true;
+    }
   }
   return false;
 }
@@ -285,7 +297,8 @@ bool DITSEngine::TxAddRemoteNode(int RFAddr) {
 void DITSEngine::DelRemoteNode(byte nodeIdx) {
   DBDITAENTER((nodeIdx),("DITSEngine::DelRemoteNode(<nodeIdx>)"))
   NodeDIT node(this, nodeIdx); node.IsDeleted(true);
-  for(DeviceDIT dev(this); dev.IsValid(); dev.NextAll()) {if (dev.DNodeIdx()==nodeIdx) dev.IsDeleted(true);}
+  DeviceDIT dev(this);
+  while(dev.Next(nodeIdx)) { dev.IsDeleted(true); }
 }
 //-------------------------------------------------------------------------------------------------
 bool DITSEngine::TxSetRemoteDevVal(byte nodeIdx, byte devUID, int value) {
@@ -314,10 +327,10 @@ byte DITSEngine::FindNodeDIT(uint16_t rfAddr, bool NotFoundAdd) {
   byte rfLow = lowByte(rfAddr);    // extract low byte
   byte rfHigh = highByte(rfAddr);  // extract high byte
   byte delDIT = BNONE;
-  for(NodeDIT node(this); node.IsValid(); node.NextAll()) {
-    if(node.IsDeleted()) {
-      DBDITAAINFO((node.NRFAddr()),(node.DITidx()),("DITSEngine::FindNodeDIT <RFAddr><DITidx> is deleted.\n"))
-      if(delDIT==BNONE){delDIT=node.DITidx();} 
+  NodeDIT node(this);
+  while (node.Next(true)) {
+    if (node.IsDeleted()) {
+      if(delDIT==BNONE) { delDIT=node.DITidx(); }
       continue;
     }
     if(node.NRFAddrL()!=rfLow) continue;
@@ -334,11 +347,10 @@ byte DITSEngine::FindNodeDIT(uint16_t rfAddr, bool NotFoundAdd) {
 uint16_t DITSEngine::FindDeviceDIT(byte _DNodeIdx, byte _devUID, bool NotFoundAdd) {
   DBDITAAAENTER((_DNodeIdx),(_devUID),(NotFoundAdd),("DITSEngine::FindDeviceDIT(<DNodeIdx>,<devUID>,<NotFoundAdd>)\n"))
   uint16_t delDIT = INONE;
-  for(DeviceDIT dev(this); dev.IsValid(); dev.NextAll()) {
+  DeviceDIT dev(this);
+  while (dev.Next(_DNodeIdx,true)) {
     if(dev.IsDeleted()) {if(delDIT==INONE){delDIT=dev.DITidx();} continue;}
-    if(dev.DNodeIdx()!=_DNodeIdx) continue;
     if(dev.DevUID()!=_devUID) continue;
-    DBDITINFO(("DITSEngine::FindDeviceDIT found DDIT.\n"))
     return dev.DITidx();
   }
   if (NotFoundAdd) {
@@ -431,11 +443,11 @@ bool DITSEngine::RxProcessPacket() {
   if (rxPacket->PktType()==PKT_SETVAL) {
     DBRFINFO(("DITSEngine::RxProcessPacket PKT_SETVAL\n"))
     bool RWSS = false;
-    for (DeviceDIT dev(this); dev.IsValid(); dev.NextAll()) {                 // Find devices DIT
-      if (dev.IsDeleted()) continue; if (dev.DNodeIdx()!=THISNODE) continue;
-      if (dev.DevUID()==rxPacket->DevUID()) {
-        RWSS = (dev.DevAttr() & 0xC0) == 0x80; break;
-      }  // Check if RWSS
+    DeviceDIT dev(this,INONE);
+    while(dev.Next(THISNODE)) {               // Find devices DIT
+      if (dev.DevUID()==rxPacket->DevUID()) { 
+        RWSS = (dev.DevAttr() & DACCESSMSK) == DRWSS; break; 
+      }
     }
     if (!RWSS) {RxReqDeviceSet(rxPacket->DevUID(), rxPacket->Value()); return true;}
     if(txPacket) {DBRFERROR(("DITSEngine::RxProcessPacket REQ txPacket Tx is busy.\n")) return false;}
@@ -457,12 +469,11 @@ bool DITSEngine::RxProcessPacket() {
     txPacket = new TxPacket(mRadioPktMaxBytes,SecNetCode());
     txPacket->ToFrom(rxPacket->FromRF(), thisnode.NRFAddr());
     txPacket->pktVALS(thisnode.NDITVer());
-    DeviceDIT dev(this);
-    for(DeviceDIT dev(this); dev.IsValid(); dev.NextAll()) {
-      if (dev.IsDeleted()) continue; if (dev.DNodeIdx()!=THISNODE) continue;
+    DeviceDIT dev(this,INONE);
+    while(dev.Next(THISNODE)) {
       txPacket->AddTxByte(dev.DevUID());            // 1st - devUID
       int tmpval = RxReqDeviceValue(dev.DevUID());  // 2nd - value
-      txPacket->AddTxByte(highByte(tmpval));txPacket->AddTxByte(lowByte(tmpval));  
+      txPacket->AddTxByte(highByte(tmpval));txPacket->AddTxByte(lowByte(tmpval));
     }
     return true;
   }
@@ -506,16 +517,17 @@ bool DITSEngine::RxProcessPacket() {
 //-----------------------------------------------------------------------------------------------------
 bool DITSEngine::RxSaveNodeDITINFO() {                        
   DBRFENTER(("DITSEngine::RxSaveNodeDITINFO\n"))
-   
-  NodeDIT ditNode(this, FindNodeDIT(rxPacket->FromRF(),true));
+  
+  byte FromNIdx = FindNodeDIT(rxPacket->FromRF(),true);
+  if (FromNIdx==BNONE) {DBRFERROR(("DITSEngine::RxSaveNodeDITINFO FromNIdx==BNONE")) return false; }
+  NodeDIT ditNode(this, FromNIdx);
   ditNode.NRFAddrH(rxPacket->FromRFH());
   ditNode.NRFAddrL(rxPacket->FromRFL());
   ditNode.NDITVer(rxPacket->NDITVer());
 
   // Mark previous dev records deleted.
-  for (DeviceDIT dev(this); dev.IsValid(); dev.NextAll()) {
-    if (dev.DNodeIdx()==ditNode.NodeIdx()) {dev.IsDeleted(true);}
-  }
+  DeviceDIT dev(this);
+  while(dev.Next(FromNIdx)) {dev.IsDeleted(true);}
 
   byte  nameIdx   = 0;
   char nodeName[DITNameChar];
@@ -580,20 +592,18 @@ bool DITSEngine::TxSendThisNodeDITINFO(uint16_t RFAddr) {
     txPacket->AddTxByte(nname[i]);
   }
   txPacket->AddTxByte('\0');
-  for (DeviceDIT dev(this); dev.IsValid(); dev.NextAll()) {              //Devices Second.
-    if(dev.IsDeleted()) continue;
-    if(dev.DNodeIdx()==THISNODE) {
-      txPacket->AddTxByte(dev.DevType());                             // DevType[0]
-      txPacket->AddTxByte(dev.DevAttr());                             // DevAttr[1]
-      txPacket->AddTxByte(dev.DevUID());                              // DevUID[2]
-      char dname[DITNameChar];                                        // DevName[3...]
-      dev.DGetName(dname);                                            // ...Repeat
-      for (int i=0; i<DITNameChar; i++) {
-        if(dname[i]=='\0') break;
-        txPacket->AddTxByte(dname[i]);
-      }
-      txPacket->AddTxByte('\0');
+  DeviceDIT dev(this,INONE);
+  while (dev.Next(THISNODE)) {
+    txPacket->AddTxByte(dev.DevType());                             // DevType[0]
+    txPacket->AddTxByte(dev.DevAttr());                             // DevAttr[1]
+    txPacket->AddTxByte(dev.DevUID());                              // DevUID[2]
+    char dname[DITNameChar];                                        // DevName[3...]
+    dev.DGetName(dname);                                            // ...Repeat
+    for (int i=0; i<DITNameChar; i++) {
+      if(dname[i]=='\0') break;
+      txPacket->AddTxByte(dname[i]);
     }
+    txPacket->AddTxByte('\0');
   }
   return true;
 }
