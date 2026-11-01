@@ -4,6 +4,7 @@
  *********************************************************************************************************************/
 #ifndef _RF_DITS_CPP
 #define _RF_DITS_CPP
+
 #define CHALLENGE_WINDOW_MS 30000UL
 
 #include "rf_dits.h"

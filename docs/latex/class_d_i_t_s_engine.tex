@@ -39,9 +39,9 @@ bool \doxymbox{\hyperlink{group___d_i_t_s_gaa363f0e7401d3bb863a86e88f8a67299}{Ad
 \begin{DoxyCompactList}\small\item\em Adds a device to this node. \end{DoxyCompactList}\item 
 bool \doxymbox{\hyperlink{group___d_i_t_s_gacf26e08d9760bb5beec71fefa2e96827}{Del\+This\+Node\+Device}} (byte dev\+Idx)
 \begin{DoxyCompactList}\small\item\em Deletes a device from this node. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT}} \doxymbox{\hyperlink{group___d_i_t_s_ga18ac1f631d67e249c0be8b70d79e9507}{Node}} (byte idx) const
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT}} \doxymbox{\hyperlink{group___d_i_t_s_ga2235a35259cd0798a5d5f05cb6281608}{Node}} (byte idx=\doxymbox{\hyperlink{rf__dits_8h_a2750a00190636997d66cf567af774f97}{BNONE}}) const
 \begin{DoxyCompactList}\small\item\em A \doxylink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT} object for implementers to access DIT records. \end{DoxyCompactList}\item 
-\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT}} \doxymbox{\hyperlink{group___d_i_t_s_ga98d8b790ce0b60cba9e2d4fdfb3ded1a}{Device}} (byte ddit\+Idx) const
+\doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT}} \doxymbox{\hyperlink{group___d_i_t_s_ga7f1116f695e37274c7c02a3fb5c47db1}{Device}} (uint16\+\_\+t ddit\+Idx=\doxymbox{\hyperlink{rf__dits_8h_aff5dcc280bf801e02fef48f71f2a3af0}{INONE}}) const
 \begin{DoxyCompactList}\small\item\em A \doxylink{class_d_i_t_s_engine_1_1_device_d_i_t}{Device\+DIT} object for implementers to access DIT records. \end{DoxyCompactList}\item 
 byte \doxymbox{\hyperlink{group___d_i_t_s_p_u_b_r_e_m_ga8660955199d09337b095dd60fc5675d2}{Sec\+Net\+Code}} () const
 \begin{DoxyCompactList}\small\item\em Get the \textquotesingle{}Sec\+Net\textquotesingle{} code. \end{DoxyCompactList}\item 
@@ -98,18 +98,18 @@ Responsibilities:\+
 \begin{DoxyItemize}
 \item Encapsulates Node/\+\+Device metadata (DIT tables) and provides read-\/only access to implementers.
 \item Handles memory storage and retrieval of Node/\+\+Device metadata via a pluggable memory backend.
-\begin{DoxyItemize}
 \item Supports EEPROM, RAM, or other persistent memory via overridable \doxylink{group___o_v_e_r_l_o_a_d_ga2827cdcab4cb3bc50cdfe0f943ab8b1d}{pmem\+\_\+read()}/\+pmem\+\_\+write().
 \end{DoxyItemize}
-\item Provides Rx/\+\+Tx packet handling for RF or UART transport.
+
+Provides Rx/\+\+Tx packet handling for RF or UART transport.
 \begin{DoxyItemize}
 \item Incoming bytes are processed via Rx\+Byte(), which automatically collects packets and validates them.
 \item Outgoing packets can be generated internally when requested by the engine (e.\+g., REQDITINFO, PKT\+\_\+\+VAL).
 \end{DoxyItemize}
-\item Defines abstract hardware interface functions (virtual methods) for implementers to override:\+
+
+Defines abstract hardware interface functions (virtual methods) for implementers to override:\+
 \begin{DoxyItemize}
 \item Read\+Pin(), Write\+Pin(), or other device-\/specific control logic.
-\end{DoxyItemize}
 \end{DoxyItemize}
 
 Behavior Notes:\+
@@ -142,7 +142,7 @@ Purpose:\+
 \item Provides a single, cohesive interface for accessing DIT metadata, handling packets, and controlling hardware. 
 \end{DoxyItemize}
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00105}{105}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00115}{115}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 
 
@@ -176,7 +176,7 @@ Use char\+[DITName\+Char]\+ to allocate; which is DITName\+Bytes +1 for null-\/t
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00108}{108}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00118}{118}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 
 

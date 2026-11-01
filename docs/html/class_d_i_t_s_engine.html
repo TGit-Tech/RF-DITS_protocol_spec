@@ -123,10 +123,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:gaa363f0e7401d3bb863a86e88f8a67299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a device to this node.  <br /></td></tr>
 <tr class="memitem:gacf26e08d9760bb5beec71fefa2e96827" id="r_gacf26e08d9760bb5beec71fefa2e96827"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="group___d_i_t_s.html#gacf26e08d9760bb5beec71fefa2e96827">DelThisNodeDevice</a> (byte devIdx)</td></tr>
 <tr class="memdesc:gacf26e08d9760bb5beec71fefa2e96827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes a device from this node.  <br /></td></tr>
-<tr class="memitem:ga18ac1f631d67e249c0be8b70d79e9507" id="r_ga18ac1f631d67e249c0be8b70d79e9507"><td class="memItemLeft"><a class="el" href="class_d_i_t_s_engine_1_1_node_d_i_t.html">NodeDIT</a>&#160;</td><td class="memItemRight"><a class="el" href="group___d_i_t_s.html#ga18ac1f631d67e249c0be8b70d79e9507">Node</a> (byte idx) const</td></tr>
-<tr class="memdesc:ga18ac1f631d67e249c0be8b70d79e9507"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="class_d_i_t_s_engine_1_1_node_d_i_t.html" title="A NodeDIT structure that points directly to persistent memory.">NodeDIT</a> object for implementers to access DIT records.  <br /></td></tr>
-<tr class="memitem:ga98d8b790ce0b60cba9e2d4fdfb3ded1a" id="r_ga98d8b790ce0b60cba9e2d4fdfb3ded1a"><td class="memItemLeft"><a class="el" href="class_d_i_t_s_engine_1_1_device_d_i_t.html">DeviceDIT</a>&#160;</td><td class="memItemRight"><a class="el" href="group___d_i_t_s.html#ga98d8b790ce0b60cba9e2d4fdfb3ded1a">Device</a> (byte dditIdx) const</td></tr>
-<tr class="memdesc:ga98d8b790ce0b60cba9e2d4fdfb3ded1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="class_d_i_t_s_engine_1_1_device_d_i_t.html" title="A DeviceDIT structure that points directly to persistent memory.">DeviceDIT</a> object for implementers to access DIT records.  <br /></td></tr>
+<tr class="memitem:ga2235a35259cd0798a5d5f05cb6281608" id="r_ga2235a35259cd0798a5d5f05cb6281608"><td class="memItemLeft"><a class="el" href="class_d_i_t_s_engine_1_1_node_d_i_t.html">NodeDIT</a>&#160;</td><td class="memItemRight"><a class="el" href="group___d_i_t_s.html#ga2235a35259cd0798a5d5f05cb6281608">Node</a> (byte idx=<a class="el" href="rf__dits_8h.html#a2750a00190636997d66cf567af774f97">BNONE</a>) const</td></tr>
+<tr class="memdesc:ga2235a35259cd0798a5d5f05cb6281608"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="class_d_i_t_s_engine_1_1_node_d_i_t.html" title="A NodeDIT structure that points directly to persistent memory.">NodeDIT</a> object for implementers to access DIT records.  <br /></td></tr>
+<tr class="memitem:ga7f1116f695e37274c7c02a3fb5c47db1" id="r_ga7f1116f695e37274c7c02a3fb5c47db1"><td class="memItemLeft"><a class="el" href="class_d_i_t_s_engine_1_1_device_d_i_t.html">DeviceDIT</a>&#160;</td><td class="memItemRight"><a class="el" href="group___d_i_t_s.html#ga7f1116f695e37274c7c02a3fb5c47db1">Device</a> (uint16_t dditIdx=<a class="el" href="rf__dits_8h.html#aff5dcc280bf801e02fef48f71f2a3af0">INONE</a>) const</td></tr>
+<tr class="memdesc:ga7f1116f695e37274c7c02a3fb5c47db1"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="class_d_i_t_s_engine_1_1_device_d_i_t.html" title="A DeviceDIT structure that points directly to persistent memory.">DeviceDIT</a> object for implementers to access DIT records.  <br /></td></tr>
 <tr class="memitem:ga8660955199d09337b095dd60fc5675d2" id="r_ga8660955199d09337b095dd60fc5675d2"><td class="memItemLeft">byte&#160;</td><td class="memItemRight"><a class="el" href="group___d_i_t_s_p_u_b_r_e_m.html#ga8660955199d09337b095dd60fc5675d2">SecNetCode</a> () const</td></tr>
 <tr class="memdesc:ga8660955199d09337b095dd60fc5675d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the 'SecNet' code.  <br /></td></tr>
 <tr class="memitem:gaf57bf1a667da440cdfb6bd43cad32fc7" id="r_gaf57bf1a667da440cdfb6bd43cad32fc7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="group___d_i_t_s_p_u_b_r_e_m.html#gaf57bf1a667da440cdfb6bd43cad32fc7">SecNetCode</a> (byte _SecNetCode)</td></tr>
@@ -178,19 +178,15 @@ Protected Member Functions</h2></td></tr>
 <div class="textblock"><p>Central engine managing Node and Device DIT tables, packet transport, and hardware abstraction. </p>
 <p>Responsibilities:</p><ul>
 <li>Encapsulates Node/Device metadata (DIT tables) and provides read-only access to implementers.</li>
-<li>Handles memory storage and retrieval of Node/Device metadata via a pluggable memory backend.<ul>
+<li>Handles memory storage and retrieval of Node/Device metadata via a pluggable memory backend.</li>
 <li>Supports EEPROM, RAM, or other persistent memory via overridable <a class="el" href="group___o_v_e_r_l_o_a_d.html#ga2827cdcab4cb3bc50cdfe0f943ab8b1d" title="Read a byte from persistent memory.">pmem_read()</a>/pmem_write().</li>
 </ul>
-</li>
-<li>Provides Rx/Tx packet handling for RF or UART transport.<ul>
+<p>Provides Rx/Tx packet handling for RF or UART transport.</p><ul>
 <li>Incoming bytes are processed via RxByte(), which automatically collects packets and validates them.</li>
 <li>Outgoing packets can be generated internally when requested by the engine (e.g., REQDITINFO, PKT_VAL).</li>
 </ul>
-</li>
-<li>Defines abstract hardware interface functions (virtual methods) for implementers to override:<ul>
+<p>Defines abstract hardware interface functions (virtual methods) for implementers to override:</p><ul>
 <li>ReadPin(), WritePin(), or other device-specific control logic.</li>
-</ul>
-</li>
 </ul>
 <p>Behavior Notes:</p><ul>
 <li>On construction, scans Node Pool and Device Pool to track last-used memory blocks.</li>
@@ -217,7 +213,7 @@ Protected Member Functions</h2></td></tr>
 <li>Provides a single, cohesive interface for accessing DIT metadata, handling packets, and controlling hardware. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00105">105</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00115">115</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9507f50b34b39ed2756dcb4a91340e4b" name="a9507f50b34b39ed2756dcb4a91340e4b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9507f50b34b39ed2756dcb4a91340e4b">&#9670;&#160;</a></span>DITSEngine()</h2>
@@ -262,7 +258,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Use char[DITNameChar] to allocate; which is DITNameBytes +1 for null-term. </p>
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00108">108</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00118">118</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>

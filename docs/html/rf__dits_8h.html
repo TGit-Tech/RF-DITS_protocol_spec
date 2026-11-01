@@ -126,24 +126,24 @@ Macros</h2></td></tr>
 <tr class="memdesc:ade255e29af8e37d712efad21f4fbb797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Just to make the code more readable.  <br /></td></tr>
 <tr class="memitem:ad54662a2f85767d6698c5c0aa32e9997" id="r_ad54662a2f85767d6698c5c0aa32e9997"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad54662a2f85767d6698c5c0aa32e9997">VALNOTSET</a>&#160;&#160;&#160;0x8000</td></tr>
 <tr class="memdesc:ad54662a2f85767d6698c5c0aa32e9997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Old Code in RxPacket ValSet I believe.  <br /></td></tr>
-<tr class="memitem:ad89aefc03717d87e92b5575a5a6db073" id="r_ad89aefc03717d87e92b5575a5a6db073"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad89aefc03717d87e92b5575a5a6db073">PMO_NODEIDX</a>&#160;&#160;&#160;0</td></tr>
-<tr class="memdesc:ad89aefc03717d87e92b5575a5a6db073"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local; Index (1 byte, 0xFF delete, 0xFE DITSTOP).  <br /></td></tr>
-<tr class="memitem:afed0703f9388cca236d40f84ac351821" id="r_afed0703f9388cca236d40f84ac351821"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#afed0703f9388cca236d40f84ac351821">PMO_NRFADDRH</a>&#160;&#160;&#160;1</td></tr>
-<tr class="memdesc:afed0703f9388cca236d40f84ac351821"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node RF high byte (1 byte).  <br /></td></tr>
-<tr class="memitem:a4ed480465e09a7dc4bcedb001a120d9e" id="r_a4ed480465e09a7dc4bcedb001a120d9e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a4ed480465e09a7dc4bcedb001a120d9e">PMO_NRFADDRL</a>&#160;&#160;&#160;2</td></tr>
-<tr class="memdesc:a4ed480465e09a7dc4bcedb001a120d9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node RF low byte (1 byte).  <br /></td></tr>
-<tr class="memitem:af23907b653b02904039c89e191ceff63" id="r_af23907b653b02904039c89e191ceff63"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#af23907b653b02904039c89e191ceff63">PMO_NDITVER</a>&#160;&#160;&#160;3</td></tr>
-<tr class="memdesc:af23907b653b02904039c89e191ceff63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node DIT Version (Table Version) (1 byte).  <br /></td></tr>
-<tr class="memitem:a1937c16efd10f392766887361481dfd1" id="r_a1937c16efd10f392766887361481dfd1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1937c16efd10f392766887361481dfd1">PMO_DNODEIDX</a>&#160;&#160;&#160;0</td></tr>
-<tr class="memdesc:a1937c16efd10f392766887361481dfd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local; Device's Node-Index (1 byte, 0xFF delete, 0xFE DITSTOP).  <br /></td></tr>
-<tr class="memitem:a9e13a0617d09878153bdb7587d1a2096" id="r_a9e13a0617d09878153bdb7587d1a2096"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9e13a0617d09878153bdb7587d1a2096">PMO_DEVTYPE</a>&#160;&#160;&#160;1</td></tr>
-<tr class="memdesc:a9e13a0617d09878153bdb7587d1a2096"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cannot be 0 due to '\0' check on previous DIT name record.  <br /></td></tr>
-<tr class="memitem:a7f5a89e899f1df513badfa7550074512" id="r_a7f5a89e899f1df513badfa7550074512"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7f5a89e899f1df513badfa7550074512">PMO_DEVATTR</a>&#160;&#160;&#160;2</td></tr>
-<tr class="memdesc:a7f5a89e899f1df513badfa7550074512"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device ATTR (1 byte).  <br /></td></tr>
-<tr class="memitem:ade6129558c19c6c41d748969b073b2d8" id="r_ade6129558c19c6c41d748969b073b2d8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ade6129558c19c6c41d748969b073b2d8">PMO_DEVUID</a>&#160;&#160;&#160;3</td></tr>
-<tr class="memdesc:ade6129558c19c6c41d748969b073b2d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device UID per Node (1 byte).  <br /></td></tr>
-<tr class="memitem:a6a2b7f209f9720a8f06d568878ba1ae9" id="r_a6a2b7f209f9720a8f06d568878ba1ae9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6a2b7f209f9720a8f06d568878ba1ae9">PMO_NAME</a>&#160;&#160;&#160;4</td></tr>
-<tr class="memdesc:a6a2b7f209f9720a8f06d568878ba1ae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name offset for both [N]ode &amp; [D]evice.  <br /></td></tr>
+<tr class="memitem:gad89aefc03717d87e92b5575a5a6db073" id="r_gad89aefc03717d87e92b5575a5a6db073"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___p_m_o.html#gad89aefc03717d87e92b5575a5a6db073">PMO_NODEIDX</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:gad89aefc03717d87e92b5575a5a6db073"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local; Index (1 byte, 0xFF delete, 0xFE DITSTOP).  <br /></td></tr>
+<tr class="memitem:gafed0703f9388cca236d40f84ac351821" id="r_gafed0703f9388cca236d40f84ac351821"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___p_m_o.html#gafed0703f9388cca236d40f84ac351821">PMO_NRFADDRH</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:gafed0703f9388cca236d40f84ac351821"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node RF high byte (1 byte).  <br /></td></tr>
+<tr class="memitem:ga4ed480465e09a7dc4bcedb001a120d9e" id="r_ga4ed480465e09a7dc4bcedb001a120d9e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___p_m_o.html#ga4ed480465e09a7dc4bcedb001a120d9e">PMO_NRFADDRL</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga4ed480465e09a7dc4bcedb001a120d9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node RF low byte (1 byte).  <br /></td></tr>
+<tr class="memitem:gaf23907b653b02904039c89e191ceff63" id="r_gaf23907b653b02904039c89e191ceff63"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___p_m_o.html#gaf23907b653b02904039c89e191ceff63">PMO_NDITVER</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:gaf23907b653b02904039c89e191ceff63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node DIT Version (Table Version) (1 byte).  <br /></td></tr>
+<tr class="memitem:ga1937c16efd10f392766887361481dfd1" id="r_ga1937c16efd10f392766887361481dfd1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___p_m_o.html#ga1937c16efd10f392766887361481dfd1">PMO_DNODEIDX</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga1937c16efd10f392766887361481dfd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local; Device's Node-Index (1 byte, 0xFF delete, 0xFE DITSTOP).  <br /></td></tr>
+<tr class="memitem:ga9e13a0617d09878153bdb7587d1a2096" id="r_ga9e13a0617d09878153bdb7587d1a2096"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___p_m_o.html#ga9e13a0617d09878153bdb7587d1a2096">PMO_DEVTYPE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga9e13a0617d09878153bdb7587d1a2096"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cannot be 0 due to '\0' check on previous DIT name record.  <br /></td></tr>
+<tr class="memitem:ga7f5a89e899f1df513badfa7550074512" id="r_ga7f5a89e899f1df513badfa7550074512"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___p_m_o.html#ga7f5a89e899f1df513badfa7550074512">PMO_DEVATTR</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ga7f5a89e899f1df513badfa7550074512"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device ATTR (1 byte).  <br /></td></tr>
+<tr class="memitem:gade6129558c19c6c41d748969b073b2d8" id="r_gade6129558c19c6c41d748969b073b2d8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___p_m_o.html#gade6129558c19c6c41d748969b073b2d8">PMO_DEVUID</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:gade6129558c19c6c41d748969b073b2d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device UID per Node (1 byte).  <br /></td></tr>
+<tr class="memitem:ga6a2b7f209f9720a8f06d568878ba1ae9" id="r_ga6a2b7f209f9720a8f06d568878ba1ae9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___p_m_o.html#ga6a2b7f209f9720a8f06d568878ba1ae9">PMO_NAME</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:ga6a2b7f209f9720a8f06d568878ba1ae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name offset for both [N]ode &amp; [D]evice.  <br /></td></tr>
 <tr class="memitem:ga144f4318260ec7dca78a3cdf96e76a9d" id="r_ga144f4318260ec7dca78a3cdf96e76a9d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___p_k_b.html#ga144f4318260ec7dca78a3cdf96e76a9d">PKB_TYPE</a>&#160;&#160;&#160;0</td></tr>
 <tr class="memdesc:ga144f4318260ec7dca78a3cdf96e76a9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rx/Tx Packet-Type.  <br /></td></tr>
 <tr class="memitem:gaa48ec9981b1629c7d3b9b1edd1d5dc7e" id="r_gaa48ec9981b1629c7d3b9b1edd1d5dc7e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___p_k_b.html#gaa48ec9981b1629c7d3b9b1edd1d5dc7e">PKB_SECH</a>&#160;&#160;&#160;1</td></tr>
@@ -192,6 +192,26 @@ Macros</h2></td></tr>
 <tr class="memdesc:gacceebe293f334d0c4cc18ef5822bfa1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Req-nonce response.  <br /></td></tr>
 <tr class="memitem:gaa1bb98200cedcfb935697547ebda4907" id="r_gaa1bb98200cedcfb935697547ebda4907"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___p_k_t.html#gaa1bb98200cedcfb935697547ebda4907">PKT_TYPEMAX</a>&#160;&#160;&#160;0xF8</td></tr>
 <tr class="memdesc:gaa1bb98200cedcfb935697547ebda4907"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to boundry check arguments.  <br /></td></tr>
+<tr class="memitem:gaa4597875272731c89e080c2c4950494b" id="r_gaa4597875272731c89e080c2c4950494b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___d_e_v_a_c_c_e_s_s.html#gaa4597875272731c89e080c2c4950494b">DNOTSET</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:gaa4597875272731c89e080c2c4950494b"><td class="mdescLeft">&#160;</td><td class="mdescRight">0b0000 0000 Permissions Not Set  <br /></td></tr>
+<tr class="memitem:ga74d78c597b7c155a81980988db114983" id="r_ga74d78c597b7c155a81980988db114983"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___d_e_v_a_c_c_e_s_s.html#ga74d78c597b7c155a81980988db114983">DRO</a>&#160;&#160;&#160;0x40</td></tr>
+<tr class="memdesc:ga74d78c597b7c155a81980988db114983"><td class="mdescLeft">&#160;</td><td class="mdescRight">0b0100 0000 Device Read Only  <br /></td></tr>
+<tr class="memitem:gaef2e0780a4ce360dd4d05a40d7c8865a" id="r_gaef2e0780a4ce360dd4d05a40d7c8865a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___d_e_v_a_c_c_e_s_s.html#gaef2e0780a4ce360dd4d05a40d7c8865a">DRW</a>&#160;&#160;&#160;0x80</td></tr>
+<tr class="memdesc:gaef2e0780a4ce360dd4d05a40d7c8865a"><td class="mdescLeft">&#160;</td><td class="mdescRight">0b1000 0000 Device Read/Write  <br /></td></tr>
+<tr class="memitem:ga814681384ae8437106a71b504fddfeb3" id="r_ga814681384ae8437106a71b504fddfeb3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___d_e_v_a_c_c_e_s_s.html#ga814681384ae8437106a71b504fddfeb3">DRWSS</a>&#160;&#160;&#160;0xC0</td></tr>
+<tr class="memdesc:ga814681384ae8437106a71b504fddfeb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">0b1100 0000Device Read/Write with Secure Set  <br /></td></tr>
+<tr class="memitem:ga7555855ea0e662c9a02ca6e26e152a74" id="r_ga7555855ea0e662c9a02ca6e26e152a74"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___d_e_v_a_c_c_e_s_s.html#ga7555855ea0e662c9a02ca6e26e152a74">DACCESSMSK</a>&#160;&#160;&#160;0xC0</td></tr>
+<tr class="memdesc:ga7555855ea0e662c9a02ca6e26e152a74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask DevAttr for Access bits.  <br /></td></tr>
+<tr class="memitem:gac6f87df87d64c32f84ede61ea6a8722f" id="r_gac6f87df87d64c32f84ede61ea6a8722f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___d_v_a_l_s_c_a_l_e.html#gac6f87df87d64c32f84ede61ea6a8722f">DSCALE1</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:gac6f87df87d64c32f84ede61ea6a8722f"><td class="mdescLeft">&#160;</td><td class="mdescRight">0b0000 0000 Device Value No-Scaling  <br /></td></tr>
+<tr class="memitem:gafe72e6dbb1e0b393fe9b3656dcc77cc8" id="r_gafe72e6dbb1e0b393fe9b3656dcc77cc8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___d_v_a_l_s_c_a_l_e.html#gafe72e6dbb1e0b393fe9b3656dcc77cc8">DSCALE10</a>&#160;&#160;&#160;0x10</td></tr>
+<tr class="memdesc:gafe72e6dbb1e0b393fe9b3656dcc77cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">0b0001 0000 Device Value *&zwj;/ by 10  <br /></td></tr>
+<tr class="memitem:ga03d0e4494216f44008992bcf08480f7d" id="r_ga03d0e4494216f44008992bcf08480f7d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___d_v_a_l_s_c_a_l_e.html#ga03d0e4494216f44008992bcf08480f7d">DSCALE100</a>&#160;&#160;&#160;0x20</td></tr>
+<tr class="memdesc:ga03d0e4494216f44008992bcf08480f7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">0b0010 0000 Device value *&zwj;/ by 100  <br /></td></tr>
+<tr class="memitem:ga298595c89c4889117da4c3ee8cdba109" id="r_ga298595c89c4889117da4c3ee8cdba109"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___d_v_a_l_s_c_a_l_e.html#ga298595c89c4889117da4c3ee8cdba109">DSCALE1000</a>&#160;&#160;&#160;0x30</td></tr>
+<tr class="memdesc:ga298595c89c4889117da4c3ee8cdba109"><td class="mdescLeft">&#160;</td><td class="mdescRight">0b0011 0000 Device value *&zwj;/ by 1000  <br /></td></tr>
+<tr class="memitem:ga081d8a5880c2762e8796b589adff736c" id="r_ga081d8a5880c2762e8796b589adff736c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="group___d_v_a_l_s_c_a_l_e.html#ga081d8a5880c2762e8796b589adff736c">DSCALEMSK</a>&#160;&#160;&#160;0x30</td></tr>
+<tr class="memdesc:ga081d8a5880c2762e8796b589adff736c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask DevAttr for Scaling bits.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>RF Device-Index-Table with Security protocol. </p>
@@ -249,168 +269,6 @@ Macros</h2></td></tr>
 <p>A sentinel value that marks the end of NDIT and DDIT records in PMEM. </p>
 
 <p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00014">14</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
-
-</div>
-</div>
-<a id="a7f5a89e899f1df513badfa7550074512" name="a7f5a89e899f1df513badfa7550074512"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f5a89e899f1df513badfa7550074512">&#9670;&#160;</a></span>PMO_DEVATTR</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PMO_DEVATTR&#160;&#160;&#160;2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Device ATTR (1 byte). </p>
-
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00028">28</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
-
-</div>
-</div>
-<a id="a9e13a0617d09878153bdb7587d1a2096" name="a9e13a0617d09878153bdb7587d1a2096"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e13a0617d09878153bdb7587d1a2096">&#9670;&#160;</a></span>PMO_DEVTYPE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PMO_DEVTYPE&#160;&#160;&#160;1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Cannot be 0 due to '\0' check on previous DIT name record. </p>
-
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00027">27</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
-
-</div>
-</div>
-<a id="ade6129558c19c6c41d748969b073b2d8" name="ade6129558c19c6c41d748969b073b2d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade6129558c19c6c41d748969b073b2d8">&#9670;&#160;</a></span>PMO_DEVUID</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PMO_DEVUID&#160;&#160;&#160;3</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Device UID per Node (1 byte). </p>
-
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00029">29</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
-
-</div>
-</div>
-<a id="a1937c16efd10f392766887361481dfd1" name="a1937c16efd10f392766887361481dfd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1937c16efd10f392766887361481dfd1">&#9670;&#160;</a></span>PMO_DNODEIDX</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PMO_DNODEIDX&#160;&#160;&#160;0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Local; Device's Node-Index (1 byte, 0xFF delete, 0xFE DITSTOP). </p>
-
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00026">26</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
-
-</div>
-</div>
-<a id="a6a2b7f209f9720a8f06d568878ba1ae9" name="a6a2b7f209f9720a8f06d568878ba1ae9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a2b7f209f9720a8f06d568878ba1ae9">&#9670;&#160;</a></span>PMO_NAME</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PMO_NAME&#160;&#160;&#160;4</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Name offset for both [N]ode &amp; [D]evice. </p>
-
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00031">31</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
-
-</div>
-</div>
-<a id="af23907b653b02904039c89e191ceff63" name="af23907b653b02904039c89e191ceff63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af23907b653b02904039c89e191ceff63">&#9670;&#160;</a></span>PMO_NDITVER</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PMO_NDITVER&#160;&#160;&#160;3</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Node DIT Version (Table Version) (1 byte). </p>
-
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00024">24</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
-
-</div>
-</div>
-<a id="ad89aefc03717d87e92b5575a5a6db073" name="ad89aefc03717d87e92b5575a5a6db073"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad89aefc03717d87e92b5575a5a6db073">&#9670;&#160;</a></span>PMO_NODEIDX</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PMO_NODEIDX&#160;&#160;&#160;0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Local; Index (1 byte, 0xFF delete, 0xFE DITSTOP). </p>
-
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00021">21</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
-
-</div>
-</div>
-<a id="afed0703f9388cca236d40f84ac351821" name="afed0703f9388cca236d40f84ac351821"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afed0703f9388cca236d40f84ac351821">&#9670;&#160;</a></span>PMO_NRFADDRH</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PMO_NRFADDRH&#160;&#160;&#160;1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Node RF high byte (1 byte). </p>
-
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00022">22</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
-
-</div>
-</div>
-<a id="a4ed480465e09a7dc4bcedb001a120d9e" name="a4ed480465e09a7dc4bcedb001a120d9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ed480465e09a7dc4bcedb001a120d9e">&#9670;&#160;</a></span>PMO_NRFADDRL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PMO_NRFADDRL&#160;&#160;&#160;2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Node RF low byte (1 byte). </p>
-
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00023">23</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>

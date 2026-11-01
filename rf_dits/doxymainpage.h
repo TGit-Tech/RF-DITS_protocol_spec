@@ -5,7 +5,7 @@
  *    without any centralized infrastructure. The protocol is architectured around a station based RF control point rather than
  *    a one-radio-per-device model.  Functionality is established through a P2P discovery process (PKT_REQDITINFO) in which any
  *    node can upload the configuration (e.g. node name, wired devices names, device types and their attributes) of another node in
- *    order to provide binary-based control of it.
+ *    order to provide numeric-based control of it.
  *
  *    Station nodes are configured at that station only, by wiring devices, assigning those devices names, types and other attributes.
  *    When another node wants to remotely control that station it 'learns' and stores that stations configuration in persistent memory.
@@ -18,9 +18,9 @@
  * 
  *    Every node (NDIT) record carries a version number (DITVER) that marks a static point of devices and node information.
  *    DITVER is incremented whenever a node adds, deletes or changes DIT information. Everytime a remote node tries to access 
- *    another node the remote node sends its last learned DITVER.  The reciever compares the two DITVER.  If the two do not
+ *    another node the remote node sends its last learned DITVER and the reciever compares the two DITVER(s).  If the two do not
  *    match, the reciever denies the call and automatically sends the updated DIT information (PKT_DITINFO). This versioning 
- *    system ensures the binary-based, device-addressing, packets remain perfectly synchronized.
+ *    system ensures the numeric-based, device-addressing, packets remain perfectly synchronized.
  *
  * @section DITSPMEM Persistent Memory
  * <ol>
@@ -145,26 +145,40 @@
  * </div>
  * <p></p>
  *
- *  @section NONCE Secure Set Feature.
+ *  @section NONCE Device Permissions and Secure Set Feature.
  *
- *  Suggested device access permission flags encoded in the top two bits of DevAttr.
- *  The protocol enforces RWSS ('10') only; all other encodings are left to the
- *  implementer’s discretion.
+ *  Device access permission flags are encoded in the top two bits of DevAttr.
+ *  The protocol enforces RWSS (Read/Write with Secure Set) internally.
  *
- *      - 00 = RO   (Read-Only)
- *      - 01 = RW   (Read/Write)
- *      - 10 = RWSS (Read/Write Secure-Set)
- *      - 11 = Reserved / Undefined
- *
+ *    - #define DNOTSET     0x00  ///< 0b0000 0000 Permissions Not Set
+ *    - #define DRO         0x40  ///< 0b0100 0000 Device Read Only
+ *    - #define DRW         0x80  ///< 0b1000 0000 Device Read/Write
+ *    - #define DRWSS       0xC0  ///< 0b1100 0000Device Read/Write with Secure Set
+ *    - #define DACCESSMSK  0xC0  ///< Mask DevAttr for Access bits
+ *  
  *  When the protocol receives (Rx) a PKT_SETVAL request, it retrieves the DevAttr value
  *  for the target device and evaluates the top two bits. If the access permission
- *  flags are set to '10' (code ref: RWSS = (dev.DevAttr() & 0xC0) == 0x80 ):
+ *  flags are set to DRWSS:
  *
  *      1. The protocol stages the SETVAL request and does not execute it immediately.
  *      2. It transmits a nonce challenge (PKT_REQNONCE) to the requester.
  *      3. It waits for a valid nonce response (PKT_NONCERSP).
  *      4. Upon successful nonce verification, it releases and executes the original
  *         SETVAL request; otherwise, the staged request is discarded.
+ *
+ *
+ * @section SCALING Value Scaling
+ *
+ *  Device Value scaling flags are encoded in bits 4 and 5 of DevAttr.
+ *  
+ *    - #define DSCALE1     0x00  ///< 0b0000 0000 Device Value No-Scaling
+ *    - #define DSCALE10    0x10  ///< 0b0001 0000 Device Value * or / by 10
+ *    - #define DSCALE100   0x20  ///< 0b0010 0000 Device value * or / by 100
+ *    - #define DSCALE1000  0x30  ///< 0b0011 0000 Device value * or / by 1000
+ *    - #define DSCALEMSK   0x30  ///< Mask DevAttr for Scaling bits
+ *
+ *  Value scaling itself will be handled by the Implementer where-as the protocols only
+ *  responsibility is to make 'DevAttr' part of the DIT record.
  *
  * @section Files Files & Abreviations
  *  - Firmware DateCode [YYMD]

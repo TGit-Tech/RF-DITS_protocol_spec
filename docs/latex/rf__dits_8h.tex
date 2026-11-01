@@ -37,23 +37,23 @@ class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_tx_packet}{DITSEngine::\+\+T
 \begin{DoxyCompactList}\small\item\em Just to make the code more readable. \end{DoxyCompactList}\item 
 \+\#define \doxymbox{\hyperlink{rf__dits_8h_ad54662a2f85767d6698c5c0aa32e9997}{VALNOTSET}}~0x8000
 \begin{DoxyCompactList}\small\item\em Old Code in Rx\+Packet Val\+Set I believe. \end{DoxyCompactList}\item 
-\+\#define \doxymbox{\hyperlink{rf__dits_8h_ad89aefc03717d87e92b5575a5a6db073}{PMO\+\_\+\+NODEIDX}}~0
+\+\#define \doxymbox{\hyperlink{group___p_m_o_gad89aefc03717d87e92b5575a5a6db073}{PMO\+\_\+\+NODEIDX}}~0
 \begin{DoxyCompactList}\small\item\em Local; Index (1 byte, 0x\+FF delete, 0x\+FE DITSTOP). \end{DoxyCompactList}\item 
-\+\#define \doxymbox{\hyperlink{rf__dits_8h_afed0703f9388cca236d40f84ac351821}{PMO\+\_\+\+NRFADDRH}}~1
+\+\#define \doxymbox{\hyperlink{group___p_m_o_gafed0703f9388cca236d40f84ac351821}{PMO\+\_\+\+NRFADDRH}}~1
 \begin{DoxyCompactList}\small\item\em Node RF high byte (1 byte). \end{DoxyCompactList}\item 
-\+\#define \doxymbox{\hyperlink{rf__dits_8h_a4ed480465e09a7dc4bcedb001a120d9e}{PMO\+\_\+\+NRFADDRL}}~2
+\+\#define \doxymbox{\hyperlink{group___p_m_o_ga4ed480465e09a7dc4bcedb001a120d9e}{PMO\+\_\+\+NRFADDRL}}~2
 \begin{DoxyCompactList}\small\item\em Node RF low byte (1 byte). \end{DoxyCompactList}\item 
-\+\#define \doxymbox{\hyperlink{rf__dits_8h_af23907b653b02904039c89e191ceff63}{PMO\+\_\+\+NDITVER}}~3
+\+\#define \doxymbox{\hyperlink{group___p_m_o_gaf23907b653b02904039c89e191ceff63}{PMO\+\_\+\+NDITVER}}~3
 \begin{DoxyCompactList}\small\item\em Node DIT Version (Table Version) (1 byte). \end{DoxyCompactList}\item 
-\+\#define \doxymbox{\hyperlink{rf__dits_8h_a1937c16efd10f392766887361481dfd1}{PMO\+\_\+\+DNODEIDX}}~0
+\+\#define \doxymbox{\hyperlink{group___p_m_o_ga1937c16efd10f392766887361481dfd1}{PMO\+\_\+\+DNODEIDX}}~0
 \begin{DoxyCompactList}\small\item\em Local; Device\textquotesingle{}s Node-\/\+Index (1 byte, 0x\+FF delete, 0x\+FE DITSTOP). \end{DoxyCompactList}\item 
-\+\#define \doxymbox{\hyperlink{rf__dits_8h_a9e13a0617d09878153bdb7587d1a2096}{PMO\+\_\+\+DEVTYPE}}~1
+\+\#define \doxymbox{\hyperlink{group___p_m_o_ga9e13a0617d09878153bdb7587d1a2096}{PMO\+\_\+\+DEVTYPE}}~1
 \begin{DoxyCompactList}\small\item\em Cannot be 0 due to \textquotesingle{}\textbackslash{}0\textquotesingle{} check on previous DIT name record. \end{DoxyCompactList}\item 
-\+\#define \doxymbox{\hyperlink{rf__dits_8h_a7f5a89e899f1df513badfa7550074512}{PMO\+\_\+\+DEVATTR}}~2
+\+\#define \doxymbox{\hyperlink{group___p_m_o_ga7f5a89e899f1df513badfa7550074512}{PMO\+\_\+\+DEVATTR}}~2
 \begin{DoxyCompactList}\small\item\em Device ATTR (1 byte). \end{DoxyCompactList}\item 
-\+\#define \doxymbox{\hyperlink{rf__dits_8h_ade6129558c19c6c41d748969b073b2d8}{PMO\+\_\+\+DEVUID}}~3
+\+\#define \doxymbox{\hyperlink{group___p_m_o_gade6129558c19c6c41d748969b073b2d8}{PMO\+\_\+\+DEVUID}}~3
 \begin{DoxyCompactList}\small\item\em Device UID per Node (1 byte). \end{DoxyCompactList}\item 
-\+\#define \doxymbox{\hyperlink{rf__dits_8h_a6a2b7f209f9720a8f06d568878ba1ae9}{PMO\+\_\+\+NAME}}~4
+\+\#define \doxymbox{\hyperlink{group___p_m_o_ga6a2b7f209f9720a8f06d568878ba1ae9}{PMO\+\_\+\+NAME}}~4
 \begin{DoxyCompactList}\small\item\em Name offset for both \+[N]\+ode \& \+[D]\+evice. \end{DoxyCompactList}\item 
 \+\#define \doxymbox{\hyperlink{group___p_k_b_ga144f4318260ec7dca78a3cdf96e76a9d}{PKB\+\_\+\+TYPE}}~0
 \begin{DoxyCompactList}\small\item\em Rx/\+\+Tx Packet-\/\+Type. \end{DoxyCompactList}\item 
@@ -102,7 +102,27 @@ class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_tx_packet}{DITSEngine::\+\+T
 \+\#define \doxymbox{\hyperlink{group___p_k_t_gacceebe293f334d0c4cc18ef5822bfa1f}{PKT\+\_\+\+NONCERSP}}~0x\+F8
 \begin{DoxyCompactList}\small\item\em The Req-\/nonce response. \end{DoxyCompactList}\item 
 \+\#define \doxymbox{\hyperlink{group___p_k_t_gaa1bb98200cedcfb935697547ebda4907}{PKT\+\_\+\+TYPEMAX}}~0x\+F8
-\begin{DoxyCompactList}\small\item\em Used to boundry check arguments. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Used to boundry check arguments. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_e_v_a_c_c_e_s_s_gaa4597875272731c89e080c2c4950494b}{DNOTSET}}~0x00
+\begin{DoxyCompactList}\small\item\em 0b0000 0000 Permissions Not Set \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_e_v_a_c_c_e_s_s_ga74d78c597b7c155a81980988db114983}{DRO}}~0x40
+\begin{DoxyCompactList}\small\item\em 0b0100 0000 Device Read Only \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_e_v_a_c_c_e_s_s_gaef2e0780a4ce360dd4d05a40d7c8865a}{DRW}}~0x80
+\begin{DoxyCompactList}\small\item\em 0b1000 0000 Device Read/\+\+Write \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_e_v_a_c_c_e_s_s_ga814681384ae8437106a71b504fddfeb3}{DRWSS}}~0x\+C0
+\begin{DoxyCompactList}\small\item\em 0b1100 0000Device Read/\+\+Write with Secure Set \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_e_v_a_c_c_e_s_s_ga7555855ea0e662c9a02ca6e26e152a74}{DACCESSMSK}}~0x\+C0
+\begin{DoxyCompactList}\small\item\em Mask Dev\+Attr for Access bits. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_v_a_l_s_c_a_l_e_gac6f87df87d64c32f84ede61ea6a8722f}{DSCALE1}}~0x00
+\begin{DoxyCompactList}\small\item\em 0b0000 0000 Device Value No-\/\+Scaling \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_v_a_l_s_c_a_l_e_gafe72e6dbb1e0b393fe9b3656dcc77cc8}{DSCALE10}}~0x10
+\begin{DoxyCompactList}\small\item\em 0b0001 0000 Device Value \texorpdfstring{$\ast$}{*}/\+ by 10 \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_v_a_l_s_c_a_l_e_ga03d0e4494216f44008992bcf08480f7d}{DSCALE100}}~0x20
+\begin{DoxyCompactList}\small\item\em 0b0010 0000 Device value \texorpdfstring{$\ast$}{*}/\+ by 100 \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_v_a_l_s_c_a_l_e_ga298595c89c4889117da4c3ee8cdba109}{DSCALE1000}}~0x30
+\begin{DoxyCompactList}\small\item\em 0b0011 0000 Device value \texorpdfstring{$\ast$}{*}/\+ by 1000 \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___d_v_a_l_s_c_a_l_e_ga081d8a5880c2762e8796b589adff736c}{DSCALEMSK}}~0x30
+\begin{DoxyCompactList}\small\item\em Mask Dev\+Attr for Scaling bits. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -158,132 +178,6 @@ A sentinel value that marks the end of NDIT and DDIT records in PMEM.
 
 
 Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00014}{14}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
-
-\Hypertarget{rf__dits_8h_a7f5a89e899f1df513badfa7550074512}\index{rf\_dits.h@{rf\_dits.h}!PMO\_DEVATTR@{PMO\_DEVATTR}}
-\index{PMO\_DEVATTR@{PMO\_DEVATTR}!rf\_dits.h@{rf\_dits.h}}
-\doxysubsubsection{\texorpdfstring{PMO\_DEVATTR}{PMO\_DEVATTR}}
-{\footnotesize\ttfamily \label{rf__dits_8h_a7f5a89e899f1df513badfa7550074512} 
-\+\#define PMO\+\_\+\+DEVATTR~2}
-
-
-
-Device ATTR (1 byte). 
-
-
-
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
-
-\Hypertarget{rf__dits_8h_a9e13a0617d09878153bdb7587d1a2096}\index{rf\_dits.h@{rf\_dits.h}!PMO\_DEVTYPE@{PMO\_DEVTYPE}}
-\index{PMO\_DEVTYPE@{PMO\_DEVTYPE}!rf\_dits.h@{rf\_dits.h}}
-\doxysubsubsection{\texorpdfstring{PMO\_DEVTYPE}{PMO\_DEVTYPE}}
-{\footnotesize\ttfamily \label{rf__dits_8h_a9e13a0617d09878153bdb7587d1a2096} 
-\+\#define PMO\+\_\+\+DEVTYPE~1}
-
-
-
-Cannot be 0 due to \textquotesingle{}\textbackslash{}0\textquotesingle{} check on previous DIT name record. 
-
-
-
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00027}{27}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
-
-\Hypertarget{rf__dits_8h_ade6129558c19c6c41d748969b073b2d8}\index{rf\_dits.h@{rf\_dits.h}!PMO\_DEVUID@{PMO\_DEVUID}}
-\index{PMO\_DEVUID@{PMO\_DEVUID}!rf\_dits.h@{rf\_dits.h}}
-\doxysubsubsection{\texorpdfstring{PMO\_DEVUID}{PMO\_DEVUID}}
-{\footnotesize\ttfamily \label{rf__dits_8h_ade6129558c19c6c41d748969b073b2d8} 
-\+\#define PMO\+\_\+\+DEVUID~3}
-
-
-
-Device UID per Node (1 byte). 
-
-
-
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00029}{29}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
-
-\Hypertarget{rf__dits_8h_a1937c16efd10f392766887361481dfd1}\index{rf\_dits.h@{rf\_dits.h}!PMO\_DNODEIDX@{PMO\_DNODEIDX}}
-\index{PMO\_DNODEIDX@{PMO\_DNODEIDX}!rf\_dits.h@{rf\_dits.h}}
-\doxysubsubsection{\texorpdfstring{PMO\_DNODEIDX}{PMO\_DNODEIDX}}
-{\footnotesize\ttfamily \label{rf__dits_8h_a1937c16efd10f392766887361481dfd1} 
-\+\#define PMO\+\_\+\+DNODEIDX~0}
-
-
-
-Local; Device\textquotesingle{}s Node-\/\+Index (1 byte, 0x\+FF delete, 0x\+FE DITSTOP). 
-
-
-
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00026}{26}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
-
-\Hypertarget{rf__dits_8h_a6a2b7f209f9720a8f06d568878ba1ae9}\index{rf\_dits.h@{rf\_dits.h}!PMO\_NAME@{PMO\_NAME}}
-\index{PMO\_NAME@{PMO\_NAME}!rf\_dits.h@{rf\_dits.h}}
-\doxysubsubsection{\texorpdfstring{PMO\_NAME}{PMO\_NAME}}
-{\footnotesize\ttfamily \label{rf__dits_8h_a6a2b7f209f9720a8f06d568878ba1ae9} 
-\+\#define PMO\+\_\+\+NAME~4}
-
-
-
-Name offset for both \+[N]\+ode \& \+[D]\+evice. 
-
-
-
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
-
-\Hypertarget{rf__dits_8h_af23907b653b02904039c89e191ceff63}\index{rf\_dits.h@{rf\_dits.h}!PMO\_NDITVER@{PMO\_NDITVER}}
-\index{PMO\_NDITVER@{PMO\_NDITVER}!rf\_dits.h@{rf\_dits.h}}
-\doxysubsubsection{\texorpdfstring{PMO\_NDITVER}{PMO\_NDITVER}}
-{\footnotesize\ttfamily \label{rf__dits_8h_af23907b653b02904039c89e191ceff63} 
-\+\#define PMO\+\_\+\+NDITVER~3}
-
-
-
-Node DIT Version (Table Version) (1 byte). 
-
-
-
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00024}{24}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
-
-\Hypertarget{rf__dits_8h_ad89aefc03717d87e92b5575a5a6db073}\index{rf\_dits.h@{rf\_dits.h}!PMO\_NODEIDX@{PMO\_NODEIDX}}
-\index{PMO\_NODEIDX@{PMO\_NODEIDX}!rf\_dits.h@{rf\_dits.h}}
-\doxysubsubsection{\texorpdfstring{PMO\_NODEIDX}{PMO\_NODEIDX}}
-{\footnotesize\ttfamily \label{rf__dits_8h_ad89aefc03717d87e92b5575a5a6db073} 
-\+\#define PMO\+\_\+\+NODEIDX~0}
-
-
-
-Local; Index (1 byte, 0x\+FF delete, 0x\+FE DITSTOP). 
-
-
-
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
-
-\Hypertarget{rf__dits_8h_afed0703f9388cca236d40f84ac351821}\index{rf\_dits.h@{rf\_dits.h}!PMO\_NRFADDRH@{PMO\_NRFADDRH}}
-\index{PMO\_NRFADDRH@{PMO\_NRFADDRH}!rf\_dits.h@{rf\_dits.h}}
-\doxysubsubsection{\texorpdfstring{PMO\_NRFADDRH}{PMO\_NRFADDRH}}
-{\footnotesize\ttfamily \label{rf__dits_8h_afed0703f9388cca236d40f84ac351821} 
-\+\#define PMO\+\_\+\+NRFADDRH~1}
-
-
-
-Node RF high byte (1 byte). 
-
-
-
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00022}{22}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
-
-\Hypertarget{rf__dits_8h_a4ed480465e09a7dc4bcedb001a120d9e}\index{rf\_dits.h@{rf\_dits.h}!PMO\_NRFADDRL@{PMO\_NRFADDRL}}
-\index{PMO\_NRFADDRL@{PMO\_NRFADDRL}!rf\_dits.h@{rf\_dits.h}}
-\doxysubsubsection{\texorpdfstring{PMO\_NRFADDRL}{PMO\_NRFADDRL}}
-{\footnotesize\ttfamily \label{rf__dits_8h_a4ed480465e09a7dc4bcedb001a120d9e} 
-\+\#define PMO\+\_\+\+NRFADDRL~2}
-
-
-
-Node RF low byte (1 byte). 
-
-
-
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 \Hypertarget{rf__dits_8h_a979a00af6a6b738c900495236de1bd95}\index{rf\_dits.h@{rf\_dits.h}!SECNETMAX@{SECNETMAX}}
 \index{SECNETMAX@{SECNETMAX}!rf\_dits.h@{rf\_dits.h}}

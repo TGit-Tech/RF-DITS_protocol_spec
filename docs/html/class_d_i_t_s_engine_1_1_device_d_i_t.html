@@ -100,8 +100,11 @@ $(function(){initNavTree('class_d_i_t_s_engine_1_1_device_d_i_t.html','','class_
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8d37f855e02a491af74bfa4b1c1d0cf6" id="r_a8d37f855e02a491af74bfa4b1c1d0cf6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8d37f855e02a491af74bfa4b1c1d0cf6">Next</a> ()</td></tr>
-<tr class="memitem:a8aefb0ee13bee7087dfbe08c91840e1e" id="r_a8aefb0ee13bee7087dfbe08c91840e1e"><td class="memItemLeft">byte&#160;</td><td class="memItemRight"><a class="el" href="#a8aefb0ee13bee7087dfbe08c91840e1e">DITidx</a> () const</td></tr>
+<tr class="memitem:a5fe389b6b88aea36a0fcbbd194119fd9" id="r_a5fe389b6b88aea36a0fcbbd194119fd9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5fe389b6b88aea36a0fcbbd194119fd9">Next</a> (byte nodeIdx=<a class="el" href="rf__dits_8h.html#a2750a00190636997d66cf567af774f97">BNONE</a>, bool InclDel=false)</td></tr>
+<tr class="memdesc:a5fe389b6b88aea36a0fcbbd194119fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the iterator to the next table entry.  <br /></td></tr>
+<tr class="memitem:af4ecf965e710c6febc539e8504fe2437" id="r_af4ecf965e710c6febc539e8504fe2437"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af4ecf965e710c6febc539e8504fe2437">Prev</a> (byte nodeIdx=<a class="el" href="rf__dits_8h.html#a2750a00190636997d66cf567af774f97">BNONE</a>, bool InclDel=false)</td></tr>
+<tr class="memdesc:af4ecf965e710c6febc539e8504fe2437"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the iterator to the previous table entry.  <br /></td></tr>
+<tr class="memitem:a130b0615d6e6529d19969db2869bee6f" id="r_a130b0615d6e6529d19969db2869bee6f"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#a130b0615d6e6529d19969db2869bee6f">DITidx</a> () const</td></tr>
 <tr class="memitem:a78fabffd79d6dbfeb762f05c470c6826" id="r_a78fabffd79d6dbfeb762f05c470c6826"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a78fabffd79d6dbfeb762f05c470c6826">IsValid</a> () const</td></tr>
 <tr class="memitem:a19bfa8e8399b65dd8b0598ed51e60102" id="r_a19bfa8e8399b65dd8b0598ed51e60102"><td class="memItemLeft">byte&#160;</td><td class="memItemRight"><a class="el" href="#a19bfa8e8399b65dd8b0598ed51e60102">DNodeIdx</a> () const</td></tr>
 <tr class="memitem:afafd2d34094219fd68875adb037a2305" id="r_afafd2d34094219fd68875adb037a2305"><td class="memItemLeft">byte&#160;</td><td class="memItemRight"><a class="el" href="#afafd2d34094219fd68875adb037a2305">DevUID</a> () const</td></tr>
@@ -112,7 +115,6 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a40d82beaaf434ef323d1d0eaa7aca658" id="r_a40d82beaaf434ef323d1d0eaa7aca658"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a40d82beaaf434ef323d1d0eaa7aca658">NextAll</a> ()</td></tr>
 <tr class="memitem:a44714ca17b253758b1c6f574c94cb024" id="r_a44714ca17b253758b1c6f574c94cb024"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a44714ca17b253758b1c6f574c94cb024">DNodeIdx</a> (byte value)</td></tr>
 <tr class="memitem:a97a86ed3ac3e0e2304ff30fb864bd332" id="r_a97a86ed3ac3e0e2304ff30fb864bd332"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a97a86ed3ac3e0e2304ff30fb864bd332">DevUID</a> (byte value)</td></tr>
 <tr class="memitem:a6c891c8f40e02e474258dd28389952f1" id="r_a6c891c8f40e02e474258dd28389952f1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6c891c8f40e02e474258dd28389952f1">DevType</a> (byte value)</td></tr>
@@ -127,7 +129,7 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A <a class="el" href="class_d_i_t_s_engine_1_1_device_d_i_t.html" title="A DeviceDIT structure that points directly to persistent memory.">DeviceDIT</a> structure that points directly to persistent memory. </p>
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00198">198</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00208">208</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="ae7975f125768dfaef032671278a0f886" name="ae7975f125768dfaef032671278a0f886"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae7975f125768dfaef032671278a0f886">&#9670;&#160;</a></span>DevAttr() <span class="overload">[1/2]</span></h2>
@@ -152,7 +154,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00211">211</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00234">234</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>
@@ -179,7 +181,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00225">225</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00241">241</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>
@@ -206,7 +208,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00210">210</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00233">233</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>
@@ -233,7 +235,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00224">224</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00240">240</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>
@@ -260,7 +262,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00209">209</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00232">232</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>
@@ -287,7 +289,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00223">223</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00239">239</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>
@@ -296,9 +298,6 @@ Friends</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void DITSEngine::DeviceDIT::DGetName </td>
@@ -307,19 +306,14 @@ Friends</h2></td></tr>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00212">212</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8cpp_source.html#l00216">216</a> of file <a class="el" href="rf__dits_8cpp_source.html">rf_dits.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8aefb0ee13bee7087dfbe08c91840e1e" name="a8aefb0ee13bee7087dfbe08c91840e1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8aefb0ee13bee7087dfbe08c91840e1e">&#9670;&#160;</a></span>DITidx()</h2>
+<a id="a130b0615d6e6529d19969db2869bee6f" name="a130b0615d6e6529d19969db2869bee6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a130b0615d6e6529d19969db2869bee6f">&#9670;&#160;</a></span>DITidx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -328,7 +322,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">byte DITSEngine::DeviceDIT::DITidx </td>
+          <td class="memname">uint16_t DITSEngine::DeviceDIT::DITidx </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -341,7 +335,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00206">206</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00229">229</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>
@@ -368,7 +362,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00208">208</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00231">231</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>
@@ -395,7 +389,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00222">222</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00238">238</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>
@@ -417,12 +411,12 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel protected">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00226">226</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8cpp_source.html#l00222">222</a> of file <a class="el" href="rf__dits_8cpp_source.html">rf_dits.cpp</a>.</p>
 
 </div>
 </div>
@@ -431,9 +425,6 @@ Friends</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool DITSEngine::DeviceDIT::IsDeleted </td>
@@ -442,14 +433,9 @@ Friends</h2></td></tr>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00217">217</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8cpp_source.html#l00227">227</a> of file <a class="el" href="rf__dits_8cpp_source.html">rf_dits.cpp</a>.</p>
 
 </div>
 </div>
@@ -471,12 +457,12 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel protected">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00230">230</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8cpp_source.html#l00231">231</a> of file <a class="el" href="rf__dits_8cpp_source.html">rf_dits.cpp</a>.</p>
 
 </div>
 </div>
@@ -503,61 +489,75 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00207">207</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00230">230</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>
-<a id="a8d37f855e02a491af74bfa4b1c1d0cf6" name="a8d37f855e02a491af74bfa4b1c1d0cf6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d37f855e02a491af74bfa4b1c1d0cf6">&#9670;&#160;</a></span>Next()</h2>
+<a id="a5fe389b6b88aea36a0fcbbd194119fd9" name="a5fe389b6b88aea36a0fcbbd194119fd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fe389b6b88aea36a0fcbbd194119fd9">&#9670;&#160;</a></span>Next()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DITSEngine::DeviceDIT::Next </td>
+          <td class="memname">bool DITSEngine::DeviceDIT::Next </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">byte</td>          <td class="paramname"><span class="paramname"><em>nodeIdx</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="rf__dits_8h.html#a2750a00190636997d66cf567af774f97">BNONE</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>InclDel</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00205">205</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p>Advances the iterator to the next table entry. </p>
+<dl class="section note"><dt>Note</dt><dd>The iterator remains at its current position if no next entries are found. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nodeIdx</td><td>(default BNONE = no filter) Skips non-deleted entries that don't match nodeIdx. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InclDel</td><td>(default false = skip deleted). True allows stopping at deleted entries (no node match possible). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the iterator successfully advanced to a matching entry; false if the end of records is reached. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="rf__dits_8cpp_source.html#l00183">183</a> of file <a class="el" href="rf__dits_8cpp_source.html">rf_dits.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a40d82beaaf434ef323d1d0eaa7aca658" name="a40d82beaaf434ef323d1d0eaa7aca658"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40d82beaaf434ef323d1d0eaa7aca658">&#9670;&#160;</a></span>NextAll()</h2>
+<a id="af4ecf965e710c6febc539e8504fe2437" name="af4ecf965e710c6febc539e8504fe2437"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4ecf965e710c6febc539e8504fe2437">&#9670;&#160;</a></span>Prev()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void DITSEngine::DeviceDIT::NextAll </td>
+          <td class="memname">bool DITSEngine::DeviceDIT::Prev </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">byte</td>          <td class="paramname"><span class="paramname"><em>nodeIdx</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="rf__dits_8h.html#a2750a00190636997d66cf567af774f97">BNONE</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>InclDel</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel protected">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00221">221</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p>Moves the iterator to the previous table entry. </p>
+<dl class="section note"><dt>Note</dt><dd>The iterator remains at its current position if no previous entries are found. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nodeIdx</td><td>(default BNONE = no filter) Skips non-deleted entries that don't match nodeIdx. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">InclDel</td><td>(default false = skip deleted). True allows stopping at deleted entries (no node match possible). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the iterator successfully moved to a matching entry; false if the beginning of records is reached. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="rf__dits_8cpp_source.html#l00199">199</a> of file <a class="el" href="rf__dits_8cpp_source.html">rf_dits.cpp</a>.</p>
 
 </div>
 </div>
@@ -582,12 +582,13 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00200">200</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rf__dits_8h_source.html#l00210">210</a> of file <a class="el" href="rf__dits_8h_source.html">rf_dits.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/Users/TGIT-TECH/Documents/!GitHub/RF-DITS_protocol_spec/rf_dits/<a class="el" href="rf__dits_8h_source.html">rf_dits.h</a></li>
+<li>C:/Users/TGIT-TECH/Documents/!GitHub/RF-DITS_protocol_spec/rf_dits/<a class="el" href="rf__dits_8cpp_source.html">rf_dits.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

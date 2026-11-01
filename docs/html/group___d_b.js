@@ -6,7 +6,6 @@ var group___d_b =
     [ "DB_ERROR", "group___d_b.html#ga0a23ceb7729ff23eb926a5c3b1501e47", null ],
     [ "DB_GEN", "group___d_b.html#ga86f04ed115733eb1b518915f8e4ba8bf", null ],
     [ "DB_INFO", "group___d_b.html#ga064789cdfa5ddd548e676323e21447b0", null ],
-    [ "DB_NONE", "group___d_b.html#ga6f6c7d53f333ffa75dcf69e35c5177f4", null ],
     [ "DB_RF", "group___d_b.html#gac2dbe569fee30f13f22767da80dd0f93", null ],
     [ "DBAAAENTER", "group___d_b.html#ga6e03bcbcedd2e602ed355a0f3e09a687", null ],
     [ "DBAAAERROR", "group___d_b.html#gad176491cfa98163ab5bfcdcc1b274339", null ],

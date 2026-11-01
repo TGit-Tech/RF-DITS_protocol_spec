@@ -74,6 +74,7 @@
 #define DACCESSMSK  0xC0  ///< Mask DevAttr for Access bits
 ///@}
 ///@defgroup DVALSCALE Device Value Scaling (via DevAttr)
+///@{
 #define DSCALE1     0x00  ///< 0b0000 0000 Device Value No-Scaling
 #define DSCALE10    0x10  ///< 0b0001 0000 Device Value */ by 10
 #define DSCALE100   0x20  ///< 0b0010 0000 Device value */ by 100
@@ -160,9 +161,9 @@ class DITSEngine {
 
     ///@brief Deletes a device from this node.
     ///@details Removes a local device at the given index from this node's device table (DIT record).
-    ///@param[in] devIdx Index of the device to remove.
+    ///@param[in] _devUID Unique ID of the device to remove.
     ///@return true if successfully removed, false if index is invalid.
-    bool DelThisNodeDevice(byte devIdx);
+    bool DelThisNodeDevice(byte _devUID);
     
     ///@class NodeDIT
     ///@brief A NodeDIT structure that points directly to persistent memory.

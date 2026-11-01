@@ -1,2 +1,157 @@
-\doxysection{\+[P]\+ersistant \+[M]\+emory \+[O]\+ffsets. 0 is stored/\+used Locally Only @\{ }
-\hypertarget{group___p_m_o}{}\label{group___p_m_o}\index{\+[P]\+ersistant \+[M]\+emory \+[O]\+ffsets. 0 is stored/used Locally Only "@\lcurly{}@{[P]ersistant [M]emory [O]ffsets. 0 is stored/used Locally Only "@\lcurly{}}}
+\doxysection{Persistant Memory Offsets. 0 is stored/\+used Locally Only }
+\hypertarget{group___p_m_o}{}\label{group___p_m_o}\index{Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{group___p_m_o_gad89aefc03717d87e92b5575a5a6db073}{PMO\+\_\+\+NODEIDX}}~0
+\begin{DoxyCompactList}\small\item\em Local; Index (1 byte, 0x\+FF delete, 0x\+FE DITSTOP). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___p_m_o_gafed0703f9388cca236d40f84ac351821}{PMO\+\_\+\+NRFADDRH}}~1
+\begin{DoxyCompactList}\small\item\em Node RF high byte (1 byte). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___p_m_o_ga4ed480465e09a7dc4bcedb001a120d9e}{PMO\+\_\+\+NRFADDRL}}~2
+\begin{DoxyCompactList}\small\item\em Node RF low byte (1 byte). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___p_m_o_gaf23907b653b02904039c89e191ceff63}{PMO\+\_\+\+NDITVER}}~3
+\begin{DoxyCompactList}\small\item\em Node DIT Version (Table Version) (1 byte). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___p_m_o_ga1937c16efd10f392766887361481dfd1}{PMO\+\_\+\+DNODEIDX}}~0
+\begin{DoxyCompactList}\small\item\em Local; Device\textquotesingle{}s Node-\/\+Index (1 byte, 0x\+FF delete, 0x\+FE DITSTOP). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___p_m_o_ga9e13a0617d09878153bdb7587d1a2096}{PMO\+\_\+\+DEVTYPE}}~1
+\begin{DoxyCompactList}\small\item\em Cannot be 0 due to \textquotesingle{}\textbackslash{}0\textquotesingle{} check on previous DIT name record. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___p_m_o_ga7f5a89e899f1df513badfa7550074512}{PMO\+\_\+\+DEVATTR}}~2
+\begin{DoxyCompactList}\small\item\em Device ATTR (1 byte). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___p_m_o_gade6129558c19c6c41d748969b073b2d8}{PMO\+\_\+\+DEVUID}}~3
+\begin{DoxyCompactList}\small\item\em Device UID per Node (1 byte). \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___p_m_o_ga6a2b7f209f9720a8f06d568878ba1ae9}{PMO\+\_\+\+NAME}}~4
+\begin{DoxyCompactList}\small\item\em Name offset for both \+[N]\+ode \& \+[D]\+evice. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\label{doc-define-members}
+\Hypertarget{group___p_m_o_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{group___p_m_o_ga7f5a89e899f1df513badfa7550074512}\index{Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}!PMO\_DEVATTR@{PMO\_DEVATTR}}
+\index{PMO\_DEVATTR@{PMO\_DEVATTR}!Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}}
+\doxysubsubsection{\texorpdfstring{PMO\_DEVATTR}{PMO\_DEVATTR}}
+{\footnotesize\ttfamily \label{group___p_m_o_ga7f5a89e899f1df513badfa7550074512} 
+\+\#define PMO\+\_\+\+DEVATTR~2}
+
+
+
+Device ATTR (1 byte). 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___p_m_o_ga9e13a0617d09878153bdb7587d1a2096}\index{Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}!PMO\_DEVTYPE@{PMO\_DEVTYPE}}
+\index{PMO\_DEVTYPE@{PMO\_DEVTYPE}!Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}}
+\doxysubsubsection{\texorpdfstring{PMO\_DEVTYPE}{PMO\_DEVTYPE}}
+{\footnotesize\ttfamily \label{group___p_m_o_ga9e13a0617d09878153bdb7587d1a2096} 
+\+\#define PMO\+\_\+\+DEVTYPE~1}
+
+
+
+Cannot be 0 due to \textquotesingle{}\textbackslash{}0\textquotesingle{} check on previous DIT name record. 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00027}{27}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___p_m_o_gade6129558c19c6c41d748969b073b2d8}\index{Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}!PMO\_DEVUID@{PMO\_DEVUID}}
+\index{PMO\_DEVUID@{PMO\_DEVUID}!Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}}
+\doxysubsubsection{\texorpdfstring{PMO\_DEVUID}{PMO\_DEVUID}}
+{\footnotesize\ttfamily \label{group___p_m_o_gade6129558c19c6c41d748969b073b2d8} 
+\+\#define PMO\+\_\+\+DEVUID~3}
+
+
+
+Device UID per Node (1 byte). 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00029}{29}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___p_m_o_ga1937c16efd10f392766887361481dfd1}\index{Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}!PMO\_DNODEIDX@{PMO\_DNODEIDX}}
+\index{PMO\_DNODEIDX@{PMO\_DNODEIDX}!Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}}
+\doxysubsubsection{\texorpdfstring{PMO\_DNODEIDX}{PMO\_DNODEIDX}}
+{\footnotesize\ttfamily \label{group___p_m_o_ga1937c16efd10f392766887361481dfd1} 
+\+\#define PMO\+\_\+\+DNODEIDX~0}
+
+
+
+Local; Device\textquotesingle{}s Node-\/\+Index (1 byte, 0x\+FF delete, 0x\+FE DITSTOP). 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00026}{26}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___p_m_o_ga6a2b7f209f9720a8f06d568878ba1ae9}\index{Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}!PMO\_NAME@{PMO\_NAME}}
+\index{PMO\_NAME@{PMO\_NAME}!Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}}
+\doxysubsubsection{\texorpdfstring{PMO\_NAME}{PMO\_NAME}}
+{\footnotesize\ttfamily \label{group___p_m_o_ga6a2b7f209f9720a8f06d568878ba1ae9} 
+\+\#define PMO\+\_\+\+NAME~4}
+
+
+
+Name offset for both \+[N]\+ode \& \+[D]\+evice. 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___p_m_o_gaf23907b653b02904039c89e191ceff63}\index{Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}!PMO\_NDITVER@{PMO\_NDITVER}}
+\index{PMO\_NDITVER@{PMO\_NDITVER}!Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}}
+\doxysubsubsection{\texorpdfstring{PMO\_NDITVER}{PMO\_NDITVER}}
+{\footnotesize\ttfamily \label{group___p_m_o_gaf23907b653b02904039c89e191ceff63} 
+\+\#define PMO\+\_\+\+NDITVER~3}
+
+
+
+Node DIT Version (Table Version) (1 byte). 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00024}{24}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___p_m_o_gad89aefc03717d87e92b5575a5a6db073}\index{Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}!PMO\_NODEIDX@{PMO\_NODEIDX}}
+\index{PMO\_NODEIDX@{PMO\_NODEIDX}!Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}}
+\doxysubsubsection{\texorpdfstring{PMO\_NODEIDX}{PMO\_NODEIDX}}
+{\footnotesize\ttfamily \label{group___p_m_o_gad89aefc03717d87e92b5575a5a6db073} 
+\+\#define PMO\+\_\+\+NODEIDX~0}
+
+
+
+Local; Index (1 byte, 0x\+FF delete, 0x\+FE DITSTOP). 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___p_m_o_gafed0703f9388cca236d40f84ac351821}\index{Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}!PMO\_NRFADDRH@{PMO\_NRFADDRH}}
+\index{PMO\_NRFADDRH@{PMO\_NRFADDRH}!Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}}
+\doxysubsubsection{\texorpdfstring{PMO\_NRFADDRH}{PMO\_NRFADDRH}}
+{\footnotesize\ttfamily \label{group___p_m_o_gafed0703f9388cca236d40f84ac351821} 
+\+\#define PMO\+\_\+\+NRFADDRH~1}
+
+
+
+Node RF high byte (1 byte). 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00022}{22}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+
+\Hypertarget{group___p_m_o_ga4ed480465e09a7dc4bcedb001a120d9e}\index{Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}!PMO\_NRFADDRL@{PMO\_NRFADDRL}}
+\index{PMO\_NRFADDRL@{PMO\_NRFADDRL}!Persistant Memory Offsets. 0 is stored/used Locally Only@{Persistant Memory Offsets. 0 is stored/used Locally Only}}
+\doxysubsubsection{\texorpdfstring{PMO\_NRFADDRL}{PMO\_NRFADDRL}}
+{\footnotesize\ttfamily \label{group___p_m_o_ga4ed480465e09a7dc4bcedb001a120d9e} 
+\+\#define PMO\+\_\+\+NRFADDRL~2}
+
+
+
+Node RF low byte (1 byte). 
+
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+

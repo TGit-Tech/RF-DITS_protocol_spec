@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['out_0',['Index concepts that need to be pointed out.',['../index.html#Concepts',1,'']]],
-  ['overview_1',['Conceptual Overview',['../index.html#Overview',1,'']]]
+  ['value_20scaling_0',['Value Scaling',['../index.html#SCALING',1,'']]]
 ];

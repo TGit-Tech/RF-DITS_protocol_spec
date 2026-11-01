@@ -12,5 +12,6 @@ var searchData=
   ['pktvals_9',['pktVALS',['../class_d_i_t_s_engine_1_1_tx_packet.html#a9a75d53ecceb1f485e1ffd0973c8c172',1,'DITSEngine::TxPacket']]],
   ['pmem_5fread_10',['pmem_read',['../group___o_v_e_r_l_o_a_d.html#ga2827cdcab4cb3bc50cdfe0f943ab8b1d',1,'DITSEngine']]],
   ['pmem_5fwrite_11',['pmem_write',['../group___o_v_e_r_l_o_a_d.html#gaef5afd491d75363d9e8d33307b4323e6',1,'DITSEngine']]],
-  ['processloop_12',['ProcessLoop',['../group___d_i_t_s.html#ga40fd9c22b447c4cd7487d0ee8cf8698e',1,'DITSEngine']]]
+  ['prev_12',['Prev',['../class_d_i_t_s_engine_1_1_node_d_i_t.html#ab25df9a78516eccdac4826d6a3713d69',1,'DITSEngine::NodeDIT::Prev()'],['../class_d_i_t_s_engine_1_1_device_d_i_t.html#af4ecf965e710c6febc539e8504fe2437',1,'DITSEngine::DeviceDIT::Prev()']]],
+  ['processloop_13',['ProcessLoop',['../group___d_i_t_s.html#ga40fd9c22b447c4cd7487d0ee8cf8698e',1,'DITSEngine']]]
 ];

@@ -276,7 +276,33 @@ Protocol Specification</h1>
 </table>
 </td></tr>
 </table>
-</div> <h1 class="doxsection"><a class="anchor" id="Files"></a>
+</div> <h1 class="doxsection"><a class="anchor" id="NONCE"></a>
+Device Permissions and Secure Set Feature.</h1>
+<p>Device access permission flags are encoded in the top two bits of DevAttr. The protocol enforces RWSS (Read/Write with Secure Set) internally.</p>
+<ul>
+<li>#define DNOTSET 0x00 ///&lt; 0b0000 0000 Permissions Not Set</li>
+<li>#define DRO 0x40 ///&lt; 0b0100 0000 Device Read Only</li>
+<li>#define DRW 0x80 ///&lt; 0b1000 0000 Device Read/Write</li>
+<li>#define DRWSS 0xC0 ///&lt; 0b1100 0000Device Read/Write with Secure Set</li>
+<li>#define DACCESSMSK 0xC0 ///&lt; Mask DevAttr for Access bits</li>
+</ul>
+<p>When the protocol receives (Rx) a PKT_SETVAL request, it retrieves the DevAttr value for the target device and evaluates the top two bits. If the access permission flags are set to DRWSS: </p><pre class="fragment">1. The protocol stages the SETVAL request and does not execute it immediately.
+2. It transmits a nonce challenge (PKT_REQNONCE) to the requester.
+3. It waits for a valid nonce response (PKT_NONCERSP).
+4. Upon successful nonce verification, it releases and executes the original
+   SETVAL request; otherwise, the staged request is discarded.
+</pre><h1 class="doxsection"><a class="anchor" id="SCALING"></a>
+Value Scaling</h1>
+<p>Device Value scaling flags are encoded in bits 4 and 5 of DevAttr.</p>
+<ul>
+<li>#define DSCALE1 0x00 ///&lt; 0b0000 0000 Device Value No-Scaling</li>
+<li>#define DSCALE10 0x10 ///&lt; 0b0001 0000 Device Value * or / by 10</li>
+<li>#define DSCALE100 0x20 ///&lt; 0b0010 0000 Device value * or / by 100</li>
+<li>#define DSCALE1000 0x30 ///&lt; 0b0011 0000 Device value * or / by 1000</li>
+<li>#define DSCALEMSK 0x30 ///&lt; Mask DevAttr for Scaling bits</li>
+</ul>
+<p>Value scaling itself will be handled by the Implementer where-as the protocols only responsibility is to make 'DevAttr' part of the DIT record.</p>
+<h1 class="doxsection"><a class="anchor" id="Files"></a>
 Files &amp; Abreviations</h1>
 <ul>
 <li>Firmware DateCode [YYMD]<ul>

@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['uiradiopktmaxbytes_0',['uiRadioPktMaxBytes',['../class_d_i_t_s_engine_1_1rf_packet.html#a80d6c0a9d267681f6c2af296fccca311',1,'DITSEngine::rfPacket']]],
-  ['updatethisnodename_1',['UpdateThisNodeName',['../group___d_i_t_s.html#gab8c0e8514973fa8b384cf673d8f755e3',1,'DITSEngine']]],
-  ['updatethisnoderfaddr_2',['UpdateThisNodeRFAddr',['../group___d_i_t_s.html#gacb1f9c34a1898077e08d0fa25cc3a5bd',1,'DITSEngine']]],
-  ['used_20locally_20only_3',['[P]ersistant [M]emory [O]ffsets. 0 is stored/used Locally Only @{',['../group___p_m_o.html',1,'']]]
+  ['valnotset_0',['VALNOTSET',['../rf__dits_8h.html#ad54662a2f85767d6698c5c0aa32e9997',1,'rf_dits.h']]],
+  ['value_1',['Value',['../class_d_i_t_s_engine_1_1_rx_packet.html#aad9de210cc541a1939cc62292db23892',1,'DITSEngine::RxPacket']]],
+  ['value_20scaling_2',['Value Scaling',['../index.html#SCALING',1,'']]],
+  ['value_20scaling_20via_20devattr_3',['Device Value Scaling (via DevAttr)',['../group___d_v_a_l_s_c_a_l_e.html',1,'']]],
+  ['via_20devattr_4',['via DevAttr',['../group___d_e_v_a_c_c_e_s_s.html',1,'Device Access Permissions (via DevAttr)'],['../group___d_v_a_l_s_c_a_l_e.html',1,'Device Value Scaling (via DevAttr)']]]
 ];

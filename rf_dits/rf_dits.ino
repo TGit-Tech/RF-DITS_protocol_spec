@@ -9,11 +9,12 @@
 // Testing two radios on one arduino mega.
 // Wire TX1(pin18) to RX2(pin17)
 // Wire TX2(pin16) to RX1(pin19)
-/******************************************************************************//**
- * @defgroup DT [DT] Device-Type enumeration. Part of DITS protocol.
- *  - You get 1-byte (not 0) to designate Device Type definitions.
- *  - NO NOT USE '0'.  RF uses null-termination '\0' to seperate records.  @{
- *********************************************************************************/
+
+///@defgroup DT [DT] Device-Type enumeration.
+/// DITS provides 1-byte to designate Device Type definitions.
+/// Never (0) as RF uses null-termination '\0' to seperate records.
+/// Prevent usage of (0xF?) packet types as they help signal beginning of packets.
+///@{
 // 0x[7] Device Types
 #define DT_ONOFF        0x7E    ///< On/Off Switching Device
 #define DT_DIST         0x7A    ///< Distance Sensing Device
@@ -25,27 +26,9 @@
 
 #define DT_MINBOUNDARY  0x75    ///< MINIMUM BOUNDARY CHECK FOR ADD DEVICE KEYS
 ///@}
-/******************************************************************************//**
- * @defgroup DA [DA] Device-Attributes.
- *  - You get 1-byte to add attributes to your Device Types.  You can use 0.
- *********************************************************************************/
-// 0x[7] Device Types                  WS
-#define DA_RO           0x00    ///< 0b00xx xxxx Read-Only Device
-#define DA_RW           0x40    ///< 0b01xx xxxx R/Write Device no SS
-#define DA_RWSS         0x80    ///< 0b10xx xxxx R/Write with (SS)Secured Set (DITS specific).
-#define DA_UNDEF        0xC0    ///< 0b11xx xxxx Undefined
-#define ACCESS_MASK     0xC0    ///< 0bxx11 xxxx Mask bits 7,6
-#define DA_SCALE1       0x00    ///< 0bxx00 xxxx No Value Scale
-#define DA_SCALE10      0x10    ///< 0bxx01 xxxx Scale Value x10.
-#define DA_SCALE100     0x20    ///< 0bxx10 xxxx Scale Value x100
-#define DA_SCALE1000    0x30    ///< 0bxx11 xxxx Scale Value x1000
-#define SCALE_MASK      0x30    ///< 0bxx11 xxxx Mask bits 5,4
 
-#define DT_MINBOUNDARY  0x75    ///< MINIMUM BOUNDARY CHECK FOR ADD DEVICE KEYS
-///@}
-/******************************************************************************//**
- * @defgroup DCSP [DT] Device Control Set Point enumeration. NOT part of DITS. @{
- *********************************************************************************/
+///@defgroup DCSP [DT] Device Control Set Point enumeration. NOT part of DITS. 
+///@{
 #define DCSPO_MIN   0
 #define DCSPO_OFF   0    ///< Less Than or Equal To
 #define DCSPO_ON    1    ///< Greater Than or Equal To
@@ -53,9 +36,9 @@
 #define DCSPO_DECR  3
 #define DCSPO_MAX   3
 ///@}
-/******************************************************************************//**
- * @defgroup DCLM [DT] Device Control Logic Mathematics. NOT part of DITS     @{
- *********************************************************************************/
+
+///@defgroup DCLM [DT] Device Control Logic Mathematics. NOT part of DITS     
+///@{
 #define DCLM_ADD        0x00    ///< Less Than or Equal To
 #define DCLM_SUBTRACT   0x01    ///< Greater Than or Equal To
 #define DCLM_MULTIPLY   0x02    ///< Equal To
@@ -155,40 +138,10 @@ void setup()
     Radio2.UpdateThisNodeName("Radio2");
     Radio2.UpdateThisNodeRFAddr(0x0002);
     Radio2.SecNetCode(0);
-    
-    Radio1.AddThisNodeDevice(DT_ONOFF, DA_RW, "devonoff");   // Add devices to Radio1.
-    Radio1.AddThisNodeDevice(DT_ANAINPUT, DA_RO, "devtemp");
-    
-    
-
-    // Check DIT Tables exist and have data.
-    Serial.print("SecNet1: ");Serial.println(Radio1.SecNetCode());
-    Serial.print("SecNet2: ");Serial.println(Radio2.SecNetCode());
-    DITSEngine::NodeDIT node1 = Radio1.Node(0);
-    DITSEngine::NodeDIT node2 = Radio2.Node(0);
-    node1.NGetName(tmpname);Serial.print("node1 name: ");Serial.println(tmpname);
-    node2.NGetName(tmpname);Serial.print("node2 name: ");Serial.println(tmpname);
-    char hexStr1[8];sprintf(hexStr1, "0x%04X", node1.NRFAddr());
-    char hexStr2[8];sprintf(hexStr2, "0x%04X", node2.NRFAddr());
-    Serial.print("node1 RF-Addr: ");Serial.println(hexStr1);
-    Serial.print("node2 RF-Addr: ");Serial.println(hexStr2);
-
-    // Test Rx.
-    // Send 'testaddnode1dev1' dummy packet to test Rx DITINFO adding.
-    //for(int i=0; i<sizeof(testaddnode1dev1); i++) {
-      //Radio1.RxData(testaddnode1dev1[i]);
-    //}
-
-    // Test Tx
-    //Radio1.TxSetRemoteDevVal(uint16_t nodeAddr, byte ditIdx, int value)
-    //Radio1.TxSetRemoteDevVal(0x0002, 0, 500);
-    //TxSetRemoteDevVal
-
-    // from Radio2 request DITINFO on Radio1
-    Radio2.TxAddRemoteNode(0x0001);
-
-    //randomSeed(analogRead(A0));
 }
+//-------------------------------------
+// Debug Displays to track Test Steps
+//-------------------------------------
 void DumpRadio1DITS() {
   Serial.println(F("\nnvvvvvvvvvvvvvvvvvvvvvvvvvv RADIO1 DITS vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"));
   // Step 1: Iterate through Nodes
@@ -230,28 +183,64 @@ void DumpRadio2DITS() {
     };
     Serial.println(F("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"));
 }                
-
+//-------------------------------------
+// Run Test Steps
+//-------------------------------------
 void RunTestStep() {
     iTestStep++;
 
     // Dump DITS on odd numbers.  Check engine changes after commands.
     if (iTestStep & 0x01) { DumpRadio1DITS(); DumpRadio2DITS(); }
 
-    // Do a runtime add device and delete to make sure NDITVer mis-match causes an 'update' to trigger.
-    if (iTestStep==2) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}
-    if (iTestStep==4) {Radio1.AddThisNodeDevice(DT_STSTP3W, DA_RW, "runtdist");}
+    // Add some devices to Radio1
+    if (iTestStep==2) {Radio1.AddThisNodeDevice(DT_ONOFF, DRW, "devonoff");}
+    if (iTestStep==4) {Radio1.AddThisNodeDevice(DT_ANAINPUT, DRO, "devtemp");}
+           
+    // Radio2 Requests DITS info from Radio1.
+    if (iTestStep==6) {Radio2.TxAddRemoteNode(0x0001);}
 
-    if (iTestStep==6) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
-    if (iTestStep==8) {Radio1.DelThisNodeDevice(0);}
-    if (iTestStep==10) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
-    
-    // Then add a RWSS and check Secure Set
-    if (iTestStep==12) {Radio1.AddThisNodeDevice(DT_ONOFF, DA_RWSS, "onoffSS");}
+    // Radio2 does a does a device setting on Radio1
+    if (iTestStep==8) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}
+
+    // Radio1 adds another device to it.
+    if (iTestStep==10) {Radio1.AddThisNodeDevice(DT_STSTP3W, DRO, "runtdist");}
+
+    // Radio2 tries to do another device setting on Radio1 but because Radio1 has changed
+    // its DITS info, by added another device, the next Radio2 attempt to control it 
+    // will trigger a mis-match of its 'learned' DITINFO record of Radio1 so Radio1 will send
+    // Radio2 a new DITS info packet.
+    if (iTestStep==12) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
+
+    // With the new DITS info of Radio1, Radio2 can now successfully make a setting.
     if (iTestStep==14) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
-    if (iTestStep==18) {Radio2.TxSetRemoteDevVal(0x0001, 0, 150);}  // now try to set the RWSS
+
+    // Now repeat the mis-match process by deleting a device on Radio1.
+    if (iTestStep==16) {Radio1.DelThisNodeDevice(0);}
+
+    // Again when Radio2 tries to control Radio1 a 'leaned' hardward mis-match occurs.
+    // So Radio1 sends Radio2 it's 'updated' DITINFO.
+    if (iTestStep==18) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}
+    
+    // Radio1 adds a On/Off Read/Write Secure Set Device (to and check Secure Set Feature)
+    if (iTestStep==20) {Radio1.AddThisNodeDevice(DT_ONOFF, DRWSS, "onoffSS");}
+
+    // Again when Radio2 trie sto control Radio1 a mis-match (because a device was added) is trigger.
+    if (iTestStep==22) {Radio2.TxSetRemoteDevVal(0x0001, 0, 500);}  // trigger a mis-match update (req is tossed).
+
+    // However; Once Radio2 uploads the new Radio1 DITINFO it can now control Radio1.
+    // Since the Device being remotely set is an RWSS a 'Secure Set' Challenge is required.
+    if (iTestStep==24) {Radio2.TxSetRemoteDevVal(0x0001, 0, 150);}  // now try to set the RWSS
+
+    // Now we can delete the devices on Radio1
+    if (iTestStep==26) {
+      Radio1.DelThisNodeDevice(0);
+      Radio1.DelThisNodeDevice(1);
+      Radio1.DelThisNodeDevice(2);
+      Radio1.DelThisNodeDevice(3);
+    }
 
     // Repeat Test Steps
-    if (iTestStep >= 20) iTestStep=0;
+    if (iTestStep >= 26) iTestStep=0;
 }
 // -------------------------------------------------------------------------------------------------
 // Loop

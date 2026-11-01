@@ -12,8 +12,10 @@ A \doxylink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT} structure that point
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a52e892f45452ea0a6fdac5728bda5d3e}{Next}} ()
-\item 
+bool \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a9a03201818e7a345f56cba975f081c6c}{Next}} (bool Incl\+Del=false)
+\begin{DoxyCompactList}\small\item\em Advances the iterator to the next NDIT entry. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_ab25df9a78516eccdac4826d6a3713d69}{Prev}} (bool Incl\+Del=false)
+\begin{DoxyCompactList}\small\item\em Moves the iterator to the previous NDIT entry. \end{DoxyCompactList}\item 
 bool \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_ad0af0a4e851d654d530626326e61b6e3}{Is\+Valid}} () const
 \item 
 byte \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_ab44f3dd378d29cc43bb038fa3e87ab19}{DITidx}} () const
@@ -34,8 +36,6 @@ bool \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_ad9b385568f78048ba
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
-\item 
-void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_afbbb916e0ca3379cf2f7e022ec78fc1b}{Next\+All}} ()
 \item 
 void \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_ae2c68bd4969cba8fb4083ba0bb77ae52}{Node\+Idx}} (byte value)
 \item 
@@ -59,7 +59,7 @@ class \doxymbox{\hyperlink{class_d_i_t_s_engine_1_1_node_d_i_t_a0082f46c13f459ce
 \doxysubsection{Detailed Description}
 A \doxylink{class_d_i_t_s_engine_1_1_node_d_i_t}{Node\+DIT} structure that points directly to persistent memory. 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00160}{160}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00170}{170}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 
 
@@ -74,27 +74,27 @@ byte DITSEngine::\+\+Node\+DIT::\+\+DITidx (\begin{DoxyParamCaption}{}{}\end{Dox
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00169}{169}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00190}{190}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_ad9b385568f78048ba74d21a36fa00a58}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!IsDeleted@{IsDeleted}}
 \index{IsDeleted@{IsDeleted}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
 \doxysubsubsection{\texorpdfstring{IsDeleted()}{IsDeleted()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_ad9b385568f78048ba74d21a36fa00a58} 
-bool DITSEngine::\+\+Node\+DIT::\+\+Is\+Deleted (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+bool DITSEngine::\+\+Node\+DIT::\+\+Is\+Deleted (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00179}{179}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00173}{173}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a3c1b8c0527d64d5d7d738bcca6f0b162}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!IsDeleted@{IsDeleted}}
 \index{IsDeleted@{IsDeleted}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
 \doxysubsubsection{\texorpdfstring{IsDeleted()}{IsDeleted()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a3c1b8c0527d64d5d7d738bcca6f0b162} 
-bool DITSEngine::\+\+Node\+DIT::\+\+Is\+Deleted (\begin{DoxyParamCaption}\item[{bool}]{delete\+Status}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+bool DITSEngine::\+\+Node\+DIT::\+\+Is\+Deleted (\begin{DoxyParamCaption}\item[{bool}]{delete\+Status}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00191}{191}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00177}{177}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_ad0af0a4e851d654d530626326e61b6e3}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!IsValid@{IsValid}}
 \index{IsValid@{IsValid}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
@@ -104,7 +104,7 @@ bool DITSEngine::\+\+Node\+DIT::\+\+Is\+Valid (\begin{DoxyParamCaption}{}{}\end{
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00168}{168}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00189}{189}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_aa1aafca8289ca0538555fb2a18de9e14}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NDITVer@{NDITVer}}
 \index{NDITVer@{NDITVer}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
@@ -114,7 +114,7 @@ byte DITSEngine::\+\+Node\+DIT::\+\+NDITVer (\begin{DoxyParamCaption}{}{}\end{Do
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00174}{174}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00195}{195}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a3ec31140d82acbb1c14e404a930880f4}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NDITVer@{NDITVer}}
 \index{NDITVer@{NDITVer}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
@@ -124,37 +124,42 @@ void DITSEngine::\+\+Node\+DIT::\+\+NDITVer (\begin{DoxyParamCaption}\item[{byte
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00186}{186}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00202}{202}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
-\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a52e892f45452ea0a6fdac5728bda5d3e}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!Next@{Next}}
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a9a03201818e7a345f56cba975f081c6c}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!Next@{Next}}
 \index{Next@{Next}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
 \doxysubsubsection{\texorpdfstring{Next()}{Next()}}
-{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a52e892f45452ea0a6fdac5728bda5d3e} 
-void DITSEngine::\+\+Node\+DIT::\+\+Next (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a9a03201818e7a345f56cba975f081c6c} 
+bool DITSEngine::\+\+Node\+DIT::\+\+Next (\begin{DoxyParamCaption}\item[{bool}]{Incl\+Del}{ = {\ttfamily false}}\end{DoxyParamCaption})}
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00167}{167}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Advances the iterator to the next NDIT entry. 
 
-\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_afbbb916e0ca3379cf2f7e022ec78fc1b}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NextAll@{NextAll}}
-\index{NextAll@{NextAll}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
-\doxysubsubsection{\texorpdfstring{NextAll()}{NextAll()}}
-{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_afbbb916e0ca3379cf2f7e022ec78fc1b} 
-void DITSEngine::\+\+Node\+DIT::\+\+Next\+All (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+\begin{DoxyNote}{Note}
+The iterator remains at its current position if no next entries are found. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Incl\+Del} & (default false = skip deleted). True allows stopping at deleted entries. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the iterator successfully advanced; false if the end of records is reached. 
+\end{DoxyReturn}
 
 
-
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00182}{182}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00144}{144}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a8977febcc53e4e68ff265248e4c57624}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NGetName@{NGetName}}
 \index{NGetName@{NGetName}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
 \doxysubsubsection{\texorpdfstring{NGetName()}{NGetName()}}
 {\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_a8977febcc53e4e68ff265248e4c57624} 
-void DITSEngine::\+\+Node\+DIT::\+\+NGet\+Name (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+void DITSEngine::\+\+Node\+DIT::\+\+NGet\+Name (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{}\end{DoxyParamCaption}) const}
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00175}{175}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00162}{162}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a5e5f80855b145b137099902ef49f4ba7}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NodeIdx@{NodeIdx}}
 \index{NodeIdx@{NodeIdx}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
@@ -164,7 +169,7 @@ byte DITSEngine::\+\+Node\+DIT::\+\+Node\+Idx (\begin{DoxyParamCaption}{}{}\end{
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00170}{170}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00191}{191}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_ae2c68bd4969cba8fb4083ba0bb77ae52}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NodeIdx@{NodeIdx}}
 \index{NodeIdx@{NodeIdx}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
@@ -174,7 +179,7 @@ void DITSEngine::\+\+Node\+DIT::\+\+Node\+Idx (\begin{DoxyParamCaption}\item[{by
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00183}{183}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00199}{199}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a9ac6e4c9b191f27423479c4b8d1d2577}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NRFAddr@{NRFAddr}}
 \index{NRFAddr@{NRFAddr}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
@@ -184,7 +189,7 @@ uint16\+\_\+t DITSEngine::\+\+Node\+DIT::\+\+NRFAddr (\begin{DoxyParamCaption}{}
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00173}{173}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00194}{194}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a0387857313303fcbe297b9666dcd1d06}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NRFAddrH@{NRFAddrH}}
 \index{NRFAddrH@{NRFAddrH}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
@@ -194,7 +199,7 @@ byte DITSEngine::\+\+Node\+DIT::\+\+NRFAddrH (\begin{DoxyParamCaption}{}{}\end{D
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00171}{171}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00192}{192}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a2ab627fa60ec9cc940e94febaf3414be}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NRFAddrH@{NRFAddrH}}
 \index{NRFAddrH@{NRFAddrH}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
@@ -204,7 +209,7 @@ void DITSEngine::\+\+Node\+DIT::\+\+NRFAddrH (\begin{DoxyParamCaption}\item[{byt
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00184}{184}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00200}{200}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a4cc5451bbfc149ad9b71890551aa157d}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NRFAddrL@{NRFAddrL}}
 \index{NRFAddrL@{NRFAddrL}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
@@ -214,7 +219,7 @@ byte DITSEngine::\+\+Node\+DIT::\+\+NRFAddrL (\begin{DoxyParamCaption}{}{}\end{D
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00172}{172}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00193}{193}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_a254a3740b9a9e642aa40a32fb005f5e1}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NRFAddrL@{NRFAddrL}}
 \index{NRFAddrL@{NRFAddrL}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
@@ -224,17 +229,42 @@ void DITSEngine::\+\+Node\+DIT::\+\+NRFAddrL (\begin{DoxyParamCaption}\item[{byt
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00185}{185}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00201}{201}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 \Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_adf3369a468f23d868e18b98998618aa0}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!NSetName@{NSetName}}
 \index{NSetName@{NSetName}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
 \doxysubsubsection{\texorpdfstring{NSetName()}{NSetName()}}
 {\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_adf3369a468f23d868e18b98998618aa0} 
-void DITSEngine::\+\+Node\+DIT::\+\+NSet\+Name (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+void DITSEngine::\+\+Node\+DIT::\+\+NSet\+Name (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00187}{187}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00168}{168}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
+
+\Hypertarget{class_d_i_t_s_engine_1_1_node_d_i_t_ab25df9a78516eccdac4826d6a3713d69}\index{DITSEngine::NodeDIT@{DITSEngine::NodeDIT}!Prev@{Prev}}
+\index{Prev@{Prev}!DITSEngine::NodeDIT@{DITSEngine::NodeDIT}}
+\doxysubsubsection{\texorpdfstring{Prev()}{Prev()}}
+{\footnotesize\ttfamily \label{class_d_i_t_s_engine_1_1_node_d_i_t_ab25df9a78516eccdac4826d6a3713d69} 
+bool DITSEngine::\+\+Node\+DIT::\+\+Prev (\begin{DoxyParamCaption}\item[{bool}]{Incl\+Del}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+
+
+Moves the iterator to the previous NDIT entry. 
+
+\begin{DoxyNote}{Note}
+The iterator remains at its current position if no previous entries are found. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em Incl\+Del} & (default false = skip deleted). True allows stopping at deleted entries. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the iterator successfully moved; false if the beginning of records is reached. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{rf__dits_8cpp_source_l00153}{153}} of file \doxymbox{\hyperlink{rf__dits_8cpp_source}{rf\+\_\+dits.\+cpp}}.
 
 
 
@@ -249,10 +279,11 @@ friend class \doxymbox{\hyperlink{class_d_i_t_s_engine}{DITSEngine}}\hspace{0.3c
 
 
 
-Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00162}{162}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
+Definition at line \doxymbox{\hyperlink{rf__dits_8h_source_l00172}{172}} of file \doxymbox{\hyperlink{rf__dits_8h_source}{rf\+\_\+dits.\+h}}.
 
 
 
-The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
 \item 
-C:\+/\+\+Users/\+\+TGIT-\/\+TECH/\+\+Documents/\+!\+Git\+Hub/\+\+RF-\/\+DITS\+\_\+protocol\+\_\+spec/\+rf\+\_\+dits/\+\doxymbox{\hyperlink{rf__dits_8h}{rf\+\_\+dits.\+h}}\end{DoxyCompactItemize}
+C:\+/\+\+Users/\+\+TGIT-\/\+TECH/\+\+Documents/\+!\+Git\+Hub/\+\+RF-\/\+DITS\+\_\+protocol\+\_\+spec/\+rf\+\_\+dits/\+\doxymbox{\hyperlink{rf__dits_8h}{rf\+\_\+dits.\+h}}\item 
+C:\+/\+\+Users/\+\+TGIT-\/\+TECH/\+\+Documents/\+!\+Git\+Hub/\+\+RF-\/\+DITS\+\_\+protocol\+\_\+spec/\+rf\+\_\+dits/\+\doxymbox{\hyperlink{rf__dits_8cpp}{rf\+\_\+dits.\+cpp}}\end{DoxyCompactItemize}

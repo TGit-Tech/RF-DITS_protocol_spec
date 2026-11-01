@@ -4,5 +4,7 @@ var index =
     [ "The DIT record and Synchronization Feature.", "index.html#SYNC", null ],
     [ "Persistent Memory", "index.html#DITSPMEM", null ],
     [ "Protocol Specification", "index.html#ProtoSpec", null ],
+    [ "Device Permissions and Secure Set Feature.", "index.html#NONCE", null ],
+    [ "Value Scaling", "index.html#SCALING", null ],
     [ "Files &amp; Abreviations", "index.html#Files", null ]
 ];
