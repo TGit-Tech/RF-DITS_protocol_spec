@@ -2,9 +2,6 @@
  * @file    SETGS.cpp
  * @brief   Ref.h
  *********************************************************************************************************************/
-#ifndef _SETGS_CPP
-#define _SETGS_CPP
-
 #include "SETGS.h"
 
 // Local Device Settings (SETG) EEPROM allocation.
@@ -27,14 +24,14 @@
 #define ANALOG_IDXADDR(idx)    (ANALOG_STARTADDR + (idx * ANALOG_LSETGBYTES))
 #define SETPOINT_IDXADDR(idx)  (SETPOINT_STARTADDR + (idx * SETPOINT_LSETGBYTES))
 
-// Comment-out for actual usage
-byte RAMMem[SETG_ENDADDR];
-void RAMWrite(byte _Addr, byte _Val) {RAMMem[_Addr] = _Val;}
-byte RAMRead(uint16_t _Addr) {return RAMMem[_Addr];}
-void InitRAMMem() {memset(RAMMem, 0xFF, sizeof(RAMMem));}
+// Comment-out for actual usage (RAM simulation functions)
+byte RAMMem[SETG_ENDADDR];                                    // Just a byte[] of RAM memory
+void RAMWrite(byte _Addr, byte _Val) {RAMMem[_Addr] = _Val;}  // Sim Function for RAM memory write.
+byte RAMRead(uint16_t _Addr) {return RAMMem[_Addr];}          // Sim Function for RAM memory read.
+void InitRAMMem() {memset(RAMMem, 0xFF, sizeof(RAMMem));}     // Sim Function to initialize RAMMem to 0xFF.
 
-#define PMEMWRITE      RAMWrite
-#define PMEMREAD       RAMRead
+#define PMEMWRITE      RAMWrite   // Function name to write bytes in memory
+#define PMEMREAD       RAMRead    // Function name to read bytes from memory
 
 // -------------------------------------------------------------------------------------------------
 // bf 24-bits (3-bytes) per Digital Device. (sonar/serial are 2-pin)
@@ -46,23 +43,23 @@ void InitRAMMem() {memset(RAMMem, 0xFF, sizeof(RAMMem));}
 SETGSDigital::SETGSDigital(byte devUID) : args{8,2,6,2,6}, bf(args,5) {
   for (int adr=DIGMATH_STARTADDR; adr<ANALOG_STARTADDR ; adr=adr+DIGMATH_LSETGBYTES) { 
     byte rbyte = PMEMREAD(adr);
-    if (empty==INONE && rbyte==BNONE) { empty = adr; }
-    if (rbyte==devUID) {devAddr = adr; break; }
+    if (empty==INONE && rbyte==BNONE) { empty = adr; }  // Store first 'empty' address.
+    if (rbyte==devUID) {devAddr = adr; break; }         // Find devUID's address.
   }
   if (devAddr==INONE && empty!=INONE) { devAddr=empty; PMEMWRITE(devAddr,devUID); }
   if (devAddr==INONE) { Serial.println("No DigMath Storage left."); return; }
   for (int i=0; i<bf.totalBytes(); i++) { bf.buff[i] = PMEMREAD(devAddr+i); } // Load the Bytes
-  Serial.print("devAddr: ");Serial.println(devAddr);
+  Serial.print("devAddr: ");Serial.println(devAddr);    // Print devUID's found address.
 }
-void SETGSDigital::Delete() { bf.ByteSet(0,BNONE); }
-void SETGSDigital::Pin1Mode(byte _PinMode) { bf.ByteSet(1,_PinMode); }
-byte SETGSDigital::Pin1Mode() { return bf.ByteGet(1); }
-void SETGSDigital::Pin1(byte _PinNo) {bf.ByteSet(2, _PinNo);}
-byte SETGSDigital::Pin1() {return bf.ByteGet(2);}
-void SETGSDigital::Pin2Mode(byte _PinMode) {bf.ByteSet(3, _PinMode);}
-byte SETGSDigital::Pin2Mode() {return bf.ByteGet(3);}
-void SETGSDigital::Pin2(byte _PinNo) {bf.ByteSet(4, _PinNo);}
-byte SETGSDigital::Pin2() {return bf.ByteGet(4);}
+void SETGSDigital::Delete() { bf.setValue(0,BNONE); }
+void SETGSDigital::Pin1Mode(byte _PinMode) { bf.setValue(1,_PinMode); }
+byte SETGSDigital::Pin1Mode() { return bf.getValue(1); }
+void SETGSDigital::Pin1(byte _PinNo) {bf.setValue(2, _PinNo);}
+byte SETGSDigital::Pin1() {return bf.getValue(2);}
+void SETGSDigital::Pin2Mode(byte _PinMode) {bf.setValue(3, _PinMode);}
+byte SETGSDigital::Pin2Mode() {return bf.getValue(3);}
+void SETGSDigital::Pin2(byte _PinNo) {bf.setValue(4, _PinNo);}
+byte SETGSDigital::Pin2() {return bf.getValue(4);}
 // -------------------------------------------------------------------------------------------------
 // bf 24-bits (3-bytes) per Math Device.
 //(0) 8-bits  0-254   devUID
@@ -80,13 +77,13 @@ SETGSMath::SETGSMath(byte devUID) : args{8,6,4,6}, bf(args,4) {
   for (int i=0; i<bf.totalBytes(); i++) { bf.buff[i] = PMEMREAD(devAddr+i); } // Load the Bytes
   Serial.print("devAddr: ");Serial.println(devAddr);
 }
-void SETGSMath::Delete() { bf.ByteSet(0,BNONE); }
-void SETGSMath::in1DevUID(byte _devUID) { bf.ByteSet(1,_devUID);}
-byte SETGSMath::in1DevUID() { return bf.ByteGet(1); }
-void SETGSMath::Operator(byte _Oper) { bf.ByteSet(2,_Oper); }
-byte SETGSMath::Operator() { return bf.ByteGet(2); }
-void SETGSMath::in2DevUID(byte _devUID) { bf.ByteSet(3,_devUID); }
-byte SETGSMath::in2DevUID() { return bf.ByteGet(3); }
+void SETGSMath::Delete() { bf.setValue(0,BNONE); }
+void SETGSMath::in1DevUID(byte _devUID) { bf.setValue(1,_devUID);}
+byte SETGSMath::in1DevUID() { return bf.getValue(1); }
+void SETGSMath::Operator(byte _Oper) { bf.setValue(2,_Oper); }
+byte SETGSMath::Operator() { return bf.getValue(2); }
+void SETGSMath::in2DevUID(byte _devUID) { bf.setValue(3,_devUID); }
+byte SETGSMath::in2DevUID() { return bf.getValue(3); }
 // -------------------------------------------------------------------------------------------------
 // bf   44-bits (6-bytes); per Analog Device.
 // (0)  8-bits    devUID
@@ -106,17 +103,17 @@ SETGSAnalog::SETGSAnalog(byte devUID) : args{8,-16,5,-11,2,2}, bf(args,6) {
   for (int i=0; i<bf.totalBytes(); i++) { bf.buff[i] = PMEMREAD(devAddr+i); } // Load the Bytes
   Serial.print("devAddr: ");Serial.println(devAddr);
 }
-void SETGSAnalog::Delete() {bf.ByteSet(0, BNONE);}
-void SETGSAnalog::MultNumerator(int _MultNumer) { bf.IntSet(1, _MultNumer); }
-int SETGSAnalog::MultNumerator() { return bf.IntGet(1); }
-void SETGSAnalog::Pin(byte _Pin) { bf.ByteSet(2, _Pin); }
-byte SETGSAnalog::Pin() { return bf.ByteGet(2); }
-void SETGSAnalog::RawOffset(int _ROffset) { bf.IntSet(3, _ROffset); }
-int SETGSAnalog::RawOffset() { return bf.IntGet(3); }
-void SETGSAnalog::PinMode(byte _PinMode) { bf.ByteSet(4, _PinMode); }
-byte SETGSAnalog::PinMode() { return bf.ByteGet(4); }
-void SETGSAnalog::Samples(byte _Samples) { bf.ByteSet(5, _Samples); }
-byte SETGSAnalog::Samples() { return bf.ByteGet(5); }
+void SETGSAnalog::Delete() {bf.setValue(0, BNONE);}
+void SETGSAnalog::MultNumerator(int _MultNumer) { bf.setValue(1, _MultNumer); }
+int SETGSAnalog::MultNumerator() { return bf.getValue(1); }
+void SETGSAnalog::Pin(byte _Pin) { bf.setValue(2, _Pin); }
+byte SETGSAnalog::Pin() { return bf.getValue(2); }
+void SETGSAnalog::RawOffset(int _ROffset) { bf.setValue(3, _ROffset); }
+int SETGSAnalog::RawOffset() { return bf.getValue(3); }
+void SETGSAnalog::PinMode(byte _PinMode) { bf.setValue(4, _PinMode); }
+byte SETGSAnalog::PinMode() { return bf.getValue(4); }
+void SETGSAnalog::Samples(byte _Samples) { bf.setValue(5, _Samples); }
+byte SETGSAnalog::Samples() { return bf.getValue(5); }
 // -------------------------------------------------------------------------------------------------
 // bf 61-bits (8-bytes) per Setpoint Device.
 // (0)8-bits    0-255   devUID
@@ -140,29 +137,29 @@ SETGSSetpoint::SETGSSetpoint(byte devUID) : args{8,6,-11,-11,5,1,6,6,3,3}, bf(ar
   for (int i=0; i<bf.totalBytes(); i++) { bf.buff[i] = PMEMREAD(devAddr+i); } // Load the Bytes
   Serial.print("devAddr: ");Serial.println(devAddr);
 }
-void SETGSSetpoint::Delete() { bf.ByteSet(0, BNONE);}
-void SETGSSetpoint::inDevUID(byte _devUID) { bf.ByteSet(1,_devUID); }
-byte SETGSSetpoint::inDevUID() { return bf.ByteGet(1); }
-void SETGSSetpoint::Setpoint(int _setPoint) { bf.IntSet(2, _setPoint); }
-int SETGSSetpoint::Setpoint() { return bf.IntGet(2); }
-void SETGSSetpoint::inTolerance(int _inTol) { bf.IntSet(3,_inTol); }
-int SETGSSetpoint::inTolerance() { return bf.IntGet(3); }
-void SETGSSetpoint::TimeFrameTol(byte _eTimeFT) { bf.ByteSet(4,_eTimeFT); }
-byte SETGSSetpoint::TimeFrameTol() { return bf.ByteGet(4); }
-void SETGSSetpoint::IsAuto(bool _IsAuto) { bf.ByteSet(5,_IsAuto?1:0); }
-bool SETGSSetpoint::IsAuto() { return bf.ByteGet(5) != 0; }
-void SETGSSetpoint::outNodeIdx(byte _NodeIdx) { bf.ByteSet(6,_NodeIdx); }
-byte SETGSSetpoint::outNodeIdx() { return bf.ByteGet(6); }
-void SETGSSetpoint::outDevUID(byte _devUID) { bf.ByteSet(7,_devUID); }
-byte SETGSSetpoint::outDevUID() { return bf.ByteGet(7); }
-void SETGSSetpoint::BelowSetDo(byte _belowDo) { bf.ByteSet(8,_belowDo); }
-byte SETGSSetpoint::BelowSetDo() { return bf.ByteGet(8); }
-void SETGSSetpoint::AboveSetDo(byte _aboveDo) { bf.ByteSet(9,_aboveDo); }
-byte SETGSSetpoint::AboveSetDo() { return bf.ByteGet(9); }
+void SETGSSetpoint::Delete() { bf.setValue(0, BNONE);}
+void SETGSSetpoint::inDevUID(byte _devUID) { bf.setValue(1,_devUID); }
+byte SETGSSetpoint::inDevUID() { return bf.getValue(1); }
+void SETGSSetpoint::Setpoint(int _setPoint) { bf.setValue(2, _setPoint); }
+int SETGSSetpoint::Setpoint() { return bf.getValue(2); }
+void SETGSSetpoint::inTolerance(int _inTol) { bf.setValue(3,_inTol); }
+int SETGSSetpoint::inTolerance() { return bf.getValue(3); }
+void SETGSSetpoint::TimeFrameTol(byte _eTimeFT) { bf.setValue(4,_eTimeFT); }
+byte SETGSSetpoint::TimeFrameTol() { return bf.getValue(4); }
+void SETGSSetpoint::IsAuto(bool _IsAuto) { bf.setValue(5,_IsAuto?1:0); }
+bool SETGSSetpoint::IsAuto() { return bf.getValue(5) != 0; }
+void SETGSSetpoint::outNodeIdx(byte _NodeIdx) { bf.setValue(6,_NodeIdx); }
+byte SETGSSetpoint::outNodeIdx() { return bf.getValue(6); }
+void SETGSSetpoint::outDevUID(byte _devUID) { bf.setValue(7,_devUID); }
+byte SETGSSetpoint::outDevUID() { return bf.getValue(7); }
+void SETGSSetpoint::BelowSetDo(byte _belowDo) { bf.setValue(8,_belowDo); }
+byte SETGSSetpoint::BelowSetDo() { return bf.getValue(8); }
+void SETGSSetpoint::AboveSetDo(byte _aboveDo) { bf.setValue(9,_aboveDo); }
+byte SETGSSetpoint::AboveSetDo() { return bf.getValue(9); }
 
 uint32_t SETGSSetpoint::TimeFrameTolMS() {
   if (devAddr==INONE) return 0xFFFFFFFF;
-  byte enumNo = bf.ByteGet(4);;
+  byte enumNo = bf.getValue(4);;
   static const uint16_t TimeframeTolerance[32] PROGMEM = {
     43200, 37800, 32400, 27000, 21600,
     18900, 16200, 13500, 10800,
@@ -176,7 +173,7 @@ uint32_t SETGSSetpoint::TimeFrameTolMS() {
 }
 
 const char* SETGSSetpoint::TimeFrameTolStr() {
-  switch(bf.ByteGet(4)) {
+  switch(bf.getValue(4)) {
     case 0: return "24h";   case 1: return "21h";   case 2: return "18h";   case 3: return "15h";   case 4: return "12h";
     case 5: return "10h30"; case 6: return "9h";    case 7: return "7h30";  case 8: return "6h";    case 9: return "5h15";
     case 10: return "4h30"; case 11: return "3h45"; case 12: return "3h";   case 13: return "2h30"; case 14: return "2h";
@@ -187,4 +184,3 @@ const char* SETGSSetpoint::TimeFrameTolStr() {
   }
 }
 //_____________________________________________________________________________________________________________________
-#endif

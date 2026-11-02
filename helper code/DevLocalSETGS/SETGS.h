@@ -1,8 +1,11 @@
 ///@file    SETGS.h
 ///@brief   Device Local Settings in Persistant Memory class.
-#ifndef _SETGS_H
-#define _SETGS_H
-
+#pragma once
+#include <Arduino.h>
+#if __has_include("Config.h")
+    #include "Config.h"
+#endif
+#include <TGTDB.h>
 #include "BitFields.h"
 
 #define BNONE     0xFF    ///< Byte NONE/UNSET
@@ -256,4 +259,3 @@ class SETGSSetpoint {
     bool IsAuto();  
 };
 //_____________________________________________________________________________________________________________________
-#endif
