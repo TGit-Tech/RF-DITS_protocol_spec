@@ -6,7 +6,7 @@
     #include "Config.h"
 #endif
 #include <TGTDB.h>
-#include "BitFields.h"
+#include <BitFields.h>
 
 #define BNONE     0xFF    ///< Byte NONE/UNSET
 #define INONE     0xFFFF  ///< Integer NONE/UNSET
