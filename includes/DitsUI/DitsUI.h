@@ -1,15 +1,23 @@
 ///@file    DitsUI.h
-///@brief   Example DitsUI class for a node.
-
+///@brief   TFT & Keypad user interface (UI) for RF-DITS protocol.
+#pragma once
+#include "Config.h"
 #include <rf_dits.h>
+#include <Adafruit_ST7735.h>
+#include <OneSlot9pt7b.h>
 
-class DITSUI
+#define TFT_ROWS        (TFT_HEIGHT / FONT_Y)
+#define TFT_ROW_Y(row)  (((row) + 1) * FONT_Y)
+
+class DitsUI
 {
 public:
-    void Begin(DITSEngine& dits);
-    void Update();
+    void Begin(DITSEngine& _dits, Adafruit_GFX& _gfx);
+    void DisplayNode();
 
 private:
-    DITSEngine* _dits = nullptr;
+    DITSEngine* pDits = nullptr;
+    Adafruit_GFX* pGFX = nullptr;
+    void DumpRadio1DITS();
 };
 
