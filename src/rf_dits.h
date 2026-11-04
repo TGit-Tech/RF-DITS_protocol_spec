@@ -4,7 +4,7 @@
  *********************************************************************************************************************/
 #ifndef _RF_DITS_H
 #define _RF_DITS_H
-#include "DB.h"
+#include <TGTDB.h>
 #include <Arduino.h>
 
 // Never change these top defines

@@ -1,7 +1,7 @@
 ///@file    DitsUI.h
 ///@brief   Example DitsUI class for a node.
 
-#include <RF-DITS.h>
+#include <rf_dits.h>
 
 class DITSUI
 {
