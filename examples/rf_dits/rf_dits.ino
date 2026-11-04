@@ -3,7 +3,7 @@
  * @brief     Clean RF-DITS protocol example using EEPROM and RAM managers
  *********************************************************************************************************************/
 #include <EEPROM.h>
-#include "rf_dits.h"
+#include <rf_dits.h>
 #include "DB.h"
 
 // Testing two radios on one arduino mega.
