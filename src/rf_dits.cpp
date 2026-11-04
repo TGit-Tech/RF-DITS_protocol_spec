@@ -2,9 +2,6 @@
  * @file    rf_dits.cpp
  * @brief   Ref.h
  *********************************************************************************************************************/
-#ifndef _RF_DITS_CPP
-#define _RF_DITS_CPP
-
 #define CHALLENGE_WINDOW_MS 30000UL
 
 #include "rf_dits.h"
@@ -44,18 +41,18 @@ void DITSEngine::begin() {
     pmem_write(pmDDITAddr(1), PMDITSTOP);
     DDITStopIdx = 1;
   }
-  DBDITINFO(("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n"))
-  DBDITAINFO((DITNameBytes),("DITSEngine::begin <DITNameBytes>\n"))
-  DBDITAINFO((DITNameChar),("DITSEngine::begin <DITNameChar>\n"))
-  DBDITAINFO((pmSecNetAddr),("DITSEngine::begin <pmSecNetAddr>\n"))
-  DBDITAINFO((pmMaxDITRecords),("DITSEngine::begin <pmMaxDITRecords>\n"))
-  DBDITAINFO((NDITStopIdx),("DITSEngine::begin <NDITStopIdx>\n"))
-  DBDITAINFO((DDITStopIdx),("DITSEngine::begin <DDITStopIdx>\n\n"))
-  DBDITAINFO((pmDITbase),("DITSEngine::begin <pmDITbase>\n"))
-  DBDITAINFO((pmDITend),("DITSEngine::begin <pmDITend>\n"))
-  DBDITAINFO((pmDITEndAddr),("DITSEngine::begin <pmDITEndAddr>\n\n"))
-  DBDITAINFO((pmDITEndAddr-pmSecNetAddr),("DITSEngine::begin Total Bytes Allocated for DIT Records.\n"))
-  DBDITINFO(("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"))
+  DBDBINFO(("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n"))
+  DBDBAINFO((DITNameBytes),("DITSEngine::begin <DITNameBytes>\n"))
+  DBDBAINFO((DITNameChar),("DITSEngine::begin <DITNameChar>\n"))
+  DBDBAINFO((pmSecNetAddr),("DITSEngine::begin <pmSecNetAddr>\n"))
+  DBDBAINFO((pmMaxDITRecords),("DITSEngine::begin <pmMaxDITRecords>\n"))
+  DBDBAINFO((NDITStopIdx),("DITSEngine::begin <NDITStopIdx>\n"))
+  DBDBAINFO((DDITStopIdx),("DITSEngine::begin <DDITStopIdx>\n\n"))
+  DBDBAINFO((pmDITbase),("DITSEngine::begin <pmDITbase>\n"))
+  DBDBAINFO((pmDITend),("DITSEngine::begin <pmDITend>\n"))
+  DBDBAINFO((pmDITEndAddr),("DITSEngine::begin <pmDITEndAddr>\n\n"))
+  DBDBAINFO((pmDITEndAddr-pmSecNetAddr),("DITSEngine::begin Total Bytes Allocated for DIT Records.\n"))
+  DBDBINFO(("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"))
 }
 //-------------------------------------------------------------------------------------------------
 byte DITSEngine::SecNetCode() const { return pmem_read(pmSecNetAddr); }
@@ -68,7 +65,7 @@ bool DITSEngine::SecNetCode(byte _SecNetCode) {
 void DITSEngine::UpdateThisNodeName(const char* name) {
   NodeDIT node(this,0);
   if (node.NDITidx == BNONE) {
-    DBDITAERROR((node.NDITidx),("DITSEngine::UpdateThisNode <node(0).NDITidx>==BNONE"))
+    DBDBAERROR((node.NDITidx),("DITSEngine::UpdateThisNode <node(0).NDITidx>==BNONE"))
     return;
   }
   if (node.IsDeleted()) {node.IsDeleted(false);node.NodeIdx(0);}
@@ -79,7 +76,7 @@ void DITSEngine::UpdateThisNodeName(const char* name) {
 void DITSEngine::UpdateThisNodeRFAddr(uint16_t RFAddr) {
   NodeDIT node(this,0);
   if (node.NDITidx == BNONE) {
-    DBDITAERROR((node.NDITidx),("DITSEngine::UpdateThisNode <node(0).NDITidx>==BNONE"))
+    DBDBAERROR((node.NDITidx),("DITSEngine::UpdateThisNode <node(0).NDITidx>==BNONE"))
     return;
   }
   if (node.IsDeleted()) {node.IsDeleted(false);node.NodeIdx(0);}
@@ -89,8 +86,8 @@ void DITSEngine::UpdateThisNodeRFAddr(uint16_t RFAddr) {
 }
 //-------------------------------------------------------------------------------------------------
 bool DITSEngine::AddThisNodeDevice(byte devType, byte devAttr, const char* name) {
-  if (!name) {DBDITERROR(("DITSEngine::AddThisNodeDevice !name.")) return false;}
-  DBDITAAENTER((devType),(name),("DITSEngine::AddThisNodeDevice(<devNodeIdx>,devType,<name>)\n"))
+  if (!name) {DBDBERROR(("DITSEngine::AddThisNodeDevice !name.")) return false;}
+  DBDBAAENTER((devType),(name),("DITSEngine::AddThisNodeDevice(<devNodeIdx>,devType,<name>)\n"))
   
   uint32_t devUIDMask[(DDITStopIdx + 31) / 32];   // Dynamically created a bitmask array for used devUIDs
   memset(devUIDMask, 0, sizeof(devUIDMask));      // Set all bytes in the array to 0
@@ -112,7 +109,7 @@ bool DITSEngine::AddThisNodeDevice(byte devType, byte devAttr, const char* name)
     }
     if (devUID != BNONE) { break; }
   }
-  if (devUID == BNONE) {DBDITERROR(("DITSEngine::AddThisNodeDevice devUID==BNONE.\n")) return false;}
+  if (devUID == BNONE) {DBDBERROR(("DITSEngine::AddThisNodeDevice devUID==BNONE.\n")) return false;}
   //------------------------------------------------------
   if (freeDITidx == BNONE) { freeDITidx = AddDDIT(THISNODE); }
   NodeDIT node(this,THISNODE);
@@ -123,12 +120,12 @@ bool DITSEngine::AddThisNodeDevice(byte devType, byte devAttr, const char* name)
   newdev.DevType(devType);           // Assign devType
   newdev.DSetName(name);             // Assign the name
   node.NDITVer(node.NDITVer() + 1);
-  DBDITAAINFO((freeDITidx),(devUID),("DITSEngine::AddThisNodeDevice added-at <freeDITidx>,<devUID>\n"))
+  DBDBAAINFO((freeDITidx),(devUID),("DITSEngine::AddThisNodeDevice added-at <freeDITidx>,<devUID>\n"))
   return true;                    // Return success
 } 
 //-------------------------------------------------------------------------------------------------
 bool DITSEngine::DelThisNodeDevice(byte _devUID) {
-  DBDITAENTER((_devUID),("DITSEngine::DelThisNodeDevice(<devUID>)\n"))
+  DBDBAENTER((_devUID),("DITSEngine::DelThisNodeDevice(<devUID>)\n"))
   NodeDIT node(this,THISNODE);
   DeviceDIT dev(this);
   while(dev.Next(THISNODE)) {
@@ -138,7 +135,7 @@ bool DITSEngine::DelThisNodeDevice(byte _devUID) {
       return true;
     }
   }
-  DBDITAINFO((_devUID),("DITSEngine::DelThisNodeDevice(<devUID>) not found.\n"))
+  DBDBAINFO((_devUID),("DITSEngine::DelThisNodeDevice(<devUID>) not found.\n"))
   return false;  // Return false if the device not found.
 }
 //-------------------------------------------------------------------------------------------------NodeDIT
@@ -240,7 +237,7 @@ void DITSEngine::ProcessLoop() {
   // Process Rx Packet if needed.
   if (rxPacket && rxPacket->IsComplete(millis())) {
     if (rxPacket->IsValid()) {
-      if (!RxProcessPacket()) {DBRFINFO(("DITSEngine::ProcessLoop !RxProcessPacket() false return.\n"))};
+      if (!RxProcessPacket()) {DBLINFO(("DITSEngine::ProcessLoop !RxProcessPacket() false return.\n"))};
     }
     delete rxPacket;
     rxPacket = nullptr;  // Delete the Packet
@@ -250,8 +247,8 @@ void DITSEngine::ProcessLoop() {
   if (txPacket) {
     if (!txPacket->IsSecured()) txPacket->Secure();
     if (txPacket->IsSecured()) {
-#if (DB_INFO && DB_RF)
-      DBRFINFO(("DITSEngine::ProcessLoop txPacket->dumpRFPool...\n"))
+#if (DB_INFO && DBL)
+      DBLINFO(("DITSEngine::ProcessLoop txPacket->dumpRFPool...\n"))
       txPacket->dumpRFPool();
 #endif
       for (int idx=0; idx < txPacket->rfPoolIdxs && txPacket->Size > 0; idx++) {
@@ -265,7 +262,7 @@ void DITSEngine::ProcessLoop() {
       }                                                                                 // 'Size' allows return-to spot.
       if(txPacket->Size==0) {delete txPacket; txPacket = nullptr;}                      // Delete when empty.
     } else {
-      DBRFERROR(("DITSEngine::ProcessLoop txPacket->Secure() failed.\n"))
+      DBLERROR(("DITSEngine::ProcessLoop txPacket->Secure() failed.\n"))
       delete txPacket; txPacket = nullptr;
     }
   }
@@ -281,41 +278,41 @@ void DITSEngine::RxData(byte _byte) {
 bool DITSEngine::RadioPktMaxBytes(uint16_t maxBytes) {
   if (maxBytes >= PKC_RADIOPKTMAXBYTES_MIN && maxBytes <= PKC_RADIOPKTMAXBYTES_MAX) {
     mRadioPktMaxBytes = maxBytes; return true;}  // Success
-  DBRFAERROR((maxBytes),("DITSEngine::RadioPktMaxBytes(<maxBytes>) is out of range.\n"))
+  DBLAERROR((maxBytes),("DITSEngine::RadioPktMaxBytes(<maxBytes>) is out of range.\n"))
   return false;  // Failure
 }
 //-------------------------------------------------------------------------------------------------
 bool DITSEngine::TxAddRemoteNode(int RFAddr) {
-  if (txPacket) {DBRFERROR(("DITSEngine::TxAddRemoteNode 'txPacket' still exists.\n")) return false;}
+  if (txPacket) {DBLERROR(("DITSEngine::TxAddRemoteNode 'txPacket' still exists.\n")) return false;}
   NodeDIT node(this,0);
   txPacket = new TxPacket(mRadioPktMaxBytes,SecNetCode());
   txPacket->ToFrom(RFAddr, node.NRFAddr());
   txPacket->pktREQDITINFO();
-  DBRFAINFO((RFAddr,HEX),("DITSEngine::TxAddRemoteNode(<RFAddr>) packet staged.\n"));
+  DBLAINFO((RFAddr,HEX),("DITSEngine::TxAddRemoteNode(<RFAddr>) packet staged.\n"));
   return true;
 }
 //-------------------------------------------------------------------------------------------------
 void DITSEngine::DelRemoteNode(byte nodeIdx) {
-  DBDITAENTER((nodeIdx),("DITSEngine::DelRemoteNode(<nodeIdx>)"))
+  DBDBAENTER((nodeIdx),("DITSEngine::DelRemoteNode(<nodeIdx>)"))
   NodeDIT node(this, nodeIdx); node.IsDeleted(true);
   DeviceDIT dev(this);
   while(dev.Next(nodeIdx)) { dev.IsDeleted(true); }
 }
 //-------------------------------------------------------------------------------------------------
 bool DITSEngine::TxSetRemoteDevVal(byte nodeIdx, byte devUID, int value) {
-  if (txPacket) {DBRFERROR(("DITSEngine::TxSetRemoteDevVal 'txPacket' Tx Busy.\n")) return false;}
+  if (txPacket) {DBLERROR(("DITSEngine::TxSetRemoteDevVal 'txPacket' Tx Busy.\n")) return false;}
   NodeDIT tonode(this,nodeIdx);
   NodeDIT thisnode(this,THISNODE);
   txPacket = new TxPacket(mRadioPktMaxBytes,SecNetCode());
   txPacket->ToFrom(tonode.NRFAddr(),thisnode.NRFAddr());
   txPacket->pktSETVAL(tonode.NDITVer(),devUID,value);
-  DBRFAAAINFO((nodeIdx),(devUID),(value),("DITSEngine::TxSetRemoteDevVal(<nodeIdx>,<devUID>,<val>) PKT_SETVAL setup.\n"))
+  DBLAAAINFO((nodeIdx),(devUID),(value),("DITSEngine::TxSetRemoteDevVal(<nodeIdx>,<devUID>,<val>) PKT_SETVAL setup.\n"))
   return true;
 }
 //-------------------------------------------------------------------------------------------------
 bool DITSEngine::TxGetRemoteDevVals(byte nodeIdx) {
-  DBRFAENTER((nodeIdx),("DITSEngine::TxGetRemoteDevVals(<nodeIdx>)\n"))
-  if (txPacket) {DBRFERROR(("DITSEngine::TxSetRemoteDevVal 'txPacket' Tx Busy.\n")) return false;}
+  DBLAENTER((nodeIdx),("DITSEngine::TxGetRemoteDevVals(<nodeIdx>)\n"))
+  if (txPacket) {DBLERROR(("DITSEngine::TxSetRemoteDevVal 'txPacket' Tx Busy.\n")) return false;}
   NodeDIT tonode(this,nodeIdx);
   NodeDIT thisnode(this,THISNODE);
   txPacket = new TxPacket(mRadioPktMaxBytes,SecNetCode());
@@ -324,7 +321,7 @@ bool DITSEngine::TxGetRemoteDevVals(byte nodeIdx) {
 }
 //########################## 3. DITS Private Local Management.########################################
 byte DITSEngine::FindNodeDIT(uint16_t rfAddr, bool NotFoundAdd) {
-  DBDITAAENTER((rfAddr,HEX),(NotFoundAdd),("DITSEngine::FindNodeDIT(<rfAddr>,<NotFoundAdd>)\n"))
+  DBDBAAENTER((rfAddr,HEX),(NotFoundAdd),("DITSEngine::FindNodeDIT(<rfAddr>,<NotFoundAdd>)\n"))
   byte rfLow = lowByte(rfAddr);    // extract low byte
   byte rfHigh = highByte(rfAddr);  // extract high byte
   byte delDIT = BNONE;
@@ -346,7 +343,7 @@ byte DITSEngine::FindNodeDIT(uint16_t rfAddr, bool NotFoundAdd) {
 }
 //-------------------------------------------------------------------------------------------------
 uint16_t DITSEngine::FindDeviceDIT(byte _DNodeIdx, byte _devUID, bool NotFoundAdd) {
-  DBDITAAAENTER((_DNodeIdx),(_devUID),(NotFoundAdd),("DITSEngine::FindDeviceDIT(<DNodeIdx>,<devUID>,<NotFoundAdd>)\n"))
+  DBDBAAAENTER((_DNodeIdx),(_devUID),(NotFoundAdd),("DITSEngine::FindDeviceDIT(<DNodeIdx>,<devUID>,<NotFoundAdd>)\n"))
   uint16_t delDIT = INONE;
   DeviceDIT dev(this);
   while (dev.Next(_DNodeIdx,true)) {
@@ -356,12 +353,12 @@ uint16_t DITSEngine::FindDeviceDIT(byte _DNodeIdx, byte _devUID, bool NotFoundAd
   }
   if (NotFoundAdd) {
     if (delDIT!=INONE) {
-      DBDITINFO(("DITSEngine::FindDeviceDIT new DDIT.\n"))
+      DBDBINFO(("DITSEngine::FindDeviceDIT new DDIT.\n"))
       DeviceDIT dDIT(this,delDIT);
       dDIT.DNodeIdx(_DNodeIdx);
       return dDIT.DITidx();
     }
-    DBDITINFO(("DITSEngine::FindDeviceDIT new AddDDIT().\n"))
+    DBDBINFO(("DITSEngine::FindDeviceDIT new AddDDIT().\n"))
     return AddDDIT(_DNodeIdx);
   }
   return INONE;
@@ -369,7 +366,7 @@ uint16_t DITSEngine::FindDeviceDIT(byte _DNodeIdx, byte _devUID, bool NotFoundAd
 //-------------------------------------------------------------------------------------------------
 byte DITSEngine::AddNDIT() {
   if ( DDITStopIdx+NDITStopIdx+2 > pmMaxDITRecords) {   // Check DIT Record boundary
-    DBDITAAAERROR((DDITStopIdx),(NDITStopIdx),(pmMaxDITRecords),("DITSEngine::AddNDIT <DDITStopIdx>+<NDITStopIdx>+2><pmMaxDITRecords> Out of Memory.\n"))
+    DBDBAAAERROR((DDITStopIdx),(NDITStopIdx),(pmMaxDITRecords),("DITSEngine::AddNDIT <DDITStopIdx>+<NDITStopIdx>+2><pmMaxDITRecords> Out of Memory.\n"))
     return BNONE;
   }
   pmem_write(pmNDITAddr(NDITStopIdx) + PMO_NODEIDX, NDITStopIdx); // write NodeIdx at last STOP
@@ -380,7 +377,7 @@ byte DITSEngine::AddNDIT() {
 //-------------------------------------------------------------------------------------------------
 uint16_t DITSEngine::AddDDIT(byte _DNodeIdx) {
   if ( DDITStopIdx+NDITStopIdx+2 > pmMaxDITRecords) {   // Check DIT Record boundary
-    DBDITERROR(("DITSEngine::AddDDIT DDITStopIdx+NDITStopIdx+2>pmMaxDITRecords Out of Memory.\n"))
+    DBDBERROR(("DITSEngine::AddDDIT DDITStopIdx+NDITStopIdx+2>pmMaxDITRecords Out of Memory.\n"))
     return INONE;
   }
   pmem_write(pmDDITAddr(DDITStopIdx) + PMO_DNODEIDX, _DNodeIdx);  // write DNodeIdx at last STOP
@@ -394,10 +391,10 @@ uint16_t DITSEngine::AddDDIT(byte _DNodeIdx) {
 ///@note If a packet requires a response, this function allocates a new TxPacket to the global @ref txPacket pointer.
 ///@return true if the packet was recognized and processed, false if an error occurred or the transmitter was busy.
 bool DITSEngine::RxProcessPacket() {
-  if(!rxPacket) {DBRFERROR(("DITSEngine::RxProcessPacket !rxPacket.\n")) return false;}
-  DBRFAENTER((rxPacket->FromRF(),HEX),("DITSEngine::RxProcessPacket <fromRF>\n"))
-#if (DB_INFO && DB_RF)
-  DBRFINFO(("DITSEngine::RxProcessPacket rxPacket->dumpRFPool...\n"))
+  if(!rxPacket) {DBLERROR(("DITSEngine::RxProcessPacket !rxPacket.\n")) return false;}
+  DBLAENTER((rxPacket->FromRF(),HEX),("DITSEngine::RxProcessPacket <fromRF>\n"))
+#if (DB_INFO && DBL)
+  DBLINFO(("DITSEngine::RxProcessPacket rxPacket->dumpRFPool...\n"))
   rxPacket->dumpRFPool();
 #endif
   NodeDIT thisnode(this,THISNODE);
@@ -407,8 +404,8 @@ bool DITSEngine::RxProcessPacket() {
   if(rxPacket->PktType()==PKT_DITINFO) {return RxSaveNodeDITINFO();}
   
   if(rxPacket->PktType()==PKT_REQNONCE) { 
-    DBRFINFO(("DITSEngine::RxProcessPacket PKT_REQNONCE\n"))
-    if(txPacket) {DBRFERROR(("DITSEngine::RxProcessPacket PKT_REQNONCE 'txPacket' Tx is busy.\n")) return false;}
+    DBLINFO(("DITSEngine::RxProcessPacket PKT_REQNONCE\n"))
+    if(txPacket) {DBLERROR(("DITSEngine::RxProcessPacket PKT_REQNONCE 'txPacket' Tx is busy.\n")) return false;}
     int ChallengeResp = rxPacket->Value() ^ SecNetCode();
     txPacket = new TxPacket(mRadioPktMaxBytes,SecNetCode());
     txPacket->ToFrom(rxPacket->FromRF(), thisnode.NRFAddr());
@@ -418,14 +415,14 @@ bool DITSEngine::RxProcessPacket() {
 
   // ---- Check Nonce before SETVAL activates ----
   if(rxPacket->PktType()==PKT_NONCERSP) {
-    DBRFINFO(("DITSEngine::RxProcessPacket PKT_NONCERSP\n"))
+    DBLINFO(("DITSEngine::RxProcessPacket PKT_NONCERSP\n"))
     unsigned long nowMS = millis();
     if (rxPacket->Value() != s_challengeNonce) { 
-      DBRFERROR(("DITSEngine::RxProcessPacket SETVAL nonce mismatch\n"))
+      DBLERROR(("DITSEngine::RxProcessPacket SETVAL nonce mismatch\n"))
       return false;
     }
     if (nowMS - s_challengeIssuedMS > CHALLENGE_WINDOW_MS) { 
-      DBRFERROR(("DITSEngine::RxProcessPacket SETVAL nonce expired\n"))
+      DBLERROR(("DITSEngine::RxProcessPacket SETVAL nonce expired\n"))
       s_challengeNonce = 0; return false;
     }
     RxReqDeviceSet(SetValNonceDevUID, SetValNonceValue); 
@@ -436,13 +433,13 @@ bool DITSEngine::RxProcessPacket() {
 
   // *** DIT Versions match check. ***
   if(rxPacket->NDITVer()!=thisnode.NDITVer()) {
-    DBRFINFO(("DITSEngine::RxProcessPacket rxPacket->NDITVer()!=thisnode.NDITVer() version mis-match.\n"))
-    if(txPacket) {DBRFERROR(("DITSEngine::RxProcessPacket 'txPacket' Tx is busy.\n")) return false;} 
+    DBLINFO(("DITSEngine::RxProcessPacket rxPacket->NDITVer()!=thisnode.NDITVer() version mis-match.\n"))
+    if(txPacket) {DBLERROR(("DITSEngine::RxProcessPacket 'txPacket' Tx is busy.\n")) return false;} 
     return TxSendThisNodeDITINFO(rxPacket->FromRF());
   }
     
   if (rxPacket->PktType()==PKT_SETVAL) {
-    DBRFINFO(("DITSEngine::RxProcessPacket PKT_SETVAL\n"))
+    DBLINFO(("DITSEngine::RxProcessPacket PKT_SETVAL\n"))
     bool RWSS = false;
     DeviceDIT dev(this,INONE);
     while(dev.Next(THISNODE)) {               // Find devices DIT
@@ -451,7 +448,7 @@ bool DITSEngine::RxProcessPacket() {
       }
     }
     if (!RWSS) {RxReqDeviceSet(rxPacket->DevUID(), rxPacket->Value()); return true;}
-    if(txPacket) {DBRFERROR(("DITSEngine::RxProcessPacket REQ txPacket Tx is busy.\n")) return false;}
+    if(txPacket) {DBLERROR(("DITSEngine::RxProcessPacket REQ txPacket Tx is busy.\n")) return false;}
     txPacket = new TxPacket(mRadioPktMaxBytes,SecNetCode());
     txPacket->ToFrom(rxPacket->FromRF(), thisnode.NRFAddr());     // Setup TxPacket.
     RFDITS_SeedRNG();                                             // ensure random seeded (Generate Nonce)
@@ -465,8 +462,8 @@ bool DITSEngine::RxProcessPacket() {
   }
      
   if (rxPacket->PktType()==PKT_REQVALS) {
-    DBRFINFO(("DITSEngine::RxProcessPacket PKT_REQVALS\n"))
-    if(txPacket) {DBRFERROR(("DITSEngine::RxProcessPacket REQ txPacket Tx is busy.\n")) return false;}
+    DBLINFO(("DITSEngine::RxProcessPacket PKT_REQVALS\n"))
+    if(txPacket) {DBLERROR(("DITSEngine::RxProcessPacket REQ txPacket Tx is busy.\n")) return false;}
     txPacket = new TxPacket(mRadioPktMaxBytes,SecNetCode());
     txPacket->ToFrom(rxPacket->FromRF(), thisnode.NRFAddr());
     txPacket->pktVALS(thisnode.NDITVer());
@@ -480,8 +477,8 @@ bool DITSEngine::RxProcessPacket() {
   }
 
   if (rxPacket->PktType()==PKT_REQVAL) {
-    DBRFINFO(("DITSEngine::RxProcessPacket PKT_PKT_REQVAL\n"))
-    if(txPacket) {DBRFERROR(("DITSEngine::RxProcessPacket REQ txPacket Tx is busy.\n")) return false;}
+    DBLINFO(("DITSEngine::RxProcessPacket PKT_PKT_REQVAL\n"))
+    if(txPacket) {DBLERROR(("DITSEngine::RxProcessPacket REQ txPacket Tx is busy.\n")) return false;}
     txPacket = new TxPacket(mRadioPktMaxBytes,SecNetCode());
     txPacket->ToFrom(rxPacket->FromRF(), thisnode.NRFAddr());
     txPacket->pktVAL(thisnode.NDITVer(), rxPacket->DevUID(), RxReqDeviceValue(rxPacket->DevUID()));
@@ -489,7 +486,7 @@ bool DITSEngine::RxProcessPacket() {
   }
 
   if (rxPacket->PktType()==PKT_VALS) {
-    DBRFINFO(("DITSEngine::RxProcessPacket PKT_VALS\n"))
+    DBLINFO(("DITSEngine::RxProcessPacket PKT_VALS\n"))
     NodeDIT fnode(this,FindNodeDIT(rxPacket->FromRF()));
     byte devUID  = 0; byte valH = 0; uint16_t linear = 0; byte bytID = 0;
     for (int chunk = 0; chunk < rxPacket->rfPoolIdxs && linear < rxPacket->Size; chunk++) {
@@ -507,20 +504,20 @@ bool DITSEngine::RxProcessPacket() {
   }
 
   if (rxPacket->PktType()==PKT_VAL) {
-    DBRFINFO(("DITSEngine::RxProcessPacket PKT_VAL\n"))
+    DBLINFO(("DITSEngine::RxProcessPacket PKT_VAL\n"))
     RxDataDevValue(FindNodeDIT(rxPacket->FromRF()), rxPacket->DevUID(), rxPacket->Value());
     return true;
   }
 
-  DBRFAERROR((rxPacket->PktType(),HEX),("DITSEngine::RxProcessPacket <rxPacket->PktType> not defined.\n"))
+  DBLAERROR((rxPacket->PktType(),HEX),("DITSEngine::RxProcessPacket <rxPacket->PktType> not defined.\n"))
   // Todo: Call for updates.
 }
 //-----------------------------------------------------------------------------------------------------
 bool DITSEngine::RxSaveNodeDITINFO() {                        
-  DBRFENTER(("DITSEngine::RxSaveNodeDITINFO\n"))
+  DBLENTER(("DITSEngine::RxSaveNodeDITINFO\n"))
   
   byte FromNIdx = FindNodeDIT(rxPacket->FromRF(),true);
-  if (FromNIdx==BNONE) {DBRFERROR(("DITSEngine::RxSaveNodeDITINFO FromNIdx==BNONE")) return false; }
+  if (FromNIdx==BNONE) {DBLERROR(("DITSEngine::RxSaveNodeDITINFO FromNIdx==BNONE")) return false; }
   NodeDIT ditNode(this, FromNIdx);
   ditNode.NRFAddrH(rxPacket->FromRFH());
   ditNode.NRFAddrL(rxPacket->FromRFL());
@@ -579,8 +576,8 @@ bool DITSEngine::RxSaveNodeDITINFO() {
 }
 //-----------------------------------------------------------------------------------------------------
 bool DITSEngine::TxSendThisNodeDITINFO(uint16_t RFAddr) {
-  if(txPacket) {DBRFERROR(("DITSEngine::TxSendThisNodeDITINFO 'txPacket' is busy.\n")) return false;}
-  DBRFAENTER((RFAddr,HEX),("DITSEngine::TxSendThisNodeDITINFO(<RFAddr>)\n"))
+  if(txPacket) {DBLERROR(("DITSEngine::TxSendThisNodeDITINFO 'txPacket' is busy.\n")) return false;}
+  DBLAENTER((RFAddr,HEX),("DITSEngine::TxSendThisNodeDITINFO(<RFAddr>)\n"))
   
   NodeDIT thisnode(this,THISNODE);
   txPacket = new TxPacket(mRadioPktMaxBytes,SecNetCode());
@@ -623,7 +620,7 @@ void DITSEngine::RxPacket::RxByte(byte _Byte) {
 }
 //-----------------------------------------------------------------------------------------------------
 void DITSEngine::RxPacket::IsSecure() {
-  DBRFENTER(("RxPacket::IsSecure\n")) // Check - Good for 512b, 128-Combo SecNet, Add nonce bypass
+  DBLENTER(("RxPacket::IsSecure\n")) // Check - Good for 512b, 128-Combo SecNet, Add nonce bypass
   if (bIsSecure) return;
   if (!rfPool[0]) return;
   uint16_t rxSecNet = word(rfPool[0][PKB_SECH], rfPool[0][PKB_SECL]);  //0,1
@@ -636,16 +633,16 @@ void DITSEngine::RxPacket::IsSecure() {
   }
   bitWrite(Sz, y, bitRead(rxSecNet, i));i++;y++;  // y=7, i=14. ++ to y=8, ++ to i=15.
   bitWrite(Sz, y, bitRead(rxSecNet, i));          // writes i=15 into y=8(Size_uint16_t)
-  DBRFAINFO((Sc, HEX),("RxPacket::IsSecure <Sc>\n"))
-  DBRFAINFO((Sz),("RxPacket::IsSecure <Sz>\n"))
-  if (Sc != SecNet) {DBRFERROR(("RxPacket::IsSecure FAILED SECURITY\n")) return;}
+  DBLAINFO((Sc, HEX),("RxPacket::IsSecure <Sc>\n"))
+  DBLAINFO((Sz),("RxPacket::IsSecure <Sz>\n"))
+  if (Sc != SecNet) {DBLERROR(("RxPacket::IsSecure FAILED SECURITY\n")) return;}
   Size = Sz;
   bIsSecure = true;
 }
 //____________________________________________________________________________________________________________TxPacket
 void DITSEngine::TxPacket::AddTxByte(byte _TxByte) {
-  if (!rfPool) {DBRFERROR(("TxPacket::AddTxByte !rfPool\n")) return;}
-  if (Size>512) {DBRFERROR(("TxPacket::AddTxByte Size>512\n")) return;}
+  if (!rfPool) {DBLERROR(("TxPacket::AddTxByte !rfPool\n")) return;}
+  if (Size>512) {DBLERROR(("TxPacket::AddTxByte Size>512\n")) return;}
   byte currIdx = Size / uiRadioPktMaxBytes;
   byte currByte = Size % uiRadioPktMaxBytes;
   if (!rfPool[currIdx]) {rfPool[currIdx] = new byte[uiRadioPktMaxBytes];} // Initialize new radio chunks as needed.
@@ -653,11 +650,11 @@ void DITSEngine::TxPacket::AddTxByte(byte _TxByte) {
 }
 //-----------------------------------------------------------------------------------------------------
 void DITSEngine::TxPacket::Secure() {
-  DBRFAENTER((SecNet,HEX),("TxPacket::Secure(<SecNet>)\n"))
-  if(bSecured) {DBRFERROR(("TxPacket::Secure Already Secured!\n")) return;}
-  if(!rfPool[0]) {DBRFERROR(("TxPacket::Secure !rfPool[0]\n")) return;}
+  DBLAENTER((SecNet,HEX),("TxPacket::Secure(<SecNet>)\n"))
+  if(bSecured) {DBLERROR(("TxPacket::Secure Already Secured!\n")) return;}
+  if(!rfPool[0]) {DBLERROR(("TxPacket::Secure !rfPool[0]\n")) return;}
   if(rfPool[0][PKB_TYPE] < PKT_TYPEMIN || rfPool[0][PKB_TYPE] > PKT_TYPEMAX) {
-    DBRFAERROR((rfPool[0][PKB_TYPE],HEX),("TxPacket::Secure Unidentified Packet <Type>.\n")) 
+    DBLAERROR((rfPool[0][PKB_TYPE],HEX),("TxPacket::Secure Unidentified Packet <Type>.\n")) 
     return;
   }
   byte i = 0;

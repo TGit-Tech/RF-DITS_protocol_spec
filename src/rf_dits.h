@@ -2,8 +2,7 @@
  * @file    rf_dits.h
  * @brief   RF Device-Index-Table with Security protocol
  *********************************************************************************************************************/
-#ifndef _RF_DITS_H
-#define _RF_DITS_H
+#pragma once
 #include <TGTDB.h>
 #include <Arduino.h>
 
@@ -425,19 +424,19 @@ class DITSEngine::rfPacket {
       for (int i = 0; i<rfPoolIdxs; i++) {if (rfPool[i]) {delete[] rfPool[i];rfPool[i] = nullptr;}}
       delete[] rfPool; rfPool = nullptr;
     }
-#if (DB_INFO && DB_RF)
+#if (DB_INFO && DBL)
     void dumpRFPool() {
       if(!rfPool) return;
       int linear = 0;
       for (int i = 0; i < rfPoolIdxs; i++) {
         if (!rfPool[i]) continue; // Skip empty chunks
         for (int j = 0; j < uiRadioPktMaxBytes; j++) {
-          if (rfPool[i][j] < 0x10) { DBRFINFOSP(("0")) }
-          DBRFINFOSP((rfPool[i][j],HEX))
-          DBRFINFOSP((","))
+          if (rfPool[i][j] < 0x10) { DBLINFOSP(("0")) }
+          DBLINFOSP((rfPool[i][j],HEX))
+          DBLINFOSP((","))
           if (++linear>=Size) break;
         }
-        DBRFINFOSP(("\n"))
+        DBLINFOSP(("\n"))
         if (linear>=Size) break;
       }      
     }
@@ -548,4 +547,3 @@ class DITSEngine::TxPacket : public DITSEngine::rfPacket {
     bool      bSecured = false;
 };
 //_____________________________________________________________________________________________________________________
-#endif

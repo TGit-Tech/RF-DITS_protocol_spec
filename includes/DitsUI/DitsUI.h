@@ -6,10 +6,10 @@
 class DITSUI
 {
 public:
-    void Begin(RF_DITS& dits);
+    void Begin(DITSEngine& dits);
     void Update();
 
 private:
-    RF_DITS* _dits = nullptr;
+    DITSEngine* _dits = nullptr;
 };
 

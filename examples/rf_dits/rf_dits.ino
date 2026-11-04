@@ -4,7 +4,7 @@
  *********************************************************************************************************************/
 #include <EEPROM.h>
 #include <rf_dits.h>
-#include "DB.h"
+#include <TGTDB.h>
 
 // Testing two radios on one arduino mega.
 // Wire TX1(pin18) to RX2(pin17)

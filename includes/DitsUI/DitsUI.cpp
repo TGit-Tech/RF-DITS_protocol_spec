@@ -1,6 +1,6 @@
 #include "DITSUI.h"
 
-void DITSUI::Begin(RF_DITS& dits)
+void DITSUI::Begin(DITSEngine& dits)
 {
     _dits = &dits;
 }
