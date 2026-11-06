@@ -2,6 +2,7 @@
 #include <rf_dits.h>
 #include "DitsUI.h"
 #include <Adafruit_ST7735.h>
+#include "DigKeyPadBD241S.h"
 
 ///@defgroup DT [DT] Device-Type enumeration.
 /// DITS provides 1-byte to designate Device Type definitions.
@@ -82,6 +83,7 @@ RAMmgrDIT Radio2(Serial2);
 //UI
 Adafruit_ST7735 oDSP(DISPPINS); //TFT(cs, dc(rs)(cd), rst)
 DitsUI dUI;
+KeyPad* ButtonCapture = nullptr;
 
 void setup() {
   
@@ -94,7 +96,10 @@ void setup() {
   Serial2.begin(9600);          // Start Radio Communications for Radio2
 
   oDSP.initR(INITR_GREENTAB);   //Initialize ST7735 of the GFX
-  dUI.Begin(Radio1, oDSP);      //Start DitsUI
+  
+  
+  ButtonCapture = new KeyPad(/*Debounce*/300, /*HoldRepeat*/2000, /*BuzzPin*/0xFF);
+  ButtonCapture->StartCapture();
 
   // Standard RF-DITS protocol settings.
   Radio1.RadioPktMaxBytes(58);          // 58 is the default.  This can be deleted.
@@ -113,20 +118,15 @@ void setup() {
   Radio1.AddThisNodeDevice(DT_ONOFF, DRW, "devonoff");
   Radio1.AddThisNodeDevice(DT_ANAINPUT, DRO, "devtemp");
 
-  dUI.DisplayNode();
+  dUI.Begin(Radio1, oDSP);      //Start DitsUI
+
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-/*
-void MenuName::DisplayName(byte _ID) {
-//DBENTERAL(("MenuName::DisplayName"),(Name()))
-  if ( Display==0 ) { DBERRORL(("MenuName::DisplayName Display==0")) return; }
-  Display->SETCURSOR(XPos,YPos);
-  if ( NavSelected==SEL_NAME ) { Display->BGNAMESELT; Display->TXTSELT; }
-  else { Display->BGNAMENORM; Display->TXTNORM; }
-  if (_ID!=BNONE) Display->print(_ID);
-  Display->print(Name());
-}
-*/
+  int iButton = ButtonCapture->Button();
+  if(iButton!=NAVKEYNONE) {
+    //Serial.println("Button Pressed.");
+    dUI.ButtonPress(iButton);
+  }
 }

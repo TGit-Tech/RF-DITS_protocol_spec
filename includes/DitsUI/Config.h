@@ -1,5 +1,5 @@
 
-
+#define DB_INFO 1
 
 
 

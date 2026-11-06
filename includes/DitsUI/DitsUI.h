@@ -5,19 +5,22 @@
 #include <rf_dits.h>
 #include <Adafruit_ST7735.h>
 #include <OneSlot9pt7b.h>
-
-#define TFT_ROWS        (TFT_HEIGHT / FONT_Y)
-#define TFT_ROW_Y(row)  (((row) + 1) * FONT_Y)
+#include "UIBase.h"
+#include "UIRadio.h"
+#include "UINode.h"
+#include "UISetup.h"
 
 class DitsUI
 {
 public:
-    void Begin(DITSEngine& _dits, Adafruit_GFX& _gfx);
-    void DisplayNode();
+  DitsUI::~DitsUI() {   }
+  void Begin(DITSEngine& _dits, Adafruit_GFX& _gfx);
+  void ButtonPress(int _Button);
 
 private:
-    DITSEngine* pDits = nullptr;
-    Adafruit_GFX* pGFX = nullptr;
-    void DumpRadio1DITS();
+  DITSEngine* pDits = nullptr;
+  Adafruit_GFX* pGFX = nullptr;
+  void DumpRadio1DITS();
+  byte NavNodeIdx = BNONE;
+  UIBase* OnScreen = nullptr;
 };
-
