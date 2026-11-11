@@ -3,7 +3,9 @@
 #include "DitsUI.h"
 #include <Adafruit_ST7735.h>
 #include "DigKeyPadBD241S.h"
+#include <Ebyte.h>
 
+//#include "C:/Users/TGIT-TECH/Documents/!GitHub/RF-DITS_protocol_spec/includes/RadioI"
 ///@defgroup DT [DT] Device-Type enumeration.
 /// DITS provides 1-byte to designate Device Type definitions.
 /// Never (0) as RF uses null-termination '\0' to seperate records.
@@ -84,6 +86,7 @@ RAMmgrDIT Radio2(Serial2);
 Adafruit_ST7735 oDSP(DISPPINS); //TFT(cs, dc(rs)(cd), rst)
 DitsUI dUI;
 KeyPad* ButtonCapture = nullptr;
+Ebyte oEbyte(RFPINS);
 
 void setup() {
   
@@ -92,11 +95,20 @@ void setup() {
 
   Radio1.begin();               // Start RF-DITS protocol on sim Radio1
   Radio2.begin();               // Start RF-DITS protocol on sim Radio2
+
   Serial1.begin(9600);          // Start Radio Communications for Radio1
   Serial2.begin(9600);          // Start Radio Communications for Radio2
-
-  oDSP.initR(INITR_GREENTAB);   //Initialize ST7735 of the GFX
-  
+  oEbyte.Begin();
+  /*
+  Variant	Initialization Flag	Notes
+  Black Tab	    INITR_BLACKTAB	  Most common 1.8″ variant
+  Green Tab	    INITR_GREENTAB	  Different pixel offsets
+  Green Tab 2	  INITR_GREENTAB2	  Alternative green tab version
+  Red Tab	      INITR_REDTAB	    RGB color order differences
+  Mini 160×80	  INITR_MINI160x80	Smaller form factor display
+  144 Green Tab	INITR_144GREENTAB	1.44″ square display (128×128)
+  */
+  oDSP.initR(INITR_BLACKTAB);   //Initialize ST7735 of the GFX
   
   ButtonCapture = new KeyPad(/*Debounce*/300, /*HoldRepeat*/2000, /*BuzzPin*/0xFF);
   ButtonCapture->StartCapture();
@@ -118,7 +130,7 @@ void setup() {
   Radio1.AddThisNodeDevice(DT_ONOFF, DRW, "devonoff");
   Radio1.AddThisNodeDevice(DT_ANAINPUT, DRO, "devtemp");
 
-  dUI.Begin(Radio1, oDSP);      //Start DitsUI
+  dUI.Begin(Radio1, oDSP, oEbyte);      //Start DitsUI
 
 }
 

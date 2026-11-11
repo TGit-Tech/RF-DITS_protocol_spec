@@ -1,11 +1,12 @@
 #pragma once
 #include "UIBase.h"
+#include <rf_dits.h>
 
 class UINode : public UIBase {
 public:
     UINode(Adafruit_GFX& _GFX, DITSEngine& _DITS, byte _NodeIdx) : UIBase(_GFX), pDits(&_DITS), NodeIdx(_NodeIdx)  {}
 
-    void Display() override {
+    void DisplayScreen() override {
       // Load Screen Data
       int row = 0;
       DITSEngine::NodeDIT node = pDits->Node(NodeIdx);
@@ -29,7 +30,7 @@ public:
       }
     }
   
-    byte ButtonPress(int _Button) override {
+    uint16_t ButtonPress(int _Button) override {
       DBUIAENTER((_Button),("DitsUI::ButtonPress\n"))
       if(_Button==NAVKEYRIGHT) { return UINEXTNODE; }
       if(_Button==NAVKEYLEFT) { return UIPREVNODE; }
@@ -49,7 +50,8 @@ public:
       }
       if(_Button==NAVKEYSET && SelectedRow==0) return UISETUP;
     }
-
+    
+    bool gotValue(uint16_t _DUID, uint16_t _EUID, int _Value) override {}
 private:
     DITSEngine* pDits;
     byte NodeIdx = 0;

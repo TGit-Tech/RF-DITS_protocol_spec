@@ -3,22 +3,22 @@
 
 class UISetup : public UIBase {
 private:
-  const __FlashStringHelper* FMenuRows[7] = {};
+  const __FlashStringHelper* FMenuRows[8] = {};
   int SelectedRow = 0;
 public:
     UISetup(Adafruit_GFX& _GFX) : UIBase(_GFX) {
       FMenuRows[0] = F("Setup Menu");
-      FMenuRows[1] = F("Edit Tode Name");
-      FMenuRows[2] = F("Radio Settings");
-      FMenuRows[3] = F("Add Device");
-      FMenuRows[4] = F("Delete Tode");
-      FMenuRows[5] = F("Add Tode");
-      FMenuRows[6] = F("System Settings");
+      FMenuRows[1] = F("Add RTode");
+      FMenuRows[2] = F("Del RTode");
+      FMenuRows[3] = F("Edit Tode");
+      FMenuRows[4] = F("Add Device");
+      FMenuRows[5] = F("Edit Device");
+      FMenuRows[6] = F("Radio Settings");
+      FMenuRows[7] = F("System Settings");
       //Match count in private: const __FlashStringHelper* FMenuRows[7] = {};
     }
 
-    void Display() override {
-      
+    void DisplayScreen() override {
       pGFX->fillScreen(ST77XX_BLACK);
       pGFX->drawFastHLine(0, FONT_Y+2, TFT_WIDTH, 0x03E0);
       for (int r=0; r<TFT_ROWS && r < ArraySize(FMenuRows); r++) {
@@ -27,7 +27,7 @@ public:
       }
     }
 
-    byte ButtonPress(int _Button) override {
+    uint16_t ButtonPress(int _Button) override {
       DBUIAENTER((_Button),("DitsUI::ButtonPress\n"))
       if(_Button==NAVKEYLEFT) { return UINODE;}
       if(_Button==NAVKEYUP && SelectedRow!=0) {
@@ -54,6 +54,11 @@ public:
         pGFX->setCursor(0, TFT_ROW_Y(SelectedRow));
         pGFX->print(FMenuRows[SelectedRow]);        
       }
+      if(_Button==NAVKEYGET) {
+        if(SelectedRow==3) return UIEDITTODE;
+      }
+      
       return UINOCHANGE;
     }
+    bool gotValue(uint16_t _DUID, uint16_t _EUID, int _Value) override {}
 };

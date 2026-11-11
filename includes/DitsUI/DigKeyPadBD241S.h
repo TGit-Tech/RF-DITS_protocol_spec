@@ -25,7 +25,7 @@
 #define NAVKEYUP          0xFC
 #define NAVKEYDOWN        0xFB
 #define NAVKEYSET         0xFA
-#define NAVKEYOKAY        0xF9
+#define NAVKEYGET        0xF9
 #define KEYPRESSMIN       0xF0
 ///@}
 
@@ -76,7 +76,7 @@ namespace ButtonISR {
     Button_Press_Time = millis();		// Record Press Time for Debounce
     Current_Button = NAVKEYNONE;		// Default is NAVKEYNONE
 	  if (     (PINB&0b11110000)==0b10110000) { Current_Button = NAVKEYSET; }
-	  else if ((PINB&0b11110000)==0b01110000) { Current_Button = NAVKEYOKAY; }
+	  else if ((PINB&0b11110000)==0b01110000) { Current_Button = NAVKEYGET; }
 	  else if ((PINB&0b11110000)==0b11100000) { Current_Button = NAVKEYRIGHT; }
 	  else if ((PINB&0b11110000)==0b11010000) { Current_Button = NAVKEYUP; }
 	  //Serial.print("Current_Button=");//Serial.println(Current_Button,HEX);
