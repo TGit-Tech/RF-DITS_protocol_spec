@@ -110,7 +110,7 @@ class RAMmgrDIT : public DITSEngine {
 //EEmgrDIT  Radio1;
 RAMmgrDIT Radio1(Serial1);
 RAMmgrDIT Radio2(Serial2);
-char* tmpname; // General use array for Names
+char* tmpname; // General use array for DIT get Names
 
 // -------------------------------------------------------------------------------------------------
 // Setup

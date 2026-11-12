@@ -1,5 +1,8 @@
 #pragma once
+
+#include "UIConfig.h"
 #include "UIBase.h"
+
 #include <rf_dits.h>
 
 class UINode : public UIBase {
@@ -32,8 +35,8 @@ public:
   
     uint16_t ButtonPress(int _Button) override {
       DBUIAENTER((_Button),("DitsUI::ButtonPress\n"))
-      if(_Button==NAVKEYRIGHT) { return UINEXTNODE; }
-      if(_Button==NAVKEYLEFT) { return UIPREVNODE; }
+      if(_Button==NAVKEYRIGHT) { return NCNEXTNODE; }
+      if(_Button==NAVKEYLEFT) { return NCPREVNODE; }
       if((_Button==NAVKEYUP && SelectedRow > 0) || (_Button==NAVKEYDOWN && SelectedRow<TFT_ROWS-1 && DispRowNames[SelectedRow + 1][0] != '\0')) {
         
         // Set Current Selected Un-Highlighted.
@@ -48,10 +51,10 @@ public:
         pGFX->setCursor(0, TFT_ROW_Y(SelectedRow));
         pGFX->print(DispRowNames[SelectedRow]);
       }
-      if(_Button==NAVKEYSET && SelectedRow==0) return UISETUP;
+      if(_Button==NAVKEYSET && SelectedRow==0) return NSSETUP;
     }
     
-    bool gotValue(uint16_t _DUID, uint16_t _EUID, int _Value) override {}
+    bool gotValue(uint16_t _NSID, uint16_t _EUID, int _Value) override {}
 private:
     DITSEngine* pDits;
     byte NodeIdx = 0;

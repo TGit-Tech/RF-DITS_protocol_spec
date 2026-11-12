@@ -1,102 +1,109 @@
 #pragma once
 
-#include "Config.h"
-#include <rf_dits.h>
+#include "UIConfig.h"
 #include "UIBase.h"
-//#include "UIPerChValEdit.h"
 
 class UIEditTode : public UIBase {
 private:
-  char ptest[11] = "TestName";
-  uint16_t testval = 0xFFF0;
-
-  //UIPerChValEdit* pEdit = nullptr;
-
-  UIFLabel Title;
-  UIFLabel LName;
-  UICharVal VName;
-  UIFLabel LSecNet;
-  UIByteVal VSecNet;
-  UIFLabel LRadio;
-  UIEnumVal VRadio;
-  UIFLabel LNetID;
-  UIUIntVal VNetID;
-  UIFLabel LRFAddr;
-  UIUIntVal VRFAddr;
-  UIElement* Elmt[11] = {&Title, &LName, &VName, &LSecNet, &VSecNet, &LRadio, &VRadio, &LNetID, &VNetID, &LRFAddr, &VRFAddr};
-  UIElement* pSelected = nullptr;
-  UIElement* pEdit = nullptr;
+  WFLabel WFLTitle;
+  WFLabel WFLName;
+  WCharVal WCVName;
+  WFLabel WFLSecNet;
+  WNumVal WNVSecNet;
+  WFLabel WFLRadio;
+  WEnumVal WEVRadio;
+  WFLabel WFLNetID;
+  WNumVal WNVNetID;
+  WFLabel WFLRFAddr;
+  WNumVal WNVRFAddr;
+  UIWidget* Widget[11] = {&WFLTitle, &WFLName, &WCVName, &WFLSecNet, &WNVSecNet, &WFLRadio, &WEVRadio, &WFLNetID, &WNVNetID, &WFLRFAddr, &WNVRFAddr};
+  UIWidget* pSelected = nullptr; UIWidget* pEdit = nullptr;
 
 public:
-  UIEditTode(Adafruit_GFX& _GFX, DITSEngine& _DITS) 
-  : UIBase(_GFX), pDits(&_DITS),
-    //UIFLabel(EUID, byte _SelectNum, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, const __FlashStringHelper* _Label)
-    //UICharVal(EUID, byte _SelectNum, bool _Settable, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, int _charSize, char* _Valchar = nullptr)
-    //UIByteVal(EUID, byte _SelectNum, bool _Settable, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, byte _ValBase = HEX, byte _Vmin = 0x00, byte _Vmax = 0xFF, byte _Value = 0x00)
-    //UIEnumVal(EUID, byte _SelectNum, bool _Settable, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, int _EVal = 0)
-    Title   (0x01FF,1,      pGFX,TFT_COL_X(0),TFT_ROW_Y(0),F("Edit Tode")),
-    LName   (0x02FF,0,      pGFX,TFT_COL_X(0),TFT_ROW_Y(1),F("Name:")),
-    VName   (0x03FF,2,true, pGFX,TFT_COL_X(5),TFT_ROW_Y(1),11,ptest),
-    LSecNet (0x04FF,0,      pGFX,TFT_COL_X(0),TFT_ROW_Y(2),F("SecNet:")),
-    VSecNet (0x05FF,3,true, pGFX,TFT_COL_X(7),TFT_ROW_Y(2),HEX),
-    LRadio  (0x06FF,0,      pGFX,TFT_COL_X(0),TFT_ROW_Y(3),F("Radio:")),
-    VRadio  (0x07FF,0,false,pGFX,TFT_COL_X(6),TFT_ROW_Y(3)),
-    LNetID  (0x08FF,0,      pGFX,TFT_COL_X(0),TFT_ROW_Y(4),F("NetID:")),
-    VNetID  (0x08FF,4,true, pGFX,TFT_COL_X(6),TFT_ROW_Y(4)),
-    LRFAddr (0x09FF,0,      pGFX,TFT_COL_X(0),TFT_ROW_Y(5),F("RFAddr:")),
-    VRFAddr (0x0AFF,5,true, pGFX,TFT_COL_X(7),TFT_ROW_Y(5))
+  UIEditTode(Adafruit_GFX& _GFX)
+  : UIBase(_GFX),
+    WFLTitle  (1, pGFX, TFT_COL_X(0), TFT_ROW_Y(0), F("Edit Tode")),
+    WFLName   (0, pGFX, TFT_COL_X(0), TFT_ROW_Y(1), F("Name:")),
+    WCVName   (2, pGFX, TFT_COL_X(5), TFT_ROW_Y(1), 11, true, WHNODENAME),
+    WFLSecNet (0, pGFX, TFT_COL_X(0), TFT_ROW_Y(2), F("SecNet:")),
+    WNVSecNet (3, pGFX, TFT_COL_X(7), TFT_ROW_Y(2), VDTBYTE, HEX, true, WHSECNET),
+    WFLRadio  (0, pGFX, TFT_COL_X(0), TFT_ROW_Y(3), F("Radio:")),
+    WEVRadio  (0, pGFX, TFT_COL_X(6), TFT_ROW_Y(3), false, WHRADIOID),
+    WFLNetID  (0, pGFX, TFT_COL_X(0), TFT_ROW_Y(4), F("NetID:")),
+    WNVNetID  (4, pGFX, TFT_COL_X(6), TFT_ROW_Y(4), VDTUINT, HEX, true, WHNETID),
+    WFLRFAddr (0, pGFX, TFT_COL_X(0), TFT_ROW_Y(5), F("RFAddr:")),
+    WNVRFAddr (5, pGFX, TFT_COL_X(7), TFT_ROW_Y(5), VDTUINT, HEX, true, WHRFADDR)
     {
       LastSelectNum = 5;
-      DUID = UIEDITTODE;
-      VRadio.AddEnum(0,F("NOTGOT"));
-      VRadio.AddEnum(1,F("UNKNOWN"));
-      VRadio.AddEnum(2,F("E22400T30D"));
-      VRadio.AddEnum(3,F("E22400T33D"));
-      VRadio.AddEnum(4,F("E22900T30D"));
-      VRadio.AddEnum(5,F("E32433T20D"));
-      VRadio.AddEnum(6,F("E32433T30D"));
-      VRadio.AddEnum(7,F("E220400T30D"));
+      NSID = NSEDITTODE;
+      WEVRadio.AddEnum(0,F("NOTGOT"));
+      WEVRadio.AddEnum(1,F("UNKNOWN"));
+      WEVRadio.AddEnum(2,F("E22400T30D"));
+      WEVRadio.AddEnum(3,F("E22400T33D"));
+      WEVRadio.AddEnum(4,F("E22900T30D"));
+      WEVRadio.AddEnum(5,F("E32433T20D"));
+      WEVRadio.AddEnum(6,F("E32433T30D"));
+      WEVRadio.AddEnum(7,F("E220400T30D"));
     }
 
     void DisplayScreen() override {
       if (DisplayedOnce) return;
       DisplayedOnce = true;
-      pSelected = &Title; pSelected->Selected(true);
+      pSelected = &WFLTitle; pSelected->Selected(true);
       pGFX->fillScreen(UI_FILLSCR_COLOR);
       pGFX->drawFastHLine(0, FONT_Y+2, TFT_WIDTH, UI_STDLINE_COLOR);
-      for (int i=0; i<ArraySize(Elmt); i++) {
-        Elmt[i]->Display();
+      for (int i=0; i<ArraySize(Widget); i++) {
+        Widget[i]->Display();
       }
     }
 
-    bool gotValue(uint16_t _DUID, uint16_t _EUID, int _Value) override {
-      if (_DUID!=DUID) return false;
-      for (int i=0; i<ArraySize(Elmt); i++) {
-        if(Elmt[i]->EUID==_EUID) {
-          Elmt[i]->Value(_Value); return true;
+    bool gotValue(uint16_t _NSID, uint16_t _WHandle, int _Value) override {
+      if (_NSID!=NSID) return false;
+      for (int i=0; i<ArraySize(Widget); i++) {
+        if(Widget[i]->WHandle==_WHandle) {
+          Widget[i]->Value(_Value); return true;
         }
       }
+      return false;
+    }
+    bool gotValue(uint16_t _NSID, uint16_t _WHandle, char* _Value) override {
+      if (_NSID!=NSID) return false;
+      for (int i=0; i<ArraySize(Widget); i++) {
+        if(Widget[i]->WHandle==_WHandle) {
+          Widget[i]->chValue(_Value); return true;
+        }
+      } 
+      return false; 
+    }
+    bool gotValue(uint16_t _NSID, uint16_t _WHandle, const char* _Value) override {
+      if (_NSID!=NSID) return false;
+      for (int i=0; i<ArraySize(Widget); i++) {
+        if(Widget[i]->WHandle==_WHandle) {
+          Widget[i]->chValue(_Value); return true;
+        }
+      } 
+      return false;      
     }
 
     uint16_t ButtonPress(int _Button) override {
       DBUIAENTER((_Button),("DitsUI::ButtonPress\n"))
       if(_Button==NAVKEYLEFT) {
         if(pEdit!=nullptr) { return pEdit->EditButtonPress(_Button); }
-        return UINODE;
+        return NSNODE;
       }
       if(_Button==NAVKEYRIGHT) {
         if(pEdit!=nullptr) {return pEdit->EditButtonPress(_Button);}
-        return UINODE;
+        return NSNODE;
       }
       if(_Button==NAVKEYUP) {
         if(pEdit!=nullptr) {return pEdit->EditButtonPress(_Button);} // Edit Routing
         for (int s=pSelected->SelectNum - 1; s>0; s--) {
-          for (int i=0; i<ArraySize(Elmt); i++) {
-            if(Elmt[i]->SelectNum==s) {
+          for (int i=0; i<ArraySize(Widget); i++) {
+            if(Widget[i]->SelectNum==s) {
               pSelected->Selected(false);
-              pSelected = Elmt[i];
+              pSelected = Widget[i];
               pSelected->Selected(true);
-              return UINOCHANGE;
+              return NSNOCHANGE;
             }
           }
         } 
@@ -104,19 +111,19 @@ public:
       if(_Button==NAVKEYDOWN) {
         if(pEdit!=nullptr) {return pEdit->EditButtonPress(_Button);}  // Edit Routing
         for (int s=pSelected->SelectNum + 1; s<=LastSelectNum; s++) {
-          for (int i=0; i<ArraySize(Elmt); i++) {
-            if(Elmt[i]->SelectNum==s) {
+          for (int i=0; i<ArraySize(Widget); i++) {
+            if(Widget[i]->SelectNum==s) {
               pSelected->Selected(false);
-              pSelected = Elmt[i];
+              pSelected = Widget[i];
               pSelected->Selected(true);
-              return UINOCHANGE;
+              return NSNOCHANGE;
             }
           }
         }    
       }
       if(_Button==NAVKEYGET) {
         if(pEdit!=nullptr) {return pEdit->EditButtonPress(_Button);}  // Edit Routing
-        //if(SelectedElmt==0) return UIEDITTODE;
+        //if(SelectedWidget==0) return NSEDITTODE;
       }
       if(_Button==NAVKEYSET) {
         // This Toggles Edit Mode
@@ -128,17 +135,15 @@ public:
         } else {
           pEdit->SetEditMode(false);
           pEdit->Display();
-          SetValueEUID = pEdit->EUID;
+          SetValueWH = pEdit->WHandle;
           SetValue = pEdit->Value();
-          // Stage New Value and EUID for Parent to process
+          chSetValue = pEdit->chValue();
+          // Stage New Value and WHandle for Parent to process
           pEdit = nullptr;
-          return UISETVALUE;
+          return NCSETVALUE;
         }
-        return UINOCHANGE;
+        return NSNOCHANGE;
       }
-      return UINOCHANGE;
+      return NSNOCHANGE;
     }
-
-private:
-    DITSEngine* pDits;
 };

@@ -81,6 +81,6 @@ public:
       if(_Button==NAVKEYGET) { 
         if(pName!=nullptr) { pName[EditPos] += (pName[EditPos] < 96) ? 32 : -64; Display(); }
       }
-      return UINOCHANGE;
+      return NSNOCHANGE;
     }
 };

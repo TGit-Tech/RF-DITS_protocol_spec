@@ -1,5 +1,6 @@
 #pragma once
-//#include <Arduino.h>
+
+#include "UIConfig.h"
 #include <Adafruit_ST7735.h>
 #include <avr/pgmspace.h>
 
@@ -8,75 +9,11 @@
 #define TFT_COL_X(col)  (((col) + 0) * FONT_X)
 #define CHARSPERROW     (TFT_WIDTH / FONT_X)
 
-#define UISETVALUE   0x00FF // Set a new value from OnScreen->SetValueEUID and OnScreen->SetValue.
-#define UIGETVALUE   0x01FF // Load freshly gotten values into UI
-#define UINOCHANGE   0x02FF
-#define UINODE       0x03FF
-#define UINEXTNODE   0x04FF
-#define UIPREVNODE   0x05FF
-#define UISETUP      0x06FF
-#define UIEDITTODE   0x07FF
-#define UIRADIO      0x08FF
-#define UIADDDEV     0x09FF
-#define UIDELNODE    0x0AFF
-#define UIADDNODE    0x0BFF
-#define UISYSTEM     0x0CFF
-
-// Color Scheme
-#define UI_FILLSCR_COLOR        ST77XX_BLACK
-#define UI_SELCHAR_COLOR        ST77XX_BLUE
-#define UI_STDCHAR_COLOR        ST77XX_WHITE
-#define UI_STDLINE_COLOR        0x03E0
-
-#define UIKB_NAMEEDIT_BGCOLOR   0x8410
-#define UIKB_SELNAMECHAR_COLOR  0x001F
-#define UIKB_STDNAMECHAR_COLOR  ST77XX_WHITE
-#define UIKB_SELCHAR_COLOR      ST77XX_BLUE
-#define UIKB_STDCHAR_COLOR      ST77XX_WHITE
-#define GFXYELLOW 0xFFDE
- /*
- // Some ready-made 16-bit ('565') color settings:
- #define ST77XX_BLACK 0x0000
- #define ST77XX_WHITE 0xFFFF
- #define ST77XX_RED 0xF800
- #define ST77XX_GREEN 0x07E0
- #define ST77XX_BLUE 0x001F
- #define ST77XX_CYAN 0x07FF
- #define ST77XX_MAGENTA 0xF81F
- #define ST77XX_YELLOW 0xFFE0
- #define ST77XX_ORANGE 0xFC00
-*/
-
-/******************************************************************************//**
-* @defgroup NAVKEY Navigate() Keypad Constants
-* @{
-*********************************************************************************/
-// 0x[F]-Key Presses
-#ifndef NAVKEYNONE
-  #define NAVKEYNONE        0xFF
-#endif 
-#ifndef NAVKEYRIGHT
-  #define NAVKEYRIGHT       0xFE
-#endif 
-#ifndef NAVKEYLEFT
-  #define NAVKEYLEFT        0xFD
-#endif 
-#ifndef NAVKEYUP
-  #define NAVKEYUP          0xFC
-#endif 
-#ifndef NAVKEYDOWN
-  #define NAVKEYDOWN        0xFB
-#endif 
-#ifndef NAVKEYSET
-  #define NAVKEYSET         0xFA
-#endif 
-#ifndef NAVKEYGET
-  #define NAVKEYGET        0xF9
-#endif 
-#ifndef KEYPRESSMIN
-  #define KEYPRESSMIN       0xF0
-#endif 
-///@}
+// UINum DataTypes
+#define VDTBYTE       0
+#define VDTUINT       1
+#define VDTSINT       2
+#define VDTENUM       3
 
 template<typename T, size_t N>
 constexpr size_t ArraySize(T (&)[N]) { return N; }
@@ -84,18 +21,24 @@ constexpr size_t ArraySize(T (&)[N]) { return N; }
 static const uint16_t MultiplierDEC[] = {1, 10, 100, 1000};
 static const uint16_t MultiplierHEX[] = {1, 16, 256, 4096};
 //--------------------------------------------------------------------------------------------------------------------------------
-class UIElement {
+class UIWidget {
 public:
-  UIElement(uint16_t _EUID, byte _SelectNum, bool _Settable, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY)
-  : EUID(_EUID), SelectNum(_SelectNum), Settable(_Settable), GFX(_GFX), PosX(_PosX), PosY(_PosY) {}
-  virtual ~UIElement() = default;
+  UIWidget(byte _SelectNum, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, bool _Settable, uint16_t _WHandle)
+  : SelectNum(_SelectNum), GFX(_GFX), PosX(_PosX), PosY(_PosY), Settable(_Settable), WHandle(_WHandle)  {}
+  virtual ~UIWidget() = default;
     
   uint8_t SelectNum;
-  uint16_t EUID = 0xFFFF;
+  uint16_t WHandle = 0xFFFF;
 
   virtual void Display() {  }
-  virtual void Value(int _Value) { Display(); }
+  // Sets
+  virtual bool Value(int _Value) { return false; }
+  virtual bool chValue(char* _Value) { return false; }        // Read/write
+  virtual bool chValue(const char* _Value) { return false; } // Read only
+  // Gets
   virtual int Value() { return 0; }
+  virtual char* chValue() { return nullptr; }
+
   virtual uint16_t EditButtonPress(int _Button) {
 
   }
@@ -121,11 +64,11 @@ protected:
   bool EditMode = false;
 };
 //--------------------------------------------------------------------------------------------------------------------------------
-class UIFLabel : public UIElement {
+class WFLabel : public UIWidget {
 public:
-  UIFLabel(uint16_t _EUID, byte _SelectNum, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, const __FlashStringHelper* _Label)
-  : UIElement(_EUID, _SelectNum, false, _GFX, _PosX, _PosY), Label(_Label) {  }
-    
+  WFLabel(uint8_t _SelectNum, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, const __FlashStringHelper* _Label, uint16_t _WHandle = WHNONE)
+  : UIWidget(_SelectNum, _GFX, _PosX, _PosY, false, _WHandle), Label(_Label) {  }
+
   void Display() override {
     GFX->setCursor(PosX, PosY);
     if (bSelected) {GFX->setTextColor(UI_SELCHAR_COLOR);} else {GFX->setTextColor(UI_STDCHAR_COLOR);}
@@ -137,10 +80,10 @@ private:
 
 };
 //--------------------------------------------------------------------------------------------------------------------------------
-class UICharVal : public UIElement {
+class WCharVal : public UIWidget {
   public:
-    UICharVal(uint16_t _EUID, byte _SelectNum, bool _Settable, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, int _charSize, char* _Valchar = nullptr)
-    : UIElement(_EUID, _SelectNum, _Settable, _GFX, _PosX, _PosY), charSize(_charSize), Valchar(_Valchar) {}
+    WCharVal(uint8_t _SelectNum, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, int _charSize, bool _Settable = false, uint16_t _WHandle = WHNONE)
+    : UIWidget(_SelectNum, _GFX, _PosX, _PosY, _Settable, _WHandle), charSize(_charSize) {}
 
   void Display() override {
     GFX->fillRect(PosX, PosY-FONT_Y+4, FONT_X*charSize, FONT_Y-2, (EditMode) ? UIKB_NAMEEDIT_BGCOLOR : UI_FILLSCR_COLOR );
@@ -154,6 +97,10 @@ class UICharVal : public UIElement {
     } else {GFX->setTextColor(UI_STDCHAR_COLOR);}
     if (Valchar!=nullptr) {GFX->print(Valchar);} else {GFX->print(F("nullptr"));}
   }
+  
+  bool chValue(char* _Value) override { Valchar = _Value; Display(); return true; }
+  bool chValue(const char* _Value) override { Valchar = _Value; Display(); return true; }
+  char* chValue() override { return Valchar; }
 
   uint16_t EditButtonPress(int _Button) override { 
     if(_Button==NAVKEYLEFT && Valchar!=nullptr) { if(EditPos>0) { EditPos--; Display(); } }
@@ -171,148 +118,110 @@ class UICharVal : public UIElement {
     if(_Button==NAVKEYGET && Valchar!=nullptr) { 
       if(Valchar!=nullptr) { Valchar[EditPos] += (Valchar[EditPos] < 96) ? 32 : -64; Display(); }
     }
-    return UINOCHANGE;
+    return NSNOCHANGE;
   }
   private:
     char* Valchar;
     int charSize;
 };
 //--------------------------------------------------------------------------------------------------------------------------------
-class UIByteVal : public UIElement {
+class WNumVal : public UIWidget {
   public:
-    UIByteVal(uint16_t _EUID, byte _SelectNum, bool _Settable, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, byte _ValBase = HEX, byte _Vmin = 0x00, byte _Vmax = 0xFF, byte _Value = 0x00)
-    : UIElement(_EUID, _SelectNum, _Settable, _GFX, _PosX, _PosY), ValBase(_ValBase), Vmin(_Vmin), Vmax(_Vmax), yValue(_Value) {
-      if(ValBase==HEX) maxDigits = 2;
-      if(ValBase==DEC) maxDigits = 3;
+    uint16_t Vmin =0, Vmax =0;
+    //UIWidget(byte _SelectNum, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, bool _Settable, uint16_t _WHandle)
+    // BYTE (8-bit unsigned)
+    WNumVal(uint8_t _SelectNum, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY,
+      uint8_t _VDataType, uint8_t _VBase = HEX, bool _Settable = false, uint16_t _WHandle = WHNONE)
+      : UIWidget(_SelectNum, _GFX, _PosX, _PosY, _Settable, _WHandle), VDataType(_VDataType), VBase(_VBase)
+    {
+      if(VDataType==VDTBYTE) { 
+        Vmin=0x0000; Vmax=0x00FF; 
+        if(VBase==HEX) maxDigits = 2;
+        if(VBase==DEC) maxDigits = 3;
+      } else if(VDataType==VDTUINT) {
+        Vmin=0x0000; Vmax=0xFFFF;
+        if(VBase==HEX) maxDigits = 4;
+        if(VBase==DEC) maxDigits = 5;
+      } else if(VDataType==VDTSINT) {
+        Vmin=(uint16_t)-32768; Vmax=32767;
+        if(VBase==HEX) maxDigits = 4;
+        if(VBase==DEC) maxDigits = 6;
+      }
     }
 
     void Display() override {
-      GFX->fillRect(PosX, PosY-FONT_Y+4, FONT_X*maxDigits, FONT_Y-2, (EditMode) ? UIKB_NAMEEDIT_BGCOLOR : UI_FILLSCR_COLOR ); // Looks good
+      GFX->fillRect(PosX, PosY-FONT_Y+4, FONT_X*maxDigits, FONT_Y-2, (EditMode) ? UIKB_NAMEEDIT_BGCOLOR : UI_FILLSCR_COLOR);
       GFX->setCursor(PosX, PosY);
+
       if(EditMode) {
-        GFX->fillRect(PosX+((maxDigits-1-EditPos)*FONT_X), (PosY-FONT_Y)+4, FONT_X, FONT_Y-2, ST77XX_YELLOW); // Yellow Digit;
-        GFX->setTextColor(ST77XX_BLACK);
-      } else if (bSelected) {
-        GFX->setTextColor(UI_SELCHAR_COLOR);
-      } else {GFX->setTextColor(UI_STDCHAR_COLOR);}
-      if((yValue & 0xF0) == 0) GFX->print('0'); // Manually print leading '0's.
-      GFX->print(yValue,ValBase);
+        GFX->fillRect(PosX+((maxDigits-1-EditPos)*FONT_X), (PosY-FONT_Y)+4, FONT_X, FONT_Y-2, ST77XX_YELLOW);
+        GFX->setTextColor(ST77XX_BLACK); }
+      else if(bSelected) { GFX->setTextColor(UI_SELCHAR_COLOR); }
+      else { GFX->setTextColor(UI_STDCHAR_COLOR); }
+
+      if(VDataType==VDTSINT && VBase==DEC) {
+        GFX->print((int16_t)uiValue, DEC);
+      } else {
+        if(VDataType==VDTBYTE) {
+          if((uiValue & 0xF0)==0) GFX->print('0');
+        } else {
+          if((uiValue & 0xF000)==0) GFX->print('0');
+          if((uiValue & 0xFF00)==0) GFX->print('0');
+          if((uiValue & 0xFFF0)==0) GFX->print('0');
+        }
+        GFX->print(uiValue, VBase);
+      }
     }
 
-    void Value(int _Value) override { yValue = (byte)_Value; Display(); }
-    int Value() override { return (int)yValue; }
+    bool Value(int _Value) override {
+      uiValue = (uint16_t)_Value;
+      if(VDataType==VDTBYTE) uiValue &= 0x00FF;
+      Display();
+      return true;
+    }
 
-    uint16_t EditButtonPress(int _Button) override { 
-      if(_Button==NAVKEYLEFT && EditPos<(maxDigits-1)) { 
-        EditPos++; Display();
-      }
-      if(_Button==NAVKEYRIGHT && EditPos>0) { 
-        EditPos--; Display();
-      }
+    int Value() override { return (int16_t)uiValue; }
+
+    uint16_t EditButtonPress(int _Button) override {
+      if(_Button==NAVKEYLEFT && EditPos<(maxDigits-1)) { EditPos++; Display(); }
+      if(_Button==NAVKEYRIGHT && EditPos>0) { EditPos--; Display(); }
+
       if(_Button==NAVKEYUP) {
-        if( (yValue / ( (ValBase == HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos]) ) % ValBase == ValBase-1) {
-          yValue -= (ValBase-1) * ((ValBase == HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos]);
+        uint16_t Step = (VBase==HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos];
+        if(((uiValue/Step)%VBase)==(VBase-1)) {
+          uiValue -= (uint16_t)((VBase-1)*Step);
         } else {
-          yValue += (ValBase == HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos];
+          uiValue += Step;
         }
+        if(VDataType==VDTBYTE) uiValue &= 0x00FF;
         Display();
       }
+
       if(_Button==NAVKEYDOWN) {
-        if((yValue / ((ValBase == HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos])) % ValBase == 0) {
-          yValue += (ValBase-1) * ((ValBase == HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos]);
+        uint16_t Step = (VBase==HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos];
+        if(((uiValue/Step)%VBase)==0) {
+          uiValue += (uint16_t)((VBase-1)*Step);
         } else {
-          yValue -= (ValBase == HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos];
+          uiValue -= Step;
         }
+        if(VDataType==VDTBYTE) uiValue &= 0x00FF;
         Display();
       }
       if(_Button==NAVKEYGET) { }
-      return UINOCHANGE;
-    }    
-  private:
-    byte yValue, Vmin, Vmax, ValBase;
-    int maxDigits = 0;
-};
-//---------------------------------------------------------------------------------------------------------------------------------
-class UIUIntVal : public UIElement {
-  public:
-    UIUIntVal(uint16_t _EUID, byte _SelectNum, bool _Settable, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, byte _ValBase = HEX, uint16_t _Vmin = 0x0000, uint16_t _Vmax = 0xFFFF, uint16_t _Value = 0x0000)
-    : UIElement(_EUID, _SelectNum, _Settable, _GFX, _PosX, _PosY), ValBase(_ValBase), Vmin(_Vmin), Vmax(_Vmax), uiValue(_Value) {
-      if(ValBase==DEC) maxDigits = 5;
-      if(ValBase==HEX) maxDigits = 4;
+      return NSNOCHANGE;
     }
-  
-    void Display() override {
-      GFX->fillRect(PosX, PosY-FONT_Y+4, FONT_X*maxDigits, FONT_Y-2, (EditMode) ? UIKB_NAMEEDIT_BGCOLOR : UI_FILLSCR_COLOR );
-      GFX->setCursor(PosX, PosY);
-      if(EditMode) {
-        GFX->fillRect(PosX+((maxDigits-1-EditPos)*FONT_X), (PosY-FONT_Y)+4, FONT_X, FONT_Y-2, ST77XX_YELLOW); // Yellow Digit;
-        GFX->setTextColor(ST77XX_BLACK);
-      } else if (bSelected) {
-        GFX->setTextColor(UI_SELCHAR_COLOR);
-      } else { GFX->setTextColor(UI_STDCHAR_COLOR); }
-      if((uiValue & 0xF000) == 0) GFX->print('0'); // Manually print leading '0's.
-      if((uiValue & 0xFF00) == 0) GFX->print('0');
-      if((uiValue & 0xFFF0) == 0) GFX->print('0');
-      GFX->print(uiValue,ValBase);
-    }
-
-    void Value(int _Value) override { uiValue = (uint16_t)_Value; Display(); }
-    int Value() override { return (uint16_t)uiValue; } 
-
-    uint16_t EditButtonPress(int _Button) override { 
-      if(_Button==NAVKEYLEFT && EditPos<(maxDigits-1)) { 
-        EditPos++; Display();
-      }
-      if(_Button==NAVKEYRIGHT && EditPos>0) { 
-        EditPos--; Display();
-      }
-      if(_Button==NAVKEYUP) {
-        if( (uiValue / ( (ValBase == HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos]) ) % ValBase == ValBase-1) {
-          uiValue -= (ValBase-1) * ((ValBase == HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos]);
-        } else {
-          uiValue += (ValBase == HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos];
-        }
-        Display();
-      }
-      if(_Button==NAVKEYDOWN) {
-        if((uiValue / ((ValBase == HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos])) % ValBase == 0) {
-          uiValue += (ValBase-1) * ((ValBase == HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos]);
-        } else {
-          uiValue -= (ValBase == HEX) ? MultiplierHEX[EditPos] : MultiplierDEC[EditPos];
-        }
-        Display();
-      }
-      if(_Button==NAVKEYGET) { }
-      return UINOCHANGE;
-    } 
   private:
-    byte ValBase;
-    uint16_t uiValue, Vmin, Vmax;
-    int maxDigits = 0;
+    uint16_t uiValue = 0;
+    byte VBase;
+    byte VDataType;
+    byte maxDigits = 0;
 };
-//---------------------------------------------------------------------------------------------------------------------------------
-class UISINTVal : public UIElement {
-  public:
-    UISINTVal(uint16_t _EUID, byte _SelectNum, bool _Settable, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, byte _ValBase, int _Vmin = -32768, int _Vmax = 32767, int _Value = 0)
-    : UIElement(_EUID, _SelectNum, _Settable, _GFX, _PosX, _PosY), ValBase(_ValBase), Vmin(_Vmin), Vmax(_Vmax), iValue(_Value) {}
-
-    void Display() override {
-      GFX->setCursor(PosX, PosY);
-      if (bSelected) {GFX->setTextColor(UI_SELCHAR_COLOR);} else {GFX->setTextColor(UI_STDCHAR_COLOR);}
-      GFX->print(iValue,ValBase);
-    }
-    void Value(int _Value) override { iValue = _Value; Display(); }
-    int Value() override { return iValue; } 
-  private:
-    byte ValBase;
-    int iValue, Vmin, Vmax;
-};
-//---------------------------------------------------------------------------------------------------------------------------------
-class UIEnumVal : public UIElement {
+//--------------------------------------------------------------------------------------------------------------------------------
+class WEnumVal : public UIWidget {
 public:
-  UIEnumVal(uint16_t _EUID, byte _SelectNum, bool _Settable, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, int _EVal = 0)
-  : UIElement(_EUID, _SelectNum, _Settable, _GFX, _PosX, _PosY), iEVal(_EVal) {}
-  
+  WEnumVal(uint8_t _SelectNum, Adafruit_GFX* _GFX, uint8_t _PosX, uint8_t _PosY, bool _Settable = false, uint16_t _WHandle = WHNONE)
+  : UIWidget(_SelectNum, _GFX, _PosX, _PosY, _Settable, _WHandle) {}
+
   void Display() override {
     GFX->setCursor(PosX, PosY);
     if (bSelected) {GFX->setTextColor(UI_SELCHAR_COLOR);} else {GFX->setTextColor(UI_STDCHAR_COLOR);}
@@ -334,7 +243,7 @@ public:
     EnumLbls[EnumIdx] = _Label;
     EnumIdx++;
   }
-  void Value(int _Value) override { 
+  bool Value(int _Value) override { 
     iEVal = _Value;
     if(MaxChars==0) {
       for (byte i = 0; i < EnumIdx; i++) {
@@ -345,7 +254,8 @@ public:
     GFX->setCursor(PosX, PosY);
     //GFX->fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
     GFX->fillRect(PosX, PosY-FONT_Y, (MaxChars*FONT_X), FONT_Y, UI_FILLSCR_COLOR);
-    Display(); 
+    Display();
+    return true; 
   }
   int Value() override { return iEVal; }
 private:
@@ -363,14 +273,18 @@ public:
     virtual void DisplayScreen() = 0;
     virtual uint16_t ButtonPress(int _Button) = 0;
     
-    //DUID is Display UID like 'UITodeEdit' must be beyond settable Node#'s to prevent conflict.
+    //NSID is Display UID like 'UITodeEdit' must be beyond settable Node#'s to prevent conflict.
     //EUID is Element UID which will be devUID equivalent for UINode
     //RxDataDevValue(byte _NodeIdx, byte _DevUID, int value)
-    // Returns 'true' if DUID and EUID is found and value updated.
-    virtual bool gotValue(uint16_t _DUID, uint16_t _EUID, int _Value) = 0;
-    uint16_t DUID = 0xFFFF;
-    uint16_t SetValueEUID = 0xFFFF;
+    // Returns 'true' if NSID and EUID is found and value updated.
+    virtual bool gotValue(uint16_t _NSID, uint16_t _EUID, int _Value) = 0;
+    virtual bool gotValue(uint16_t _NSID, uint16_t _EUID, char* _Value) { return false; }       // Read/write
+    virtual bool gotValue(uint16_t _NSID, uint16_t _EUID, const char* _Value) { return false; } // Read only
+    
+    uint16_t NSID = 0xFFFF;
+    uint16_t SetValueWH = 0xFFFF;
     int SetValue = 0;
+    char* chSetValue = nullptr;
 
 protected:
     Adafruit_GFX* pGFX = nullptr;

@@ -1,4 +1,6 @@
 #pragma once
+
+#include "UIConfig.h"
 #include "UIBase.h"
 
 class UISetup : public UIBase {
@@ -29,7 +31,7 @@ public:
 
     uint16_t ButtonPress(int _Button) override {
       DBUIAENTER((_Button),("DitsUI::ButtonPress\n"))
-      if(_Button==NAVKEYLEFT) { return UINODE;}
+      if(_Button==NAVKEYLEFT) { return NSNODE;}
       if(_Button==NAVKEYUP && SelectedRow!=0) {
         // Set Current Selected Un-Highlighted.
         pGFX->setTextColor(ST77XX_WHITE);
@@ -55,10 +57,10 @@ public:
         pGFX->print(FMenuRows[SelectedRow]);        
       }
       if(_Button==NAVKEYGET) {
-        if(SelectedRow==3) return UIEDITTODE;
+        if(SelectedRow==3) return NSEDITTODE;
       }
       
-      return UINOCHANGE;
+      return NSNOCHANGE;
     }
-    bool gotValue(uint16_t _DUID, uint16_t _EUID, int _Value) override {}
+    bool gotValue(uint16_t _NSID, uint16_t _EUID, int _Value) override {}
 };

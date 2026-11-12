@@ -13,21 +13,9 @@
 //#include "../config.h"
 #include <Arduino.h>
 #include <TGTDB.h>
+#include "UIConfig.h"
 
-/******************************************************************************//**
-* @defgroup NAVKEY Navigate() Keypad Constants
-* @{
-*********************************************************************************/
-// 0x[F]-Key Presses
-#define NAVKEYNONE        0xFF
-#define NAVKEYRIGHT       0xFE
-#define NAVKEYLEFT        0xFD
-#define NAVKEYUP          0xFC
-#define NAVKEYDOWN        0xFB
-#define NAVKEYSET         0xFA
-#define NAVKEYGET        0xF9
-#define KEYPRESSMIN       0xF0
-///@}
+
 
 //#####################################################################################################
 namespace ButtonISR {
