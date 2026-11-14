@@ -19,7 +19,7 @@
 #define NSNOCHANGE   0x02FF
 #define NSNODE       0x03FF
 #define NSSETUP      0x06FF
-#define NSEDITTODE      0x07FF
+#define NSEDITTODE   0x07FF
 // Below is prob NC but don't know yet.
 #define UIADDDEV     0x09FF
 #define UIDELNODE    0x0AFF
@@ -33,20 +33,6 @@
 #define WHRADIOID       0x05FF
 #define WHNETID         0x06FF
 #define WHRFADDR        0x07FF
-//
-/*
-    Title   (0x01FF,1,      pGFX,TFT_COL_X(0),TFT_ROW_Y(0),F("Edit Tode")),
-    LName   (0x02FF,0,      pGFX,TFT_COL_X(0),TFT_ROW_Y(1),F("Name:")),
-    VName   (0x03FF,2,true, pGFX,TFT_COL_X(5),TFT_ROW_Y(1),11,nullptr),
-    LSecNet (0x04FF,0,      pGFX,TFT_COL_X(0),TFT_ROW_Y(2),F("SecNet:")),
-    VSecNet (0x05FF,3,true, pGFX,TFT_COL_X(7),TFT_ROW_Y(2),HEX,0x00,0x7F),
-    LRadio  (0x06FF,0,      pGFX,TFT_COL_X(0),TFT_ROW_Y(3),F("Radio:")),
-    VRadio  (0x07FF,0,false,pGFX,TFT_COL_X(6),TFT_ROW_Y(3)),
-    LNetID  (0x08FF,0,      pGFX,TFT_COL_X(0),TFT_ROW_Y(4),F("NetID:")),
-    VNetID  (0x09FF,4,true, pGFX,TFT_COL_X(6),TFT_ROW_Y(4)),
-    LRFAddr (0x0AFF,0,      pGFX,TFT_COL_X(0),TFT_ROW_Y(5),F("RFAddr:")),
-    VRFAddr (0x0BFF,5,true, pGFX,TFT_COL_X(7),TFT_ROW_Y(5))
-    */
 
 // Color Scheme
 #define UI_FILLSCR_COLOR        ST77XX_BLACK
