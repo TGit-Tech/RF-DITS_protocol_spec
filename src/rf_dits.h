@@ -155,8 +155,8 @@ class DITSEngine {
     ///@param[in] DevType The type of device to add.
     ///@param[in] DevAttr The attributes for the device.
     ///@param[in] name The name of the device.
-    ///@return true if successfully added, false if the table is full or an error occurred.
-    bool AddThisNodeDevice(byte devType, byte devAttr, const char* name);
+    ///@return The devUID if successfully or 0xFF(BNONE) if the table is full or an error occurred.
+    byte AddThisNodeDevice(byte devType, byte devAttr, const char* name);
 
     ///@brief Deletes a device from this node.
     ///@details Removes a local device at the given index from this node's device table (DIT record).

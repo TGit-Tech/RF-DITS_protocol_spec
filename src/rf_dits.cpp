@@ -85,8 +85,8 @@ void DITSEngine::UpdateThisNodeRFAddr(uint16_t RFAddr) {
   node.NDITVer(node.NDITVer() + 1);
 }
 //-------------------------------------------------------------------------------------------------
-bool DITSEngine::AddThisNodeDevice(byte devType, byte devAttr, const char* name) {
-  if (!name) {DBDBERROR(("DITSEngine::AddThisNodeDevice !name.")) return false;}
+byte DITSEngine::AddThisNodeDevice(byte devType, byte devAttr, const char* name) {
+  if (!name) {DBDBERROR(("DITSEngine::AddThisNodeDevice !name.")) return BNONE;}
   DBDBAAENTER((devType),(name),("DITSEngine::AddThisNodeDevice(<devNodeIdx>,devType,<name>)\n"))
   
   uint32_t devUIDMask[(DDITStopIdx + 31) / 32];   // Dynamically created a bitmask array for used devUIDs
@@ -109,7 +109,7 @@ bool DITSEngine::AddThisNodeDevice(byte devType, byte devAttr, const char* name)
     }
     if (devUID != BNONE) { break; }
   }
-  if (devUID == BNONE) {DBDBERROR(("DITSEngine::AddThisNodeDevice devUID==BNONE.\n")) return false;}
+  if (devUID == BNONE) {DBDBERROR(("DITSEngine::AddThisNodeDevice devUID==BNONE.\n")) return BNONE;}
   //------------------------------------------------------
   if (freeDITidx == BNONE) { freeDITidx = AddDDIT(THISNODE); }
   NodeDIT node(this,THISNODE);
@@ -121,7 +121,7 @@ bool DITSEngine::AddThisNodeDevice(byte devType, byte devAttr, const char* name)
   newdev.DSetName(name);             // Assign the name
   node.NDITVer(node.NDITVer() + 1);
   DBDBAAINFO((freeDITidx),(devUID),("DITSEngine::AddThisNodeDevice added-at <freeDITidx>,<devUID>\n"))
-  return true;                    // Return success
+  return devUID;                    // Return success
 } 
 //-------------------------------------------------------------------------------------------------
 bool DITSEngine::DelThisNodeDevice(byte _devUID) {
