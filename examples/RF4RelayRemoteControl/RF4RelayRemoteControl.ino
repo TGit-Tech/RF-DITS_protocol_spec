@@ -189,13 +189,14 @@ void setup()
 
   RFSERIAL.begin(9600);
   DITS.begin();                      // You !MUST! call begin() for DITS to work.
-  
+
+  DITS.RadioPktMaxBytes(58);          // 58 is the default.  This can be deleted.
+  DITS.RxExpireMS(500);               // 30s is the default.  We keep small for wired-comm.
+  DITS.SecNetCode(0);                 // Assign the 'User' network security code.
+
   #if defined(RELAYNODE)
-    DITS.RadioPktMaxBytes(58);          // 58 is the default.  This can be deleted.
-    DITS.RxExpireMS(500);               // 30s is the default.  We keep small for wired-comm.
     DITS.UpdateThisNodeName("Relays");  // Make sure this node has a readable name.
     DITS.UpdateThisNodeRFAddr(0x0001);  // Make sure DITS has the correct RF Address on record.
-    DITS.SecNetCode(0);                 // Assign the 'User' network security code.
 
     //Add the Relay devices on the RELAYNODE.
     //NewOnOffDevice(const char* _Name, uint8_t _Pin, uint8_t _pnMode, bool _ActiveLow = false)
@@ -210,11 +211,8 @@ void setup()
     delay(1000);
     DITS.Value(Relay1UID,0);
   #else
-    DITS.RadioPktMaxBytes(58);
-    DITS.RxExpireMS(500);
     DITS.UpdateThisNodeName("Handheld");
     DITS.UpdateThisNodeRFAddr(0x0002);
-    DITS.SecNetCode(0);
   #endif
 
 }
