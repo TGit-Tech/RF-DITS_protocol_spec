@@ -253,12 +253,12 @@ void DITSEngine::ProcessLoop() {
 #endif
       for (int idx=0; idx < txPacket->rfPoolIdxs && txPacket->Size > 0; idx++) {
         if (!txPacket->rfPool[idx]) continue;
+        if (!TxReady(txPacket->ToRFAddr)) { break; }                                    // Check TxReady for new header per chunk.
         int BytesInChunk = (txPacket->Size < txPacket->uiRadioPktMaxBytes) ? txPacket->Size : txPacket->uiRadioPktMaxBytes;
         for (int y=0; y < BytesInChunk; y++) {
           TxData(txPacket->rfPool[idx][y]);txPacket->Size--;                            // Send one chunk.
         }                           
         delete[] txPacket->rfPool[idx];txPacket->rfPool[idx] = nullptr;                 // Del chunk after sending.
-        if (!TxReady(txPacket->ToRFAddr)) { break; }                                    // Check TxReady for new header per chunk.
       }                                                                                 // 'Size' allows return-to spot.
       if(txPacket->Size==0) {delete txPacket; txPacket = nullptr;}                      // Delete when empty.
     } else {

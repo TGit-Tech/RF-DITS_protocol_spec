@@ -483,6 +483,7 @@ class DITSEngine::TxPacket : public DITSEngine::rfPacket {
     TxPacket& operator=(const TxPacket&) = delete;  // no obj copies, destructor assurance
 
     void ToFrom(uint16_t _ToRF, uint16_t _FromRF) {
+      ToRFAddr = _ToRF;   // Added 2026-11-23 to fix TxReady Address passing.
       Size+=4; // (2) for SecNet
       rfPool[0][PKB_FROM_RFH] = highByte(_FromRF);
       rfPool[0][PKB_FROM_RFL] = lowByte(_FromRF);}
