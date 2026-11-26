@@ -545,7 +545,7 @@ bool DITSEngine::RxSaveNodeDITINFO() {
           break;
         case 1: // ----- DEV TYPE -----
           devType = byt;
-          if (devType == 0) return true;   // end of table
+          if (devType == 0) {RxDITUpdate(FromNIdx); return true;}   // end of table
           bytID = 2;
           break;
         case 2: // ----- DEV ATTR -----
@@ -573,6 +573,7 @@ bool DITSEngine::RxSaveNodeDITINFO() {
       } // end switch.
     }
   }
+  RxDITUpdate(FromNIdx);
 }
 //-----------------------------------------------------------------------------------------------------
 bool DITSEngine::TxSendThisNodeDITINFO(uint16_t RFAddr) {
