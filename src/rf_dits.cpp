@@ -174,7 +174,10 @@ bool DITSEngine::NodeDIT::IsDeleted() const {
 //-------------------------------------------------------------------------------------------------
 bool DITSEngine::NodeDIT::IsDeleted(bool deleteStatus) {
   if (!IsValid()) return true;
-  if (deleteStatus && NDITidx != 0) {pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX, BNONE);}
+  if (NDITidx != 0) {
+    pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX, deleteStatus ? BNONE : NDITidx);
+  }
+  //if (deleteStatus && NDITidx != 0) {pPtr->pmem_write(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX, BNONE);} // Original line doesn't Un-Delete
   return pPtr->pmem_read(pPtr->pmNDITAddr(NDITidx) + PMO_NODEIDX) == BNONE; 
 }
 //-------------------------------------------------------------------------------------------------DeviceDIT
