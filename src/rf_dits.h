@@ -66,10 +66,10 @@
 ///@}
 ///@defgroup DEVACCESS Device Access Permissions (via DevAttr)
 ///@{
-#define DNOTSET     0x00  ///< 0b0000 0000 Permissions Not Set
-#define DRO         0x40  ///< 0b0100 0000 Device Read Only
-#define DRW         0x80  ///< 0b1000 0000 Device Read/Write
-#define DRWSS       0xC0  ///< 0b1100 0000Device Read/Write with Secure Set
+#define DRO         0x00  ///< 0b0000 0000 Device Read Only
+#define DRW         0x40  ///< 0b0100 0000 Device Read/Write
+#define DLWRO       0x80  ///< 0b1000 0000 Local Read/Write, Remote Read Only
+#define DRWSS       0xC0  ///< 0b1100 0000 Device Read/Write with Secure Set
 #define DACCESSMSK  0xC0  ///< Mask DevAttr for Access bits
 ///@}
 ///@defgroup DVALSCALE Device Value Scaling (via DevAttr)
@@ -158,10 +158,18 @@ class DITSEngine {
     ///@return The devUID if successfully or 0xFF(BNONE) if the table is full or an error occurred.
     byte AddThisNodeDevice(byte devType, byte devAttr, const char* name);
 
+    ///@brief Update existing device on this node.
+    ///@details Updates a local device from this node's device table (DIT record).
+    ///@param[in] _devUID Unique ID of the device to update.
+    ///@param[in] _devAttr The attributes for the device.
+    ///@param[in] name Optional.  The name of the device.
+    ///@return true if successfully updated, false if devUID is invalid.
+    bool UpdateThisNodeDevice(byte _devUID, byte _devAttr, const char* name = nullptr);
+    
     ///@brief Deletes a device from this node.
-    ///@details Removes a local device at the given index from this node's device table (DIT record).
+    ///@details Removes a local device from this node's device table (DIT record).
     ///@param[in] _devUID Unique ID of the device to remove.
-    ///@return true if successfully removed, false if index is invalid.
+    ///@return true if successfully removed, false if devUID is invalid.
     bool DelThisNodeDevice(byte _devUID);
     
     ///@class NodeDIT

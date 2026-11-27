@@ -124,6 +124,22 @@ byte DITSEngine::AddThisNodeDevice(byte devType, byte devAttr, const char* name)
   return devUID;                    // Return success
 } 
 //-------------------------------------------------------------------------------------------------
+bool DITSEngine::UpdateThisNodeDevice(byte _devUID, byte _devAttr, const char* name) {
+  DBDBAAENTER((_devUID),(_devAttr),("DITSEngine::UpdateThisNodeDevice(<devUID>,<devAttr>)\n"))
+  NodeDIT node(this,THISNODE);
+  DeviceDIT dev(this);
+  while(dev.Next(THISNODE)) {
+    if (dev.DevUID()==_devUID) {
+      dev.DevAttr(_devAttr);
+      if(name!=nullptr) dev.DSetName(name);
+      node.NDITVer(node.NDITVer() + 1);
+      return true;
+    }
+  }
+  DBDBAINFO((_devUID),("DITSEngine::UpdateThisNodeDevice(<devUID>) not found.\n"))
+  return false;  // Return false if the device not found.
+}
+//-------------------------------------------------------------------------------------------------
 bool DITSEngine::DelThisNodeDevice(byte _devUID) {
   DBDBAENTER((_devUID),("DITSEngine::DelThisNodeDevice(<devUID>)\n"))
   NodeDIT node(this,THISNODE);
